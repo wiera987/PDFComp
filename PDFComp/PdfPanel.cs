@@ -14,6 +14,7 @@ namespace PDFComp
 {
     public partial class PdfPanel : UserControl
     {
+        List<int> _comparePage = null;
         List<PdfTextSpan> _indexes = null;
         double _zoom = 1.0;
         PdfRotation _rotation = PdfRotation.Rotate0;
@@ -75,11 +76,43 @@ namespace PDFComp
             }
         }
 
-        public void AddDiffMarker()
+        public int GetComparedPage(int page)
+        {
+            if (_comparePage != null)
+            {
+                if (page < _comparePage.Count)
+                {
+                    return _comparePage[page];
+                }
+            }
+
+            // Not any page
+            return -1;
+        }
+
+        public void ClearDiffMarker(int oldPage)
+        {
+            // Rebuild markers except oldPage
+            PdfMarker[] markers = new PdfMarker[pdfViewer.Renderer.Markers.Count];
+            pdfViewer.Renderer.Markers.CopyTo(markers, 0);
+
+            pdfViewer.Renderer.Markers.Clear();
+
+            foreach(PdfMarker marker in markers)
+            {
+                if (marker.Page != oldPage)
+                {
+                    pdfViewer.Renderer.Markers.Add(marker);
+                }
+            }
+        }
+
+        public void AddDiffMarker(int comparePage)
         {
             if (_indexes != null)
             {
-                Console.WriteLine("AddDiffMarker Page{0}:Count{1}", pdfViewer.Renderer.Page, _indexes.Count);
+                int page = pdfViewer.Renderer.Page;
+                Console.WriteLine("AddDiffMarker Page{0}:Count{1}", page, _indexes.Count);
 
                 foreach (PdfTextSpan textSpan in _indexes)
                 {
@@ -99,7 +132,7 @@ namespace PDFComp
                         //Console.Write("({0}, {1}, {2}, {3})", boundsText.Left, boundsText.Top, boundsText.Right, boundsText.Bottom);
 
                         var marker = new PdfMarker(
-                            pdfViewer.Renderer.Page,
+                            page,
                             boundsRect,
                             Color.FromArgb(64, Color.Red),
                             Color.FromArgb(64, Color.Red),
@@ -112,6 +145,7 @@ namespace PDFComp
 
                 }
 
+                _comparePage[page] = comparePage;	// Remember the compared page
             }
         }
 
@@ -128,6 +162,12 @@ namespace PDFComp
                 toolStripLabelPage.Text = 1.ToString();
                 toolStripLabelPages.Text = pdfViewer.Document.PageCount.ToString();
                 toolStripTextBoxFile.ToolTipText = toolStripTextBoxFile.Text;
+
+                _comparePage = new List<int>(pdfViewer.Document.PageCount);
+                for (int i=0; i< pdfViewer.Document.PageCount; i++)
+                {
+                    _comparePage.Add(-1);
+                }
             }
         }
 

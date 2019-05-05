@@ -153,7 +153,6 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButtonOpen;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxFile;
         private System.Windows.Forms.ToolStripButton toolStripButtonNextPage;
         private System.Windows.Forms.ToolStripButton toolStripButtonPrevPage;
@@ -162,5 +161,6 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabelPages;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         public PdfiumViewer.PdfViewer pdfViewer;
+        public System.Windows.Forms.ToolStripButton toolStripButtonOpen;
     }
 }

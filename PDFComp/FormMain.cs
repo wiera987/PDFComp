@@ -142,9 +142,34 @@ namespace PDFComp
         {
             Console.WriteLine("Button click!");
 
+            if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
+            {
+                return;
+            }
+
             var stopwatch = new System.Diagnostics.Stopwatch();
 
+            int page1 = pdfPanel1.pdfViewer.Renderer.Page;
+            int page2 = pdfPanel2.pdfViewer.Renderer.Page;
+
+            if ((pdfPanel1.GetComparedPage(page1) == page2) && (pdfPanel2.GetComparedPage(page2) == page1))
+            {
+                return;
+            }
+
+            if (pdfPanel1.GetComparedPage(page1) >= 0)
+            {
+                pdfPanel1.ClearDiffMarker(page1);
+            }
+            if (pdfPanel2.GetComparedPage(page2) >= 0)
+            {
+                pdfPanel2.ClearDiffMarker(page2);
+            }
+
+            stopwatch.Stop();
+            Console.WriteLine("Clear:{0}", stopwatch.Elapsed);
             stopwatch.Start();
+
             String text1 = pdfPanel1.GetPageText();
             String text2 = pdfPanel2.GetPageText();
             List<PdfTextSpan> index1 = new List<PdfTextSpan>();
@@ -160,8 +185,7 @@ namespace PDFComp
             Console.WriteLine("Diff:{0}", stopwatch.Elapsed);
             stopwatch.Start();
 
-            int page1 = pdfPanel1.pdfViewer.Renderer.Page;
-            int page2 = pdfPanel2.pdfViewer.Renderer.Page;
+
 
             ExtractDiffSpan(index1, index2, results, page1, page2);
 
@@ -172,8 +196,8 @@ namespace PDFComp
             Console.WriteLine("Index:{0}", stopwatch.Elapsed);
             stopwatch.Start();
 
-            pdfPanel1.AddDiffMarker();
-            pdfPanel2.AddDiffMarker();
+            pdfPanel1.AddDiffMarker(page2);
+            pdfPanel2.AddDiffMarker(page1);
 
             stopwatch.Stop();
             Console.WriteLine("Marker:{0}", stopwatch.Elapsed);
@@ -336,5 +360,46 @@ namespace PDFComp
             }
         }
 
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if ((pdfPanel1.pdfViewer.Document != null) || (pdfPanel2.pdfViewer.Document != null))
+            {
+                Bitmap bitmap = new Bitmap(panelBoth.ClientSize.Width, panelBoth.ClientSize.Height);
+                panelBoth.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
+                Clipboard.SetImage(bitmap);
+            }
+        }
+
+        private void CopyFile1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pdfPanel1.pdfViewer.Document != null)
+            {
+                Bitmap bitmap = new Bitmap(pdfPanel1.ClientSize.Width, pdfPanel1.ClientSize.Height);
+                pdfPanel1.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
+                Clipboard.SetImage(bitmap);
+            }
+        }
+
+        private void CopyFile2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pdfPanel2.pdfViewer.Document != null)
+            {
+                Bitmap bitmap = new Bitmap(pdfPanel2.ClientSize.Width, pdfPanel2.ClientSize.Height);
+                pdfPanel2.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
+                Clipboard.SetImage(bitmap);
+            }
+        }
+
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pdfPanel1.toolStripButtonOpen.PerformClick();
+            pdfPanel2.toolStripButtonOpen.PerformClick();
+        }
     }
 }

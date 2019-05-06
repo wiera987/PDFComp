@@ -168,6 +168,9 @@ namespace PDFComp
                 {
                     _comparePage.Add(-1);
                 }
+
+                _indexes = null;
+                pdfViewer.Renderer.Markers.Clear();
             }
         }
 

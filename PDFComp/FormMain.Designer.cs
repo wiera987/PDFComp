@@ -40,8 +40,6 @@
             this.copyFile2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.panelBoth = new System.Windows.Forms.Panel();
-            this.pdfPanel2 = new PDFComp.PdfPanel();
-            this.pdfPanel1 = new PDFComp.PdfPanel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.buttonZoomIn = new System.Windows.Forms.Button();
             this.buttonZoomOut = new System.Windows.Forms.Button();
@@ -58,6 +56,9 @@
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.buttonSearch1 = new System.Windows.Forms.Button();
             this.buttonSearch2 = new System.Windows.Forms.Button();
+            this.labelResult = new System.Windows.Forms.Label();
+            this.pdfPanel2 = new PDFComp.PdfPanel();
+            this.pdfPanel1 = new PDFComp.PdfPanel();
             this.menuStrip.SuspendLayout();
             this.panelBoth.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
@@ -150,24 +151,6 @@
             this.panelBoth.Size = new System.Drawing.Size(1192, 724);
             this.panelBoth.TabIndex = 2;
             this.panelBoth.SizeChanged += new System.EventHandler(this.Panel1_SizeChanged);
-            // 
-            // pdfPanel2
-            // 
-            this.pdfPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdfPanel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pdfPanel2.Location = new System.Drawing.Point(617, 0);
-            this.pdfPanel2.Name = "pdfPanel2";
-            this.pdfPanel2.Size = new System.Drawing.Size(575, 724);
-            this.pdfPanel2.TabIndex = 2;
-            // 
-            // pdfPanel1
-            // 
-            this.pdfPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pdfPanel1.Location = new System.Drawing.Point(3, 0);
-            this.pdfPanel1.Name = "pdfPanel1";
-            this.pdfPanel1.Size = new System.Drawing.Size(495, 724);
-            this.pdfPanel1.TabIndex = 1;
             // 
             // splitter1
             // 
@@ -332,11 +315,41 @@
             this.buttonSearch2.Visible = false;
             this.buttonSearch2.Click += new System.EventHandler(this.ButtonSearch2_Click);
             // 
+            // labelResult
+            // 
+            this.labelResult.BackColor = System.Drawing.Color.Transparent;
+            this.labelResult.Font = new System.Drawing.Font("MS UI Gothic", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelResult.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.labelResult.Location = new System.Drawing.Point(617, 33);
+            this.labelResult.Name = "labelResult";
+            this.labelResult.Size = new System.Drawing.Size(26, 10);
+            this.labelResult.TabIndex = 17;
+            this.labelResult.Text = "...";
+            // 
+            // pdfPanel2
+            // 
+            this.pdfPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdfPanel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pdfPanel2.Location = new System.Drawing.Point(617, 0);
+            this.pdfPanel2.Name = "pdfPanel2";
+            this.pdfPanel2.Size = new System.Drawing.Size(575, 724);
+            this.pdfPanel2.TabIndex = 2;
+            // 
+            // pdfPanel1
+            // 
+            this.pdfPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pdfPanel1.Location = new System.Drawing.Point(3, 0);
+            this.pdfPanel1.Name = "pdfPanel1";
+            this.pdfPanel1.Size = new System.Drawing.Size(495, 724);
+            this.pdfPanel1.TabIndex = 1;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1192, 773);
+            this.Controls.Add(this.labelResult);
             this.Controls.Add(this.buttonSearch2);
             this.Controls.Add(this.buttonSearch1);
             this.Controls.Add(this.textBoxSearch);
@@ -398,6 +411,7 @@
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyFile1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyFile2ToolStripMenuItem;
+        private System.Windows.Forms.Label labelResult;
     }
 }
 

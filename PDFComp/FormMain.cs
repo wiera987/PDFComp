@@ -144,6 +144,7 @@ namespace PDFComp
 
             if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
             {
+                labelResult.Text = "0.0";
                 return;
             }
 
@@ -154,6 +155,7 @@ namespace PDFComp
 
             if ((pdfPanel1.GetComparedPage(page1) == page2) && (pdfPanel2.GetComparedPage(page2) == page1))
             {
+                labelResult.Text = "0.0";
                 return;
             }
 
@@ -166,9 +168,9 @@ namespace PDFComp
                 pdfPanel2.ClearDiffMarker(page2);
             }
 
-            stopwatch.Stop();
-            Console.WriteLine("Clear:{0}", stopwatch.Elapsed);
-            stopwatch.Start();
+            //stopwatch.Stop();
+            //Console.WriteLine("Clear:{0}", stopwatch.Elapsed);
+            //stopwatch.Start();
 
             String text1 = pdfPanel1.GetPageText();
             String text2 = pdfPanel2.GetPageText();
@@ -177,15 +179,17 @@ namespace PDFComp
 
             stopwatch.Stop();
             Console.WriteLine("Get:{0}", stopwatch.Elapsed);
+            labelResult.Text = ".";
+            labelResult.Update();
             stopwatch.Start();
 
             var results = DiffUtil.Diff(text1, text2);
 
             stopwatch.Stop();
             Console.WriteLine("Diff:{0}", stopwatch.Elapsed);
+            labelResult.Text = "..";
+            labelResult.Update();
             stopwatch.Start();
-
-
 
             ExtractDiffSpan(index1, index2, results, page1, page2);
 
@@ -197,15 +201,25 @@ namespace PDFComp
             stopwatch.Start();
 
             pdfPanel1.AddDiffMarker(page2);
+            labelResult.Text = "...";
+            labelResult.Update();
             pdfPanel2.AddDiffMarker(page1);
+            labelResult.Text = "....";
+            labelResult.Update();
 
             stopwatch.Stop();
             Console.WriteLine("Marker:{0}", stopwatch.Elapsed);
+            stopwatch.Start();
 
             //results.ToList().ForEach(r => Console.WriteLine(r.ToFormatString()));
 
-            pdfPanel1.Invalidate();
-            pdfPanel2.Invalidate();
+            pdfPanel1.Update();
+            pdfPanel2.Update();
+
+            stopwatch.Stop();
+            Console.WriteLine("Draw:{0}", stopwatch.Elapsed);
+
+            labelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
         }
 
         private static void ExtractDiffSpan(List<PdfTextSpan> spanList1, List<PdfTextSpan> spanList2, IEnumerable<DiffResult<char>> results, int page1, int page2)

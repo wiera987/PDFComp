@@ -1,6 +1,8 @@
 # PDFComp
 Compare two PDF files and highlight different characters.
 
+<img src="https://user-images.githubusercontent.com/50268838/57225045-2575a780-7046-11e9-9f16-0b3a44c5f5ee.png" width="480">
+
 ## Background
 
 There is a tool that automatically compares the differences between two PDF files, but it seems difficult to compare pages as the user thought.This is an application that easily navigates and compares single pages, highlights differences and displays them.

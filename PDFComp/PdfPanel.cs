@@ -149,29 +149,56 @@ namespace PDFComp
             }
         }
 
+        private void PdfPanel_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.All;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+        private void PdfPanel_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+
+            toolStripTextBoxFile.Text = files[0];       // Drop only the first file.
+
+            OpenFile(toolStripTextBoxFile.Text);
+        }
+        
         private void ToolStripButtonOpen_Click(object sender, EventArgs e)
         {
             openFileDialog.FileName = toolStripTextBoxFile.Text;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 toolStripTextBoxFile.Text = openFileDialog.FileName;
-                pdfViewer.Document = PdfDocument.Load(toolStripTextBoxFile.Text);
-                pdfViewer.Renderer.Zoom = _zoom;
-                pdfViewer.Renderer.Rotation = _rotation;
-
-                toolStripLabelPage.Text = 1.ToString();
-                toolStripLabelPages.Text = pdfViewer.Document.PageCount.ToString();
-                toolStripTextBoxFile.ToolTipText = toolStripTextBoxFile.Text;
-
-                _comparePage = new List<int>(pdfViewer.Document.PageCount);
-                for (int i=0; i< pdfViewer.Document.PageCount; i++)
-                {
-                    _comparePage.Add(-1);
-                }
-
-                _indexes = null;
-                pdfViewer.Renderer.Markers.Clear();
+                string fileName = toolStripTextBoxFile.Text;
+                OpenFile(fileName);
             }
+        }
+
+        private void OpenFile(string fileName)
+        {
+            pdfViewer.Document = PdfDocument.Load(fileName);
+            pdfViewer.Renderer.Zoom = _zoom;
+            pdfViewer.Renderer.Rotation = _rotation;
+
+            toolStripLabelPage.Text = 1.ToString();
+            toolStripLabelPages.Text = pdfViewer.Document.PageCount.ToString();
+            toolStripTextBoxFile.ToolTipText = fileName;
+
+            _comparePage = new List<int>(pdfViewer.Document.PageCount);
+            for (int i = 0; i < pdfViewer.Document.PageCount; i++)
+            {
+                _comparePage.Add(-1);
+            }
+
+            _indexes = null;
+            pdfViewer.Renderer.Markers.Clear();
         }
 
         private void ToolStripButtonPrevPage_Click(object sender, EventArgs e)

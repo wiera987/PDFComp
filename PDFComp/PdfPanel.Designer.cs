@@ -137,12 +137,15 @@
             // 
             // PdfPanel
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.pdfViewer);
             this.Controls.Add(this.toolStrip1);
             this.Name = "PdfPanel";
             this.Size = new System.Drawing.Size(600, 615);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.PdfPanel_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.PdfPanel_DragEnter);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

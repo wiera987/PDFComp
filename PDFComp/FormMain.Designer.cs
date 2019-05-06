@@ -57,6 +57,8 @@
             this.buttonSearch1 = new System.Windows.Forms.Button();
             this.buttonSearch2 = new System.Windows.Forms.Button();
             this.labelResult = new System.Windows.Forms.Label();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutPDFCompToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pdfPanel2 = new PDFComp.PdfPanel();
             this.pdfPanel1 = new PDFComp.PdfPanel();
             this.menuStrip.SuspendLayout();
@@ -68,7 +70,8 @@
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.editToolStripMenuItem});
+            this.editToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(1192, 24);
@@ -326,8 +329,24 @@
             this.labelResult.TabIndex = 17;
             this.labelResult.Text = "...";
             // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutPDFCompToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.helpToolStripMenuItem.Text = "&Help";
+            // 
+            // aboutPDFCompToolStripMenuItem
+            // 
+            this.aboutPDFCompToolStripMenuItem.Name = "aboutPDFCompToolStripMenuItem";
+            this.aboutPDFCompToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.aboutPDFCompToolStripMenuItem.Text = "About PDFComp";
+            this.aboutPDFCompToolStripMenuItem.Click += new System.EventHandler(this.AboutPDFCompToolStripMenuItem_Click);
+            // 
             // pdfPanel2
             // 
+            this.pdfPanel2.AllowDrop = true;
             this.pdfPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pdfPanel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.pdfPanel2.Location = new System.Drawing.Point(617, 0);
@@ -337,6 +356,7 @@
             // 
             // pdfPanel1
             // 
+            this.pdfPanel1.AllowDrop = true;
             this.pdfPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.pdfPanel1.Location = new System.Drawing.Point(3, 0);
@@ -412,6 +432,8 @@
         private System.Windows.Forms.ToolStripMenuItem copyFile1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyFile2ToolStripMenuItem;
         private System.Windows.Forms.Label labelResult;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutPDFCompToolStripMenuItem;
     }
 }
 

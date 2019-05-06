@@ -415,5 +415,12 @@ namespace PDFComp
             pdfPanel1.toolStripButtonOpen.PerformClick();
             pdfPanel2.toolStripButtonOpen.PerformClick();
         }
+
+        private void AboutPDFCompToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAbout form = new FormAbout();
+            form.StartPosition = FormStartPosition.CenterParent;
+            form.ShowDialog();
+        }
     }
 }

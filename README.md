@@ -39,5 +39,5 @@ Build the PDFComp project.
 
 ## License
 
-This project is licensed under the Apache License 2.0 License.
+This project is licensed under the Apache License, Version2.0.
 

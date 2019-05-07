@@ -410,6 +410,24 @@ namespace PDFComp
             }
         }
 
+        private void CopyBookmarks1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string text = pdfPanel1.GetBookmarksText();
+            if (text != null)
+            {
+                Clipboard.SetText(text);
+            }
+        }
+
+        private void CopyBookmarks2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string text = pdfPanel2.GetBookmarksText();
+            if (text != null)
+            {
+                Clipboard.SetText(text);
+            }
+        }
+
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pdfPanel1.toolStripButtonOpen.PerformClick();

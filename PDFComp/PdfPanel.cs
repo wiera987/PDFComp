@@ -46,6 +46,33 @@ namespace PDFComp
             }
         }
 
+        public String GetBookmarksText()
+        {
+            if (pdfViewer.Document != null)
+            {
+                StringBuilder sb = new StringBuilder();
+                PdfBookmarkCollection bookmarks = pdfViewer.Document.Bookmarks;
+
+                GetBookmarkText(sb, bookmarks);
+
+                return sb.ToString();
+            }
+
+            return null;
+        }
+
+        private static void GetBookmarkText(StringBuilder sb, PdfBookmarkCollection bookmarks)
+        {
+            foreach (var bookmark in bookmarks)
+            {
+                sb.AppendLine(bookmark.Title);
+                if (bookmark.Children != null)
+                {
+                    GetBookmarkText(sb, bookmark.Children);
+                }
+            }
+        }
+
         public String GetPageText()
         {
             if (pdfViewer.Document != null)

@@ -24,6 +24,7 @@ Download the program from [release](https://github.com/wiera987/PDFComp/releases
 * '<Prev' and '>Next' button navigate both pdf files.
 * '<' and '>' button navigate single pdf file.
 * 'Compare page' button is to compare and hilight displaied pages.
+* 'Clear markers' context menu is to clear the different markers.
 
 ## Development
 

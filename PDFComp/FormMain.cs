@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PdfiumViewer;
@@ -153,11 +154,11 @@ namespace PDFComp
             int page1 = pdfPanel1.pdfViewer.Renderer.Page;
             int page2 = pdfPanel2.pdfViewer.Renderer.Page;
 
-            if ((pdfPanel1.GetComparedPage(page1) == page2) && (pdfPanel2.GetComparedPage(page2) == page1))
-            {
-                labelResult.Text = "0.0";
-                return;
-            }
+            //if ((pdfPanel1.GetComparedPage(page1) == page2) && (pdfPanel2.GetComparedPage(page2) == page1))
+            //{
+            //    labelResult.Text = "0.0";
+            //    return;
+            //}
 
             if (pdfPanel1.GetComparedPage(page1) >= 0)
             {
@@ -167,6 +168,10 @@ namespace PDFComp
             {
                 pdfPanel2.ClearDiffMarker(page2);
             }
+
+            // Draw without the marker.
+            pdfPanel1.Update();
+            pdfPanel2.Update();
 
             //stopwatch.Stop();
             //Console.WriteLine("Clear:{0}", stopwatch.Elapsed);
@@ -212,7 +217,12 @@ namespace PDFComp
             stopwatch.Start();
 
             //results.ToList().ForEach(r => Console.WriteLine(r.ToFormatString()));
+            if (stopwatch.ElapsedMilliseconds < 50)
+            {
+                Thread.Sleep(30);
+            }
 
+            // Draw with the markers.
             pdfPanel1.Update();
             pdfPanel2.Update();
 

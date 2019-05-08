@@ -38,12 +38,12 @@
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyFile1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyFile2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyBookmarks1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyBookmarks2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutPDFCompToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.panelBoth = new System.Windows.Forms.Panel();
-            this.pdfPanel2 = new PDFComp.PdfPanel();
-            this.pdfPanel1 = new PDFComp.PdfPanel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.buttonZoomIn = new System.Windows.Forms.Button();
             this.buttonZoomOut = new System.Windows.Forms.Button();
@@ -61,8 +61,13 @@
             this.buttonSearch1 = new System.Windows.Forms.Button();
             this.buttonSearch2 = new System.Windows.Forms.Button();
             this.labelResult = new System.Windows.Forms.Label();
-            this.copyBookmarks1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyBookmarks2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pdfPanel2 = new PDFComp.PdfPanel();
+            this.pdfPanel1 = new PDFComp.PdfPanel();
+            this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.comparePageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.clearMarker1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearMarker2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelBoth.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
@@ -73,6 +78,7 @@
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
+            this.compareToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -139,6 +145,22 @@
             this.copyFile2ToolStripMenuItem.Text = "Copy file2";
             this.copyFile2ToolStripMenuItem.Click += new System.EventHandler(this.CopyFile2ToolStripMenuItem_Click);
             // 
+            // copyBookmarks1ToolStripMenuItem
+            // 
+            this.copyBookmarks1ToolStripMenuItem.Name = "copyBookmarks1ToolStripMenuItem";
+            this.copyBookmarks1ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
+            this.copyBookmarks1ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.copyBookmarks1ToolStripMenuItem.Text = "Copy bookmarks1";
+            this.copyBookmarks1ToolStripMenuItem.Click += new System.EventHandler(this.CopyBookmarks1ToolStripMenuItem_Click);
+            // 
+            // copyBookmarks2ToolStripMenuItem
+            // 
+            this.copyBookmarks2ToolStripMenuItem.Name = "copyBookmarks2ToolStripMenuItem";
+            this.copyBookmarks2ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D4)));
+            this.copyBookmarks2ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.copyBookmarks2ToolStripMenuItem.Text = "Copy bookmarks2";
+            this.copyBookmarks2ToolStripMenuItem.Click += new System.EventHandler(this.CopyBookmarks2ToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -150,7 +172,7 @@
             // aboutPDFCompToolStripMenuItem
             // 
             this.aboutPDFCompToolStripMenuItem.Name = "aboutPDFCompToolStripMenuItem";
-            this.aboutPDFCompToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.aboutPDFCompToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutPDFCompToolStripMenuItem.Text = "About PDFComp";
             this.aboutPDFCompToolStripMenuItem.Click += new System.EventHandler(this.AboutPDFCompToolStripMenuItem_Click);
             // 
@@ -173,26 +195,6 @@
             this.panelBoth.Size = new System.Drawing.Size(1192, 724);
             this.panelBoth.TabIndex = 2;
             this.panelBoth.SizeChanged += new System.EventHandler(this.Panel1_SizeChanged);
-            // 
-            // pdfPanel2
-            // 
-            this.pdfPanel2.AllowDrop = true;
-            this.pdfPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdfPanel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pdfPanel2.Location = new System.Drawing.Point(617, 0);
-            this.pdfPanel2.Name = "pdfPanel2";
-            this.pdfPanel2.Size = new System.Drawing.Size(575, 724);
-            this.pdfPanel2.TabIndex = 2;
-            // 
-            // pdfPanel1
-            // 
-            this.pdfPanel1.AllowDrop = true;
-            this.pdfPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pdfPanel1.Location = new System.Drawing.Point(3, 0);
-            this.pdfPanel1.Name = "pdfPanel1";
-            this.pdfPanel1.Size = new System.Drawing.Size(495, 724);
-            this.pdfPanel1.TabIndex = 1;
             // 
             // splitter1
             // 
@@ -368,21 +370,62 @@
             this.labelResult.TabIndex = 17;
             this.labelResult.Text = "...";
             // 
-            // copyBookmarks1ToolStripMenuItem
+            // pdfPanel2
             // 
-            this.copyBookmarks1ToolStripMenuItem.Name = "copyBookmarks1ToolStripMenuItem";
-            this.copyBookmarks1ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
-            this.copyBookmarks1ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.copyBookmarks1ToolStripMenuItem.Text = "Copy bookmarks1";
-            this.copyBookmarks1ToolStripMenuItem.Click += new System.EventHandler(this.CopyBookmarks1ToolStripMenuItem_Click);
+            this.pdfPanel2.AllowDrop = true;
+            this.pdfPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdfPanel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pdfPanel2.Location = new System.Drawing.Point(617, 0);
+            this.pdfPanel2.Name = "pdfPanel2";
+            this.pdfPanel2.Size = new System.Drawing.Size(575, 724);
+            this.pdfPanel2.TabIndex = 2;
             // 
-            // copyBookmarks2ToolStripMenuItem
+            // pdfPanel1
             // 
-            this.copyBookmarks2ToolStripMenuItem.Name = "copyBookmarks2ToolStripMenuItem";
-            this.copyBookmarks2ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D4)));
-            this.copyBookmarks2ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.copyBookmarks2ToolStripMenuItem.Text = "Copy bookmarks2";
-            this.copyBookmarks2ToolStripMenuItem.Click += new System.EventHandler(this.CopyBookmarks2ToolStripMenuItem_Click);
+            this.pdfPanel1.AllowDrop = true;
+            this.pdfPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pdfPanel1.Location = new System.Drawing.Point(3, 0);
+            this.pdfPanel1.Name = "pdfPanel1";
+            this.pdfPanel1.Size = new System.Drawing.Size(495, 724);
+            this.pdfPanel1.TabIndex = 1;
+            // 
+            // compareToolStripMenuItem
+            // 
+            this.compareToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.comparePageToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.clearMarker1ToolStripMenuItem,
+            this.clearMarker2ToolStripMenuItem});
+            this.compareToolStripMenuItem.Name = "compareToolStripMenuItem";
+            this.compareToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.compareToolStripMenuItem.Text = "&Compare";
+            // 
+            // comparePageToolStripMenuItem
+            // 
+            this.comparePageToolStripMenuItem.Name = "comparePageToolStripMenuItem";
+            this.comparePageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.comparePageToolStripMenuItem.Text = "Compare page";
+            this.comparePageToolStripMenuItem.Click += new System.EventHandler(this.ComparePageToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // clearMarker1ToolStripMenuItem
+            // 
+            this.clearMarker1ToolStripMenuItem.Name = "clearMarker1ToolStripMenuItem";
+            this.clearMarker1ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearMarker1ToolStripMenuItem.Text = "Clear marker1";
+            this.clearMarker1ToolStripMenuItem.Click += new System.EventHandler(this.ClearMarker1ToolStripMenuItem_Click);
+            // 
+            // clearMarker2ToolStripMenuItem
+            // 
+            this.clearMarker2ToolStripMenuItem.Name = "clearMarker2ToolStripMenuItem";
+            this.clearMarker2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearMarker2ToolStripMenuItem.Text = "Clear marker2";
+            this.clearMarker2ToolStripMenuItem.Click += new System.EventHandler(this.ClearMarker2ToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -456,6 +499,11 @@
         private System.Windows.Forms.ToolStripMenuItem aboutPDFCompToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyBookmarks1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyBookmarks2ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compareToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem comparePageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem clearMarker1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearMarker2ToolStripMenuItem;
     }
 }
 

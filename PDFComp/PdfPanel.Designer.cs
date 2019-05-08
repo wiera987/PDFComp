@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PdfPanel));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
@@ -39,7 +40,10 @@
             this.toolStripLabelPage = new System.Windows.Forms.ToolStripLabel();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.pdfViewer = new PdfiumViewer.PdfViewer();
+            this.contextMenuStripPdf = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.clearMarkersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
+            this.contextMenuStripPdf.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -127,6 +131,7 @@
             // 
             // pdfViewer
             // 
+            this.pdfViewer.ContextMenuStrip = this.contextMenuStripPdf;
             this.pdfViewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pdfViewer.Location = new System.Drawing.Point(0, 25);
             this.pdfViewer.Name = "pdfViewer";
@@ -134,6 +139,22 @@
             this.pdfViewer.ShowToolbar = false;
             this.pdfViewer.Size = new System.Drawing.Size(600, 590);
             this.pdfViewer.TabIndex = 1;
+            // 
+            // contextMenuStripPdf
+            // 
+            this.contextMenuStripPdf.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearMarkersToolStripMenuItem});
+            this.contextMenuStripPdf.Name = "contextMenuStripPdf";
+            this.contextMenuStripPdf.ShowImageMargin = false;
+            this.contextMenuStripPdf.Size = new System.Drawing.Size(118, 26);
+            this.contextMenuStripPdf.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStripPdf_Opening);
+            // 
+            // clearMarkersToolStripMenuItem
+            // 
+            this.clearMarkersToolStripMenuItem.Name = "clearMarkersToolStripMenuItem";
+            this.clearMarkersToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.clearMarkersToolStripMenuItem.Text = "Clear markers";
+            this.clearMarkersToolStripMenuItem.Click += new System.EventHandler(this.ClearMarkersToolStripMenuItem_Click);
             // 
             // PdfPanel
             // 
@@ -148,6 +169,7 @@
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.PdfPanel_DragEnter);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.contextMenuStripPdf.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -165,5 +187,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         public PdfiumViewer.PdfViewer pdfViewer;
         public System.Windows.Forms.ToolStripButton toolStripButtonOpen;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripPdf;
+        private System.Windows.Forms.ToolStripMenuItem clearMarkersToolStripMenuItem;
     }
 }

@@ -14,10 +14,11 @@ namespace PDFComp
 {
     public partial class PdfPanel : UserControl
     {
-        List<int> _comparePage = null;
-        List<PdfTextSpan> _indexes = null;
-        double _zoom = 1.0;
-        PdfRotation _rotation = PdfRotation.Rotate0;
+        private List<int> _comparePage = null;
+        private List<PdfTextSpan> _indexes = null;
+        private double _zoom = 1.0;
+        private PdfRotation _rotation = PdfRotation.Rotate0;
+        private PdfPoint _contextMenuPosition;
 
         public PdfPanel()
         {
@@ -117,19 +118,27 @@ namespace PDFComp
             return -1;
         }
 
-        public void ClearDiffMarker(int oldPage)
+        public void ClearDiffMarker(int diffpage)
         {
-            // Rebuild markers except oldPage
-            PdfMarker[] markers = new PdfMarker[pdfViewer.Renderer.Markers.Count];
-            pdfViewer.Renderer.Markers.CopyTo(markers, 0);
-
-            pdfViewer.Renderer.Markers.Clear();
-
-            foreach(PdfMarker marker in markers)
+            if (diffpage >= 0)
             {
-                if (marker.Page != oldPage)
+                // Rebuild markers except page
+                PdfMarker[] markers = new PdfMarker[pdfViewer.Renderer.Markers.Count];
+                pdfViewer.Renderer.Markers.CopyTo(markers, 0);
+
+                pdfViewer.Renderer.Markers.Clear();
+
+                foreach (PdfMarker marker in markers)
                 {
-                    pdfViewer.Renderer.Markers.Add(marker);
+                    if (marker.Page != diffpage)
+                    {
+                        pdfViewer.Renderer.Markers.Add(marker);
+                    }
+                }
+
+                if (_comparePage != null)
+                {
+                    _comparePage[diffpage] = -1;
                 }
             }
         }
@@ -203,6 +212,7 @@ namespace PDFComp
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 toolStripTextBoxFile.Text = openFileDialog.FileName;
+                toolStripTextBoxFile.SelectionStart = toolStripTextBoxFile.Text.Length;     // Move the caret to the end of the text box
                 string fileName = toolStripTextBoxFile.Text;
                 OpenFile(fileName);
             }
@@ -257,6 +267,24 @@ namespace PDFComp
         private void Renderer_DisplayRectangleChanged(object sender, EventArgs e)
         {
             toolStripLabelPage.Text = (pdfViewer.Renderer.Page + 1).ToString();
+        }
+
+        private void ContextMenuStripPdf_Opening(object sender, CancelEventArgs e)
+        {
+            ContextMenuStrip menu = (ContextMenuStrip)sender;
+            Point screenPosition = Control.MousePosition;
+            Point controlPosition = menu.SourceControl.PointToClient(screenPosition);
+            _contextMenuPosition = pdfViewer.Renderer.PointToPdf(controlPosition);
+
+            //e.Cancel = (_contextMenuPosition.Page < 0);
+        }
+
+        private void ClearMarkersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Console.WriteLine(_contextMenuPosition.Page);
+            //Console.WriteLine(_contextMenuPosition.Location);
+
+            ClearDiffMarker(_contextMenuPosition.Page);
         }
 
     }

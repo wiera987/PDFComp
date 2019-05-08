@@ -440,5 +440,20 @@ namespace PDFComp
             form.StartPosition = FormStartPosition.CenterParent;
             form.ShowDialog();
         }
+
+        private void ComparePageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonCompare.PerformClick();
+        }
+
+        private void ClearMarker1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pdfPanel1.ClearDiffMarker(pdfPanel1.pdfViewer.Renderer.Page);
+        }
+
+        private void ClearMarker2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pdfPanel2.ClearDiffMarker(pdfPanel2.pdfViewer.Renderer.Page);
+        }
     }
 }

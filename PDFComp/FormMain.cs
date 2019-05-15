@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PdfiumViewer;
 using NetDiff;
+using DiffMatchPatch;
 
 namespace PDFComp
 {
@@ -27,6 +28,7 @@ namespace PDFComp
         public FormMain()
         {
             InitializeComponent();
+            comboBoxDiffType.SelectedIndex = 0;
 
             zoom = 1.0;
             zoomIn = false;
@@ -188,7 +190,55 @@ namespace PDFComp
             labelResult.Update();
             stopwatch.Start();
 
-            var results = DiffUtil.Diff(text1, text2);
+            diff_match_patch dmp;
+            List<Diff> diffs;
+
+            int diffType = comboBoxDiffType.SelectedIndex;
+            switch (diffType)
+            {
+                case 0:     // NetDiff
+                    var results = DiffUtil.Diff(text1, text2);
+                    ExtractDiffSpan(index1, index2, results, page1, page2);
+                    break;
+
+                case 1:     // Google Diff - Semantic
+                    dmp = new diff_match_patch();
+                    diffs = dmp.diff_main(text1, text2);
+                    dmp.diff_cleanupSemantic(diffs);
+                    ExtractDiffSpan2(index1, index2, diffs, page1, page2);
+                    break;
+                case 2:     // Google Diff - Effective 4
+                    dmp = new diff_match_patch();
+                    dmp.Diff_EditCost = 4;
+                    diffs = dmp.diff_main(text1, text2);
+                    dmp.diff_cleanupEfficiency(diffs);
+                    ExtractDiffSpan2(index1, index2, diffs, page1, page2);
+                    break;
+                case 3:     // Google Diff - Effective 5
+                    dmp = new diff_match_patch();
+                    dmp.Diff_EditCost = 5;
+                    diffs = dmp.diff_main(text1, text2);
+                    dmp.diff_cleanupEfficiency(diffs);
+                    ExtractDiffSpan2(index1, index2, diffs, page1, page2);
+                    break;
+                case 4:     // Google Diff - Effective 3
+                    dmp = new diff_match_patch();
+                    dmp.Diff_EditCost = 3;
+                    diffs = dmp.diff_main(text1, text2);
+                    dmp.diff_cleanupEfficiency(diffs);
+                    ExtractDiffSpan2(index1, index2, diffs, page1, page2);
+                    break;
+
+                case 5:     // Google Diff - Raw
+                    dmp = new diff_match_patch();
+                    diffs = dmp.diff_main(text1, text2);
+                    ExtractDiffSpan2(index1, index2, diffs, page1, page2);
+                    break;
+
+                default:
+                    throw new Exception();
+            }
+
 
             stopwatch.Stop();
             Console.WriteLine("Diff:{0}", stopwatch.Elapsed);
@@ -196,14 +246,9 @@ namespace PDFComp
             labelResult.Update();
             stopwatch.Start();
 
-            ExtractDiffSpan(index1, index2, results, page1, page2);
-
             pdfPanel1.SetPageDiff(index1);
             pdfPanel2.SetPageDiff(index2);
 
-            stopwatch.Stop();
-            Console.WriteLine("Index:{0}", stopwatch.Elapsed);
-            stopwatch.Start();
 
             pdfPanel1.AddDiffMarker(page2);
             labelResult.Text = "...";
@@ -230,6 +275,36 @@ namespace PDFComp
             Console.WriteLine("Draw:{0}", stopwatch.Elapsed);
 
             labelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
+        }
+
+        private static void ExtractDiffSpan2(List<PdfTextSpan> spanList1, List<PdfTextSpan> spanList2, List<Diff> diffs, int page1, int page2)
+        {
+            if (diffs.Count() > 0)
+            {
+                int offset1 = 0;
+                int offset2 = 0;
+                int count;
+
+                foreach(Diff diff in diffs)
+                {
+                    count = diff.text.Length;
+                    switch (diff.operation)
+                    {
+                        case Operation.EQUAL:
+                            offset1 += count;
+                            offset2 += count;
+                            break;
+                        case Operation.INSERT:
+                            spanList2.Add(new PdfTextSpan(page2, offset2, count));
+                            offset2 += count;
+                            break;
+                        case Operation.DELETE:
+                            spanList1.Add(new PdfTextSpan(page1, offset1, count));
+                            offset1 += count;
+                            break;
+                    }
+                }
+            }
         }
 
         private static void ExtractDiffSpan(List<PdfTextSpan> spanList1, List<PdfTextSpan> spanList2, IEnumerable<DiffResult<char>> results, int page1, int page2)
@@ -464,6 +539,11 @@ namespace PDFComp
         private void ClearMarker2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pdfPanel2.ClearDiffMarker(pdfPanel2.pdfViewer.Renderer.Page);
+        }
+
+        private void ComboBoxDiffType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            buttonCompare.PerformClick();
         }
     }
 }

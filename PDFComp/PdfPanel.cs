@@ -201,9 +201,8 @@ namespace PDFComp
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
 
-            toolStripTextBoxFile.Text = files[0];       // Drop only the first file.
-
-            OpenFile(toolStripTextBoxFile.Text);
+            string fileName = files[0];       // Drop only the first file.
+            OpenFile(fileName);
         }
         
         private void ToolStripButtonOpen_Click(object sender, EventArgs e)
@@ -211,9 +210,7 @@ namespace PDFComp
             openFileDialog.FileName = toolStripTextBoxFile.Text;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                toolStripTextBoxFile.Text = openFileDialog.FileName;
-                toolStripTextBoxFile.SelectionStart = toolStripTextBoxFile.Text.Length;     // Move the caret to the end of the text box
-                string fileName = toolStripTextBoxFile.Text;
+                string fileName = openFileDialog.FileName;
                 OpenFile(fileName);
             }
         }
@@ -226,6 +223,8 @@ namespace PDFComp
 
             toolStripLabelPage.Text = 1.ToString();
             toolStripLabelPages.Text = pdfViewer.Document.PageCount.ToString();
+            toolStripTextBoxFile.Text = fileName;                   // Drop only the first file.
+            toolStripTextBoxFile.SelectionStart = fileName.Length;  // Move the caret to the end of the text box
             toolStripTextBoxFile.ToolTipText = fileName;
 
             _comparePage = new List<int>(pdfViewer.Document.PageCount);

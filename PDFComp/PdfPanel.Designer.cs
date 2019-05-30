@@ -179,8 +179,6 @@
 
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxFile;
-        private System.Windows.Forms.ToolStripButton toolStripButtonNextPage;
-        private System.Windows.Forms.ToolStripButton toolStripButtonPrevPage;
         private System.Windows.Forms.ToolStripLabel toolStripLabelPage;
         private System.Windows.Forms.ToolStripLabel toolStripLabelPer;
         private System.Windows.Forms.ToolStripLabel toolStripLabelPages;
@@ -189,5 +187,7 @@
         public System.Windows.Forms.ToolStripButton toolStripButtonOpen;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripPdf;
         private System.Windows.Forms.ToolStripMenuItem clearMarkersToolStripMenuItem;
+        public System.Windows.Forms.ToolStripButton toolStripButtonNextPage;
+        public System.Windows.Forms.ToolStripButton toolStripButtonPrevPage;
     }
 }

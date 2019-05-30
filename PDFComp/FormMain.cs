@@ -49,6 +49,19 @@ namespace PDFComp
                 case Keys.Space:
                     buttonCompare.PerformClick();
                     return true;
+
+                case Keys.Control | Keys.Left:
+                    pdfPanel1.toolStripButtonPrevPage.PerformClick();
+                    return true;
+                case Keys.Control | Keys.Right:
+                    pdfPanel1.toolStripButtonNextPage.PerformClick();
+                    return true;
+                case Keys.Alt | Keys.Left:
+                    pdfPanel2.toolStripButtonPrevPage.PerformClick();
+                    return true;
+                case Keys.Alt | Keys.Right:
+                    pdfPanel2.toolStripButtonNextPage.PerformClick();
+                    return true;
             }
 
             return base.ProcessDialogKey(keyData);
@@ -56,13 +69,26 @@ namespace PDFComp
 
         private void FormMain_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            switch (e.KeyData)
             {
                 case Keys.Left:
                     buttonPrevPage.PerformClick();
                     break;
                 case Keys.Right:
                     buttonNextPage.PerformClick();
+                    break;
+
+                case Keys.Control | Keys.Left:
+                    pdfPanel1.toolStripButtonPrevPage.PerformClick();
+                    break;
+                case Keys.Control | Keys.Right:
+                    pdfPanel1.toolStripButtonNextPage.PerformClick();
+                    break;
+                case Keys.Alt | Keys.Left:
+                    pdfPanel2.toolStripButtonPrevPage.PerformClick();
+                    break;
+                case Keys.Alt | Keys.Right:
+                    pdfPanel2.toolStripButtonNextPage.PerformClick();
                     break;
             }
         }

@@ -248,7 +248,7 @@
             this.buttonZoomIn.Location = new System.Drawing.Point(1150, 24);
             this.buttonZoomIn.Name = "buttonZoomIn";
             this.buttonZoomIn.Size = new System.Drawing.Size(23, 23);
-            this.buttonZoomIn.TabIndex = 3;
+            this.buttonZoomIn.TabIndex = 16;
             this.buttonZoomIn.Text = "+";
             this.buttonZoomIn.UseVisualStyleBackColor = true;
             this.buttonZoomIn.Click += new System.EventHandler(this.ButtonZoomIn_Click);
@@ -261,7 +261,7 @@
             this.buttonZoomOut.Location = new System.Drawing.Point(939, 24);
             this.buttonZoomOut.Name = "buttonZoomOut";
             this.buttonZoomOut.Size = new System.Drawing.Size(23, 23);
-            this.buttonZoomOut.TabIndex = 4;
+            this.buttonZoomOut.TabIndex = 14;
             this.buttonZoomOut.Text = "-";
             this.buttonZoomOut.UseVisualStyleBackColor = true;
             this.buttonZoomOut.Click += new System.EventHandler(this.ButtonZoomOut_Click);
@@ -277,7 +277,7 @@
             this.trackBarZoom.Minimum = -30;
             this.trackBarZoom.Name = "trackBarZoom";
             this.trackBarZoom.Size = new System.Drawing.Size(176, 22);
-            this.trackBarZoom.TabIndex = 5;
+            this.trackBarZoom.TabIndex = 15;
             this.trackBarZoom.TickFrequency = 30;
             this.trackBarZoom.ValueChanged += new System.EventHandler(this.TrackBarZoom_ValueChanged);
             // 
@@ -331,7 +331,7 @@
             this.buttonCompare.Location = new System.Drawing.Point(513, 24);
             this.buttonCompare.Name = "buttonCompare";
             this.buttonCompare.Size = new System.Drawing.Size(99, 23);
-            this.buttonCompare.TabIndex = 10;
+            this.buttonCompare.TabIndex = 12;
             this.buttonCompare.Text = "Compare Page";
             this.buttonCompare.UseVisualStyleBackColor = true;
             this.buttonCompare.Click += new System.EventHandler(this.ButtonCompare_Click);
@@ -341,7 +341,7 @@
             this.buttonBookmark.Location = new System.Drawing.Point(181, 24);
             this.buttonBookmark.Name = "buttonBookmark";
             this.buttonBookmark.Size = new System.Drawing.Size(75, 23);
-            this.buttonBookmark.TabIndex = 11;
+            this.buttonBookmark.TabIndex = 9;
             this.buttonBookmark.Text = "Bookmark";
             this.buttonBookmark.UseVisualStyleBackColor = true;
             this.buttonBookmark.Click += new System.EventHandler(this.ButtonBookmark_Click);
@@ -351,7 +351,7 @@
             this.buttonRotateLeft.Location = new System.Drawing.Point(286, 24);
             this.buttonRotateLeft.Name = "buttonRotateLeft";
             this.buttonRotateLeft.Size = new System.Drawing.Size(52, 23);
-            this.buttonRotateLeft.TabIndex = 12;
+            this.buttonRotateLeft.TabIndex = 10;
             this.buttonRotateLeft.Text = "Left";
             this.buttonRotateLeft.UseVisualStyleBackColor = true;
             this.buttonRotateLeft.Click += new System.EventHandler(this.ButtonRotateLeft_Click);
@@ -361,13 +361,14 @@
             this.buttonRotateRight.Location = new System.Drawing.Point(344, 24);
             this.buttonRotateRight.Name = "buttonRotateRight";
             this.buttonRotateRight.Size = new System.Drawing.Size(52, 23);
-            this.buttonRotateRight.TabIndex = 13;
+            this.buttonRotateRight.TabIndex = 11;
             this.buttonRotateRight.Text = "Right";
             this.buttonRotateRight.UseVisualStyleBackColor = true;
             this.buttonRotateRight.Click += new System.EventHandler(this.ButtonRotateRight_Click);
             // 
             // textBoxSearch
             // 
+            this.textBoxSearch.Enabled = false;
             this.textBoxSearch.Location = new System.Drawing.Point(670, 2);
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(151, 19);
@@ -377,6 +378,7 @@
             // 
             // buttonSearch1
             // 
+            this.buttonSearch1.Enabled = false;
             this.buttonSearch1.Location = new System.Drawing.Point(827, 0);
             this.buttonSearch1.Name = "buttonSearch1";
             this.buttonSearch1.Size = new System.Drawing.Size(26, 23);
@@ -388,6 +390,7 @@
             // 
             // buttonSearch2
             // 
+            this.buttonSearch2.Enabled = false;
             this.buttonSearch2.Location = new System.Drawing.Point(859, 0);
             this.buttonSearch2.Name = "buttonSearch2";
             this.buttonSearch2.Size = new System.Drawing.Size(26, 23);
@@ -422,7 +425,7 @@
             this.comboBoxDiffType.Location = new System.Drawing.Point(649, 26);
             this.comboBoxDiffType.Name = "comboBoxDiffType";
             this.comboBoxDiffType.Size = new System.Drawing.Size(181, 20);
-            this.comboBoxDiffType.TabIndex = 18;
+            this.comboBoxDiffType.TabIndex = 13;
             this.comboBoxDiffType.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDiffType_SelectedIndexChanged);
             // 
             // pdfPanel2
@@ -470,10 +473,12 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "FormMain";
             this.Text = "PDFComp";
             this.Shown += new System.EventHandler(this.FormMain_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormMain_KeyDown);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.panelBoth.ResumeLayout(false);

@@ -36,9 +36,35 @@ namespace PDFComp
             rotation = PdfRotation.Rotate0;
         }
 
-        private void ToolStripMenuItem1_Click(object sender, EventArgs e)
+        protected override bool ProcessDialogKey(Keys keyData)
         {
+            switch (keyData)
+            {
+                case Keys.Left:
+                    buttonPrevPage.PerformClick();
+                    return true;
+                case Keys.Right:
+                    buttonNextPage.PerformClick();
+                    return true;
+                case Keys.Space:
+                    buttonCompare.PerformClick();
+                    return true;
+            }
 
+            return base.ProcessDialogKey(keyData);
+        }
+
+        private void FormMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Left:
+                    buttonPrevPage.PerformClick();
+                    break;
+                case Keys.Right:
+                    buttonNextPage.PerformClick();
+                    break;
+            }
         }
 
         private void FormMain_Shown(object sender, EventArgs e)
@@ -545,5 +571,6 @@ namespace PDFComp
         {
             buttonCompare.PerformClick();
         }
+
     }
 }

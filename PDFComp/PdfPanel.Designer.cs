@@ -131,7 +131,6 @@
             // 
             // pdfViewer
             // 
-            this.pdfViewer.ContextMenuStrip = this.contextMenuStripPdf;
             this.pdfViewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pdfViewer.Location = new System.Drawing.Point(0, 25);
             this.pdfViewer.Name = "pdfViewer";

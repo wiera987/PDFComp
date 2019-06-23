@@ -25,6 +25,8 @@ namespace PDFComp
             InitializeComponent();
             pdfViewer.Renderer.DisplayRectangleChanged += Renderer_DisplayRectangleChanged;
 
+            pdfViewer.Renderer.ContextMenuStrip = contextMenuStripPdf;
+
         }
 
         public void NextPage()
@@ -280,6 +282,11 @@ namespace PDFComp
 
         private void ClearMarkersToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+            Point screenPosition = Control.MousePosition;
+            Point controlPosition = pdfViewer.Renderer.PointToClient(screenPosition);
+            _contextMenuPosition = pdfViewer.Renderer.PointToPdf(controlPosition);
+
             //Console.WriteLine(_contextMenuPosition.Page);
             //Console.WriteLine(_contextMenuPosition.Location);
 

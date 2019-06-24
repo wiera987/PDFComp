@@ -31,6 +31,11 @@ namespace PDFComp
             comboBoxDiffType.SelectedIndex = 0;
             radioButtonText.Checked = true;
 
+            pdfPanel1.toolStripButtonNextPage.ToolTipText = "Next Page / Ctrl + RIGHT_ARROW";
+            pdfPanel1.toolStripButtonPrevPage.ToolTipText = "Prev Page / Ctrl + LEFT_ARROW";
+            pdfPanel2.toolStripButtonNextPage.ToolTipText = "Next Page / Alt + RIGHT_ARROW";
+            pdfPanel2.toolStripButtonPrevPage.ToolTipText = "Prev Page / Alt + LEFT_ARROW";
+
             zoom = 1.0;
             zoomIn = false;
             zoomOut = false;

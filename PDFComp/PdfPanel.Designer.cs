@@ -42,6 +42,8 @@
             this.pdfViewer = new PdfiumViewer.PdfViewer();
             this.contextMenuStripPdf = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.clearMarkersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStripPdf.SuspendLayout();
             this.SuspendLayout();
@@ -142,10 +144,12 @@
             // contextMenuStripPdf
             // 
             this.contextMenuStripPdf.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clearMarkersToolStripMenuItem});
+            this.clearMarkersToolStripMenuItem,
+            this.copyTextToolStripMenuItem,
+            this.selectAllToolStripMenuItem});
             this.contextMenuStripPdf.Name = "contextMenuStripPdf";
             this.contextMenuStripPdf.ShowImageMargin = false;
-            this.contextMenuStripPdf.Size = new System.Drawing.Size(118, 26);
+            this.contextMenuStripPdf.Size = new System.Drawing.Size(118, 70);
             this.contextMenuStripPdf.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStripPdf_Opening);
             // 
             // clearMarkersToolStripMenuItem
@@ -154,6 +158,20 @@
             this.clearMarkersToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.clearMarkersToolStripMenuItem.Text = "Clear markers";
             this.clearMarkersToolStripMenuItem.Click += new System.EventHandler(this.ClearMarkersToolStripMenuItem_Click);
+            // 
+            // copyTextToolStripMenuItem
+            // 
+            this.copyTextToolStripMenuItem.Name = "copyTextToolStripMenuItem";
+            this.copyTextToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.copyTextToolStripMenuItem.Text = "Copy Text";
+            this.copyTextToolStripMenuItem.Click += new System.EventHandler(this.CopyTextToolStripMenuItem_Click);
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.SelectAllToolStripMenuItem_Click);
             // 
             // PdfPanel
             // 
@@ -166,6 +184,7 @@
             this.Size = new System.Drawing.Size(600, 615);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.PdfPanel_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.PdfPanel_DragEnter);
+            this.Enter += new System.EventHandler(this.PdfPanel_Enter);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.contextMenuStripPdf.ResumeLayout(false);
@@ -188,5 +207,7 @@
         private System.Windows.Forms.ToolStripMenuItem clearMarkersToolStripMenuItem;
         public System.Windows.Forms.ToolStripButton toolStripButtonNextPage;
         public System.Windows.Forms.ToolStripButton toolStripButtonPrevPage;
+        private System.Windows.Forms.ToolStripMenuItem copyTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
     }
 }

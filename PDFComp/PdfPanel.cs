@@ -272,12 +272,7 @@ namespace PDFComp
 
         private void ContextMenuStripPdf_Opening(object sender, CancelEventArgs e)
         {
-            ContextMenuStrip menu = (ContextMenuStrip)sender;
-            Point screenPosition = Control.MousePosition;
-            Point controlPosition = menu.SourceControl.PointToClient(screenPosition);
-            _contextMenuPosition = pdfViewer.Renderer.PointToPdf(controlPosition);
-
-            //e.Cancel = (_contextMenuPosition.Page < 0);
+            copyTextToolStripMenuItem.Enabled = pdfViewer.Renderer.IsTextSelected;
         }
 
         private void ClearMarkersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -293,5 +288,20 @@ namespace PDFComp
             ClearDiffMarker(_contextMenuPosition.Page);
         }
 
+        private void CopyTextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pdfViewer.Renderer.CopySelection();
+        }
+
+        private void SelectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pdfViewer.Renderer.SelectAll();
+        }
+
+        private void PdfPanel_Enter(object sender, EventArgs e)
+        {
+            Parent.Parent.Tag = this.Name;
+            Console.WriteLine("Enter:{0}", this.Name);
+        }
     }
 }

@@ -29,6 +29,7 @@ namespace PDFComp
         {
             InitializeComponent();
             comboBoxDiffType.SelectedIndex = 0;
+            radioButtonText.Checked = true;
 
             zoom = 1.0;
             zoomIn = false;
@@ -519,12 +520,38 @@ namespace PDFComp
 
         private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Copy SelectedText of focused pdfPanel.
+            // Tag is set when just focused on pdfPanel.
+            DataObject data = new DataObject();
+
+            if ((string)Tag == "pdfPanel1")
+            {
+                var text = pdfPanel1.pdfViewer.Renderer.SelectedText;
+                if (text?.Length > 0)
+                {
+                    data.SetData(DataFormats.Text, text);
+                }
+            }
+
+            if ((string)Tag == "pdfPanel2")
+            {
+                var text = pdfPanel2.pdfViewer.Renderer.SelectedText;
+                if (text?.Length > 0)
+                {
+                    data.SetData(DataFormats.Text, text);
+                }
+            }
+
+            // At the same time, copy the comparison image.
             if ((pdfPanel1.pdfViewer.Document != null) || (pdfPanel2.pdfViewer.Document != null))
             {
                 Bitmap bitmap = new Bitmap(panelBoth.ClientSize.Width, panelBoth.ClientSize.Height);
                 panelBoth.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
-                Clipboard.SetImage(bitmap);
+
+                data.SetData(DataFormats.Bitmap, bitmap);
             }
+
+            Clipboard.SetDataObject(data, true);
         }
 
         private void CopyFile1ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -598,5 +625,26 @@ namespace PDFComp
             buttonCompare.PerformClick();
         }
 
+        private void RadioButtonPan_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonPan.Checked)
+            {
+                pdfPanel1.pdfViewer.Renderer.CursorMode = PdfCursorMode.Pan;
+                pdfPanel2.pdfViewer.Renderer.CursorMode = PdfCursorMode.Pan;
+                pdfPanel1.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
+                pdfPanel2.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
+            }
+        }
+
+        private void RadioButtonText_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonText.Checked)
+            {
+                pdfPanel1.pdfViewer.Renderer.CursorMode = PdfCursorMode.TextSelection;
+                pdfPanel2.pdfViewer.Renderer.CursorMode = PdfCursorMode.TextSelection;
+                pdfPanel1.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
+                pdfPanel2.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
+            }
+        }
     }
 }

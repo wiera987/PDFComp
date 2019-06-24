@@ -49,6 +49,8 @@
             this.aboutPDFCompToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.panelBoth = new System.Windows.Forms.Panel();
+            this.pdfPanel2 = new PDFComp.PdfPanel();
+            this.pdfPanel1 = new PDFComp.PdfPanel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.buttonZoomIn = new System.Windows.Forms.Button();
             this.buttonZoomOut = new System.Windows.Forms.Button();
@@ -57,7 +59,6 @@
             this.timerButton = new System.Windows.Forms.Timer(this.components);
             this.buttonPrevPage = new System.Windows.Forms.Button();
             this.buttonNextPage = new System.Windows.Forms.Button();
-            this.checkBoxAutoCompare = new System.Windows.Forms.CheckBox();
             this.buttonCompare = new System.Windows.Forms.Button();
             this.buttonBookmark = new System.Windows.Forms.Button();
             this.buttonRotateLeft = new System.Windows.Forms.Button();
@@ -67,8 +68,8 @@
             this.buttonSearch2 = new System.Windows.Forms.Button();
             this.labelResult = new System.Windows.Forms.Label();
             this.comboBoxDiffType = new System.Windows.Forms.ComboBox();
-            this.pdfPanel2 = new PDFComp.PdfPanel();
-            this.pdfPanel1 = new PDFComp.PdfPanel();
+            this.radioButtonPan = new System.Windows.Forms.RadioButton();
+            this.radioButtonText = new System.Windows.Forms.RadioButton();
             this.menuStrip.SuspendLayout();
             this.panelBoth.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
@@ -234,6 +235,26 @@
             this.panelBoth.TabIndex = 2;
             this.panelBoth.SizeChanged += new System.EventHandler(this.Panel1_SizeChanged);
             // 
+            // pdfPanel2
+            // 
+            this.pdfPanel2.AllowDrop = true;
+            this.pdfPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdfPanel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pdfPanel2.Location = new System.Drawing.Point(617, 0);
+            this.pdfPanel2.Name = "pdfPanel2";
+            this.pdfPanel2.Size = new System.Drawing.Size(575, 724);
+            this.pdfPanel2.TabIndex = 2;
+            // 
+            // pdfPanel1
+            // 
+            this.pdfPanel1.AllowDrop = true;
+            this.pdfPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pdfPanel1.Location = new System.Drawing.Point(3, 0);
+            this.pdfPanel1.Name = "pdfPanel1";
+            this.pdfPanel1.Size = new System.Drawing.Size(495, 724);
+            this.pdfPanel1.TabIndex = 1;
+            // 
             // splitter1
             // 
             this.splitter1.Location = new System.Drawing.Point(0, 0);
@@ -314,17 +335,6 @@
             this.buttonNextPage.Text = "> Next";
             this.buttonNextPage.UseVisualStyleBackColor = true;
             this.buttonNextPage.Click += new System.EventHandler(this.ButtonNextPage_Click);
-            // 
-            // checkBoxAutoCompare
-            // 
-            this.checkBoxAutoCompare.AutoSize = true;
-            this.checkBoxAutoCompare.Location = new System.Drawing.Point(459, 27);
-            this.checkBoxAutoCompare.Name = "checkBoxAutoCompare";
-            this.checkBoxAutoCompare.Size = new System.Drawing.Size(48, 16);
-            this.checkBoxAutoCompare.TabIndex = 9;
-            this.checkBoxAutoCompare.Text = "Auto";
-            this.checkBoxAutoCompare.UseVisualStyleBackColor = true;
-            this.checkBoxAutoCompare.Visible = false;
             // 
             // buttonCompare
             // 
@@ -428,31 +438,40 @@
             this.comboBoxDiffType.TabIndex = 13;
             this.comboBoxDiffType.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDiffType_SelectedIndexChanged);
             // 
-            // pdfPanel2
+            // radioButtonPan
             // 
-            this.pdfPanel2.AllowDrop = true;
-            this.pdfPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdfPanel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pdfPanel2.Location = new System.Drawing.Point(617, 0);
-            this.pdfPanel2.Name = "pdfPanel2";
-            this.pdfPanel2.Size = new System.Drawing.Size(575, 724);
-            this.pdfPanel2.TabIndex = 2;
+            this.radioButtonPan.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButtonPan.AutoSize = true;
+            this.radioButtonPan.Location = new System.Drawing.Point(428, 24);
+            this.radioButtonPan.Name = "radioButtonPan";
+            this.radioButtonPan.Size = new System.Drawing.Size(34, 22);
+            this.radioButtonPan.TabIndex = 18;
+            this.radioButtonPan.TabStop = true;
+            this.radioButtonPan.Text = "Pan";
+            this.radioButtonPan.UseVisualStyleBackColor = true;
+            this.radioButtonPan.CheckedChanged += new System.EventHandler(this.RadioButtonPan_CheckedChanged);
             // 
-            // pdfPanel1
+            // radioButtonText
             // 
-            this.pdfPanel1.AllowDrop = true;
-            this.pdfPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pdfPanel1.Location = new System.Drawing.Point(3, 0);
-            this.pdfPanel1.Name = "pdfPanel1";
-            this.pdfPanel1.Size = new System.Drawing.Size(495, 724);
-            this.pdfPanel1.TabIndex = 1;
+            this.radioButtonText.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButtonText.Font = new System.Drawing.Font("Georgia", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonText.Location = new System.Drawing.Point(461, 24);
+            this.radioButtonText.Name = "radioButtonText";
+            this.radioButtonText.Size = new System.Drawing.Size(34, 22);
+            this.radioButtonText.TabIndex = 19;
+            this.radioButtonText.TabStop = true;
+            this.radioButtonText.Text = "T";
+            this.radioButtonText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButtonText.UseVisualStyleBackColor = true;
+            this.radioButtonText.CheckedChanged += new System.EventHandler(this.RadioButtonText_CheckedChanged);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1192, 773);
+            this.Controls.Add(this.radioButtonText);
+            this.Controls.Add(this.radioButtonPan);
             this.Controls.Add(this.comboBoxDiffType);
             this.Controls.Add(this.labelResult);
             this.Controls.Add(this.buttonSearch2);
@@ -462,7 +481,6 @@
             this.Controls.Add(this.buttonRotateLeft);
             this.Controls.Add(this.buttonBookmark);
             this.Controls.Add(this.buttonCompare);
-            this.Controls.Add(this.checkBoxAutoCompare);
             this.Controls.Add(this.buttonNextPage);
             this.Controls.Add(this.buttonPrevPage);
             this.Controls.Add(this.labelZoom);
@@ -506,7 +524,6 @@
         private System.Windows.Forms.Timer timerButton;
         private System.Windows.Forms.Button buttonPrevPage;
         private System.Windows.Forms.Button buttonNextPage;
-        private System.Windows.Forms.CheckBox checkBoxAutoCompare;
         private System.Windows.Forms.Button buttonCompare;
         private System.Windows.Forms.Button buttonBookmark;
         private System.Windows.Forms.Button buttonRotateLeft;
@@ -529,6 +546,8 @@
         private System.Windows.Forms.ToolStripMenuItem clearMarker1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearMarker2ToolStripMenuItem;
         private System.Windows.Forms.ComboBox comboBoxDiffType;
+        private System.Windows.Forms.RadioButton radioButtonPan;
+        private System.Windows.Forms.RadioButton radioButtonText;
     }
 }
 

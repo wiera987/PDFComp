@@ -124,17 +124,12 @@ namespace PDFComp
         {
             if (diffpage >= 0)
             {
-                // Rebuild markers except page
-                PdfMarker[] markers = new PdfMarker[pdfViewer.Renderer.Markers.Count];
-                pdfViewer.Renderer.Markers.CopyTo(markers, 0);
-
-                pdfViewer.Renderer.Markers.Clear();
-
-                foreach (PdfMarker marker in markers)
+                // Delete difference markers in the diffpage.
+                for (int i = pdfViewer.Renderer.Markers.Count - 1; i >= 0; i--)
                 {
-                    if (marker.Page != diffpage)
+                    if ((pdfViewer.Renderer.Markers[i].Page == diffpage) && (pdfViewer.Renderer.Markers[i].Tag == 1))
                     {
-                        pdfViewer.Renderer.Markers.Add(marker);
+                        pdfViewer.Renderer.Markers.RemoveAt(i);
                     }
                 }
 
@@ -174,7 +169,8 @@ namespace PDFComp
                             boundsRect,
                             Color.FromArgb(64, Color.Red),
                             Color.FromArgb(64, Color.Red),
-                            0);
+                            0,
+                            1);			// Add a tag1 that is a difference marker.
 
                         pdfViewer.Renderer.Markers.Add(marker);
 

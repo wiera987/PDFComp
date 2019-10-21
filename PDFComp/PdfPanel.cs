@@ -60,7 +60,10 @@ namespace PDFComp
 
                 GetBookmarkText(sb, bookmarks);
 
-                return sb.ToString();
+                if (sb.Length > 0)
+                {
+                    return sb.ToString();
+                }
             }
 
             return null;
@@ -271,6 +274,7 @@ namespace PDFComp
         private void ContextMenuStripPdf_Opening(object sender, CancelEventArgs e)
         {
             copyTextToolStripMenuItem.Enabled = pdfViewer.Renderer.IsTextSelected;
+            selectAllToolStripMenuItem.Enabled = (pdfViewer.Document != null);
         }
 
         private void ClearMarkersToolStripMenuItem_Click(object sender, EventArgs e)

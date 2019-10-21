@@ -18,8 +18,7 @@ namespace PDFComp
     {
         readonly Double ZoomInScale = 0.1;
         readonly Double ZoomOutScale = 0.03;
-        private bool _findDirty1;
-        private bool _findDirty2;
+        FormFind formFind = null;
         PdfRotation rotation;
         Double zoom;
         Boolean zoomIn;
@@ -466,58 +465,6 @@ namespace PDFComp
             pdfPanel2.Rotate(rotation);
         }
 
-        private void TextBoxSearch_TextChanged(object sender, EventArgs e)
-        {
-            _findDirty1 = true;
-            _findDirty2 = true;
-        }
-
-        private void ButtonSearch1_Click(object sender, EventArgs e)
-        {
-            if (pdfPanel1.pdfViewer.Document != null)
-            {
-                PdfSearchManager _searchManager = new PdfSearchManager(pdfPanel1.pdfViewer.Renderer);
-
-                if (_findDirty1)
-                {
-                    _findDirty1 = false;
-
-                    if (!_searchManager.Search(textBoxSearch.Text))
-                    {
-                        MessageBox.Show(this, "No matches found.");
-                        return;
-                    }
-                }
-
-                if (!_searchManager.FindNext(true))
-                    MessageBox.Show(this, "Find reached the starting point of the search.");
-            }
-
-        }
-
-        private void ButtonSearch2_Click(object sender, EventArgs e)
-        {
-            if (pdfPanel2.pdfViewer.Document != null)
-            {
-                PdfSearchManager _searchManager = new PdfSearchManager(pdfPanel2.pdfViewer.Renderer);
-
-                if (_findDirty2)
-                {
-                    _findDirty2 = false;
-
-                    if (!_searchManager.Search(textBoxSearch.Text))
-                    {
-                        MessageBox.Show(this, "No matches found.");
-                        return;
-                    }
-                }
-
-                if (!_searchManager.FindNext(true))
-                    MessageBox.Show(this, "Find reached the starting point of the search.");
-            }
-        }
-
-
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -651,5 +598,20 @@ namespace PDFComp
                 pdfPanel2.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
             }
         }
+
+        private void FindToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (formFind == null)
+            {
+                formFind = new FormFind();
+                formFind._pdfPanel1 = pdfPanel1;
+                formFind._pdfPanel2 = pdfPanel2;
+                formFind.StartPosition = FormStartPosition.Manual;
+                formFind.Location = Location + formFind.Size;
+            }
+            formFind.Hide();
+            formFind.Show(this);
+        }
+
     }
 }

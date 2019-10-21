@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 using PdfiumViewer;
 using NetDiff;
 
@@ -19,6 +20,7 @@ namespace PDFComp
         private double _zoom = 1.0;
         private PdfRotation _rotation = PdfRotation.Rotate0;
         private PdfPoint _contextMenuPosition;
+        private PdfSearchManager _searchManager;
 
         public PdfPanel()
         {
@@ -299,5 +301,31 @@ namespace PDFComp
             Parent.Parent.Tag = this.Name;
             Console.WriteLine("Enter:{0}", this.Name);
         }
+
+        public bool Search(string text, bool matchCase = false, bool matchWholeWord = false, bool highlight = false)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            if (_searchManager == null)
+            {
+                _searchManager = new PdfSearchManager(pdfViewer.Renderer);
+            }
+            _searchManager.MatchCase = matchCase;
+            _searchManager.MatchWholeWord = matchWholeWord;
+            _searchManager.HighlightAllMatches = highlight;
+            bool result = _searchManager.Search(text);
+
+            Cursor.Current = Cursors.Default;
+
+            return result;
+        }
+
+        public bool FindNext(bool forward)
+        {
+            Debug.Assert(_searchManager != null);
+
+            return _searchManager.FindNext(forward);
+        }
+
     }
 }

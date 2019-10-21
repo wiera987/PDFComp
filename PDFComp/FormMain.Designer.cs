@@ -40,6 +40,8 @@
             this.copyFile2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyBookmarks1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyBookmarks2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comparePageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -63,9 +65,6 @@
             this.buttonBookmark = new System.Windows.Forms.Button();
             this.buttonRotateLeft = new System.Windows.Forms.Button();
             this.buttonRotateRight = new System.Windows.Forms.Button();
-            this.textBoxSearch = new System.Windows.Forms.TextBox();
-            this.buttonSearch1 = new System.Windows.Forms.Button();
-            this.buttonSearch2 = new System.Windows.Forms.Button();
             this.labelResult = new System.Windows.Forms.Label();
             this.comboBoxDiffType = new System.Windows.Forms.ComboBox();
             this.radioButtonPan = new System.Windows.Forms.RadioButton();
@@ -100,14 +99,14 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -118,7 +117,9 @@
             this.copyFile1ToolStripMenuItem,
             this.copyFile2ToolStripMenuItem,
             this.copyBookmarks1ToolStripMenuItem,
-            this.copyBookmarks2ToolStripMenuItem});
+            this.copyBookmarks2ToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.findToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.editToolStripMenuItem.Text = "&Edit";
@@ -163,6 +164,19 @@
             this.copyBookmarks2ToolStripMenuItem.Text = "Copy bookmarks2";
             this.copyBookmarks2ToolStripMenuItem.Click += new System.EventHandler(this.CopyBookmarks2ToolStripMenuItem_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(194, 6);
+            // 
+            // findToolStripMenuItem
+            // 
+            this.findToolStripMenuItem.Name = "findToolStripMenuItem";
+            this.findToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.findToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.findToolStripMenuItem.Text = "Find...";
+            this.findToolStripMenuItem.Click += new System.EventHandler(this.FindToolStripMenuItem_Click);
+            // 
             // compareToolStripMenuItem
             // 
             this.compareToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -177,26 +191,26 @@
             // comparePageToolStripMenuItem
             // 
             this.comparePageToolStripMenuItem.Name = "comparePageToolStripMenuItem";
-            this.comparePageToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.comparePageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.comparePageToolStripMenuItem.Text = "Compare page";
             this.comparePageToolStripMenuItem.Click += new System.EventHandler(this.ComparePageToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(140, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
             // clearMarker1ToolStripMenuItem
             // 
             this.clearMarker1ToolStripMenuItem.Name = "clearMarker1ToolStripMenuItem";
-            this.clearMarker1ToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.clearMarker1ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearMarker1ToolStripMenuItem.Text = "Clear marker1";
             this.clearMarker1ToolStripMenuItem.Click += new System.EventHandler(this.ClearMarker1ToolStripMenuItem_Click);
             // 
             // clearMarker2ToolStripMenuItem
             // 
             this.clearMarker2ToolStripMenuItem.Name = "clearMarker2ToolStripMenuItem";
-            this.clearMarker2ToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.clearMarker2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearMarker2ToolStripMenuItem.Text = "Clear marker2";
             this.clearMarker2ToolStripMenuItem.Click += new System.EventHandler(this.ClearMarker2ToolStripMenuItem_Click);
             // 
@@ -211,7 +225,7 @@
             // aboutPDFCompToolStripMenuItem
             // 
             this.aboutPDFCompToolStripMenuItem.Name = "aboutPDFCompToolStripMenuItem";
-            this.aboutPDFCompToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.aboutPDFCompToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutPDFCompToolStripMenuItem.Text = "About PDFComp";
             this.aboutPDFCompToolStripMenuItem.Click += new System.EventHandler(this.AboutPDFCompToolStripMenuItem_Click);
             // 
@@ -252,7 +266,7 @@
             this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.pdfPanel1.Location = new System.Drawing.Point(3, 0);
             this.pdfPanel1.Name = "pdfPanel1";
-            this.pdfPanel1.Size = new System.Drawing.Size(495, 724);
+            this.pdfPanel1.Size = new System.Drawing.Size(512, 724);
             this.pdfPanel1.TabIndex = 1;
             // 
             // splitter1
@@ -376,40 +390,6 @@
             this.buttonRotateRight.UseVisualStyleBackColor = true;
             this.buttonRotateRight.Click += new System.EventHandler(this.ButtonRotateRight_Click);
             // 
-            // textBoxSearch
-            // 
-            this.textBoxSearch.Enabled = false;
-            this.textBoxSearch.Location = new System.Drawing.Point(670, 2);
-            this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(151, 19);
-            this.textBoxSearch.TabIndex = 14;
-            this.textBoxSearch.Visible = false;
-            this.textBoxSearch.TextChanged += new System.EventHandler(this.TextBoxSearch_TextChanged);
-            // 
-            // buttonSearch1
-            // 
-            this.buttonSearch1.Enabled = false;
-            this.buttonSearch1.Location = new System.Drawing.Point(827, 0);
-            this.buttonSearch1.Name = "buttonSearch1";
-            this.buttonSearch1.Size = new System.Drawing.Size(26, 23);
-            this.buttonSearch1.TabIndex = 15;
-            this.buttonSearch1.Text = "Search";
-            this.buttonSearch1.UseVisualStyleBackColor = true;
-            this.buttonSearch1.Visible = false;
-            this.buttonSearch1.Click += new System.EventHandler(this.ButtonSearch1_Click);
-            // 
-            // buttonSearch2
-            // 
-            this.buttonSearch2.Enabled = false;
-            this.buttonSearch2.Location = new System.Drawing.Point(859, 0);
-            this.buttonSearch2.Name = "buttonSearch2";
-            this.buttonSearch2.Size = new System.Drawing.Size(26, 23);
-            this.buttonSearch2.TabIndex = 16;
-            this.buttonSearch2.Text = "Search";
-            this.buttonSearch2.UseVisualStyleBackColor = true;
-            this.buttonSearch2.Visible = false;
-            this.buttonSearch2.Click += new System.EventHandler(this.ButtonSearch2_Click);
-            // 
             // labelResult
             // 
             this.labelResult.BackColor = System.Drawing.Color.Transparent;
@@ -474,9 +454,6 @@
             this.Controls.Add(this.radioButtonPan);
             this.Controls.Add(this.comboBoxDiffType);
             this.Controls.Add(this.labelResult);
-            this.Controls.Add(this.buttonSearch2);
-            this.Controls.Add(this.buttonSearch1);
-            this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.buttonRotateRight);
             this.Controls.Add(this.buttonRotateLeft);
             this.Controls.Add(this.buttonBookmark);
@@ -528,9 +505,6 @@
         private System.Windows.Forms.Button buttonBookmark;
         private System.Windows.Forms.Button buttonRotateLeft;
         private System.Windows.Forms.Button buttonRotateRight;
-        private System.Windows.Forms.TextBox textBoxSearch;
-        private System.Windows.Forms.Button buttonSearch1;
-        private System.Windows.Forms.Button buttonSearch2;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyFile1ToolStripMenuItem;
@@ -548,6 +522,8 @@
         private System.Windows.Forms.ComboBox comboBoxDiffType;
         private System.Windows.Forms.RadioButton radioButtonPan;
         private System.Windows.Forms.RadioButton radioButtonText;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
     }
 }
 

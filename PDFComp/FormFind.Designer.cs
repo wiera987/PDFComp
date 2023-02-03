@@ -28,40 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxFind = new System.Windows.Forms.TextBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFind));
             this.buttonNext1 = new System.Windows.Forms.Button();
             this.buttonNext2 = new System.Windows.Forms.Button();
             this.checkBoxMatchCase = new System.Windows.Forms.CheckBox();
             this.checkBoxMatchWholeWord = new System.Windows.Forms.CheckBox();
             this.checkBoxHighlightAll = new System.Windows.Forms.CheckBox();
+            this.comboBoxFind = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // textBoxFind
-            // 
-            this.textBoxFind.Location = new System.Drawing.Point(29, 15);
-            this.textBoxFind.Name = "textBoxFind";
-            this.textBoxFind.Size = new System.Drawing.Size(314, 19);
-            this.textBoxFind.TabIndex = 0;
-            this.textBoxFind.TextChanged += new System.EventHandler(this.TextBoxFind_TextChanged);
             // 
             // buttonNext1
             // 
-            this.buttonNext1.Location = new System.Drawing.Point(187, 40);
+            this.buttonNext1.Image = ((System.Drawing.Image)(resources.GetObject("buttonNext1.Image")));
+            this.buttonNext1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonNext1.Location = new System.Drawing.Point(151, 40);
             this.buttonNext1.Name = "buttonNext1";
-            this.buttonNext1.Size = new System.Drawing.Size(75, 23);
+            this.buttonNext1.Size = new System.Drawing.Size(111, 23);
             this.buttonNext1.TabIndex = 1;
-            this.buttonNext1.Text = "Next1 (F3)";
+            this.buttonNext1.Text = "Find Next (F3)";
             this.buttonNext1.UseCompatibleTextRendering = true;
             this.buttonNext1.UseVisualStyleBackColor = true;
             this.buttonNext1.Click += new System.EventHandler(this.ButtonNext1_Click);
             // 
             // buttonNext2
             // 
+            this.buttonNext2.Image = ((System.Drawing.Image)(resources.GetObject("buttonNext2.Image")));
+            this.buttonNext2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonNext2.Location = new System.Drawing.Point(268, 40);
             this.buttonNext2.Name = "buttonNext2";
-            this.buttonNext2.Size = new System.Drawing.Size(75, 23);
+            this.buttonNext2.Size = new System.Drawing.Size(112, 23);
             this.buttonNext2.TabIndex = 2;
-            this.buttonNext2.Text = "Next2 (F4)";
+            this.buttonNext2.Text = "Find Next (F4)";
             this.buttonNext2.UseVisualStyleBackColor = true;
             this.buttonNext2.Click += new System.EventHandler(this.ButtonNext2_Click);
             // 
@@ -100,17 +97,26 @@
             this.checkBoxHighlightAll.UseVisualStyleBackColor = true;
             this.checkBoxHighlightAll.CheckedChanged += new System.EventHandler(this.CheckBoxHighlightAll_CheckedChanged);
             // 
+            // comboBoxFind
+            // 
+            this.comboBoxFind.FormattingEnabled = true;
+            this.comboBoxFind.Location = new System.Drawing.Point(29, 13);
+            this.comboBoxFind.Name = "comboBoxFind";
+            this.comboBoxFind.Size = new System.Drawing.Size(351, 20);
+            this.comboBoxFind.TabIndex = 6;
+            this.comboBoxFind.TextChanged += new System.EventHandler(this.ComboBoxFind_TextChanged);
+            // 
             // FormFind
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(381, 107);
+            this.ClientSize = new System.Drawing.Size(399, 107);
+            this.Controls.Add(this.comboBoxFind);
             this.Controls.Add(this.checkBoxHighlightAll);
             this.Controls.Add(this.checkBoxMatchWholeWord);
             this.Controls.Add(this.checkBoxMatchCase);
             this.Controls.Add(this.buttonNext2);
             this.Controls.Add(this.buttonNext1);
-            this.Controls.Add(this.textBoxFind);
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -126,12 +132,11 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBoxFind;
         private System.Windows.Forms.Button buttonNext1;
         private System.Windows.Forms.Button buttonNext2;
         private System.Windows.Forms.CheckBox checkBoxMatchCase;
         private System.Windows.Forms.CheckBox checkBoxMatchWholeWord;
         private System.Windows.Forms.CheckBox checkBoxHighlightAll;
+        private System.Windows.Forms.ComboBox comboBoxFind;
     }
 }

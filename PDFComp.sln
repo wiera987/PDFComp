@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.202
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFComp", "PDFComp\PDFComp.csproj", "{00D32EB5-D3B2-43BE-B14E-56B323D41CD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfiumViewer", "..\PdfiumViewer\PdfiumViewer\PdfiumViewer.csproj", "{438914B6-5D1C-482C-B942-5C0E057EEF6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{00D32EB5-D3B2-43BE-B14E-56B323D41CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00D32EB5-D3B2-43BE-B14E-56B323D41CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00D32EB5-D3B2-43BE-B14E-56B323D41CD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{438914B6-5D1C-482C-B942-5C0E057EEF6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{438914B6-5D1C-482C-B942-5C0E057EEF6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{438914B6-5D1C-482C-B942-5C0E057EEF6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{438914B6-5D1C-482C-B942-5C0E057EEF6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

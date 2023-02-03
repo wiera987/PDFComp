@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>PDFComp</RootNamespace>
     <AssemblyName>PDFComp</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -44,9 +44,6 @@
   <ItemGroup>
     <Reference Include="NetDiff, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Diff4Net.1.2.0\lib\net452\NetDiff.dll</HintPath>
-    </Reference>
-    <Reference Include="PdfiumViewer, Version=2.13.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
-      <HintPath>..\packages\PdfiumViewer.2.13.0.0\lib\net20\PdfiumViewer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -126,8 +123,20 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\hand16.png" />
+    <Content Include="Images\Left_8.png" />
+    <Content Include="Images\Right_8.png" />
+    <Content Include="Images\rot_left16.png" />
+    <Content Include="Images\rot_right16.png" />
     <Content Include="PDFComp.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PdfiumViewer\PdfiumViewer\PdfiumViewer.csproj">
+      <Project>{438914b6-5d1c-482c-b942-5c0e057eef6f}</Project>
+      <Name>PdfiumViewer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

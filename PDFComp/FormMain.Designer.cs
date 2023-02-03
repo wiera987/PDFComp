@@ -51,8 +51,6 @@
             this.aboutPDFCompToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.panelBoth = new System.Windows.Forms.Panel();
-            this.pdfPanel2 = new PDFComp.PdfPanel();
-            this.pdfPanel1 = new PDFComp.PdfPanel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.buttonZoomIn = new System.Windows.Forms.Button();
             this.buttonZoomOut = new System.Windows.Forms.Button();
@@ -69,6 +67,8 @@
             this.comboBoxDiffType = new System.Windows.Forms.ComboBox();
             this.radioButtonPan = new System.Windows.Forms.RadioButton();
             this.radioButtonText = new System.Windows.Forms.RadioButton();
+            this.pdfPanel2 = new PDFComp.PdfPanel();
+            this.pdfPanel1 = new PDFComp.PdfPanel();
             this.menuStrip.SuspendLayout();
             this.panelBoth.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
@@ -93,20 +93,20 @@
             this.openToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(36, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.openToolStripMenuItem.Text = "Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -121,14 +121,14 @@
             this.toolStripSeparator1,
             this.findToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "&Edit";
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.copyToolStripMenuItem.Text = "&Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.CopyToolStripMenuItem_Click);
             // 
@@ -136,7 +136,7 @@
             // 
             this.copyFile1ToolStripMenuItem.Name = "copyFile1ToolStripMenuItem";
             this.copyFile1ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
-            this.copyFile1ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.copyFile1ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.copyFile1ToolStripMenuItem.Text = "Copy file1";
             this.copyFile1ToolStripMenuItem.Click += new System.EventHandler(this.CopyFile1ToolStripMenuItem_Click);
             // 
@@ -144,7 +144,7 @@
             // 
             this.copyFile2ToolStripMenuItem.Name = "copyFile2ToolStripMenuItem";
             this.copyFile2ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
-            this.copyFile2ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.copyFile2ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.copyFile2ToolStripMenuItem.Text = "Copy file2";
             this.copyFile2ToolStripMenuItem.Click += new System.EventHandler(this.CopyFile2ToolStripMenuItem_Click);
             // 
@@ -152,7 +152,7 @@
             // 
             this.copyBookmarks1ToolStripMenuItem.Name = "copyBookmarks1ToolStripMenuItem";
             this.copyBookmarks1ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
-            this.copyBookmarks1ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.copyBookmarks1ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.copyBookmarks1ToolStripMenuItem.Text = "Copy bookmarks1";
             this.copyBookmarks1ToolStripMenuItem.Click += new System.EventHandler(this.CopyBookmarks1ToolStripMenuItem_Click);
             // 
@@ -160,20 +160,20 @@
             // 
             this.copyBookmarks2ToolStripMenuItem.Name = "copyBookmarks2ToolStripMenuItem";
             this.copyBookmarks2ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D4)));
-            this.copyBookmarks2ToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.copyBookmarks2ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.copyBookmarks2ToolStripMenuItem.Text = "Copy bookmarks2";
             this.copyBookmarks2ToolStripMenuItem.Click += new System.EventHandler(this.CopyBookmarks2ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(194, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(204, 6);
             // 
             // findToolStripMenuItem
             // 
             this.findToolStripMenuItem.Name = "findToolStripMenuItem";
             this.findToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.findToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.findToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.findToolStripMenuItem.Text = "Find...";
             this.findToolStripMenuItem.Click += new System.EventHandler(this.FindToolStripMenuItem_Click);
             // 
@@ -185,32 +185,32 @@
             this.clearMarker1ToolStripMenuItem,
             this.clearMarker2ToolStripMenuItem});
             this.compareToolStripMenuItem.Name = "compareToolStripMenuItem";
-            this.compareToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.compareToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.compareToolStripMenuItem.Text = "&Compare";
             // 
             // comparePageToolStripMenuItem
             // 
             this.comparePageToolStripMenuItem.Name = "comparePageToolStripMenuItem";
-            this.comparePageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.comparePageToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.comparePageToolStripMenuItem.Text = "Compare page";
             this.comparePageToolStripMenuItem.Click += new System.EventHandler(this.ComparePageToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(147, 6);
             // 
             // clearMarker1ToolStripMenuItem
             // 
             this.clearMarker1ToolStripMenuItem.Name = "clearMarker1ToolStripMenuItem";
-            this.clearMarker1ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearMarker1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.clearMarker1ToolStripMenuItem.Text = "Clear marker1";
             this.clearMarker1ToolStripMenuItem.Click += new System.EventHandler(this.ClearMarker1ToolStripMenuItem_Click);
             // 
             // clearMarker2ToolStripMenuItem
             // 
             this.clearMarker2ToolStripMenuItem.Name = "clearMarker2ToolStripMenuItem";
-            this.clearMarker2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearMarker2ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.clearMarker2ToolStripMenuItem.Text = "Clear marker2";
             this.clearMarker2ToolStripMenuItem.Click += new System.EventHandler(this.ClearMarker2ToolStripMenuItem_Click);
             // 
@@ -219,13 +219,13 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutPDFCompToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
             // aboutPDFCompToolStripMenuItem
             // 
             this.aboutPDFCompToolStripMenuItem.Name = "aboutPDFCompToolStripMenuItem";
-            this.aboutPDFCompToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutPDFCompToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.aboutPDFCompToolStripMenuItem.Text = "About PDFComp";
             this.aboutPDFCompToolStripMenuItem.Click += new System.EventHandler(this.AboutPDFCompToolStripMenuItem_Click);
             // 
@@ -248,26 +248,6 @@
             this.panelBoth.Size = new System.Drawing.Size(1192, 724);
             this.panelBoth.TabIndex = 2;
             this.panelBoth.SizeChanged += new System.EventHandler(this.Panel1_SizeChanged);
-            // 
-            // pdfPanel2
-            // 
-            this.pdfPanel2.AllowDrop = true;
-            this.pdfPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdfPanel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pdfPanel2.Location = new System.Drawing.Point(617, 0);
-            this.pdfPanel2.Name = "pdfPanel2";
-            this.pdfPanel2.Size = new System.Drawing.Size(575, 724);
-            this.pdfPanel2.TabIndex = 2;
-            // 
-            // pdfPanel1
-            // 
-            this.pdfPanel1.AllowDrop = true;
-            this.pdfPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pdfPanel1.Location = new System.Drawing.Point(3, 0);
-            this.pdfPanel1.Name = "pdfPanel1";
-            this.pdfPanel1.Size = new System.Drawing.Size(512, 724);
-            this.pdfPanel1.TabIndex = 1;
             // 
             // splitter1
             // 
@@ -372,21 +352,21 @@
             // 
             // buttonRotateLeft
             // 
+            this.buttonRotateLeft.Image = ((System.Drawing.Image)(resources.GetObject("buttonRotateLeft.Image")));
             this.buttonRotateLeft.Location = new System.Drawing.Point(286, 24);
             this.buttonRotateLeft.Name = "buttonRotateLeft";
             this.buttonRotateLeft.Size = new System.Drawing.Size(52, 23);
             this.buttonRotateLeft.TabIndex = 10;
-            this.buttonRotateLeft.Text = "Left";
             this.buttonRotateLeft.UseVisualStyleBackColor = true;
             this.buttonRotateLeft.Click += new System.EventHandler(this.ButtonRotateLeft_Click);
             // 
             // buttonRotateRight
             // 
+            this.buttonRotateRight.Image = ((System.Drawing.Image)(resources.GetObject("buttonRotateRight.Image")));
             this.buttonRotateRight.Location = new System.Drawing.Point(344, 24);
             this.buttonRotateRight.Name = "buttonRotateRight";
             this.buttonRotateRight.Size = new System.Drawing.Size(52, 23);
             this.buttonRotateRight.TabIndex = 11;
-            this.buttonRotateRight.Text = "Right";
             this.buttonRotateRight.UseVisualStyleBackColor = true;
             this.buttonRotateRight.Click += new System.EventHandler(this.ButtonRotateRight_Click);
             // 
@@ -421,13 +401,13 @@
             // radioButtonPan
             // 
             this.radioButtonPan.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButtonPan.AutoSize = true;
+            this.radioButtonPan.Image = ((System.Drawing.Image)(resources.GetObject("radioButtonPan.Image")));
+            this.radioButtonPan.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.radioButtonPan.Location = new System.Drawing.Point(428, 24);
             this.radioButtonPan.Name = "radioButtonPan";
             this.radioButtonPan.Size = new System.Drawing.Size(34, 22);
             this.radioButtonPan.TabIndex = 18;
             this.radioButtonPan.TabStop = true;
-            this.radioButtonPan.Text = "Pan";
             this.radioButtonPan.UseVisualStyleBackColor = true;
             this.radioButtonPan.CheckedChanged += new System.EventHandler(this.RadioButtonPan_CheckedChanged);
             // 
@@ -444,6 +424,26 @@
             this.radioButtonText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButtonText.UseVisualStyleBackColor = true;
             this.radioButtonText.CheckedChanged += new System.EventHandler(this.RadioButtonText_CheckedChanged);
+            // 
+            // pdfPanel2
+            // 
+            this.pdfPanel2.AllowDrop = true;
+            this.pdfPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdfPanel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pdfPanel2.Location = new System.Drawing.Point(617, 0);
+            this.pdfPanel2.Name = "pdfPanel2";
+            this.pdfPanel2.Size = new System.Drawing.Size(575, 724);
+            this.pdfPanel2.TabIndex = 2;
+            // 
+            // pdfPanel1
+            // 
+            this.pdfPanel1.AllowDrop = true;
+            this.pdfPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pdfPanel1.Location = new System.Drawing.Point(3, 0);
+            this.pdfPanel1.Name = "pdfPanel1";
+            this.pdfPanel1.Size = new System.Drawing.Size(512, 724);
+            this.pdfPanel1.TabIndex = 1;
             // 
             // FormMain
             // 

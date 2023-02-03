@@ -514,6 +514,7 @@ namespace PDFComp
                 pdfPanel1.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
                 Clipboard.SetImage(bitmap);
             }
+
         }
 
         private void CopyFile2ToolStripMenuItem_Click(object sender, EventArgs e)

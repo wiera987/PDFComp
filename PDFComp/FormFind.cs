@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PDFComp
 {
     public partial class FormFind : Form
     {
+        private bool _combobox_operating;
+        private bool _textDirty;
         private bool _findDirty1;
         private bool _findDirty2;
         public PdfPanel _pdfPanel1;
@@ -21,14 +24,20 @@ namespace PDFComp
         {
             InitializeComponent();
 
+            _combobox_operating = false;
+            _textDirty = true;
             _findDirty1 = true;
             _findDirty2 = true;
         }
 
-        private void TextBoxFind_TextChanged(object sender, EventArgs e)
+        private void ComboBoxFind_TextChanged(object sender, EventArgs e)
         {
-            _findDirty1 = true;
-            _findDirty2 = true;
+            if (_combobox_operating == false)
+            {
+                _textDirty = true;
+                _findDirty1 = true;
+                _findDirty2 = true;
+            }
         }
 
         private void CheckBoxMatchCase_CheckedChanged(object sender, EventArgs e)
@@ -68,11 +77,37 @@ namespace PDFComp
 
             if (_pdfPanel1.pdfViewer.Document != null)
             {
+                // Text changes when manipulating comboBox.Items
+                string search_text = comboBoxFind.Text;
+
+                if (_textDirty)
+                {
+                    _textDirty = false;
+                    _combobox_operating = true;
+
+                    // If it already exists, delete it and add it to the top of the list.
+                    int resultIndex = comboBoxFind.FindStringExact(search_text);
+                    if (resultIndex != -1)
+                    {
+                        comboBoxFind.Items.RemoveAt(resultIndex);
+                    }
+                    comboBoxFind.Items.Insert(0, search_text);
+                    comboBoxFind.SelectedIndex = 0;
+                    Console.WriteLine("Find L:{0}", search_text);
+
+                    // If the maximum number of registrations is exceeded, delete the last one.
+                    if (comboBoxFind.Items.Count > comboBoxFind.MaxDropDownItems )
+                    {
+                        comboBoxFind.Items.RemoveAt(comboBoxFind.Items.Count-1);
+                    }
+                    _combobox_operating = false;
+                }
+
                 if (_findDirty1)
                 {
                     _findDirty1 = false;
 
-                    if (!_pdfPanel1.Search(textBoxFind.Text,
+                    if (!_pdfPanel1.Search(search_text,
                                             checkBoxMatchCase.Checked,
                                             checkBoxMatchWholeWord.Checked,
                                             checkBoxHighlightAll.Checked))
@@ -95,11 +130,37 @@ namespace PDFComp
 
             if (_pdfPanel2.pdfViewer.Document != null)
             {
+                // Text changes when manipulating comboBox.Items
+                string search_text = comboBoxFind.Text;
+
+                if (_textDirty)
+                {
+                    _textDirty = false;
+                    _combobox_operating = true;
+
+                    // If it already exists, delete it and add it to the top of the list.
+                    int resultIndex = comboBoxFind.FindStringExact(search_text);
+                    if (resultIndex != -1)
+                    {
+                        comboBoxFind.Items.RemoveAt(resultIndex);
+                    }
+                    comboBoxFind.Items.Insert(0, search_text);
+                    comboBoxFind.SelectedIndex = 0;
+                    Console.WriteLine("Find R:{0}", search_text);
+
+                    // If the maximum number of registrations is exceeded, delete the last one.
+                    if (comboBoxFind.Items.Count > comboBoxFind.MaxDropDownItems)
+                    {
+                        comboBoxFind.Items.RemoveAt(comboBoxFind.Items.Count - 1);
+                    }
+                    _combobox_operating = false;
+                }
+
                 if (_findDirty2)
                 {
                     _findDirty2 = false;
 
-                    if (!_pdfPanel2.Search(textBoxFind.Text,
+                    if (!_pdfPanel2.Search(search_text,
                                             checkBoxMatchCase.Checked,
                                             checkBoxMatchWholeWord.Checked,
                                             checkBoxHighlightAll.Checked))
@@ -128,7 +189,7 @@ namespace PDFComp
 
         private void FormFind_Activated(object sender, EventArgs e)
         {
-            textBoxFind.Focus();
+            comboBoxFind.Focus();
         }
     }
 }

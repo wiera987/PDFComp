@@ -23,6 +23,8 @@ namespace PDFComp
         Double zoom;
         Boolean zoomIn;
         Boolean zoomOut;
+        int FindDiffPage1;
+        int FindDiffPage2;
 
         public FormMain()
         {
@@ -39,6 +41,9 @@ namespace PDFComp
             zoomIn = false;
             zoomOut = false;
             rotation = PdfRotation.Rotate0;
+
+            FindDiffPage1 = -1;
+            FindDiffPage2 = -1;
         }
 
         protected override bool ProcessDialogKey(Keys keyData)
@@ -200,7 +205,7 @@ namespace PDFComp
 
         private void ButtonCompare_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("Button click!");
+            Console.WriteLine("Compare Button click!");
 
             if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
             {
@@ -219,6 +224,31 @@ namespace PDFComp
             //    return;
             //}
 
+            ComparePage(stopwatch, page1, page2);
+
+            stopwatch.Stop();
+            Console.WriteLine("Marker:{0}", stopwatch.Elapsed);
+            stopwatch.Start();
+
+            //results.ToList().ForEach(r => Console.WriteLine(r.ToFormatString()));
+            if (stopwatch.ElapsedMilliseconds < 50)
+            {
+                Thread.Sleep(30);
+            }
+
+            // Draw with the markers.
+            pdfPanel1.Update();
+            pdfPanel2.Update();
+
+            stopwatch.Stop();
+            Console.WriteLine("Draw:{0}", stopwatch.Elapsed);
+
+            labelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
+        }
+
+        private bool ComparePage(System.Diagnostics.Stopwatch stopwatch, int page1, int page2)
+        {
+            // Once compared, clear the page number and diff markers.
             if (pdfPanel1.GetComparedPage(page1) >= 0)
             {
                 pdfPanel1.ClearDiffMarker(page1);
@@ -314,24 +344,14 @@ namespace PDFComp
             labelResult.Text = "....";
             labelResult.Update();
 
-            stopwatch.Stop();
-            Console.WriteLine("Marker:{0}", stopwatch.Elapsed);
-            stopwatch.Start();
+            // Remember the last page compared.
+            FindDiffPage1 = page1;
+            FindDiffPage2 = page2;
 
-            //results.ToList().ForEach(r => Console.WriteLine(r.ToFormatString()));
-            if (stopwatch.ElapsedMilliseconds < 50)
-            {
-                Thread.Sleep(30);
-            }
+            // If there is a difference on either page.
+            bool found_diff = (index1.Count>0) || (index2.Count>0);  
 
-            // Draw with the markers.
-            pdfPanel1.Update();
-            pdfPanel2.Update();
-
-            stopwatch.Stop();
-            Console.WriteLine("Draw:{0}", stopwatch.Elapsed);
-
-            labelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
+            return found_diff;
         }
 
         private static void ExtractDiffSpan2(List<PdfTextSpan> spanList1, List<PdfTextSpan> spanList2, List<Diff> diffs, int page1, int page2)
@@ -551,6 +571,13 @@ namespace PDFComp
             pdfPanel2.toolStripButtonOpen.PerformClick();
         }
 
+        private void usageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormUsage form = new FormUsage();
+            form.StartPosition = FormStartPosition.CenterParent;
+            form.ShowDialog();
+        }
+
         private void AboutPDFCompToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormAbout form = new FormAbout();
@@ -612,6 +639,48 @@ namespace PDFComp
             }
             formFind.Hide();
             formFind.Show(this);
+        }
+
+        private void buttonFindDiff_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Find diff Button click!");
+
+            if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
+            {
+                labelResult.Text = "0.0";
+                return;
+            }
+
+            var stopwatch = new System.Diagnostics.Stopwatch();
+
+            int pages = pdfPanel1.pdfViewer.Document.PageCount;
+
+            for (int i=0; i< pages; i++)
+            {
+                int page1 = pdfPanel1.pdfViewer.Renderer.Page;
+                int page2 = pdfPanel2.pdfViewer.Renderer.Page;
+
+                // If the page was just compared, compare from the next page.
+                if ((page1 == FindDiffPage1) && (page2 == FindDiffPage2))
+                {
+                    // skip compare.
+                }
+                else
+                {
+                    if (ComparePage(stopwatch, page1, page2))
+                    {
+                        break;
+                    }
+                }
+
+                pdfPanel1.NextPage();
+                pdfPanel2.NextPage();
+            }
+
+            stopwatch.Stop();
+
+            labelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
+
         }
 
     }

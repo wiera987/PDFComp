@@ -65,7 +65,7 @@
             this.labelAboutVersion.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAboutVersion.Location = new System.Drawing.Point(409, 62);
             this.labelAboutVersion.Name = "labelAboutVersion";
-            this.labelAboutVersion.Size = new System.Drawing.Size(61, 16);
+            this.labelAboutVersion.Size = new System.Drawing.Size(59, 16);
             this.labelAboutVersion.TabIndex = 3;
             this.labelAboutVersion.Text = "Version ";
             // 
@@ -74,9 +74,9 @@
             this.labelAboutAuth.AutoSize = true;
             this.labelAboutAuth.Location = new System.Drawing.Point(219, 136);
             this.labelAboutAuth.Name = "labelAboutAuth";
-            this.labelAboutAuth.Size = new System.Drawing.Size(208, 12);
+            this.labelAboutAuth.Size = new System.Drawing.Size(238, 12);
             this.labelAboutAuth.TabIndex = 4;
-            this.labelAboutAuth.Text = "(C) 2019  Wiera987  All rights reserved.";
+            this.labelAboutAuth.Text = "(C) 2019-2023  Wiera987  All rights reserved.";
             // 
             // labelAboutLicense
             // 
@@ -85,7 +85,7 @@
             this.labelAboutLicense.ForeColor = System.Drawing.Color.Blue;
             this.labelAboutLicense.Location = new System.Drawing.Point(216, 101);
             this.labelAboutLicense.Name = "labelAboutLicense";
-            this.labelAboutLicense.Size = new System.Drawing.Size(300, 14);
+            this.labelAboutLicense.Size = new System.Drawing.Size(299, 14);
             this.labelAboutLicense.TabIndex = 6;
             this.labelAboutLicense.Text = "licensed under the Apache License, Version2.0";
             this.labelAboutLicense.Click += new System.EventHandler(this.LabelAboutLicense_Click);
@@ -106,7 +106,7 @@
             this.labelAoutVerNo.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAoutVerNo.Location = new System.Drawing.Point(467, 62);
             this.labelAoutVerNo.Name = "labelAoutVerNo";
-            this.labelAoutVerNo.Size = new System.Drawing.Size(56, 16);
+            this.labelAoutVerNo.Size = new System.Drawing.Size(55, 16);
             this.labelAoutVerNo.TabIndex = 8;
             this.labelAoutVerNo.Text = "number";
             // 
@@ -122,6 +122,8 @@
             this.Controls.Add(this.labelAboutVersion);
             this.Controls.Add(this.labelAboutApp);
             this.Controls.Add(this.pictureBoxIcon);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormAbout";
             this.Text = "About PDFComp";
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FormAbout_MouseClick);

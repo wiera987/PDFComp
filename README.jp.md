@@ -8,11 +8,12 @@
 2つのPDFファイルの違いを自動的に比較するツールはありますが、ほとんど同じテキストでないと上手に違いを検出することは出来ません。
 段落構成を見直したようなPDFファイルを比較するときは、思ったページ同士が比較されずページの再指定が必要になります。
 このPDFCompはマニュアル操作に特化しページを素早く移動して、１ページずつ確認していくためのアプリケーションです。
-今のところ実験的なプロジェクトなので、必要最低限の機能しかありません。
+
+差異ページへの移動、検索履歴などの機能が追加されました。
 
 ### 動作環境
 
-* Microsoft Windows 7 sp1 with .NET Framework 4.5.2
+* Microsoft Windows 11(22H2) with .NET Framework 4.8
 
 ## 使い方
 ### インストール
@@ -24,6 +25,7 @@
 * 'Open' ボタンで 2つのpdfファイルを開きます. (もしくはファイルをドロップ)
 * '<Prev' と '>Next' ボタンで　同時に2つのPDFファイルのページを移動します. (左右の矢印キー)
 * '<' と '>' ボタンは、それぞれのPDFファイルのページを移動します. (CTRL+矢印キー、ALT+矢印キー)
+* '>>'ボタンは、それぞれのPDFファイルを比較しながら差異のあるページまで移動します.
 * 'Compare page' ボタンを押すと、ページの差異をハイライト表示します. (スペースキー)
 * 'Clear markers' のコンテキストメニューで、ハイライト表示している差分マーカーをクリアします.
 * 'Copy text'  のコンテキストメニューでテキストをコピーします.
@@ -34,8 +36,8 @@
 
 このプログラムはC#で開発されており、次の環境でビルドされました。
 
-* Microsoft Windows7 sp1 with .NET Framework 4.5.2
-* Microsoft Visual Studio Community 2019
+* Microsoft Windows 11(22H2) with .NET Framework 4.8
+* Microsoft Visual Studio Community 2022
 
 ### ライブラリ
 
@@ -54,7 +56,8 @@
 * PdfiemViewer.Native.x86_xx.xxxx
 * Diff4Net
 
-また、カスタム版の[PdfiumViewer]をビルドして、[PdfiumViewer]と置き換えます。
+また、[PDFComp]のソリューションから、カスタム版のPdfiumViewer.csprojを参照しています。
+このためカスタム版の[PdfiumViewer]は、[PDFComp]と同じ階層のフォルダに展開しておきます。
 
 最後に PDFCompプロジェクトをビルドします。
 

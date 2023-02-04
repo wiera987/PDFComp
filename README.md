@@ -9,11 +9,11 @@ There are tools that automatically compare the differences between two PDF files
 When comparing PDF files with a revised paragraph structure, the pages you want are not compared and you need to specify the pages again.
 This PDFComp is an application that specializes in manual operation and allows you to quickly move pages and check one page at a time.
 
-As it is an experimental project so far, it has only the minimum required functionality.
+The GUI has been updated and features such as navigation to difference pages and search history have been added.
 
 ### Application requirements
 
-* Microsoft Windows 7 sp1 with .NET Framework 4.5.2
+* Microsoft Windows 11(22H2) with .NET Framework 4.8
 
 ## Usage
 ### Installation
@@ -25,6 +25,7 @@ Download the zip file from [release](https://github.com/wiera987/PDFComp/release
 * The 'Open' button open two pdf files.　(or drop the file)
 * The '<Prev' and '>Next' buttons navigate two pdf pages at the same time. (arrow left and right keys)
 * The '<' and '>' buttons move between the pages of the respective PDF file. (Ctrl+arrow keys, Alt+arrow keys)
+* The '>>' button navigates to the page with the differences while comparing each PDF file.
 * The 'Compare page' button is to compare and hilight displaied pages. (space key)
 * The 'Clear markers' context menu is to clear the different markers.
 * The 'Copy text' context menu copies text.
@@ -35,8 +36,8 @@ Download the zip file from [release](https://github.com/wiera987/PDFComp/release
 
 This program was developed in C # and was built in the following environment:
 
-* Microsoft Windows 7 sp1 with .NET Framework 4.5.2
-* Microsoft Visual Studio Community 2019
+* Microsoft Windows 11(22H2) with .NET Framework 4.8
+* Microsoft Visual Studio Community 2022
 
 ### Libraries
 
@@ -54,7 +55,8 @@ Install the following three packages from Manage NuGet Packages menu:
 * PdfiemViewer.Native.x86_xx.xxxx (for your environment)
 * Diff4Net
 
-Also, build a custom version of [PdfiumViewer] and replace [PdfiumViewer].
+Also, the custom version of PdfiumViewer.csproj is referenced from the [PDFComp] solution.
+For this reason, the custom version of [PdfiumViewer] should be extracted to a folder in the same hierarchy as [PDFComp].
 
 Finally, build the PDFComp project.
 

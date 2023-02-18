@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PdfiumViewer;
-using NetDiff;
 using DiffMatchPatch;
 
 namespace PDFComp
@@ -249,13 +248,16 @@ namespace PDFComp
         private bool ComparePage(System.Diagnostics.Stopwatch stopwatch, int page1, int page2)
         {
             // Once compared, clear the page number and diff markers.
+            // It's translucent and overwritten, so if you don't erase it, it will get darker.
             if (pdfPanel1.GetComparedPage(page1) >= 0)
             {
-                pdfPanel1.ClearDiffMarker(page1);
+                var oneFullPage = pdfPanel1.pdfViewer.Renderer.CompareBounds.IsEmpty;
+                pdfPanel1.ClearDiffMarker(page1, oneFullPage);
             }
             if (pdfPanel2.GetComparedPage(page2) >= 0)
             {
-                pdfPanel2.ClearDiffMarker(page2);
+                var oneFullPage = pdfPanel2.pdfViewer.Renderer.CompareBounds.IsEmpty;
+                pdfPanel2.ClearDiffMarker(page2, oneFullPage);
             }
 
             // Draw without the marker.
@@ -283,11 +285,11 @@ namespace PDFComp
             int diffType = comboBoxDiffType.SelectedIndex;
             switch (diffType)
             {
-                case 0:     // NetDiff
-                    var results = DiffUtil.Diff(text1, text2);
-                    ExtractDiffSpan(index1, index2, results, page1, page2);
+                case 0:     // Google Diff - Raw
+                    dmp = new diff_match_patch();
+                    diffs = dmp.diff_main(text1, text2);
+                    ExtractDiffSpan2(index1, index2, diffs, page1, page2);
                     break;
-
                 case 1:     // Google Diff - Semantic
                     dmp = new diff_match_patch();
                     diffs = dmp.diff_main(text1, text2);
@@ -313,12 +315,6 @@ namespace PDFComp
                     dmp.Diff_EditCost = 3;
                     diffs = dmp.diff_main(text1, text2);
                     dmp.diff_cleanupEfficiency(diffs);
-                    ExtractDiffSpan2(index1, index2, diffs, page1, page2);
-                    break;
-
-                case 5:     // Google Diff - Raw
-                    dmp = new diff_match_patch();
-                    diffs = dmp.diff_main(text1, text2);
                     ExtractDiffSpan2(index1, index2, diffs, page1, page2);
                     break;
 
@@ -354,7 +350,7 @@ namespace PDFComp
             return found_diff;
         }
 
-        private static void ExtractDiffSpan2(List<PdfTextSpan> spanList1, List<PdfTextSpan> spanList2, List<Diff> diffs, int page1, int page2)
+        private void ExtractDiffSpan2(List<PdfTextSpan> spanList1, List<PdfTextSpan> spanList2, List<Diff> diffs, int page1, int page2)
         {
             if (diffs.Count() > 0)
             {
@@ -372,11 +368,13 @@ namespace PDFComp
                             offset2 += count;
                             break;
                         case Operation.INSERT:
-                            spanList2.Add(new PdfTextSpan(page2, offset2, count));
+                            //spanList2.Add(new PdfTextSpan(page2, offset2, count));
+                            AddSpanList(spanList2, pdfPanel2, page2, offset2, count);
                             offset2 += count;
                             break;
                         case Operation.DELETE:
-                            spanList1.Add(new PdfTextSpan(page1, offset1, count));
+                            //spanList1.Add(new PdfTextSpan(page1, offset1, count));
+                            AddSpanList(spanList1, pdfPanel1, page1, offset1, count);
                             offset1 += count;
                             break;
                     }
@@ -384,74 +382,39 @@ namespace PDFComp
             }
         }
 
-        private static void ExtractDiffSpan(List<PdfTextSpan> spanList1, List<PdfTextSpan> spanList2, IEnumerable<DiffResult<char>> results, int page1, int page2)
+        private void AddSpanList(List<PdfTextSpan> spanList, PdfPanel pdfpanel, int page, int offset, int count)
         {
-            if (results.Count() > 0)
+            int comp_offset = pdfpanel.GetCompOffset(offset);
+
+            if (comp_offset < 0)
             {
-                List<bool> list1 = new List<bool>();
-                List<bool> list2 = new List<bool>();
-                bool hasDiff1 = false;
-                bool hasDiff2 = false;
-
-                foreach (DiffResult<char> result in results)
-                {
-                    switch (result.Status)
-                    {
-                        case DiffStatus.Equal:
-                            list1.Add(false);
-                            list2.Add(false);
-                            break;
-                        case DiffStatus.Inserted:
-                            list2.Add(true);
-                            hasDiff2 = true;
-                            break;
-                        case DiffStatus.Deleted:
-                            list1.Add(true);
-                            hasDiff1 = true;
-                            break;
-                    }
-                }
-
-                if (hasDiff1)
-                {
-                    CountDiffSpan(spanList1, page1, list1);
-                }
-
-                if (hasDiff2)
-                {
-                    CountDiffSpan(spanList2, page2, list2);
-                }
-
-            }
-        }
-
-        private static void CountDiffSpan(List<PdfTextSpan> spanList, int page, List<bool> list)
-        {
-            bool oldStatus = list[0];
-            int offset = 0;
-            int count = 0;
-
-            foreach (bool status in list)
-            {
-                if (status == oldStatus)
-                {
-                    count++;
-                }
-                else
-                {
-                    if (oldStatus)
-                    {
-                        spanList.Add(new PdfTextSpan(page, offset, count));
-                    }
-                    offset += count;
-                    count = 1;
-                    oldStatus = status;
-                }
-            }
-
-            if (oldStatus)
-            {
+                // Extract the entire page. offset and comp_offset are the same.
                 spanList.Add(new PdfTextSpan(page, offset, count));
+            }
+            else
+            {
+                // Extract a range of CompareBounds. Convert from offset to comp_offset.
+                int item_offset = comp_offset;
+                int item_count = 0;
+
+                for (int i=0; i<count; i++)
+                {
+                    comp_offset = pdfpanel.GetCompOffset(offset+i);
+                    if (comp_offset != item_offset + item_count)
+                    {
+                        spanList.Add(new PdfTextSpan(page, item_offset, item_count));
+                        item_offset = comp_offset;
+                        item_count = 1;
+                    } else
+                    {
+                        item_count++;
+                    }
+                }
+
+                if (item_count> 0)
+                {
+                    spanList.Add(new PdfTextSpan(page, item_offset, item_count));
+                }
             }
         }
 
@@ -592,12 +555,12 @@ namespace PDFComp
 
         private void ClearMarker1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pdfPanel1.ClearDiffMarker(pdfPanel1.pdfViewer.Renderer.Page);
+            pdfPanel1.ClearDiffMarker(pdfPanel1.pdfViewer.Renderer.Page, true);
         }
 
         private void ClearMarker2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pdfPanel2.ClearDiffMarker(pdfPanel2.pdfViewer.Renderer.Page);
+            pdfPanel2.ClearDiffMarker(pdfPanel2.pdfViewer.Renderer.Page, true);
         }
 
         private void ComboBoxDiffType_SelectedIndexChanged(object sender, EventArgs e)
@@ -624,6 +587,17 @@ namespace PDFComp
                 pdfPanel2.pdfViewer.Renderer.CursorMode = PdfCursorMode.TextSelection;
                 pdfPanel1.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
                 pdfPanel2.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
+            }
+        }
+
+        private void radioButtonBounds_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonBounds.Checked)
+            {
+                pdfPanel1.pdfViewer.Renderer.CursorMode = PdfCursorMode.Bounds;
+                pdfPanel2.pdfViewer.Renderer.CursorMode = PdfCursorMode.Bounds;
+                pdfPanel1.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.Zoom;
+                pdfPanel2.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.Zoom;
             }
         }
 

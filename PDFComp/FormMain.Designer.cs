@@ -48,11 +48,10 @@
             this.clearMarker1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearMarker2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutPDFCompToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.panelBoth = new System.Windows.Forms.Panel();
-            this.pdfPanel2 = new PDFComp.PdfPanel();
-            this.pdfPanel1 = new PDFComp.PdfPanel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.buttonZoomIn = new System.Windows.Forms.Button();
             this.buttonZoomOut = new System.Windows.Forms.Button();
@@ -70,7 +69,9 @@
             this.radioButtonPan = new System.Windows.Forms.RadioButton();
             this.radioButtonText = new System.Windows.Forms.RadioButton();
             this.buttonFindDiff = new System.Windows.Forms.Button();
-            this.usageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.radioButtonBounds = new System.Windows.Forms.RadioButton();
+            this.pdfPanel2 = new PDFComp.PdfPanel();
+            this.pdfPanel1 = new PDFComp.PdfPanel();
             this.menuStrip.SuspendLayout();
             this.panelBoth.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
@@ -225,6 +226,13 @@
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
+            // usageToolStripMenuItem
+            // 
+            this.usageToolStripMenuItem.Name = "usageToolStripMenuItem";
+            this.usageToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.usageToolStripMenuItem.Text = "Usage";
+            this.usageToolStripMenuItem.Click += new System.EventHandler(this.usageToolStripMenuItem_Click);
+            // 
             // aboutPDFCompToolStripMenuItem
             // 
             this.aboutPDFCompToolStripMenuItem.Name = "aboutPDFCompToolStripMenuItem";
@@ -251,26 +259,6 @@
             this.panelBoth.Size = new System.Drawing.Size(1192, 724);
             this.panelBoth.TabIndex = 2;
             this.panelBoth.SizeChanged += new System.EventHandler(this.Panel1_SizeChanged);
-            // 
-            // pdfPanel2
-            // 
-            this.pdfPanel2.AllowDrop = true;
-            this.pdfPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdfPanel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pdfPanel2.Location = new System.Drawing.Point(617, 0);
-            this.pdfPanel2.Name = "pdfPanel2";
-            this.pdfPanel2.Size = new System.Drawing.Size(575, 724);
-            this.pdfPanel2.TabIndex = 2;
-            // 
-            // pdfPanel1
-            // 
-            this.pdfPanel1.AllowDrop = true;
-            this.pdfPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pdfPanel1.Location = new System.Drawing.Point(3, 0);
-            this.pdfPanel1.Name = "pdfPanel1";
-            this.pdfPanel1.Size = new System.Drawing.Size(512, 724);
-            this.pdfPanel1.TabIndex = 1;
             // 
             // splitter1
             // 
@@ -355,7 +343,7 @@
             // 
             // buttonCompare
             // 
-            this.buttonCompare.Location = new System.Drawing.Point(513, 24);
+            this.buttonCompare.Location = new System.Drawing.Point(526, 24);
             this.buttonCompare.Name = "buttonCompare";
             this.buttonCompare.Size = new System.Drawing.Size(99, 23);
             this.buttonCompare.TabIndex = 12;
@@ -365,7 +353,7 @@
             // 
             // buttonBookmark
             // 
-            this.buttonBookmark.Location = new System.Drawing.Point(181, 24);
+            this.buttonBookmark.Location = new System.Drawing.Point(167, 24);
             this.buttonBookmark.Name = "buttonBookmark";
             this.buttonBookmark.Size = new System.Drawing.Size(75, 23);
             this.buttonBookmark.TabIndex = 9;
@@ -376,7 +364,7 @@
             // buttonRotateLeft
             // 
             this.buttonRotateLeft.Image = ((System.Drawing.Image)(resources.GetObject("buttonRotateLeft.Image")));
-            this.buttonRotateLeft.Location = new System.Drawing.Point(265, 24);
+            this.buttonRotateLeft.Location = new System.Drawing.Point(251, 24);
             this.buttonRotateLeft.Name = "buttonRotateLeft";
             this.buttonRotateLeft.Size = new System.Drawing.Size(52, 23);
             this.buttonRotateLeft.TabIndex = 10;
@@ -386,7 +374,7 @@
             // buttonRotateRight
             // 
             this.buttonRotateRight.Image = ((System.Drawing.Image)(resources.GetObject("buttonRotateRight.Image")));
-            this.buttonRotateRight.Location = new System.Drawing.Point(318, 24);
+            this.buttonRotateRight.Location = new System.Drawing.Point(304, 24);
             this.buttonRotateRight.Name = "buttonRotateRight";
             this.buttonRotateRight.Size = new System.Drawing.Size(52, 23);
             this.buttonRotateRight.TabIndex = 11;
@@ -398,7 +386,7 @@
             this.labelResult.BackColor = System.Drawing.Color.Transparent;
             this.labelResult.Font = new System.Drawing.Font("MS UI Gothic", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.labelResult.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.labelResult.Location = new System.Drawing.Point(617, 33);
+            this.labelResult.Location = new System.Drawing.Point(630, 33);
             this.labelResult.Name = "labelResult";
             this.labelResult.Size = new System.Drawing.Size(26, 10);
             this.labelResult.TabIndex = 17;
@@ -413,9 +401,8 @@
             "Line mode - Semantic",
             "Line mode - Efficiency 4",
             "Line mode - Efficiency 5",
-            "Line mode - Efficiency 3",
-            "Character mode2"});
-            this.comboBoxDiffType.Location = new System.Drawing.Point(649, 26);
+            "Line mode - Efficiency 3"});
+            this.comboBoxDiffType.Location = new System.Drawing.Point(662, 26);
             this.comboBoxDiffType.Name = "comboBoxDiffType";
             this.comboBoxDiffType.Size = new System.Drawing.Size(181, 20);
             this.comboBoxDiffType.TabIndex = 13;
@@ -426,7 +413,7 @@
             this.radioButtonPan.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButtonPan.Image = ((System.Drawing.Image)(resources.GetObject("radioButtonPan.Image")));
             this.radioButtonPan.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.radioButtonPan.Location = new System.Drawing.Point(387, 24);
+            this.radioButtonPan.Location = new System.Drawing.Point(373, 24);
             this.radioButtonPan.Name = "radioButtonPan";
             this.radioButtonPan.Size = new System.Drawing.Size(34, 23);
             this.radioButtonPan.TabIndex = 18;
@@ -438,7 +425,7 @@
             // 
             this.radioButtonText.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButtonText.Font = new System.Drawing.Font("Georgia", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonText.Location = new System.Drawing.Point(420, 24);
+            this.radioButtonText.Location = new System.Drawing.Point(406, 24);
             this.radioButtonText.Name = "radioButtonText";
             this.radioButtonText.Size = new System.Drawing.Size(34, 23);
             this.radioButtonText.TabIndex = 19;
@@ -450,7 +437,7 @@
             // 
             // buttonFindDiff
             // 
-            this.buttonFindDiff.Location = new System.Drawing.Point(477, 25);
+            this.buttonFindDiff.Location = new System.Drawing.Point(490, 24);
             this.buttonFindDiff.Name = "buttonFindDiff";
             this.buttonFindDiff.Size = new System.Drawing.Size(34, 23);
             this.buttonFindDiff.TabIndex = 20;
@@ -458,18 +445,46 @@
             this.buttonFindDiff.UseVisualStyleBackColor = true;
             this.buttonFindDiff.Click += new System.EventHandler(this.buttonFindDiff_Click);
             // 
-            // usageToolStripMenuItem
+            // radioButtonBounds
             // 
-            this.usageToolStripMenuItem.Name = "usageToolStripMenuItem";
-            this.usageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.usageToolStripMenuItem.Text = "Usage";
-            this.usageToolStripMenuItem.Click += new System.EventHandler(this.usageToolStripMenuItem_Click);
+            this.radioButtonBounds.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButtonBounds.Font = new System.Drawing.Font("Georgia", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonBounds.Image = ((System.Drawing.Image)(resources.GetObject("radioButtonBounds.Image")));
+            this.radioButtonBounds.Location = new System.Drawing.Point(439, 24);
+            this.radioButtonBounds.Name = "radioButtonBounds";
+            this.radioButtonBounds.Size = new System.Drawing.Size(34, 23);
+            this.radioButtonBounds.TabIndex = 21;
+            this.radioButtonBounds.TabStop = true;
+            this.radioButtonBounds.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButtonBounds.UseVisualStyleBackColor = true;
+            this.radioButtonBounds.CheckedChanged += new System.EventHandler(this.radioButtonBounds_CheckedChanged);
+            // 
+            // pdfPanel2
+            // 
+            this.pdfPanel2.AllowDrop = true;
+            this.pdfPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdfPanel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pdfPanel2.Location = new System.Drawing.Point(617, 0);
+            this.pdfPanel2.Name = "pdfPanel2";
+            this.pdfPanel2.Size = new System.Drawing.Size(575, 724);
+            this.pdfPanel2.TabIndex = 2;
+            // 
+            // pdfPanel1
+            // 
+            this.pdfPanel1.AllowDrop = true;
+            this.pdfPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pdfPanel1.Location = new System.Drawing.Point(3, 0);
+            this.pdfPanel1.Name = "pdfPanel1";
+            this.pdfPanel1.Size = new System.Drawing.Size(512, 724);
+            this.pdfPanel1.TabIndex = 1;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1192, 773);
+            this.Controls.Add(this.radioButtonBounds);
             this.Controls.Add(this.buttonFindDiff);
             this.Controls.Add(this.radioButtonText);
             this.Controls.Add(this.radioButtonPan);
@@ -547,6 +562,7 @@
         private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
         private System.Windows.Forms.Button buttonFindDiff;
         private System.Windows.Forms.ToolStripMenuItem usageToolStripMenuItem;
+        private System.Windows.Forms.RadioButton radioButtonBounds;
     }
 }
 

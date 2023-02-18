@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using PdfiumViewer;
-using NetDiff;
 
 namespace PDFComp
 {
@@ -22,12 +21,24 @@ namespace PDFComp
         private PdfRotation _rotation = PdfRotation.Rotate0;
         private PdfPoint _contextMenuPosition;
         private PdfSearchManager _searchManager;
-        private int _pageReading; 
+        private int _pageReading;
+        private bool _mouseDrag = false;
+        private PdfPoint _mouseDown;
+        private PdfPoint _mouseUp;
+        private int[] _comp_offs = null;
+
+        enum PdfMarkerTag {
+            Search,
+            Diff
+        };
 
         public PdfPanel()
         {
             InitializeComponent();
             pdfViewer.Renderer.DisplayRectangleChanged += Renderer_DisplayRectangleChanged;
+            pdfViewer.Renderer.MouseDown += Renderer_MouseDown;
+            pdfViewer.Renderer.MouseMove += Renderer_MouseMove;
+            pdfViewer.Renderer.MouseUp += Renderer_MouseUp;
 
             pdfViewer.Renderer.ContextMenuStrip = contextMenuStripPdf;
 
@@ -88,11 +99,87 @@ namespace PDFComp
         {
             if (pdfViewer.Document != null)
             {
-                return pdfViewer.Document.GetPdfText(pdfViewer.Renderer.Page);
+                if (pdfViewer.Renderer.CompareBounds.IsEmpty)
+                {
+                    // Extract the entire page.
+                    _comp_offs = null;
+                    return pdfViewer.Document.GetPdfText(pdfViewer.Renderer.Page);
+                }
+                else
+                {
+                    // Extract a range of CompareBounds.
+                    var page = pdfViewer.Renderer.Page;
+                    var text = pdfViewer.Document.GetPdfText(page);
+                    var comp_text = string.Empty;
+                    var comp_rect = pdfViewer.Renderer.CompareBounds;
+                    var count = 0;
+
+                    _comp_offs = new int[text.Length];
+
+                    for (int i = 0; i < text.Length; i++)
+                    {
+                        var textSpan = new PdfTextSpan(page, i, 1);
+                        //Console.WriteLine("textSpan Page{0}: Offset{1}, Len{2} = {3}", textSpan.Page, textSpan.Offset, textSpan.Length, text[i]);
+
+                        var bounds = pdfViewer.Renderer.Document.GetTextBounds(textSpan);
+                        var rect = bounds[0].Bounds;
+                        NormRectangle(ref rect);
+
+                        // If the entire rect is included in the comp_rect, extract the character.
+                        if (IsIncludedEntire(comp_rect, rect))
+                        {
+                            comp_text += text[i];
+                            _comp_offs[count] = i;
+                            count++;
+                        }
+
+                    }
+                    //Console.WriteLine("GetPageText = {0}", comp_text);
+                    return comp_text;
+                }
+
             }
 
             return "NULL";
         }
+
+        public void NormRectangle(ref RectangleF rect)
+        {
+            if (rect.Width < 0)
+            {
+                rect.X += rect.Width;
+                rect.Width = -rect.Width;
+            }
+            if (rect.Height < 0)
+            {
+                rect.Y += rect.Height;
+                rect.Height = -rect.Height;
+            }
+        }
+
+        public bool IsIncludedEntire(RectangleF base_rect, RectangleF rect)
+        {
+            // If the entire rect is included in the comp_rect, extract the character.
+            if ((rect.X + rect.Width <= base_rect.X + base_rect.Width) &&
+                (base_rect.X <= rect.X) &&
+                (rect.Y + rect.Height <= base_rect.Y + base_rect.Height) &&
+                (base_rect.Y <= rect.Y))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public int GetCompOffset(int i)
+        {
+            if (_comp_offs == null)
+            {
+                return -1;
+            }
+            return _comp_offs[i];
+        }
+
 
         internal void SetPageDiff(List<PdfTextSpan> indexes)
         {
@@ -128,14 +215,25 @@ namespace PDFComp
             return -1;
         }
 
-        public void ClearDiffMarker(int diffpage)
+        public void ClearDiffMarker(int diffpage, bool OneFullPage)
         {
             if (diffpage >= 0)
             {
                 // Delete difference markers in the diffpage.
                 for (int i = pdfViewer.Renderer.Markers.Count - 1; i >= 0; i--)
                 {
-                    if ((pdfViewer.Renderer.Markers[i].Page == diffpage) && (pdfViewer.Renderer.Markers[i].Tag == 1))
+                    PdfMarker marker = (PdfMarker)pdfViewer.Renderer.Markers[i];
+                    var comp_rect = pdfViewer.Renderer.CompareBounds;
+                    // Decrease the amount increased in AddDiffMarker().
+                    var boundsRect = new RectangleF(
+                                        marker.Bounds.Left + 1,
+                                        marker.Bounds.Top - 1,
+                                        marker.Bounds.Width - 2,
+                                        marker.Bounds.Height + 2);
+
+                    if ((marker.Page == diffpage) &&
+                        (marker.Tag == (int)PdfMarkerTag.Diff) &&
+                        (OneFullPage || IsIncludedEntire(comp_rect, boundsRect)))
                     {
                         pdfViewer.Renderer.Markers.RemoveAt(i);
                     }
@@ -178,7 +276,7 @@ namespace PDFComp
                             Color.FromArgb(64, Color.Red),
                             Color.FromArgb(64, Color.Red),
                             0,
-                            1);			// Add a tag1 that is a difference marker.
+                            (int)PdfMarkerTag.Diff);			// Add a difference marker.
 
                         pdfViewer.Renderer.Markers.Add(marker);
 
@@ -278,6 +376,62 @@ namespace PDFComp
             toolStripLabelPage.Text = (pdfViewer.Renderer.Page + 1).ToString();
         }
 
+        private void Renderer_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (pdfViewer.Renderer.CursorMode == PdfCursorMode.Bounds)
+            {
+                _mouseDrag = true;
+                _mouseDown = pdfViewer.Renderer.PointToPdf(e.Location);
+                _mouseUp = _mouseDown;
+
+                var bounds = new RectangleF(_mouseDown.Location, new SizeF(0, 0));
+                pdfViewer.Renderer.CompareBounds = bounds;
+
+                //Console.WriteLine("Down:{0}", bounds);
+            }
+        }
+        private void Renderer_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (pdfViewer.Renderer.CursorMode == PdfCursorMode.Bounds)
+            {
+                if (_mouseDrag)
+                {
+                    _mouseUp = pdfViewer.Renderer.PointToPdf(e.Location);
+
+                    var bounds = new RectangleF(
+                            _mouseDown.Location.X,
+                            _mouseDown.Location.Y,
+                            _mouseUp.Location.X - _mouseDown.Location.X,
+                            _mouseUp.Location.Y - _mouseDown.Location.Y
+                            );
+
+                    pdfViewer.Renderer.CompareBounds = bounds;
+
+                    //Console.WriteLine("Move:{0}", bounds);
+                }
+            }
+        }
+
+        private void Renderer_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (pdfViewer.Renderer.CursorMode == PdfCursorMode.Bounds)
+            {
+                _mouseDrag = false;
+                _mouseUp = pdfViewer.Renderer.PointToPdf(e.Location);
+ 
+                var bounds = new RectangleF(
+                    _mouseDown.Location.X,
+                    _mouseDown.Location.Y,
+                    _mouseUp.Location.X - _mouseDown.Location.X,
+                    _mouseUp.Location.Y - _mouseDown.Location.Y
+                    );
+
+                pdfViewer.Renderer.CompareBounds = bounds;
+
+                //Console.WriteLine("Up  :{0}", bounds);
+            }
+        }
+
         private void ContextMenuStripPdf_Opening(object sender, CancelEventArgs e)
         {
             copyTextToolStripMenuItem.Enabled = pdfViewer.Renderer.IsTextSelected;
@@ -294,7 +448,7 @@ namespace PDFComp
             //Console.WriteLine(_contextMenuPosition.Page);
             //Console.WriteLine(_contextMenuPosition.Location);
 
-            ClearDiffMarker(_contextMenuPosition.Page);
+            ClearDiffMarker(_contextMenuPosition.Page, true);
         }
 
         private void CopyTextToolStripMenuItem_Click(object sender, EventArgs e)

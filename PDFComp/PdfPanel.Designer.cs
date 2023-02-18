@@ -44,6 +44,7 @@
             this.clearMarkersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timerPageData = new System.Windows.Forms.Timer(this.components);
             this.toolStrip1.SuspendLayout();
             this.contextMenuStripPdf.SuspendLayout();
             this.SuspendLayout();
@@ -71,13 +72,14 @@
             this.toolStripButtonOpen.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonOpen.Image")));
             this.toolStripButtonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonOpen.Name = "toolStripButtonOpen";
-            this.toolStripButtonOpen.Size = new System.Drawing.Size(35, 22);
+            this.toolStripButtonOpen.Size = new System.Drawing.Size(40, 22);
             this.toolStripButtonOpen.Text = "Open";
             this.toolStripButtonOpen.ToolTipText = "Open PDF file.";
             this.toolStripButtonOpen.Click += new System.EventHandler(this.ToolStripButtonOpen_Click);
             // 
             // toolStripTextBoxFile
             // 
+            this.toolStripTextBoxFile.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
             this.toolStripTextBoxFile.Name = "toolStripTextBoxFile";
             this.toolStripTextBoxFile.Size = new System.Drawing.Size(400, 25);
             // 
@@ -109,21 +111,21 @@
             // 
             this.toolStripLabelPages.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripLabelPages.Name = "toolStripLabelPages";
-            this.toolStripLabelPages.Size = new System.Drawing.Size(36, 22);
+            this.toolStripLabelPages.Size = new System.Drawing.Size(38, 22);
             this.toolStripLabelPages.Text = "Pages";
             // 
             // toolStripLabelPer
             // 
             this.toolStripLabelPer.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripLabelPer.Name = "toolStripLabelPer";
-            this.toolStripLabelPer.Size = new System.Drawing.Size(11, 22);
+            this.toolStripLabelPer.Size = new System.Drawing.Size(12, 22);
             this.toolStripLabelPer.Text = "/";
             // 
             // toolStripLabelPage
             // 
             this.toolStripLabelPage.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripLabelPage.Name = "toolStripLabelPage";
-            this.toolStripLabelPage.Size = new System.Drawing.Size(29, 22);
+            this.toolStripLabelPage.Size = new System.Drawing.Size(33, 22);
             this.toolStripLabelPage.Text = "page";
             // 
             // openFileDialog
@@ -149,29 +151,34 @@
             this.selectAllToolStripMenuItem});
             this.contextMenuStripPdf.Name = "contextMenuStripPdf";
             this.contextMenuStripPdf.ShowImageMargin = false;
-            this.contextMenuStripPdf.Size = new System.Drawing.Size(118, 70);
+            this.contextMenuStripPdf.Size = new System.Drawing.Size(120, 70);
             this.contextMenuStripPdf.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStripPdf_Opening);
             // 
             // clearMarkersToolStripMenuItem
             // 
             this.clearMarkersToolStripMenuItem.Name = "clearMarkersToolStripMenuItem";
-            this.clearMarkersToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.clearMarkersToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.clearMarkersToolStripMenuItem.Text = "Clear markers";
             this.clearMarkersToolStripMenuItem.Click += new System.EventHandler(this.ClearMarkersToolStripMenuItem_Click);
             // 
             // copyTextToolStripMenuItem
             // 
             this.copyTextToolStripMenuItem.Name = "copyTextToolStripMenuItem";
-            this.copyTextToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.copyTextToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.copyTextToolStripMenuItem.Text = "Copy Text";
             this.copyTextToolStripMenuItem.Click += new System.EventHandler(this.CopyTextToolStripMenuItem_Click);
             // 
             // selectAllToolStripMenuItem
             // 
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.selectAllToolStripMenuItem.Text = "Select All";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.SelectAllToolStripMenuItem_Click);
+            // 
+            // timerPageData
+            // 
+            this.timerPageData.Interval = 10;
+            this.timerPageData.Tick += new System.EventHandler(this.timerPageData_Tick);
             // 
             // PdfPanel
             // 
@@ -209,5 +216,6 @@
         public System.Windows.Forms.ToolStripButton toolStripButtonPrevPage;
         private System.Windows.Forms.ToolStripMenuItem copyTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+        private System.Windows.Forms.Timer timerPageData;
     }
 }

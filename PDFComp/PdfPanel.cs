@@ -15,12 +15,14 @@ namespace PDFComp
 {
     public partial class PdfPanel : UserControl
     {
+        readonly int pagesPerTick = 10;
         private List<int> _comparePage = null;
         private List<PdfTextSpan> _indexes = null;
         private double _zoom = 1.0;
         private PdfRotation _rotation = PdfRotation.Rotate0;
         private PdfPoint _contextMenuPosition;
         private PdfSearchManager _searchManager;
+        private int _pageReading; 
 
         public PdfPanel()
         {
@@ -29,6 +31,7 @@ namespace PDFComp
 
             pdfViewer.Renderer.ContextMenuStrip = contextMenuStripPdf;
 
+            _pageReading = -1;
         }
 
         public void NextPage()
@@ -238,6 +241,10 @@ namespace PDFComp
 
             _indexes = null;
             pdfViewer.Renderer.Markers.Clear();
+
+            // Load PageData with Timer event.
+            _pageReading = 0;
+            timerPageData.Enabled = true;
         }
 
         private void ToolStripButtonPrevPage_Click(object sender, EventArgs e)
@@ -331,5 +338,24 @@ namespace PDFComp
             return _searchManager.FindNext(forward);
         }
 
+        private void timerPageData_Tick(object sender, EventArgs e)
+        {
+            // Read PageData in the Timer event because the search takes a long time.
+            for (int i = _pageReading; i < pdfViewer.Document.PageCount; i++)
+            {
+                if (i == _pageReading + pagesPerTick)
+                {
+                    _pageReading = i;
+                    return;
+                }
+
+                // dummy job
+                pdfViewer.Renderer.Document.GetPdfText(new PdfTextSpan(i, 0, 1));
+            }
+
+            // PageData caching completed.
+            _pageReading = -1;
+            timerPageData.Enabled = false;
+        }
     }
 }

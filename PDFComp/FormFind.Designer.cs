@@ -108,6 +108,7 @@
             // 
             // FormFind
             // 
+            this.AcceptButton = this.buttonNext1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(399, 107);

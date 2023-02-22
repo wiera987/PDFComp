@@ -101,6 +101,7 @@
             // 
             this.comboBoxFind.FormattingEnabled = true;
             this.comboBoxFind.Location = new System.Drawing.Point(29, 13);
+            this.comboBoxFind.MaxDropDownItems = 20;
             this.comboBoxFind.Name = "comboBoxFind";
             this.comboBoxFind.Size = new System.Drawing.Size(351, 20);
             this.comboBoxFind.TabIndex = 6;

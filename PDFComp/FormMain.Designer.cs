@@ -52,6 +52,8 @@
             this.aboutPDFCompToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.panelBoth = new System.Windows.Forms.Panel();
+            this.pdfPanel2 = new PDFComp.PdfPanel();
+            this.pdfPanel1 = new PDFComp.PdfPanel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.buttonZoomIn = new System.Windows.Forms.Button();
             this.buttonZoomOut = new System.Windows.Forms.Button();
@@ -71,8 +73,9 @@
             this.buttonFindDiff = new System.Windows.Forms.Button();
             this.radioButtonBounds = new System.Windows.Forms.RadioButton();
             this.buttonPrevDiff = new System.Windows.Forms.Button();
-            this.pdfPanel2 = new PDFComp.PdfPanel();
-            this.pdfPanel1 = new PDFComp.PdfPanel();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.nextDifferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.previousDifferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelBoth.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
@@ -186,6 +189,9 @@
             this.compareToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.comparePageToolStripMenuItem,
             this.toolStripMenuItem1,
+            this.nextDifferenceToolStripMenuItem,
+            this.previousDifferenceToolStripMenuItem,
+            this.toolStripSeparator2,
             this.clearMarker1ToolStripMenuItem,
             this.clearMarker2ToolStripMenuItem});
             this.compareToolStripMenuItem.Name = "compareToolStripMenuItem";
@@ -195,26 +201,26 @@
             // comparePageToolStripMenuItem
             // 
             this.comparePageToolStripMenuItem.Name = "comparePageToolStripMenuItem";
-            this.comparePageToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.comparePageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.comparePageToolStripMenuItem.Text = "Compare page";
             this.comparePageToolStripMenuItem.Click += new System.EventHandler(this.ComparePageToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(147, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
             // clearMarker1ToolStripMenuItem
             // 
             this.clearMarker1ToolStripMenuItem.Name = "clearMarker1ToolStripMenuItem";
-            this.clearMarker1ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.clearMarker1ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearMarker1ToolStripMenuItem.Text = "Clear marker1";
             this.clearMarker1ToolStripMenuItem.Click += new System.EventHandler(this.ClearMarker1ToolStripMenuItem_Click);
             // 
             // clearMarker2ToolStripMenuItem
             // 
             this.clearMarker2ToolStripMenuItem.Name = "clearMarker2ToolStripMenuItem";
-            this.clearMarker2ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.clearMarker2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearMarker2ToolStripMenuItem.Text = "Clear marker2";
             this.clearMarker2ToolStripMenuItem.Click += new System.EventHandler(this.ClearMarker2ToolStripMenuItem_Click);
             // 
@@ -230,15 +236,15 @@
             // usageToolStripMenuItem
             // 
             this.usageToolStripMenuItem.Name = "usageToolStripMenuItem";
-            this.usageToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.usageToolStripMenuItem.Text = "Usage";
+            this.usageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.usageToolStripMenuItem.Text = "Usage ...";
             this.usageToolStripMenuItem.Click += new System.EventHandler(this.usageToolStripMenuItem_Click);
             // 
             // aboutPDFCompToolStripMenuItem
             // 
             this.aboutPDFCompToolStripMenuItem.Name = "aboutPDFCompToolStripMenuItem";
-            this.aboutPDFCompToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.aboutPDFCompToolStripMenuItem.Text = "About PDFComp";
+            this.aboutPDFCompToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutPDFCompToolStripMenuItem.Text = "About PDFComp ...";
             this.aboutPDFCompToolStripMenuItem.Click += new System.EventHandler(this.AboutPDFCompToolStripMenuItem_Click);
             // 
             // toolStrip1
@@ -260,6 +266,26 @@
             this.panelBoth.Size = new System.Drawing.Size(1192, 724);
             this.panelBoth.TabIndex = 2;
             this.panelBoth.SizeChanged += new System.EventHandler(this.Panel1_SizeChanged);
+            // 
+            // pdfPanel2
+            // 
+            this.pdfPanel2.AllowDrop = true;
+            this.pdfPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdfPanel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pdfPanel2.Location = new System.Drawing.Point(617, 0);
+            this.pdfPanel2.Name = "pdfPanel2";
+            this.pdfPanel2.Size = new System.Drawing.Size(575, 724);
+            this.pdfPanel2.TabIndex = 2;
+            // 
+            // pdfPanel1
+            // 
+            this.pdfPanel1.AllowDrop = true;
+            this.pdfPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pdfPanel1.Location = new System.Drawing.Point(3, 0);
+            this.pdfPanel1.Name = "pdfPanel1";
+            this.pdfPanel1.Size = new System.Drawing.Size(512, 724);
+            this.pdfPanel1.TabIndex = 1;
             // 
             // splitter1
             // 
@@ -470,25 +496,24 @@
             this.buttonPrevDiff.UseVisualStyleBackColor = true;
             this.buttonPrevDiff.Click += new System.EventHandler(this.buttonPrevDiff_Click);
             // 
-            // pdfPanel2
+            // toolStripSeparator2
             // 
-            this.pdfPanel2.AllowDrop = true;
-            this.pdfPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdfPanel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pdfPanel2.Location = new System.Drawing.Point(617, 0);
-            this.pdfPanel2.Name = "pdfPanel2";
-            this.pdfPanel2.Size = new System.Drawing.Size(575, 724);
-            this.pdfPanel2.TabIndex = 2;
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
-            // pdfPanel1
+            // nextDifferenceToolStripMenuItem
             // 
-            this.pdfPanel1.AllowDrop = true;
-            this.pdfPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pdfPanel1.Location = new System.Drawing.Point(3, 0);
-            this.pdfPanel1.Name = "pdfPanel1";
-            this.pdfPanel1.Size = new System.Drawing.Size(512, 724);
-            this.pdfPanel1.TabIndex = 1;
+            this.nextDifferenceToolStripMenuItem.Name = "nextDifferenceToolStripMenuItem";
+            this.nextDifferenceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.nextDifferenceToolStripMenuItem.Text = "Next Difference";
+            this.nextDifferenceToolStripMenuItem.Click += new System.EventHandler(this.previousDifferenceToolStripMenuItem_Click);
+            // 
+            // previousDifferenceToolStripMenuItem
+            // 
+            this.previousDifferenceToolStripMenuItem.Name = "previousDifferenceToolStripMenuItem";
+            this.previousDifferenceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.previousDifferenceToolStripMenuItem.Text = "Previous Difference";
+            this.previousDifferenceToolStripMenuItem.Click += new System.EventHandler(this.previousDifferenceToolStripMenuItem_Click_1);
             // 
             // FormMain
             // 
@@ -576,6 +601,9 @@
         private System.Windows.Forms.ToolStripMenuItem usageToolStripMenuItem;
         private System.Windows.Forms.RadioButton radioButtonBounds;
         private System.Windows.Forms.Button buttonPrevDiff;
+        private System.Windows.Forms.ToolStripMenuItem nextDifferenceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem previousDifferenceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

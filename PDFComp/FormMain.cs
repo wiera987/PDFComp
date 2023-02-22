@@ -702,5 +702,15 @@ namespace PDFComp
             labelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
 
         }
+
+        private void previousDifferenceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonFindDiff.PerformClick();
+        }
+
+        private void previousDifferenceToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            buttonPrevDiff.PerformClick();
+        }
     }
 }

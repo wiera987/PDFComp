@@ -1,7 +1,7 @@
 # PDFComp
 ２つのPDFファイルの文字を比較して、異なる部分をハイライト表示します。
 
-<img src="https://user-images.githubusercontent.com/50268838/216773476-80b3a932-4b8d-4bc5-93cc-09409e9e6280.png" width="480">
+<img src="https://user-images.githubusercontent.com/50268838/220665075-c7775b2b-4cd7-4366-9db0-6e5cd15a19a1.png" width="480">
 
 ## 背景
 
@@ -25,12 +25,18 @@
 * 'Open' ボタンで 2つのpdfファイルを開きます. (もしくはファイルをドロップ)
 * '<Prev' と '>Next' ボタンで　同時に2つのPDFファイルのページを移動します. (左右の矢印キー)
 * '<' と '>' ボタンは、それぞれのPDFファイルのページを移動します. (CTRL+矢印キー、ALT+矢印キー)
-* '>>'ボタンは、それぞれのPDFファイルを比較しながら差異のあるページまで移動します.
+* '<<' と '>>'ボタンは、２つのPDFファイルを比較しながら差異のあるページまで移動します.
 * 'Compare page' ボタンを押すと、ページの差異をハイライト表示します. (スペースキー)
 * 'Clear markers' のコンテキストメニューで、ハイライト表示している差分マーカーをクリアします.
 * 'Copy text'  のコンテキストメニューでテキストをコピーします.
 * 'Copy' メニューは PDFイメージやしおりのテキストをコピーします.
-* 'Find...' メニューは、テキスト検索のためのウインドウを開きます.
+* 'Find...' メニューは、テキスト検索のためのウインドウを開きます. それぞれのPDFを検索できます.
+
+スペースキーを連打すると、差異の部分が点滅します.
+PanモードはつかんでPDFをスクロールできます.
+Textモードは文字を選択してコピーできます.
+BoundsモードはそれぞれのPDFの比較対象を指定できます。以前の結果を残したまま新しい比較をします。
+
 
 ## 開発環境
 
@@ -42,7 +48,6 @@
 ### ライブラリ
 
 * [PdfiumViewer](https://github.com/pvginkel/PdfiumViewer) - PdfiumViewer is a PDF viewer based on the PDFium project.
-* [NetDiff](https://github.com/skanmera/NetDiff/) - This is the C # implementation of the Diff algorithm.
 * [diff-match-patch](https://github.com/google/diff-match-patch/) - Diff Match Patch is a high-performance library in multiple languages that manipulates plain text.
 
 また本プログラムでリンクしている [PdfiumViewer]はフォークしたカスタム版の[PdfiumViewer](https://github.com/wiera987/PdfiumViewer)を使用しています.
@@ -50,11 +55,10 @@
 ### PDFCompのビルド方法
 
 ソースコードをダウンロードして、Visual Studioのソリューションファイルを開きます。
-'ソリューションのNuGetパッケージの管理'メニューから次の３つをインストールします。
+'ソリューションのNuGetパッケージの管理'メニューから次の２つをインストールします。
 
 * PdfiumViewer
 * PdfiemViewer.Native.x86_xx.xxxx
-* Diff4Net
 
 また、[PDFComp]のソリューションから、カスタム版のPdfiumViewer.csprojを参照しています。
 このためカスタム版の[PdfiumViewer]は、[PDFComp]と同じ階層のフォルダに展開しておきます。

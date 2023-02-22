@@ -1,7 +1,7 @@
 # PDFComp
 Compare two PDF files and highlight different characters.
 
-<img src="https://user-images.githubusercontent.com/50268838/216773476-80b3a932-4b8d-4bc5-93cc-09409e9e6280.png" width="480">
+<img src="https://user-images.githubusercontent.com/50268838/220665075-c7775b2b-4cd7-4366-9db0-6e5cd15a19a1.png" width="480">
 
 ## Background
 
@@ -22,15 +22,20 @@ Download the zip file from [release](https://github.com/wiera987/PDFComp/release
 
 ### Operation
 
-* The 'Open' button open two pdf files.　(or drop the file)
+* The 'Open' button open two pdf files. (or drop the file)
 * The '<Prev' and '>Next' buttons navigate two pdf pages at the same time. (arrow left and right keys)
 * The '<' and '>' buttons move between the pages of the respective PDF file. (Ctrl+arrow keys, Alt+arrow keys)
-* The '>>' button navigates to the page with the differences while comparing each PDF file.
+* The '<<' and '>>' buttons navigate to the page with the differences while comparing the two PDF files.
 * The 'Compare page' button is to compare and hilight displaied pages. (space key)
 * The 'Clear markers' context menu is to clear the different markers.
 * The 'Copy text' context menu copies text.
-* 'Copy' menus copies PDF images and Bookmark text.
-* The 'Find...' menu show the text search window.
+* The 'Copy' menus copies PDF images and Bookmark text.
+* The 'Find...' menu show the text search window. You can search for each PDF.
+
+If you hit the space key repeatedly, the part with the difference will flash.
+Pan mode can be grabbed to scroll the PDF.
+Text mode allows you to select and copy characters.
+Bounds mode can specify comparison targets for each PDF. Make a new comparison while preserving the previous result.
 
 ## Development
 
@@ -42,18 +47,16 @@ This program was developed in C # and was built in the following environment:
 ### Libraries
 
 * [PdfiumViewer](https://github.com/pvginkel/PdfiumViewer/) - PdfiumViewer is a PDF viewer based on the PDFium project.
-* [NetDiff](https://github.com/skanmera/NetDiff/) - This is the C # implementation of the Diff algorithm.
 * [diff-match-patch](https://github.com/google/diff-match-patch/) - Diff Match Patch is a high-performance library in multiple languages that manipulates plain text.
 
 and The [PdfiumViewer] linked in this program uses a forked custom version(https://github.com/wiera987/PdfiumViewer) of [PdfiumViewer].
 
 ### Building PDFComp
 Clone the source code and open the Visual Studio solution file.
-Install the following three packages from Manage NuGet Packages menu:
+Install the following two packages from Manage NuGet Packages menu:
 
 * PdfiumViewer
 * PdfiemViewer.Native.x86_xx.xxxx (for your environment)
-* Diff4Net
 
 Also, the custom version of PdfiumViewer.csproj is referenced from the [PDFComp] solution.
 For this reason, the custom version of [PdfiumViewer] should be extracted to a folder in the same hierarchy as [PDFComp].

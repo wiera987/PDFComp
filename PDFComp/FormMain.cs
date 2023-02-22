@@ -628,11 +628,13 @@ namespace PDFComp
             var stopwatch = new System.Diagnostics.Stopwatch();
 
             int pages = pdfPanel1.pdfViewer.Document.PageCount;
+            int page1 = pdfPanel1.pdfViewer.Renderer.Page;
+            int page2 = pdfPanel2.pdfViewer.Renderer.Page;
 
-            for (int i=0; i< pages; i++)
+            for (int i=page1; i<pages; i++)
             {
-                int page1 = pdfPanel1.pdfViewer.Renderer.Page;
-                int page2 = pdfPanel2.pdfViewer.Renderer.Page;
+                page1 = pdfPanel1.pdfViewer.Renderer.Page;
+                page2 = pdfPanel2.pdfViewer.Renderer.Page;
 
                 // If the page was just compared, compare from the next page.
                 if ((page1 == FindDiffPage1) && (page2 == FindDiffPage2))
@@ -657,5 +659,48 @@ namespace PDFComp
 
         }
 
+        private void buttonPrevDiff_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Prev diff Button click!");
+
+            if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
+            {
+                labelResult.Text = "0.0";
+                return;
+            }
+
+            var stopwatch = new System.Diagnostics.Stopwatch();
+
+            int pages = pdfPanel1.pdfViewer.Document.PageCount;
+            int page1 = pdfPanel1.pdfViewer.Renderer.Page;
+            int page2 = pdfPanel2.pdfViewer.Renderer.Page;
+
+            for (int i=page1; i>=0; i--)
+            {
+                page1 = pdfPanel1.pdfViewer.Renderer.Page;
+                page2 = pdfPanel2.pdfViewer.Renderer.Page;
+
+                // If the page was just compared, compare from the next page.
+                if ((page1 == FindDiffPage1) && (page2 == FindDiffPage2))
+                {
+                    // skip compare.
+                }
+                else
+                {
+                    if (ComparePage(stopwatch, page1, page2))
+                    {
+                        break;
+                    }
+                }
+
+                pdfPanel1.PrevPage();
+                pdfPanel2.PrevPage();
+            }
+
+            stopwatch.Stop();
+
+            labelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
+
+        }
     }
 }

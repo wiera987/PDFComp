@@ -70,6 +70,7 @@
             this.radioButtonText = new System.Windows.Forms.RadioButton();
             this.buttonFindDiff = new System.Windows.Forms.Button();
             this.radioButtonBounds = new System.Windows.Forms.RadioButton();
+            this.buttonPrevDiff = new System.Windows.Forms.Button();
             this.pdfPanel2 = new PDFComp.PdfPanel();
             this.pdfPanel1 = new PDFComp.PdfPanel();
             this.menuStrip.SuspendLayout();
@@ -343,7 +344,7 @@
             // 
             // buttonCompare
             // 
-            this.buttonCompare.Location = new System.Drawing.Point(526, 24);
+            this.buttonCompare.Location = new System.Drawing.Point(553, 24);
             this.buttonCompare.Name = "buttonCompare";
             this.buttonCompare.Size = new System.Drawing.Size(99, 23);
             this.buttonCompare.TabIndex = 12;
@@ -386,7 +387,7 @@
             this.labelResult.BackColor = System.Drawing.Color.Transparent;
             this.labelResult.Font = new System.Drawing.Font("MS UI Gothic", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.labelResult.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.labelResult.Location = new System.Drawing.Point(630, 33);
+            this.labelResult.Location = new System.Drawing.Point(657, 33);
             this.labelResult.Name = "labelResult";
             this.labelResult.Size = new System.Drawing.Size(26, 10);
             this.labelResult.TabIndex = 17;
@@ -402,7 +403,7 @@
             "Line mode - Efficiency 4",
             "Line mode - Efficiency 5",
             "Line mode - Efficiency 3"});
-            this.comboBoxDiffType.Location = new System.Drawing.Point(662, 26);
+            this.comboBoxDiffType.Location = new System.Drawing.Point(689, 26);
             this.comboBoxDiffType.Name = "comboBoxDiffType";
             this.comboBoxDiffType.Size = new System.Drawing.Size(181, 20);
             this.comboBoxDiffType.TabIndex = 13;
@@ -437,7 +438,7 @@
             // 
             // buttonFindDiff
             // 
-            this.buttonFindDiff.Location = new System.Drawing.Point(490, 24);
+            this.buttonFindDiff.Location = new System.Drawing.Point(519, 24);
             this.buttonFindDiff.Name = "buttonFindDiff";
             this.buttonFindDiff.Size = new System.Drawing.Size(34, 23);
             this.buttonFindDiff.TabIndex = 20;
@@ -458,6 +459,16 @@
             this.radioButtonBounds.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButtonBounds.UseVisualStyleBackColor = true;
             this.radioButtonBounds.CheckedChanged += new System.EventHandler(this.radioButtonBounds_CheckedChanged);
+            // 
+            // buttonPrevDiff
+            // 
+            this.buttonPrevDiff.Location = new System.Drawing.Point(486, 24);
+            this.buttonPrevDiff.Name = "buttonPrevDiff";
+            this.buttonPrevDiff.Size = new System.Drawing.Size(34, 23);
+            this.buttonPrevDiff.TabIndex = 22;
+            this.buttonPrevDiff.Text = "<<";
+            this.buttonPrevDiff.UseVisualStyleBackColor = true;
+            this.buttonPrevDiff.Click += new System.EventHandler(this.buttonPrevDiff_Click);
             // 
             // pdfPanel2
             // 
@@ -484,6 +495,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1192, 773);
+            this.Controls.Add(this.buttonPrevDiff);
             this.Controls.Add(this.radioButtonBounds);
             this.Controls.Add(this.buttonFindDiff);
             this.Controls.Add(this.radioButtonText);
@@ -563,6 +575,7 @@
         private System.Windows.Forms.Button buttonFindDiff;
         private System.Windows.Forms.ToolStripMenuItem usageToolStripMenuItem;
         private System.Windows.Forms.RadioButton radioButtonBounds;
+        private System.Windows.Forms.Button buttonPrevDiff;
     }
 }
 

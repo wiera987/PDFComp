@@ -38,6 +38,7 @@
             this.toolStripLabelPages = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabelPer = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabelPage = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripTextBoxPageInput = new System.Windows.Forms.ToolStripTextBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.pdfViewer = new PdfiumViewer.PdfViewer();
             this.contextMenuStripPdf = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -58,7 +59,8 @@
             this.toolStripButtonPrevPage,
             this.toolStripLabelPages,
             this.toolStripLabelPer,
-            this.toolStripLabelPage});
+            this.toolStripLabelPage,
+            this.toolStripTextBoxPageInput});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(600, 25);
@@ -120,13 +122,28 @@
             this.toolStripLabelPer.Name = "toolStripLabelPer";
             this.toolStripLabelPer.Size = new System.Drawing.Size(12, 22);
             this.toolStripLabelPer.Text = "/";
+            this.toolStripLabelPer.Click += new System.EventHandler(this.toolStripLabelPage_Click);
             // 
             // toolStripLabelPage
             // 
             this.toolStripLabelPage.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabelPage.AutoSize = false;
             this.toolStripLabelPage.Name = "toolStripLabelPage";
             this.toolStripLabelPage.Size = new System.Drawing.Size(33, 22);
             this.toolStripLabelPage.Text = "page";
+            this.toolStripLabelPage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripLabelPage.Click += new System.EventHandler(this.toolStripLabelPage_Click);
+            // 
+            // toolStripTextBoxPageInput
+            // 
+            this.toolStripTextBoxPageInput.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripTextBoxPageInput.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
+            this.toolStripTextBoxPageInput.Name = "toolStripTextBoxPageInput";
+            this.toolStripTextBoxPageInput.Size = new System.Drawing.Size(50, 23);
+            this.toolStripTextBoxPageInput.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.toolStripTextBoxPageInput.Visible = false;
+            this.toolStripTextBoxPageInput.Leave += new System.EventHandler(this.toolStripTextBoxPageInput_Leave);
+            this.toolStripTextBoxPageInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBoxPageInput_KeyDown);
             // 
             // openFileDialog
             // 
@@ -217,5 +234,6 @@
         private System.Windows.Forms.ToolStripMenuItem copyTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         private System.Windows.Forms.Timer timerPageData;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBoxPageInput;
     }
 }

@@ -511,5 +511,54 @@ namespace PDFComp
             _pageReading = -1;
             timerPageData.Enabled = false;
         }
+
+        private void toolStripLabelPage_Click(object sender, EventArgs e)
+        {
+            // Switch Label to TextBox.
+            toolStripTextBoxPageInput.Size = toolStripLabelPage.Size;
+            toolStripLabelPage.Visible = false;
+
+            if (pdfViewer.Document != null)
+            {
+                toolStripTextBoxPageInput.Text = (pdfViewer.Renderer.Page + 1).ToString();
+            }
+            toolStripTextBoxPageInput.Visible = true;
+            toolStripTextBoxPageInput.SelectAll();
+            toolStripTextBoxPageInput.Focus();
+
+        }
+
+        private void toolStripTextBoxPageInput_Leave(object sender, EventArgs e)
+        {
+            // Switch TextBox to Label.
+            toolStripTextBoxPageInput.Visible = false;
+            toolStripLabelPage.Visible = true;
+
+            if (pdfViewer.Document != null)
+            {
+                int newPage;
+                if (int.TryParse(toolStripTextBoxPageInput.Text, out newPage))
+                {
+                    if (newPage <= pdfViewer.Document.PageCount)
+                    {
+                        newPage = (newPage > 0) ? newPage : 1;
+                        pdfViewer.Renderer.Page = newPage - 1;
+                        toolStripLabelPage.Text = newPage.ToString();
+                    }
+                }
+            }
+        }
+
+        private void toolStripTextBoxPageInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Confirm the input with the Enter key.
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Move the focus anywhere to generate a Leave event.
+                toolStrip1.Focus();
+                // Mute the beep sound.
+                e.SuppressKeyPress = true;
+            }
+        }
     }
 }

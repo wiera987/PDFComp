@@ -1,7 +1,7 @@
 # PDFComp
 Compare two PDF files and highlight different characters.
 
-<img src="https://user-images.githubusercontent.com/50268838/220665075-c7775b2b-4cd7-4366-9db0-6e5cd15a19a1.png" width="480">
+<img src="https://user-images.githubusercontent.com/50268838/221343544-6091211d-d513-426d-8aae-e756b3c5d02e.png" width="480">
 
 ## Background
 
@@ -10,6 +10,7 @@ When comparing PDF files with a revised paragraph structure, the pages you want 
 This PDFComp is an application that specializes in manual operation and allows you to quickly move pages and check one page at a time.
 
 The GUI has been updated and features such as navigation to difference pages and search history have been added.
+Clicking on a page number to enter and copying an image with reduced color has been added.
 
 ### Application requirements
 
@@ -29,7 +30,7 @@ Download the zip file from [release](https://github.com/wiera987/PDFComp/release
 * The 'Compare page' button is to compare and hilight displaied pages. (space key)
 * The 'Clear markers' context menu is to clear the different markers.
 * The 'Copy text' context menu copies text.
-* The 'Copy' menus copies PDF images and Bookmark text.
+* The 'Copy' menus copies PDF images and Bookmark text. If the 'Enable color reduction copy' menu is checked, the colors will be reduced to 256 when copying an image.
 * The 'Find...' menu show the text search window. You can search for each PDF.
 
 If you hit the space key repeatedly, the part with the difference will flash.

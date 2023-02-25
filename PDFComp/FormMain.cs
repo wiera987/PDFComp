@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PdfiumViewer;
 using DiffMatchPatch;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace PDFComp
 {
@@ -24,6 +26,8 @@ namespace PDFComp
         Boolean zoomOut;
         int FindDiffPage1;
         int FindDiffPage2;
+        Boolean reduceColor = true;
+        Boolean autoReduceColor = false;
 
         public FormMain()
         {
@@ -482,7 +486,16 @@ namespace PDFComp
             {
                 Bitmap bitmap = new Bitmap(panelBoth.ClientSize.Width, panelBoth.ClientSize.Height);
                 panelBoth.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
-
+                reduceColor = toolStripMenuItemEnableReduceColorCopy.Checked;
+                if (reduceColor)
+                {
+                    int finalCol = (int)Properties.Settings.Default["ReduceFinalColor"];
+                    int fixedCol = (int)Properties.Settings.Default["ReduceFixedColor"];
+                    ImageProcess imgp = new ImageProcess(finalCol, fixedCol);
+                    imgp.CountColors(bitmap);
+                    imgp.Quantize256(bitmap, false);
+                    //imgp.CountColors(bitmap);
+                }
                 data.SetData(DataFormats.Bitmap, bitmap);
             }
 
@@ -495,6 +508,16 @@ namespace PDFComp
             {
                 Bitmap bitmap = new Bitmap(pdfPanel1.ClientSize.Width, pdfPanel1.ClientSize.Height);
                 pdfPanel1.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
+                reduceColor = toolStripMenuItemEnableReduceColorCopy.Checked;
+                if (reduceColor)
+                {
+                    int finalCol = (int)Properties.Settings.Default["ReduceFinalColor"];
+                    int fixedCol = (int)Properties.Settings.Default["ReduceFixedColor"];
+                    ImageProcess imgp = new ImageProcess(finalCol, fixedCol);
+                    imgp.CountColors(bitmap);
+                    imgp.Quantize256(bitmap, false);
+                    //imgp.CountColors(bitmap);
+                }
                 Clipboard.SetImage(bitmap);
             }
 
@@ -506,6 +529,16 @@ namespace PDFComp
             {
                 Bitmap bitmap = new Bitmap(pdfPanel2.ClientSize.Width, pdfPanel2.ClientSize.Height);
                 pdfPanel2.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
+                reduceColor = toolStripMenuItemEnableReduceColorCopy.Checked;
+                if (reduceColor)
+                {
+                    int finalCol = (int)Properties.Settings.Default["ReduceFinalColor"];
+                    int fixedCol = (int)Properties.Settings.Default["ReduceFixedColor"];
+                    ImageProcess imgp = new ImageProcess(finalCol, fixedCol);
+                    imgp.CountColors(bitmap);
+                    imgp.Quantize256(bitmap, false);
+                    //imgp.CountColors(bitmap);
+                }
                 Clipboard.SetImage(bitmap);
             }
         }
@@ -711,6 +744,22 @@ namespace PDFComp
         private void previousDifferenceToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             buttonPrevDiff.PerformClick();
+        }
+
+        private void toolStripMenuItemEnableReduceColorCopy_Click(object sender, EventArgs e)
+        {
+            toolStripMenuItemEnableReduceColorCopy.Checked ^= true;
+            Properties.Settings.Default["EnableColorReductionCopy"] = toolStripMenuItemEnableReduceColorCopy.Checked;
+        }
+
+        private void editToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            toolStripMenuItemEnableReduceColorCopy.Checked = (bool)Properties.Settings.Default["EnableColorReductionCopy"];
+        }
+
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Properties.Settings.Default.Save(); // Saves settings in application configuration file.
         }
     }
 }

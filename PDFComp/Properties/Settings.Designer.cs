@@ -22,5 +22,41 @@ namespace PDFComp.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableColorReductionCopy {
+            get {
+                return ((bool)(this["EnableColorReductionCopy"]));
+            }
+            set {
+                this["EnableColorReductionCopy"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("256")]
+        public int ReduceFinalColor {
+            get {
+                return ((int)(this["ReduceFinalColor"]));
+            }
+            set {
+                this["ReduceFinalColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("16")]
+        public int ReduceFixedColor {
+            get {
+                return ((int)(this["ReduceFixedColor"]));
+            }
+            set {
+                this["ReduceFixedColor"] = value;
+            }
+        }
     }
 }

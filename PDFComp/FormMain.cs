@@ -33,7 +33,6 @@ namespace PDFComp
         {
             InitializeComponent();
             toolStripComboBoxDiffType.SelectedIndex = 0;
-            toolStripButtonTextmode.BackColor = SystemColors.GradientActiveCaption;
             // Designer settings are not reflected in TrackBar.AutoSize.
             toolStripTrackBarZoom.Height = 22;
             toolStripTrackBarZoom.TrackBar.AutoSize = toolStripTrackBarZoom.AutoSize;
@@ -50,6 +49,12 @@ namespace PDFComp
 
             FindDiffPage1 = -1;
             FindDiffPage2 = -1;
+        }
+
+        public void OpenFiles(String[] files)
+        {
+            pdfPanel1.OpenFile(files[0]);
+            pdfPanel2.OpenFile(files[1]);
         }
 
         protected override bool ProcessDialogKey(Keys keyData)
@@ -111,6 +116,8 @@ namespace PDFComp
 
         private void FormMain_Shown(object sender, EventArgs e)
         {
+            // First in text mode.
+            toolStripButtonTextmode.PerformClick();
             PdfPanelAutoSize();
         }
 

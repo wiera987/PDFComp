@@ -330,8 +330,16 @@ namespace PDFComp
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
 
-            string fileName = files[0];       // Drop only the first file.
-            OpenFile(fileName);
+            if (files.Length == 1)
+            {
+                // Drop only the first file.
+                string fileName = files[0];
+                OpenFile(fileName);
+            } else
+            {
+                // Drop in FormMain.
+                ((FormMain)FindForm()).OpenFiles(files);
+            }
         }
         
         private void ToolStripButtonOpen_Click(object sender, EventArgs e)
@@ -344,7 +352,7 @@ namespace PDFComp
             }
         }
 
-        private void OpenFile(string fileName)
+        public void OpenFile(string fileName)
         {
             pdfViewer.Document = PdfDocument.Load(fileName);
             pdfViewer.Renderer.Zoom = _zoom;

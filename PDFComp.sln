@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFComp", "PDFComp\PDFComp.csproj", "{00D32EB5-D3B2-43BE-B14E-56B323D41CD6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{438914B6-5D1C-482C-B942-5C0E057EEF6F} = {438914B6-5D1C-482C-B942-5C0E057EEF6F}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfiumViewer", "..\PdfiumViewer\PdfiumViewer\PdfiumViewer.csproj", "{438914B6-5D1C-482C-B942-5C0E057EEF6F}"
 EndProject

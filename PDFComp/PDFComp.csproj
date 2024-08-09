@@ -105,6 +105,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="ToolStripTrackBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -113,6 +116,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormUsage.resx">
       <DependentUpon>FormUsage.cs</DependentUpon>
@@ -144,12 +148,30 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\hand16.png" />
+    <Content Include="Images\anticlockwise_line.png" />
+    <Content Include="Images\back_2_line.png" />
+    <Content Include="Images\bookmarks_line.png" />
+    <Content Include="Images\clockwise_line.png" />
+    <Content Include="Images\fit_one_page.png" />
+    <Content Include="Images\fit_width.png" />
+    <Content Include="Images\forward_2_line.png" />
+    <Content Include="Images\hand_line.png" />
     <Content Include="Images\Left_8.png" />
-    <Content Include="Images\rect16.png" />
+    <Content Include="Images\left_line.png" />
+    <Content Include="Images\left_line_2.png" />
+    <Content Include="Images\PDFComp1.png" />
+    <Content Include="Images\PDFComp2.png" />
+    <Content Include="Images\rectangle_line.png" />
+    <Content Include="Images\rectangle_vertical_line.png" />
     <Content Include="Images\Right_8.png" />
-    <Content Include="Images\rot_left16.png" />
-    <Content Include="Images\rot_right16.png" />
+    <Content Include="Images\right_line.png" />
+    <Content Include="Images\right_line_2.png" />
+    <Content Include="Images\rows_4_line.png" />
+    <Content Include="Images\search_2_line.png" />
+    <Content Include="Images\text_2_line.png" />
+    <Content Include="Images\zoom_in_line.png" />
+    <Content Include="Images\zoom_out_line.png" />
+    <Content Include="Images\zoom_real_size.png" />
     <Content Include="PDFComp.ico" />
   </ItemGroup>
   <ItemGroup>

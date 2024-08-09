@@ -42,6 +42,8 @@
             this.copyBookmarks2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemEnableReduceColorCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comparePageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -55,7 +57,8 @@
             this.aboutPDFCompToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.panelBoth = new System.Windows.Forms.Panel();
-            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.pdfPanel2 = new PDFComp.PdfPanel();
+            this.pdfPanel1 = new PDFComp.PdfPanel();
             this.buttonZoomIn = new System.Windows.Forms.Button();
             this.buttonZoomOut = new System.Windows.Forms.Button();
             this.trackBarZoom = new System.Windows.Forms.TrackBar();
@@ -74,13 +77,39 @@
             this.buttonFindDiff = new System.Windows.Forms.Button();
             this.radioButtonBounds = new System.Windows.Forms.RadioButton();
             this.buttonPrevDiff = new System.Windows.Forms.Button();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItemEnableReduceColorCopy = new System.Windows.Forms.ToolStripMenuItem();
-            this.pdfPanel2 = new PDFComp.PdfPanel();
-            this.pdfPanel1 = new PDFComp.PdfPanel();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonBookmarks = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonPanel1Prev = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonPanel1Next = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonPrevPages = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonNextPages = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonPanel2Prev = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonPanel2Next = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonComparePage = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabelResult = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButtonNextDiff = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonPrevDiff = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripComboBoxDiffType = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonHandmode = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonTextmode = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonSelectmode = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonRotateAnticlockwise = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonRotateClockwise = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonZoomIn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripTrackBarZoom = new ToolStripTrackBar();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButtonZoomOut = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabelZoom = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButtonFitWidth = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonFitOnePage = new System.Windows.Forms.ToolStripButton();
             this.menuStrip.SuspendLayout();
             this.panelBoth.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
+            this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -189,6 +218,18 @@
             this.findToolStripMenuItem.Text = "Find...";
             this.findToolStripMenuItem.Click += new System.EventHandler(this.FindToolStripMenuItem_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(219, 6);
+            // 
+            // toolStripMenuItemEnableReduceColorCopy
+            // 
+            this.toolStripMenuItemEnableReduceColorCopy.Name = "toolStripMenuItemEnableReduceColorCopy";
+            this.toolStripMenuItemEnableReduceColorCopy.Size = new System.Drawing.Size(222, 22);
+            this.toolStripMenuItemEnableReduceColorCopy.Text = "Enable color reduction copy";
+            this.toolStripMenuItemEnableReduceColorCopy.Click += new System.EventHandler(this.toolStripMenuItemEnableReduceColorCopy_Click);
+            // 
             // compareToolStripMenuItem
             // 
             this.compareToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -273,6 +314,7 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1192, 25);
@@ -281,23 +323,36 @@
             // 
             // panelBoth
             // 
+            this.panelBoth.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelBoth.Controls.Add(this.pdfPanel2);
             this.panelBoth.Controls.Add(this.pdfPanel1);
-            this.panelBoth.Controls.Add(this.splitter1);
-            this.panelBoth.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelBoth.Location = new System.Drawing.Point(0, 49);
+            this.panelBoth.Location = new System.Drawing.Point(0, 60);
             this.panelBoth.Name = "panelBoth";
-            this.panelBoth.Size = new System.Drawing.Size(1192, 724);
+            this.panelBoth.Size = new System.Drawing.Size(1192, 713);
             this.panelBoth.TabIndex = 2;
             this.panelBoth.SizeChanged += new System.EventHandler(this.Panel1_SizeChanged);
             // 
-            // splitter1
+            // pdfPanel2
             // 
-            this.splitter1.Location = new System.Drawing.Point(0, 0);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 724);
-            this.splitter1.TabIndex = 0;
-            this.splitter1.TabStop = false;
+            this.pdfPanel2.AllowDrop = true;
+            this.pdfPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdfPanel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pdfPanel2.Location = new System.Drawing.Point(617, 0);
+            this.pdfPanel2.Name = "pdfPanel2";
+            this.pdfPanel2.Size = new System.Drawing.Size(575, 713);
+            this.pdfPanel2.TabIndex = 2;
+            // 
+            // pdfPanel1
+            // 
+            this.pdfPanel1.AllowDrop = true;
+            this.pdfPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pdfPanel1.Location = new System.Drawing.Point(0, 0);
+            this.pdfPanel1.Name = "pdfPanel1";
+            this.pdfPanel1.Size = new System.Drawing.Size(512, 713);
+            this.pdfPanel1.TabIndex = 1;
             // 
             // buttonZoomIn
             // 
@@ -500,43 +555,357 @@
             this.buttonPrevDiff.UseVisualStyleBackColor = true;
             this.buttonPrevDiff.Click += new System.EventHandler(this.buttonPrevDiff_Click);
             // 
-            // toolStripSeparator3
+            // toolStrip2
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(219, 6);
+            this.toolStrip2.AutoSize = false;
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButtonBookmarks,
+            this.toolStripButtonPanel1Prev,
+            this.toolStripButtonPanel1Next,
+            this.toolStripButtonPrevPages,
+            this.toolStripButtonNextPages,
+            this.toolStripButtonPanel2Prev,
+            this.toolStripButtonPanel2Next,
+            this.toolStripSeparator4,
+            this.toolStripButtonComparePage,
+            this.toolStripLabelResult,
+            this.toolStripButtonPrevDiff,
+            this.toolStripButtonNextDiff,
+            this.toolStripLabel2,
+            this.toolStripComboBoxDiffType,
+            this.toolStripSeparator6,
+            this.toolStripButtonHandmode,
+            this.toolStripButtonTextmode,
+            this.toolStripButtonSelectmode,
+            this.toolStripSeparator5,
+            this.toolStripButtonRotateAnticlockwise,
+            this.toolStripButtonRotateClockwise,
+            this.toolStripButtonZoomIn,
+            this.toolStripTrackBarZoom,
+            this.toolStripLabel1,
+            this.toolStripButtonZoomOut,
+            this.toolStripLabelZoom,
+            this.toolStripButtonFitWidth,
+            this.toolStripButtonFitOnePage});
+            this.toolStrip2.Location = new System.Drawing.Point(0, 49);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(1192, 33);
+            this.toolStrip2.TabIndex = 23;
+            this.toolStrip2.Text = "toolStrip2";
             // 
-            // toolStripMenuItemEnableReduceColorCopy
+            // toolStripButtonBookmarks
             // 
-            this.toolStripMenuItemEnableReduceColorCopy.Name = "toolStripMenuItemEnableReduceColorCopy";
-            this.toolStripMenuItemEnableReduceColorCopy.Size = new System.Drawing.Size(222, 22);
-            this.toolStripMenuItemEnableReduceColorCopy.Text = "Enable color reduction copy";
-            this.toolStripMenuItemEnableReduceColorCopy.Click += new System.EventHandler(this.toolStripMenuItemEnableReduceColorCopy_Click);
+            this.toolStripButtonBookmarks.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonBookmarks.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonBookmarks.Image")));
+            this.toolStripButtonBookmarks.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonBookmarks.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonBookmarks.Name = "toolStripButtonBookmarks";
+            this.toolStripButtonBookmarks.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonBookmarks.Text = "Bookmarks";
+            this.toolStripButtonBookmarks.ToolTipText = "Show Bookmarks";
+            this.toolStripButtonBookmarks.Click += new System.EventHandler(this.toolStripButtonBookmarks_Click);
             // 
-            // pdfPanel2
+            // toolStripButtonPanel1Prev
             // 
-            this.pdfPanel2.AllowDrop = true;
-            this.pdfPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdfPanel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pdfPanel2.Location = new System.Drawing.Point(617, 0);
-            this.pdfPanel2.Name = "pdfPanel2";
-            this.pdfPanel2.Size = new System.Drawing.Size(575, 724);
-            this.pdfPanel2.TabIndex = 2;
+            this.toolStripButtonPanel1Prev.AutoSize = false;
+            this.toolStripButtonPanel1Prev.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonPanel1Prev.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPanel1Prev.Image")));
+            this.toolStripButtonPanel1Prev.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonPanel1Prev.Name = "toolStripButtonPanel1Prev";
+            this.toolStripButtonPanel1Prev.Size = new System.Drawing.Size(18, 30);
+            this.toolStripButtonPanel1Prev.Text = "Prev Page";
+            this.toolStripButtonPanel1Prev.ToolTipText = "Prev Page / Ctrl + LEFT_ARROW";
+            this.toolStripButtonPanel1Prev.Click += new System.EventHandler(this.toolStripButtonPanel1Prev_Click);
             // 
-            // pdfPanel1
+            // toolStripButtonPanel1Next
             // 
-            this.pdfPanel1.AllowDrop = true;
-            this.pdfPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pdfPanel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pdfPanel1.Location = new System.Drawing.Point(3, 0);
-            this.pdfPanel1.Name = "pdfPanel1";
-            this.pdfPanel1.Size = new System.Drawing.Size(512, 724);
-            this.pdfPanel1.TabIndex = 1;
+            this.toolStripButtonPanel1Next.AutoSize = false;
+            this.toolStripButtonPanel1Next.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonPanel1Next.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPanel1Next.Image")));
+            this.toolStripButtonPanel1Next.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonPanel1Next.Name = "toolStripButtonPanel1Next";
+            this.toolStripButtonPanel1Next.Size = new System.Drawing.Size(18, 30);
+            this.toolStripButtonPanel1Next.Text = "Next Page";
+            this.toolStripButtonPanel1Next.ToolTipText = "Next Page / Ctrl + RIGHT_ARROW";
+            this.toolStripButtonPanel1Next.Click += new System.EventHandler(this.toolStripButtonPanel1Next_Click);
+            // 
+            // toolStripButtonPrevPages
+            // 
+            this.toolStripButtonPrevPages.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStripButtonPrevPages.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonPrevPages.Font = new System.Drawing.Font("Yu Gothic UI", 9F);
+            this.toolStripButtonPrevPages.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPrevPages.Image")));
+            this.toolStripButtonPrevPages.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonPrevPages.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonPrevPages.Name = "toolStripButtonPrevPages";
+            this.toolStripButtonPrevPages.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonPrevPages.Text = "Prev Page";
+            this.toolStripButtonPrevPages.ToolTipText = "Prev Page / LEFT_ARROW";
+            this.toolStripButtonPrevPages.Click += new System.EventHandler(this.toolStripButtonPrevPages_Click);
+            // 
+            // toolStripButtonNextPages
+            // 
+            this.toolStripButtonNextPages.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStripButtonNextPages.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonNextPages.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNextPages.Image")));
+            this.toolStripButtonNextPages.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonNextPages.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonNextPages.Name = "toolStripButtonNextPages";
+            this.toolStripButtonNextPages.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonNextPages.Text = "Next Page";
+            this.toolStripButtonNextPages.ToolTipText = "Next Page / RIGHT_ARROW";
+            this.toolStripButtonNextPages.Click += new System.EventHandler(this.toolStripButtonNextPages_Click);
+            // 
+            // toolStripButtonPanel2Prev
+            // 
+            this.toolStripButtonPanel2Prev.AutoSize = false;
+            this.toolStripButtonPanel2Prev.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonPanel2Prev.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPanel2Prev.Image")));
+            this.toolStripButtonPanel2Prev.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonPanel2Prev.Name = "toolStripButtonPanel2Prev";
+            this.toolStripButtonPanel2Prev.Size = new System.Drawing.Size(18, 30);
+            this.toolStripButtonPanel2Prev.Text = "Prev Page";
+            this.toolStripButtonPanel2Prev.ToolTipText = "Prev Page / Alt + LEFT_ARROW";
+            this.toolStripButtonPanel2Prev.Click += new System.EventHandler(this.toolStripButtonPanel2Prev_Click);
+            // 
+            // toolStripButtonPanel2Next
+            // 
+            this.toolStripButtonPanel2Next.AutoSize = false;
+            this.toolStripButtonPanel2Next.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonPanel2Next.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPanel2Next.Image")));
+            this.toolStripButtonPanel2Next.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonPanel2Next.Name = "toolStripButtonPanel2Next";
+            this.toolStripButtonPanel2Next.Size = new System.Drawing.Size(18, 30);
+            this.toolStripButtonPanel2Next.Text = "Next Page";
+            this.toolStripButtonPanel2Next.ToolTipText = "Next Page / Alt + RIGHT_ARROW";
+            this.toolStripButtonPanel2Next.Click += new System.EventHandler(this.toolStripButtonPanel2Next_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.AutoSize = false;
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(32, 33);
+            // 
+            // toolStripButtonComparePage
+            // 
+            this.toolStripButtonComparePage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonComparePage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripButtonComparePage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonComparePage.Image")));
+            this.toolStripButtonComparePage.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonComparePage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonComparePage.Name = "toolStripButtonComparePage";
+            this.toolStripButtonComparePage.Size = new System.Drawing.Size(91, 30);
+            this.toolStripButtonComparePage.Text = "Compare Page";
+            this.toolStripButtonComparePage.ToolTipText = "Compare Page | SPACE key";
+            this.toolStripButtonComparePage.Click += new System.EventHandler(this.toolStripButtonComparePage_Click);
+            // 
+            // toolStripLabelResult
+            // 
+            this.toolStripLabelResult.AutoSize = false;
+            this.toolStripLabelResult.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripLabelResult.Font = new System.Drawing.Font("Yu Gothic UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.toolStripLabelResult.Name = "toolStripLabelResult";
+            this.toolStripLabelResult.Size = new System.Drawing.Size(26, 10);
+            this.toolStripLabelResult.Text = "0.0";
+            this.toolStripLabelResult.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // toolStripButtonNextDiff
+            // 
+            this.toolStripButtonNextDiff.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonNextDiff.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNextDiff.Image")));
+            this.toolStripButtonNextDiff.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonNextDiff.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonNextDiff.Name = "toolStripButtonNextDiff";
+            this.toolStripButtonNextDiff.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonNextDiff.Text = "Next different page";
+            this.toolStripButtonNextDiff.Click += new System.EventHandler(this.toolStripButtonNextDiff_Click);
+            // 
+            // toolStripButtonPrevDiff
+            // 
+            this.toolStripButtonPrevDiff.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonPrevDiff.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPrevDiff.Image")));
+            this.toolStripButtonPrevDiff.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonPrevDiff.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonPrevDiff.Name = "toolStripButtonPrevDiff";
+            this.toolStripButtonPrevDiff.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonPrevDiff.Text = "Prev different page";
+            this.toolStripButtonPrevDiff.Click += new System.EventHandler(this.toolStripButtonPrevDiff_Click);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.AutoSize = false;
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(16, 30);
+            this.toolStripLabel2.Text = "  ";
+            // 
+            // toolStripComboBoxDiffType
+            // 
+            this.toolStripComboBoxDiffType.AutoSize = false;
+            this.toolStripComboBoxDiffType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBoxDiffType.DropDownWidth = 161;
+            this.toolStripComboBoxDiffType.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            this.toolStripComboBoxDiffType.Items.AddRange(new object[] {
+            "Character mode",
+            "Line mode - Semantic",
+            "Line mode - Efficiency 4",
+            "Line mode - Efficiency 5",
+            "Line mode - Efficiency 3"});
+            this.toolStripComboBoxDiffType.Name = "toolStripComboBoxDiffType";
+            this.toolStripComboBoxDiffType.Size = new System.Drawing.Size(161, 23);
+            this.toolStripComboBoxDiffType.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.AutoSize = false;
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(32, 33);
+            // 
+            // toolStripButtonHandmode
+            // 
+            this.toolStripButtonHandmode.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStripButtonHandmode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonHandmode.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonHandmode.Image")));
+            this.toolStripButtonHandmode.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonHandmode.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonHandmode.Name = "toolStripButtonHandmode";
+            this.toolStripButtonHandmode.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonHandmode.Text = "Hand mode";
+            this.toolStripButtonHandmode.Click += new System.EventHandler(this.toolStripButtonHandmode_Click);
+            // 
+            // toolStripButtonTextmode
+            // 
+            this.toolStripButtonTextmode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonTextmode.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonTextmode.Image")));
+            this.toolStripButtonTextmode.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonTextmode.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonTextmode.Name = "toolStripButtonTextmode";
+            this.toolStripButtonTextmode.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonTextmode.Text = "Text mode";
+            this.toolStripButtonTextmode.Click += new System.EventHandler(this.toolStripButtonTextmode_Click);
+            // 
+            // toolStripButtonSelectmode
+            // 
+            this.toolStripButtonSelectmode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonSelectmode.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSelectmode.Image")));
+            this.toolStripButtonSelectmode.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonSelectmode.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSelectmode.Name = "toolStripButtonSelectmode";
+            this.toolStripButtonSelectmode.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonSelectmode.Text = "Selecting mode";
+            this.toolStripButtonSelectmode.Click += new System.EventHandler(this.toolStripButtonSelectmode_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.AutoSize = false;
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(32, 33);
+            // 
+            // toolStripButtonRotateAnticlockwise
+            // 
+            this.toolStripButtonRotateAnticlockwise.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonRotateAnticlockwise.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonRotateAnticlockwise.Image")));
+            this.toolStripButtonRotateAnticlockwise.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonRotateAnticlockwise.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonRotateAnticlockwise.Name = "toolStripButtonRotateAnticlockwise";
+            this.toolStripButtonRotateAnticlockwise.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonRotateAnticlockwise.Text = "Rotate Anticlockwise";
+            this.toolStripButtonRotateAnticlockwise.Click += new System.EventHandler(this.toolStripButtonRotateAnticlockwise_Click);
+            // 
+            // toolStripButtonRotateClockwise
+            // 
+            this.toolStripButtonRotateClockwise.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonRotateClockwise.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonRotateClockwise.Image")));
+            this.toolStripButtonRotateClockwise.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonRotateClockwise.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonRotateClockwise.Name = "toolStripButtonRotateClockwise";
+            this.toolStripButtonRotateClockwise.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonRotateClockwise.Text = "Rotate Clockwise";
+            this.toolStripButtonRotateClockwise.Click += new System.EventHandler(this.toolStripButtonRotateClockwise_Click);
+            // 
+            // toolStripButtonZoomIn
+            // 
+            this.toolStripButtonZoomIn.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButtonZoomIn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonZoomIn.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonZoomIn.Image")));
+            this.toolStripButtonZoomIn.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonZoomIn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonZoomIn.Name = "toolStripButtonZoomIn";
+            this.toolStripButtonZoomIn.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonZoomIn.Text = "Zoom in";
+            this.toolStripButtonZoomIn.Click += new System.EventHandler(this.toolStripButtonZoomIn_Click);
+            this.toolStripButtonZoomIn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomIn_MouseDown);
+            this.toolStripButtonZoomIn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomIn_MouseUp);
+            // 
+            // toolStripTrackBarZoom
+            // 
+            this.toolStripTrackBarZoom.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripTrackBarZoom.AutoSize = false;
+            this.toolStripTrackBarZoom.Maximum = 30;
+            this.toolStripTrackBarZoom.Minimum = -30;
+            this.toolStripTrackBarZoom.Name = "toolStripTrackBarZoom";
+            this.toolStripTrackBarZoom.Size = new System.Drawing.Size(176, 45);
+            this.toolStripTrackBarZoom.Text = "Zoom slider";
+            this.toolStripTrackBarZoom.TickFrequency = 30;
+            this.toolStripTrackBarZoom.Value = 0;
+            this.toolStripTrackBarZoom.ValueChanged += new System.EventHandler(this.toolStripTrackBarZoom_ValueChanged);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.AutoSize = false;
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(24, 30);
+            // 
+            // toolStripButtonZoomOut
+            // 
+            this.toolStripButtonZoomOut.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButtonZoomOut.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonZoomOut.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonZoomOut.Image")));
+            this.toolStripButtonZoomOut.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonZoomOut.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonZoomOut.Name = "toolStripButtonZoomOut";
+            this.toolStripButtonZoomOut.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonZoomOut.Text = "Zoom out";
+            this.toolStripButtonZoomOut.Click += new System.EventHandler(this.toolStripButtonZoomOut_Click);
+            this.toolStripButtonZoomOut.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomOut_MouseDown);
+            this.toolStripButtonZoomOut.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomOut_MouseUp);
+            // 
+            // toolStripLabelZoom
+            // 
+            this.toolStripLabelZoom.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripLabelZoom.AutoSize = false;
+            this.toolStripLabelZoom.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripLabelZoom.Name = "toolStripLabelZoom";
+            this.toolStripLabelZoom.Size = new System.Drawing.Size(51, 30);
+            this.toolStripLabelZoom.Text = "100 %";
+            // 
+            // toolStripButtonFitWidth
+            // 
+            this.toolStripButtonFitWidth.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonFitWidth.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonFitWidth.Image")));
+            this.toolStripButtonFitWidth.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonFitWidth.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonFitWidth.Name = "toolStripButtonFitWidth";
+            this.toolStripButtonFitWidth.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonFitWidth.Text = "Fit width";
+            this.toolStripButtonFitWidth.Click += new System.EventHandler(this.toolStripButtonFitWidth_Click);
+            // 
+            // toolStripButtonFitOnePage
+            // 
+            this.toolStripButtonFitOnePage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonFitOnePage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonFitOnePage.Image")));
+            this.toolStripButtonFitOnePage.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonFitOnePage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonFitOnePage.Name = "toolStripButtonFitOnePage";
+            this.toolStripButtonFitOnePage.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonFitOnePage.Text = "Fit one page";
+            this.toolStripButtonFitOnePage.Click += new System.EventHandler(this.toolStripButtonFitOnePage_Click);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1192, 773);
+            this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.buttonPrevDiff);
             this.Controls.Add(this.radioButtonBounds);
             this.Controls.Add(this.buttonFindDiff);
@@ -561,6 +930,7 @@
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "FormMain";
+            this.Tag = "PdfPanel";
             this.Text = "PDFComp";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMain_FormClosed);
             this.Shown += new System.EventHandler(this.FormMain_Shown);
@@ -569,6 +939,8 @@
             this.menuStrip.PerformLayout();
             this.panelBoth.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).EndInit();
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -582,7 +954,6 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.Panel panelBoth;
-        private System.Windows.Forms.Splitter splitter1;
         private PdfPanel pdfPanel2;
         private PdfPanel pdfPanel1;
         private System.Windows.Forms.Button buttonZoomIn;
@@ -624,6 +995,35 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEnableReduceColorCopy;
+        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStripButton toolStripButtonPrevPages;
+        private System.Windows.Forms.ToolStripButton toolStripButtonNextPages;
+        private System.Windows.Forms.ToolStripButton toolStripButtonBookmarks;
+        private System.Windows.Forms.ToolStripButton toolStripButtonRotateAnticlockwise;
+        private System.Windows.Forms.ToolStripButton toolStripButtonRotateClockwise;
+        private System.Windows.Forms.ToolStripLabel toolStripLabelZoom;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripButton toolStripButtonHandmode;
+        private System.Windows.Forms.ToolStripButton toolStripButtonTextmode;
+        private System.Windows.Forms.ToolStripButton toolStripButtonSelectmode;
+        private System.Windows.Forms.ToolStripButton toolStripButtonPanel1Prev;
+        private System.Windows.Forms.ToolStripButton toolStripButtonPanel1Next;
+        private System.Windows.Forms.ToolStripButton toolStripButtonPanel2Prev;
+        private System.Windows.Forms.ToolStripButton toolStripButtonPanel2Next;
+        private System.Windows.Forms.ToolStripButton toolStripButtonFitWidth;
+        private System.Windows.Forms.ToolStripButton toolStripButtonFitOnePage;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton toolStripButtonZoomOut;
+        private System.Windows.Forms.ToolStripButton toolStripButtonZoomIn;
+        private System.Windows.Forms.ToolStripButton toolStripButtonPrevDiff;
+        private System.Windows.Forms.ToolStripButton toolStripButtonNextDiff;
+        private System.Windows.Forms.ToolStripButton toolStripButtonComparePage;
+        private ToolStripTrackBar toolStripTrackBarZoom;
+        private System.Windows.Forms.ToolStripLabel toolStripLabelResult;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBoxDiffType;
     }
 }
 

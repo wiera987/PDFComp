@@ -61,7 +61,32 @@ namespace PDFComp
 
             if (pdfViewer.Document != null)
             {
+                pdfViewer.ZoomMode = PdfViewerZoomMode.FitHeight;
                 pdfViewer.Renderer.Zoom = _zoom;
+            }
+        }
+
+        public void FitHeight()
+        {
+            if (pdfViewer.Document != null)
+            {
+                int page = pdfViewer.Renderer.Page;
+                pdfViewer.ZoomMode = PdfViewerZoomMode.FitHeight;
+                pdfViewer.Renderer.Zoom = 1;
+                pdfViewer.Renderer.Page = page;
+
+            }
+        }
+
+        public void FitWidth()
+        {
+            if (pdfViewer.Document != null)
+            {
+                int page = pdfViewer.Renderer.Page;
+                pdfViewer.ZoomMode = PdfViewerZoomMode.FitWidth;
+                pdfViewer.Renderer.Zoom = 1;
+                pdfViewer.Renderer.Page = page;
+
             }
         }
 

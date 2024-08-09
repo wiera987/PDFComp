@@ -17,7 +17,7 @@ namespace PDFComp
 {
     public partial class FormMain : Form
     {
-        readonly Double ZoomInScale = 0.1;
+        readonly Double ZoomInScale = 0.2;
         readonly Double ZoomOutScale = 0.03;
         FormFind formFind = null;
         PdfRotation rotation;
@@ -32,6 +32,12 @@ namespace PDFComp
         public FormMain()
         {
             InitializeComponent();
+            toolStripComboBoxDiffType.SelectedIndex = 0;
+            toolStripButtonTextmode.BackColor = SystemColors.GradientActiveCaption;
+            // Designer settings are not reflected in TrackBar.AutoSize.
+            toolStripTrackBarZoom.Height = 22;
+            toolStripTrackBarZoom.TrackBar.AutoSize = toolStripTrackBarZoom.AutoSize;
+
             comboBoxDiffType.SelectedIndex = 0;
             radioButtonText.Checked = true;
 
@@ -185,12 +191,12 @@ namespace PDFComp
         {
             if (zoomOut)
             {
-                buttonZoomOut.PerformClick();
+                toolStripButtonZoomOut.PerformClick();
             }
 
             if (zoomIn)
             {
-                buttonZoomIn.PerformClick();
+                toolStripButtonZoomIn.PerformClick();
             }
         }
 
@@ -208,11 +214,16 @@ namespace PDFComp
 
         private void ButtonCompare_Click(object sender, EventArgs e)
         {
+            ComparePage();
+        }
+
+        private void ComparePage()
+        {
             Console.WriteLine("Compare Button click!");
 
             if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
             {
-                labelResult.Text = "0.0";
+                toolStripLabelResult.Text = "0.0";
                 return;
             }
 
@@ -223,7 +234,7 @@ namespace PDFComp
 
             //if ((pdfPanel1.GetComparedPage(page1) == page2) && (pdfPanel2.GetComparedPage(page2) == page1))
             //{
-            //    labelResult.Text = "0.0";
+            //    toolStripLabelResult.Text = "0.0";
             //    return;
             //}
 
@@ -246,7 +257,7 @@ namespace PDFComp
             stopwatch.Stop();
             Console.WriteLine("Draw:{0}", stopwatch.Elapsed);
 
-            labelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
+            toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
         }
 
         private bool ComparePage(System.Diagnostics.Stopwatch stopwatch, int page1, int page2)
@@ -279,14 +290,14 @@ namespace PDFComp
 
             stopwatch.Stop();
             Console.WriteLine("Get:{0}", stopwatch.Elapsed);
-            labelResult.Text = ".";
-            labelResult.Update();
+
             stopwatch.Start();
 
             diff_match_patch dmp;
             List<Diff> diffs;
 
-            int diffType = comboBoxDiffType.SelectedIndex;
+            //int diffType = comboBoxDiffType.SelectedIndex;
+            int diffType = toolStripComboBoxDiffType.SelectedIndex;
             switch (diffType)
             {
                 case 0:     // Google Diff - Raw
@@ -329,20 +340,13 @@ namespace PDFComp
 
             stopwatch.Stop();
             Console.WriteLine("Diff:{0}", stopwatch.Elapsed);
-            labelResult.Text = "..";
-            labelResult.Update();
             stopwatch.Start();
 
             pdfPanel1.SetPageDiff(index1);
             pdfPanel2.SetPageDiff(index2);
 
-
             pdfPanel1.AddDiffMarker(page2);
-            labelResult.Text = "...";
-            labelResult.Update();
             pdfPanel2.AddDiffMarker(page1);
-            labelResult.Text = "....";
-            labelResult.Update();
 
             // Remember the last page compared.
             FindDiffPage1 = page1;
@@ -650,11 +654,16 @@ namespace PDFComp
 
         private void buttonFindDiff_Click(object sender, EventArgs e)
         {
+            FindDiff();
+        }
+
+        private void FindDiff()
+        {
             Console.WriteLine("Find diff Button click!");
 
             if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
             {
-                labelResult.Text = "0.0";
+                toolStripLabelResult.Text = "0.0";
                 return;
             }
 
@@ -688,17 +697,22 @@ namespace PDFComp
 
             stopwatch.Stop();
 
-            labelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
+            toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
 
         }
 
         private void buttonPrevDiff_Click(object sender, EventArgs e)
         {
+            PrevDiff();
+        }
+
+        private void PrevDiff()
+        {
             Console.WriteLine("Prev diff Button click!");
 
             if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
             {
-                labelResult.Text = "0.0";
+                toolStripLabelResult.Text = "0.0";
                 return;
             }
 
@@ -732,7 +746,7 @@ namespace PDFComp
 
             stopwatch.Stop();
 
-            labelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
+            toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
 
         }
 
@@ -760,6 +774,199 @@ namespace PDFComp
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
         {
             Properties.Settings.Default.Save(); // Saves settings in application configuration file.
+        }
+
+        private void toolStripButtonBookmarks_Click(object sender, EventArgs e)
+        {
+            pdfPanel1.ToggleBookmarks();
+            pdfPanel2.ToggleBookmarks();
+        }
+
+        private void toolStripButtonNextPages_Click(object sender, EventArgs e)
+        {
+            pdfPanel1.NextPage();
+            pdfPanel2.NextPage();
+        }
+
+        private void toolStripButtonPrevPages_Click(object sender, EventArgs e)
+        {
+            pdfPanel1.PrevPage();
+            pdfPanel2.PrevPage();
+        }
+
+        private void toolStripButtonPanel1Prev_Click(object sender, EventArgs e)
+        {
+            pdfPanel1.PrevPage();
+        }
+
+        private void toolStripButtonPanel1Next_Click(object sender, EventArgs e)
+        {
+            pdfPanel1.NextPage();
+        }
+
+        private void toolStripButtonPanel2Prev_Click(object sender, EventArgs e)
+        {
+            pdfPanel2.PrevPage();
+        }
+
+        private void toolStripButtonPanel2Next_Click(object sender, EventArgs e)
+        {
+            pdfPanel2.NextPage();
+        }
+
+        private void toolStripButtonRotateAnticlockwise_Click(object sender, EventArgs e)
+        {
+            rotation--;
+            if (rotation < PdfRotation.Rotate0)
+            {
+                rotation = PdfRotation.Rotate270;
+            }
+
+            pdfPanel1.Rotate(rotation);
+            pdfPanel2.Rotate(rotation);
+        }
+
+        private void toolStripButtonRotateClockwise_Click(object sender, EventArgs e)
+        {
+            rotation++;
+            if (rotation > PdfRotation.Rotate270)
+            {
+                rotation = PdfRotation.Rotate0;
+            }
+
+            pdfPanel1.Rotate(rotation);
+            pdfPanel2.Rotate(rotation);
+        }
+
+        private void toolStripButtonHandmode_Click(object sender, EventArgs e)
+        {
+            // like RadioButton
+            toolStripButtonHandmode.BackColor = SystemColors.GradientActiveCaption;
+            toolStripButtonTextmode.BackColor = SystemColors.Control;
+            toolStripButtonSelectmode.BackColor = SystemColors.Control;
+
+            pdfPanel1.pdfViewer.Renderer.CursorMode = PdfCursorMode.Pan;
+            pdfPanel2.pdfViewer.Renderer.CursorMode = PdfCursorMode.Pan;
+            pdfPanel1.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
+            pdfPanel2.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
+        }
+
+        private void toolStripButtonTextmode_Click(object sender, EventArgs e)
+        {
+            // like RadioButton
+            toolStripButtonHandmode.BackColor = SystemColors.Control;
+            toolStripButtonTextmode.BackColor = SystemColors.GradientActiveCaption;
+            toolStripButtonSelectmode.BackColor = SystemColors.Control;
+
+            pdfPanel1.pdfViewer.Renderer.CursorMode = PdfCursorMode.TextSelection;
+            pdfPanel2.pdfViewer.Renderer.CursorMode = PdfCursorMode.TextSelection;
+            pdfPanel1.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
+            pdfPanel2.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
+        }
+
+        private void toolStripButtonSelectmode_Click(object sender, EventArgs e)
+        {
+            // like RadioButton
+            toolStripButtonHandmode.BackColor = SystemColors.Control;
+            toolStripButtonTextmode.BackColor = SystemColors.Control;
+            toolStripButtonSelectmode.BackColor = SystemColors.GradientActiveCaption;
+
+            pdfPanel1.pdfViewer.Renderer.CursorMode = PdfCursorMode.Bounds;
+            pdfPanel2.pdfViewer.Renderer.CursorMode = PdfCursorMode.Bounds;
+            pdfPanel1.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.Zoom;
+            pdfPanel2.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.Zoom;
+        }
+
+        private void toolStripTrackBarZoom_ValueChanged(object sender, EventArgs e)
+        {
+            if (toolStripTrackBarZoom.Value >= 0)
+            {
+                zoom = 1.0 + toolStripTrackBarZoom.Value * ZoomInScale;
+            }
+            else
+            {
+                zoom = 1.0 + toolStripTrackBarZoom.Value * ZoomOutScale;
+            }
+
+            toolStripLabelZoom.Text = String.Format("{0} %", zoom * 100);
+
+            pdfPanel1.SetZoom(zoom);
+            pdfPanel2.SetZoom(zoom);
+        }
+
+        private void toolStripButtonZoomIn_Click(object sender, EventArgs e)
+        {
+            if (toolStripTrackBarZoom.Value < toolStripTrackBarZoom.Maximum)
+            {
+                toolStripTrackBarZoom.Value++;
+            }
+        }
+
+        private void toolStripButtonZoomOut_Click(object sender, EventArgs e)
+        {
+            if (toolStripTrackBarZoom.Value > toolStripTrackBarZoom.Minimum)
+            {
+                toolStripTrackBarZoom.Value--;
+            }
+        }
+
+        private void toolStripButtonZoomIn_MouseDown(object sender, MouseEventArgs e)
+        {
+            zoomIn = true;
+            timerButton.Enabled = true;
+        }
+
+        private void toolStripButtonZoomIn_MouseUp(object sender, MouseEventArgs e)
+        {
+            zoomIn = false;
+            timerButton.Enabled = false;
+        }
+
+        private void toolStripButtonZoomOut_MouseDown(object sender, MouseEventArgs e)
+        {
+            zoomOut = true;
+            timerButton.Enabled = true;
+        }
+
+        private void toolStripButtonZoomOut_MouseUp(object sender, MouseEventArgs e)
+        {
+            zoomOut = false;
+            timerButton.Enabled = false;
+        }
+
+        private void toolStripButtonComparePage_Click(object sender, EventArgs e)
+        {
+            ComparePage();
+        }
+
+        private void toolStripButtonPrevDiff_Click(object sender, EventArgs e)
+        {
+            PrevDiff();
+        }
+
+        private void toolStripButtonNextDiff_Click(object sender, EventArgs e)
+        {
+            FindDiff();
+        }
+
+        private void toolStripButtonFitOnePage_Click(object sender, EventArgs e)
+        {
+            // zoom 100 %
+            toolStripTrackBarZoom.Value = 0;
+
+            pdfPanel1.FitHeight();
+            pdfPanel2.FitHeight();
+        }
+
+        private void toolStripButtonFitWidth_Click(object sender, EventArgs e)
+        {
+            pdfPanel1.FitWidth();
+            pdfPanel2.FitWidth();
+        }
+
+        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            buttonCompare.PerformClick();
         }
     }
 }

@@ -749,8 +749,8 @@ namespace PDFComp
 
             pdfPanel1.pdfViewer.Renderer.CursorMode = PdfCursorMode.Bounds;
             pdfPanel2.pdfViewer.Renderer.CursorMode = PdfCursorMode.Bounds;
-            pdfPanel1.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.Zoom;
-            pdfPanel2.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.Zoom;
+            pdfPanel1.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
+            pdfPanel2.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
         }
 
         private void toolStripTrackBarZoom_ValueChanged(object sender, EventArgs e)

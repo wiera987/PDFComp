@@ -55,28 +55,10 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutPDFCompToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.panelBoth = new System.Windows.Forms.Panel();
             this.pdfPanel2 = new PDFComp.PdfPanel();
             this.pdfPanel1 = new PDFComp.PdfPanel();
-            this.buttonZoomIn = new System.Windows.Forms.Button();
-            this.buttonZoomOut = new System.Windows.Forms.Button();
-            this.trackBarZoom = new System.Windows.Forms.TrackBar();
-            this.labelZoom = new System.Windows.Forms.Label();
             this.timerButton = new System.Windows.Forms.Timer(this.components);
-            this.buttonPrevPage = new System.Windows.Forms.Button();
-            this.buttonNextPage = new System.Windows.Forms.Button();
-            this.buttonCompare = new System.Windows.Forms.Button();
-            this.buttonBookmark = new System.Windows.Forms.Button();
-            this.buttonRotateLeft = new System.Windows.Forms.Button();
-            this.buttonRotateRight = new System.Windows.Forms.Button();
-            this.labelResult = new System.Windows.Forms.Label();
-            this.comboBoxDiffType = new System.Windows.Forms.ComboBox();
-            this.radioButtonPan = new System.Windows.Forms.RadioButton();
-            this.radioButtonText = new System.Windows.Forms.RadioButton();
-            this.buttonFindDiff = new System.Windows.Forms.Button();
-            this.radioButtonBounds = new System.Windows.Forms.RadioButton();
-            this.buttonPrevDiff = new System.Windows.Forms.Button();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonBookmarks = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonPanel1Prev = new System.Windows.Forms.ToolStripButton();
@@ -88,14 +70,14 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonComparePage = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabelResult = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripButtonNextDiff = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonPrevDiff = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonNextDiff = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripComboBoxDiffType = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonHandmode = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonTextmode = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonSelectmode = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonBoundsmode = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonRotateAnticlockwise = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRotateClockwise = new System.Windows.Forms.ToolStripButton();
@@ -108,7 +90,6 @@
             this.toolStripButtonFitOnePage = new System.Windows.Forms.ToolStripButton();
             this.menuStrip.SuspendLayout();
             this.panelBoth.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
             this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -268,7 +249,7 @@
             this.previousDifferenceToolStripMenuItem.Name = "previousDifferenceToolStripMenuItem";
             this.previousDifferenceToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             this.previousDifferenceToolStripMenuItem.Text = "Previous Difference";
-            this.previousDifferenceToolStripMenuItem.Click += new System.EventHandler(this.previousDifferenceToolStripMenuItem_Click_1);
+            this.previousDifferenceToolStripMenuItem.Click += new System.EventHandler(this.previousDifferenceToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -312,15 +293,6 @@
             this.aboutPDFCompToolStripMenuItem.Text = "About PDFComp ...";
             this.aboutPDFCompToolStripMenuItem.Click += new System.EventHandler(this.AboutPDFCompToolStripMenuItem_Click);
             // 
-            // toolStrip1
-            // 
-            this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1192, 25);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
             // panelBoth
             // 
             this.panelBoth.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -354,206 +326,9 @@
             this.pdfPanel1.Size = new System.Drawing.Size(512, 713);
             this.pdfPanel1.TabIndex = 1;
             // 
-            // buttonZoomIn
-            // 
-            this.buttonZoomIn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonZoomIn.Location = new System.Drawing.Point(1150, 24);
-            this.buttonZoomIn.Name = "buttonZoomIn";
-            this.buttonZoomIn.Size = new System.Drawing.Size(23, 23);
-            this.buttonZoomIn.TabIndex = 16;
-            this.buttonZoomIn.Text = "+";
-            this.buttonZoomIn.UseVisualStyleBackColor = true;
-            this.buttonZoomIn.Click += new System.EventHandler(this.ButtonZoomIn_Click);
-            this.buttonZoomIn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonZoomIn_MouseDown);
-            this.buttonZoomIn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonZoomIn_MouseUp);
-            // 
-            // buttonZoomOut
-            // 
-            this.buttonZoomOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonZoomOut.Location = new System.Drawing.Point(939, 24);
-            this.buttonZoomOut.Name = "buttonZoomOut";
-            this.buttonZoomOut.Size = new System.Drawing.Size(23, 23);
-            this.buttonZoomOut.TabIndex = 14;
-            this.buttonZoomOut.Text = "-";
-            this.buttonZoomOut.UseVisualStyleBackColor = true;
-            this.buttonZoomOut.Click += new System.EventHandler(this.ButtonZoomOut_Click);
-            this.buttonZoomOut.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ButtonZoomOut_MouseDown);
-            this.buttonZoomOut.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ButtonZoomOut_MouseUp);
-            // 
-            // trackBarZoom
-            // 
-            this.trackBarZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBarZoom.AutoSize = false;
-            this.trackBarZoom.Location = new System.Drawing.Point(968, 24);
-            this.trackBarZoom.Maximum = 30;
-            this.trackBarZoom.Minimum = -30;
-            this.trackBarZoom.Name = "trackBarZoom";
-            this.trackBarZoom.Size = new System.Drawing.Size(176, 22);
-            this.trackBarZoom.TabIndex = 15;
-            this.trackBarZoom.TickFrequency = 30;
-            this.trackBarZoom.ValueChanged += new System.EventHandler(this.TrackBarZoom_ValueChanged);
-            // 
-            // labelZoom
-            // 
-            this.labelZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelZoom.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelZoom.Location = new System.Drawing.Point(882, 24);
-            this.labelZoom.Name = "labelZoom";
-            this.labelZoom.Size = new System.Drawing.Size(51, 17);
-            this.labelZoom.TabIndex = 6;
-            this.labelZoom.Text = "100 %";
-            // 
             // timerButton
             // 
             this.timerButton.Tick += new System.EventHandler(this.TimerButton_Tick);
-            // 
-            // buttonPrevPage
-            // 
-            this.buttonPrevPage.Location = new System.Drawing.Point(12, 24);
-            this.buttonPrevPage.Name = "buttonPrevPage";
-            this.buttonPrevPage.Size = new System.Drawing.Size(69, 23);
-            this.buttonPrevPage.TabIndex = 7;
-            this.buttonPrevPage.Text = "< Prev";
-            this.buttonPrevPage.UseVisualStyleBackColor = true;
-            this.buttonPrevPage.Click += new System.EventHandler(this.ButtonPrevPage_Click);
-            // 
-            // buttonNextPage
-            // 
-            this.buttonNextPage.Location = new System.Drawing.Point(81, 24);
-            this.buttonNextPage.Name = "buttonNextPage";
-            this.buttonNextPage.Size = new System.Drawing.Size(69, 23);
-            this.buttonNextPage.TabIndex = 8;
-            this.buttonNextPage.Text = "> Next";
-            this.buttonNextPage.UseVisualStyleBackColor = true;
-            this.buttonNextPage.Click += new System.EventHandler(this.ButtonNextPage_Click);
-            // 
-            // buttonCompare
-            // 
-            this.buttonCompare.Location = new System.Drawing.Point(553, 24);
-            this.buttonCompare.Name = "buttonCompare";
-            this.buttonCompare.Size = new System.Drawing.Size(99, 23);
-            this.buttonCompare.TabIndex = 12;
-            this.buttonCompare.Text = "Compare Page";
-            this.buttonCompare.UseVisualStyleBackColor = true;
-            this.buttonCompare.Click += new System.EventHandler(this.ButtonCompare_Click);
-            // 
-            // buttonBookmark
-            // 
-            this.buttonBookmark.Location = new System.Drawing.Point(167, 24);
-            this.buttonBookmark.Name = "buttonBookmark";
-            this.buttonBookmark.Size = new System.Drawing.Size(75, 23);
-            this.buttonBookmark.TabIndex = 9;
-            this.buttonBookmark.Text = "Bookmark";
-            this.buttonBookmark.UseVisualStyleBackColor = true;
-            this.buttonBookmark.Click += new System.EventHandler(this.ButtonBookmark_Click);
-            // 
-            // buttonRotateLeft
-            // 
-            this.buttonRotateLeft.Image = ((System.Drawing.Image)(resources.GetObject("buttonRotateLeft.Image")));
-            this.buttonRotateLeft.Location = new System.Drawing.Point(251, 24);
-            this.buttonRotateLeft.Name = "buttonRotateLeft";
-            this.buttonRotateLeft.Size = new System.Drawing.Size(52, 23);
-            this.buttonRotateLeft.TabIndex = 10;
-            this.buttonRotateLeft.UseVisualStyleBackColor = true;
-            this.buttonRotateLeft.Click += new System.EventHandler(this.ButtonRotateLeft_Click);
-            // 
-            // buttonRotateRight
-            // 
-            this.buttonRotateRight.Image = ((System.Drawing.Image)(resources.GetObject("buttonRotateRight.Image")));
-            this.buttonRotateRight.Location = new System.Drawing.Point(304, 24);
-            this.buttonRotateRight.Name = "buttonRotateRight";
-            this.buttonRotateRight.Size = new System.Drawing.Size(52, 23);
-            this.buttonRotateRight.TabIndex = 11;
-            this.buttonRotateRight.UseVisualStyleBackColor = true;
-            this.buttonRotateRight.Click += new System.EventHandler(this.ButtonRotateRight_Click);
-            // 
-            // labelResult
-            // 
-            this.labelResult.BackColor = System.Drawing.Color.Transparent;
-            this.labelResult.Font = new System.Drawing.Font("MS UI Gothic", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.labelResult.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.labelResult.Location = new System.Drawing.Point(657, 33);
-            this.labelResult.Name = "labelResult";
-            this.labelResult.Size = new System.Drawing.Size(26, 10);
-            this.labelResult.TabIndex = 17;
-            this.labelResult.Text = "...";
-            // 
-            // comboBoxDiffType
-            // 
-            this.comboBoxDiffType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxDiffType.FormattingEnabled = true;
-            this.comboBoxDiffType.Items.AddRange(new object[] {
-            "Character mode",
-            "Line mode - Semantic",
-            "Line mode - Efficiency 4",
-            "Line mode - Efficiency 5",
-            "Line mode - Efficiency 3"});
-            this.comboBoxDiffType.Location = new System.Drawing.Point(689, 26);
-            this.comboBoxDiffType.Name = "comboBoxDiffType";
-            this.comboBoxDiffType.Size = new System.Drawing.Size(181, 20);
-            this.comboBoxDiffType.TabIndex = 13;
-            this.comboBoxDiffType.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDiffType_SelectedIndexChanged);
-            // 
-            // radioButtonPan
-            // 
-            this.radioButtonPan.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButtonPan.Image = ((System.Drawing.Image)(resources.GetObject("radioButtonPan.Image")));
-            this.radioButtonPan.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.radioButtonPan.Location = new System.Drawing.Point(373, 24);
-            this.radioButtonPan.Name = "radioButtonPan";
-            this.radioButtonPan.Size = new System.Drawing.Size(34, 23);
-            this.radioButtonPan.TabIndex = 18;
-            this.radioButtonPan.TabStop = true;
-            this.radioButtonPan.UseVisualStyleBackColor = true;
-            this.radioButtonPan.CheckedChanged += new System.EventHandler(this.RadioButtonPan_CheckedChanged);
-            // 
-            // radioButtonText
-            // 
-            this.radioButtonText.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButtonText.Font = new System.Drawing.Font("Georgia", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonText.Location = new System.Drawing.Point(406, 24);
-            this.radioButtonText.Name = "radioButtonText";
-            this.radioButtonText.Size = new System.Drawing.Size(34, 23);
-            this.radioButtonText.TabIndex = 19;
-            this.radioButtonText.TabStop = true;
-            this.radioButtonText.Text = "T";
-            this.radioButtonText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButtonText.UseVisualStyleBackColor = true;
-            this.radioButtonText.CheckedChanged += new System.EventHandler(this.RadioButtonText_CheckedChanged);
-            // 
-            // buttonFindDiff
-            // 
-            this.buttonFindDiff.Location = new System.Drawing.Point(519, 24);
-            this.buttonFindDiff.Name = "buttonFindDiff";
-            this.buttonFindDiff.Size = new System.Drawing.Size(34, 23);
-            this.buttonFindDiff.TabIndex = 20;
-            this.buttonFindDiff.Text = ">>";
-            this.buttonFindDiff.UseVisualStyleBackColor = true;
-            this.buttonFindDiff.Click += new System.EventHandler(this.buttonFindDiff_Click);
-            // 
-            // radioButtonBounds
-            // 
-            this.radioButtonBounds.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButtonBounds.Font = new System.Drawing.Font("Georgia", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonBounds.Image = ((System.Drawing.Image)(resources.GetObject("radioButtonBounds.Image")));
-            this.radioButtonBounds.Location = new System.Drawing.Point(439, 24);
-            this.radioButtonBounds.Name = "radioButtonBounds";
-            this.radioButtonBounds.Size = new System.Drawing.Size(34, 23);
-            this.radioButtonBounds.TabIndex = 21;
-            this.radioButtonBounds.TabStop = true;
-            this.radioButtonBounds.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButtonBounds.UseVisualStyleBackColor = true;
-            this.radioButtonBounds.CheckedChanged += new System.EventHandler(this.radioButtonBounds_CheckedChanged);
-            // 
-            // buttonPrevDiff
-            // 
-            this.buttonPrevDiff.Location = new System.Drawing.Point(486, 24);
-            this.buttonPrevDiff.Name = "buttonPrevDiff";
-            this.buttonPrevDiff.Size = new System.Drawing.Size(34, 23);
-            this.buttonPrevDiff.TabIndex = 22;
-            this.buttonPrevDiff.Text = "<<";
-            this.buttonPrevDiff.UseVisualStyleBackColor = true;
-            this.buttonPrevDiff.Click += new System.EventHandler(this.buttonPrevDiff_Click);
             // 
             // toolStrip2
             // 
@@ -576,7 +351,7 @@
             this.toolStripSeparator6,
             this.toolStripButtonHandmode,
             this.toolStripButtonTextmode,
-            this.toolStripButtonSelectmode,
+            this.toolStripButtonBoundsmode,
             this.toolStripSeparator5,
             this.toolStripButtonRotateAnticlockwise,
             this.toolStripButtonRotateClockwise,
@@ -587,7 +362,7 @@
             this.toolStripLabelZoom,
             this.toolStripButtonFitWidth,
             this.toolStripButtonFitOnePage});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 49);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 24);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(1192, 33);
             this.toolStrip2.TabIndex = 23;
@@ -709,17 +484,6 @@
             this.toolStripLabelResult.Text = "0.0";
             this.toolStripLabelResult.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
-            // toolStripButtonNextDiff
-            // 
-            this.toolStripButtonNextDiff.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonNextDiff.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNextDiff.Image")));
-            this.toolStripButtonNextDiff.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButtonNextDiff.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonNextDiff.Name = "toolStripButtonNextDiff";
-            this.toolStripButtonNextDiff.Size = new System.Drawing.Size(28, 30);
-            this.toolStripButtonNextDiff.Text = "Next different page";
-            this.toolStripButtonNextDiff.Click += new System.EventHandler(this.toolStripButtonNextDiff_Click);
-            // 
             // toolStripButtonPrevDiff
             // 
             this.toolStripButtonPrevDiff.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -730,6 +494,17 @@
             this.toolStripButtonPrevDiff.Size = new System.Drawing.Size(28, 30);
             this.toolStripButtonPrevDiff.Text = "Prev different page";
             this.toolStripButtonPrevDiff.Click += new System.EventHandler(this.toolStripButtonPrevDiff_Click);
+            // 
+            // toolStripButtonNextDiff
+            // 
+            this.toolStripButtonNextDiff.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonNextDiff.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNextDiff.Image")));
+            this.toolStripButtonNextDiff.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonNextDiff.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonNextDiff.Name = "toolStripButtonNextDiff";
+            this.toolStripButtonNextDiff.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonNextDiff.Text = "Next different page";
+            this.toolStripButtonNextDiff.Click += new System.EventHandler(this.toolStripButtonNextDiff_Click);
             // 
             // toolStripLabel2
             // 
@@ -783,16 +558,16 @@
             this.toolStripButtonTextmode.Text = "Text mode";
             this.toolStripButtonTextmode.Click += new System.EventHandler(this.toolStripButtonTextmode_Click);
             // 
-            // toolStripButtonSelectmode
+            // toolStripButtonBoundsmode
             // 
-            this.toolStripButtonSelectmode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonSelectmode.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSelectmode.Image")));
-            this.toolStripButtonSelectmode.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButtonSelectmode.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonSelectmode.Name = "toolStripButtonSelectmode";
-            this.toolStripButtonSelectmode.Size = new System.Drawing.Size(28, 30);
-            this.toolStripButtonSelectmode.Text = "Selecting mode";
-            this.toolStripButtonSelectmode.Click += new System.EventHandler(this.toolStripButtonSelectmode_Click);
+            this.toolStripButtonBoundsmode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonBoundsmode.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonBoundsmode.Image")));
+            this.toolStripButtonBoundsmode.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonBoundsmode.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonBoundsmode.Name = "toolStripButtonBoundsmode";
+            this.toolStripButtonBoundsmode.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonBoundsmode.Text = "Bounds mode";
+            this.toolStripButtonBoundsmode.Click += new System.EventHandler(this.toolStripButtonBoundsmode_Click);
             // 
             // toolStripSeparator5
             // 
@@ -840,7 +615,7 @@
             // 
             this.toolStripTrackBarZoom.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripTrackBarZoom.AutoSize = false;
-            this.toolStripTrackBarZoom.Maximum = 30;
+            this.toolStripTrackBarZoom.Maximum = 40;
             this.toolStripTrackBarZoom.Minimum = -30;
             this.toolStripTrackBarZoom.Name = "toolStripTrackBarZoom";
             this.toolStripTrackBarZoom.Size = new System.Drawing.Size(176, 45);
@@ -906,25 +681,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1192, 773);
             this.Controls.Add(this.toolStrip2);
-            this.Controls.Add(this.buttonPrevDiff);
-            this.Controls.Add(this.radioButtonBounds);
-            this.Controls.Add(this.buttonFindDiff);
-            this.Controls.Add(this.radioButtonText);
-            this.Controls.Add(this.radioButtonPan);
-            this.Controls.Add(this.comboBoxDiffType);
-            this.Controls.Add(this.labelResult);
-            this.Controls.Add(this.buttonRotateRight);
-            this.Controls.Add(this.buttonRotateLeft);
-            this.Controls.Add(this.buttonBookmark);
-            this.Controls.Add(this.buttonCompare);
-            this.Controls.Add(this.buttonNextPage);
-            this.Controls.Add(this.buttonPrevPage);
-            this.Controls.Add(this.labelZoom);
-            this.Controls.Add(this.trackBarZoom);
-            this.Controls.Add(this.buttonZoomOut);
-            this.Controls.Add(this.buttonZoomIn);
             this.Controls.Add(this.panelBoth);
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -938,7 +695,6 @@
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.panelBoth.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).EndInit();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             this.ResumeLayout(false);
@@ -952,26 +708,14 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.Panel panelBoth;
         private PdfPanel pdfPanel2;
         private PdfPanel pdfPanel1;
-        private System.Windows.Forms.Button buttonZoomIn;
-        private System.Windows.Forms.Button buttonZoomOut;
-        private System.Windows.Forms.TrackBar trackBarZoom;
-        private System.Windows.Forms.Label labelZoom;
         private System.Windows.Forms.Timer timerButton;
-        private System.Windows.Forms.Button buttonPrevPage;
-        private System.Windows.Forms.Button buttonNextPage;
-        private System.Windows.Forms.Button buttonCompare;
-        private System.Windows.Forms.Button buttonBookmark;
-        private System.Windows.Forms.Button buttonRotateLeft;
-        private System.Windows.Forms.Button buttonRotateRight;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyFile1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyFile2ToolStripMenuItem;
-        private System.Windows.Forms.Label labelResult;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutPDFCompToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyBookmarks1ToolStripMenuItem;
@@ -981,15 +725,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem clearMarker1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearMarker2ToolStripMenuItem;
-        private System.Windows.Forms.ComboBox comboBoxDiffType;
-        private System.Windows.Forms.RadioButton radioButtonPan;
-        private System.Windows.Forms.RadioButton radioButtonText;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
-        private System.Windows.Forms.Button buttonFindDiff;
         private System.Windows.Forms.ToolStripMenuItem usageToolStripMenuItem;
-        private System.Windows.Forms.RadioButton radioButtonBounds;
-        private System.Windows.Forms.Button buttonPrevDiff;
         private System.Windows.Forms.ToolStripMenuItem nextDifferenceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem previousDifferenceToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
@@ -1006,7 +744,7 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripButton toolStripButtonHandmode;
         private System.Windows.Forms.ToolStripButton toolStripButtonTextmode;
-        private System.Windows.Forms.ToolStripButton toolStripButtonSelectmode;
+        private System.Windows.Forms.ToolStripButton toolStripButtonBoundsmode;
         private System.Windows.Forms.ToolStripButton toolStripButtonPanel1Prev;
         private System.Windows.Forms.ToolStripButton toolStripButtonPanel1Next;
         private System.Windows.Forms.ToolStripButton toolStripButtonPanel2Prev;

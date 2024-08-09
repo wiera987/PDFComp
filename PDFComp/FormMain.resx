@@ -120,51 +120,13 @@
   <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>121, 17</value>
-  </metadata>
   <metadata name="timerButton.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>223, 17</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonRotateLeft.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAANVJREFUOE+lkjsOhDAMRDkhKz7ZI6SlY0s6uArHAMocgJNAS5ax5CgxTrFapAf2
-        eMYgoPDe/4Uq/oIq7vdhrfWvsiRQQ9O8D+FtTAhKMJP+pInN27YtrKOOZ6yDUEzjmL0LY9qWPPCyFoba
-        dg3po9N5njRo6joMcsAD752hl0qic26H+On7u9WDDDzwIoOeRPkEqAFqifoEgEPzPNM1t0DO6MRfADRV
-        lV3A/0jyFY7jCFslbALou6576KEA67ouwzBkF4DrupJM0uRAKCaeJY1EC6T44gsns7jAT2enTgAAAABJ
-        RU5ErkJggg==
-</value>
-  </data>
-  <data name="buttonRotateRight.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAMlJREFUOE+lkkkOgzAMRTkhFUN6hGzZ0WV29Coco8mSA3AT1ik/kl07TemE9ETy
-        /exEgirG+BfF8BuKIVj3x1obT3WdwBpZ7qkNcTaGG3NQk65qBFIOIdwox1rWKFfN12lKRdP3+/aRS+h2
-        cLFXxXz6K6TH4bZtK8KubVPhCDhPA5ZlSQMu45gKR8CBix4O390ANTq1eAMgpRyqzfOc3uQpib5C/q0B
-        NXVNwwPgK4nEYRj4BJmXUM25XMqcc9F7zz8YC79SDD8nVnc4o7kyLP1zmAAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="radioButtonPan.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAMJJREFUOE99ku0ZwyAIhDNhOoY7pD/cJt0nHYj6WkkpoPc8J4jHYT42EUnZIKUU
-        krbNNTAUnsch8LHv8r6ubqI1r4WhQAONGACiGnLuGQq2EdBsDIM+FDIDG6lbs2BghT5qDmqthK+BHr7O
-        M23UyKMA+2X6QiNApA0qtmeKccufgT20eQam6/X7lsU26cQZ/I/VFxz15a2Axk6Hd8It9LlnyH7rO8F5
-        CFIwwE+Hf5uVSTYdhsLsK4yXG/Sh0LiC08r2ARK6DsGf1xvlAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="radioButtonBounds.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAFZJREFUOE9j+P//P0UYqyApmMHe3v4/JRhsQEBAAENpcTFJGGQ73AAQByZILAZZ
-        Sj0DYF7AphAXpq4BIM3DxABSMIoBlGC4k4AcsjCKv8jBWAWJx/8ZACe5TzjObJYdAAAAAElFTkSuQmCC
-</value>
-  </data>
   <metadata name="toolStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>340, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="toolStripButtonBookmarks.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -278,7 +240,7 @@
         GBgYGAAt6WoF9hsdxgAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="toolStripButtonSelectmode.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="toolStripButtonBoundsmode.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABlSURBVEhLYxgFgwdwqXoZsCt5n+dU8f5PCQaZwa7s7QA1

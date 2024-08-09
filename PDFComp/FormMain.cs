@@ -17,7 +17,7 @@ namespace PDFComp
 {
     public partial class FormMain : Form
     {
-        readonly Double ZoomInScale = 0.2;
+        readonly Double ZoomInScale = 0.1;
         readonly Double ZoomOutScale = 0.03;
         FormFind formFind = null;
         PdfRotation rotation;
@@ -38,9 +38,6 @@ namespace PDFComp
             toolStripTrackBarZoom.Height = 22;
             toolStripTrackBarZoom.TrackBar.AutoSize = toolStripTrackBarZoom.AutoSize;
 
-            comboBoxDiffType.SelectedIndex = 0;
-            radioButtonText.Checked = true;
-
             pdfPanel1.toolStripButtonNextPage.ToolTipText = "Next Page / Ctrl + RIGHT_ARROW";
             pdfPanel1.toolStripButtonPrevPage.ToolTipText = "Prev Page / Ctrl + LEFT_ARROW";
             pdfPanel2.toolStripButtonNextPage.ToolTipText = "Next Page / Alt + RIGHT_ARROW";
@@ -60,13 +57,13 @@ namespace PDFComp
             switch (keyData)
             {
                 case Keys.Left:
-                    buttonPrevPage.PerformClick();
+                    toolStripButtonPrevPages.PerformClick();
                     return true;
                 case Keys.Right:
-                    buttonNextPage.PerformClick();
+                    toolStripButtonNextPages.PerformClick();
                     return true;
                 case Keys.Space:
-                    buttonCompare.PerformClick();
+                    toolStripButtonComparePage.PerformClick();
                     return true;
 
                 case Keys.Control | Keys.Left:
@@ -91,10 +88,10 @@ namespace PDFComp
             switch (e.KeyData)
             {
                 case Keys.Left:
-                    buttonPrevPage.PerformClick();
+                    toolStripButtonPrevPages.PerformClick();
                     break;
                 case Keys.Right:
-                    buttonNextPage.PerformClick();
+                    toolStripButtonNextPages.PerformClick();
                     break;
 
                 case Keys.Control | Keys.Left:
@@ -131,62 +128,6 @@ namespace PDFComp
             pdfPanel2.Width = panelBoth.Width / 2 - pdfPanel2.Margin.Horizontal;
         }
 
-        private void ButtonZoomIn_Click(object sender, EventArgs e)
-        {
-            if (trackBarZoom.Value < trackBarZoom.Maximum)
-            {
-                trackBarZoom.Value++;
-            }
-        }
-        private void ButtonZoomOut_Click(object sender, EventArgs e)
-        {
-            if (trackBarZoom.Value > trackBarZoom.Minimum)
-            {
-                trackBarZoom.Value--;
-            }
-        }
-
-        private void TrackBarZoom_ValueChanged(object sender, EventArgs e)
-        {
-            if (trackBarZoom.Value >= 0)
-            {
-                zoom = 1.0 + trackBarZoom.Value * ZoomInScale;
-            } else
-            {
-                zoom = 1.0 + trackBarZoom.Value * ZoomOutScale;
-            }
-
-            labelZoom.Text = String.Format("{0} %", zoom * 100);
-
-            pdfPanel1.SetZoom(zoom);
-            pdfPanel2.SetZoom(zoom);
-
-        }
-
-        private void ButtonZoomIn_MouseDown(object sender, MouseEventArgs e)
-        {
-            zoomIn = true;
-            timerButton.Enabled = true;
-        }
-
-        private void ButtonZoomIn_MouseUp(object sender, MouseEventArgs e)
-        {
-            zoomIn = false;
-            timerButton.Enabled = false;
-        }
-
-        private void ButtonZoomOut_MouseDown(object sender, MouseEventArgs e)
-        {
-            zoomOut = true;
-            timerButton.Enabled = true;
-        }
-
-        private void ButtonZoomOut_MouseUp(object sender, MouseEventArgs e)
-        {
-            zoomOut = false;
-            timerButton.Enabled = false;
-        }
-
         private void TimerButton_Tick(object sender, EventArgs e)
         {
             if (zoomOut)
@@ -198,23 +139,6 @@ namespace PDFComp
             {
                 toolStripButtonZoomIn.PerformClick();
             }
-        }
-
-        private void ButtonNextPage_Click(object sender, EventArgs e)
-        {
-            pdfPanel1.NextPage();
-            pdfPanel2.NextPage();
-        }
-
-        private void ButtonPrevPage_Click(object sender, EventArgs e)
-        {
-            pdfPanel1.PrevPage();
-            pdfPanel2.PrevPage();
-        }
-
-        private void ButtonCompare_Click(object sender, EventArgs e)
-        {
-            ComparePage();
         }
 
         private void ComparePage()
@@ -587,7 +511,7 @@ namespace PDFComp
 
         private void ComparePageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            buttonCompare.PerformClick();
+            toolStripButtonComparePage.PerformClick();
         }
 
         private void ClearMarker1ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -598,44 +522,6 @@ namespace PDFComp
         private void ClearMarker2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pdfPanel2.ClearDiffMarker(pdfPanel2.pdfViewer.Renderer.Page, true);
-        }
-
-        private void ComboBoxDiffType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            buttonCompare.PerformClick();
-        }
-
-        private void RadioButtonPan_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonPan.Checked)
-            {
-                pdfPanel1.pdfViewer.Renderer.CursorMode = PdfCursorMode.Pan;
-                pdfPanel2.pdfViewer.Renderer.CursorMode = PdfCursorMode.Pan;
-                pdfPanel1.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
-                pdfPanel2.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
-            }
-        }
-
-        private void RadioButtonText_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonText.Checked)
-            {
-                pdfPanel1.pdfViewer.Renderer.CursorMode = PdfCursorMode.TextSelection;
-                pdfPanel2.pdfViewer.Renderer.CursorMode = PdfCursorMode.TextSelection;
-                pdfPanel1.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
-                pdfPanel2.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
-            }
-        }
-
-        private void radioButtonBounds_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonBounds.Checked)
-            {
-                pdfPanel1.pdfViewer.Renderer.CursorMode = PdfCursorMode.Bounds;
-                pdfPanel2.pdfViewer.Renderer.CursorMode = PdfCursorMode.Bounds;
-                pdfPanel1.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.Zoom;
-                pdfPanel2.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.Zoom;
-            }
         }
 
         private void FindToolStripMenuItem_Click(object sender, EventArgs e)
@@ -650,11 +536,6 @@ namespace PDFComp
             }
             formFind.Hide();
             formFind.Show(this);
-        }
-
-        private void buttonFindDiff_Click(object sender, EventArgs e)
-        {
-            FindDiff();
         }
 
         private void FindDiff()
@@ -699,11 +580,6 @@ namespace PDFComp
 
             toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
 
-        }
-
-        private void buttonPrevDiff_Click(object sender, EventArgs e)
-        {
-            PrevDiff();
         }
 
         private void PrevDiff()
@@ -752,12 +628,12 @@ namespace PDFComp
 
         private void previousDifferenceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            buttonFindDiff.PerformClick();
+            toolStripButtonNextDiff.PerformClick();
         }
 
         private void previousDifferenceToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            buttonPrevDiff.PerformClick();
+            toolStripButtonPrevDiff.PerformClick();
         }
 
         private void toolStripMenuItemEnableReduceColorCopy_Click(object sender, EventArgs e)
@@ -843,7 +719,7 @@ namespace PDFComp
             // like RadioButton
             toolStripButtonHandmode.BackColor = SystemColors.GradientActiveCaption;
             toolStripButtonTextmode.BackColor = SystemColors.Control;
-            toolStripButtonSelectmode.BackColor = SystemColors.Control;
+            toolStripButtonBoundsmode.BackColor = SystemColors.Control;
 
             pdfPanel1.pdfViewer.Renderer.CursorMode = PdfCursorMode.Pan;
             pdfPanel2.pdfViewer.Renderer.CursorMode = PdfCursorMode.Pan;
@@ -856,7 +732,7 @@ namespace PDFComp
             // like RadioButton
             toolStripButtonHandmode.BackColor = SystemColors.Control;
             toolStripButtonTextmode.BackColor = SystemColors.GradientActiveCaption;
-            toolStripButtonSelectmode.BackColor = SystemColors.Control;
+            toolStripButtonBoundsmode.BackColor = SystemColors.Control;
 
             pdfPanel1.pdfViewer.Renderer.CursorMode = PdfCursorMode.TextSelection;
             pdfPanel2.pdfViewer.Renderer.CursorMode = PdfCursorMode.TextSelection;
@@ -864,12 +740,12 @@ namespace PDFComp
             pdfPanel2.pdfViewer.Renderer.MouseWheelMode = MouseWheelMode.PanAndZoom;
         }
 
-        private void toolStripButtonSelectmode_Click(object sender, EventArgs e)
+        private void toolStripButtonBoundsmode_Click(object sender, EventArgs e)
         {
             // like RadioButton
             toolStripButtonHandmode.BackColor = SystemColors.Control;
             toolStripButtonTextmode.BackColor = SystemColors.Control;
-            toolStripButtonSelectmode.BackColor = SystemColors.GradientActiveCaption;
+            toolStripButtonBoundsmode.BackColor = SystemColors.GradientActiveCaption;
 
             pdfPanel1.pdfViewer.Renderer.CursorMode = PdfCursorMode.Bounds;
             pdfPanel2.pdfViewer.Renderer.CursorMode = PdfCursorMode.Bounds;
@@ -966,7 +842,7 @@ namespace PDFComp
 
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buttonCompare.PerformClick();
+            toolStripButtonComparePage.PerformClick();
         }
     }
 }

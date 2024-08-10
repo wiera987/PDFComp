@@ -17,8 +17,8 @@ namespace PDFComp
 {
     public partial class FormMain : Form
     {
-        readonly Double ZoomInScale = 0.1;
-        readonly Double ZoomOutScale = 0.03;
+        readonly Double ZoomInScale = 0.1;      // (700% - 100%) / (100% * 60.0)
+        readonly Double ZoomOutScale = 0.03;    // (100% - 10%) / (100% * 30.0);
         FormFind formFind = null;
         PdfRotation rotation;
         Double zoom;
@@ -851,5 +851,7 @@ namespace PDFComp
         {
             toolStripButtonComparePage.PerformClick();
         }
+
+
     }
 }

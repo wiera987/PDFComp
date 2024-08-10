@@ -615,10 +615,12 @@
             // 
             this.toolStripTrackBarZoom.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripTrackBarZoom.AutoSize = false;
-            this.toolStripTrackBarZoom.Maximum = 40;
+            this.toolStripTrackBarZoom.LargeChange = 5;
+            this.toolStripTrackBarZoom.Maximum = 60;
             this.toolStripTrackBarZoom.Minimum = -30;
             this.toolStripTrackBarZoom.Name = "toolStripTrackBarZoom";
             this.toolStripTrackBarZoom.Size = new System.Drawing.Size(176, 45);
+            this.toolStripTrackBarZoom.SmallChange = 1;
             this.toolStripTrackBarZoom.Text = "Zoom slider";
             this.toolStripTrackBarZoom.TickFrequency = 30;
             this.toolStripTrackBarZoom.Value = 0;

@@ -62,6 +62,19 @@ public class ToolStripTrackBar : ToolStripControlHost
         set { TrackBar.TickFrequency = value; }
     }
 
+    public int LargeChange
+    {
+        get { return TrackBar.LargeChange; }
+        set { TrackBar.LargeChange = value; }
+    }
+
+    public int SmallChange
+    {
+        get { return TrackBar.SmallChange; }
+        set { TrackBar.SmallChange = value; }
+    }
+
+
     //ホストしているNumericUpDownのイベントをサブスクライブする
     protected override void OnSubscribeControlEvents(Control control)
     {

@@ -160,8 +160,8 @@ namespace PDFComp
 
             var stopwatch = new System.Diagnostics.Stopwatch();
 
-            int page1 = pdfPanel1.pdfViewer.Renderer.Page;
-            int page2 = pdfPanel2.pdfViewer.Renderer.Page;
+            int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
+            int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
             //if ((pdfPanel1.GetComparedPage(page1) == page2) && (pdfPanel2.GetComparedPage(page2) == page1))
             //{
@@ -523,12 +523,12 @@ namespace PDFComp
 
         private void ClearMarker1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pdfPanel1.ClearDiffMarker(pdfPanel1.pdfViewer.Renderer.Page, true);
+            pdfPanel1.ClearDiffMarker(pdfPanel1.pdfViewer.Renderer.ComparisonPage, true);
         }
 
         private void ClearMarker2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pdfPanel2.ClearDiffMarker(pdfPanel2.pdfViewer.Renderer.Page, true);
+            pdfPanel2.ClearDiffMarker(pdfPanel2.pdfViewer.Renderer.ComparisonPage, true);
         }
 
         private void FindToolStripMenuItem_Click(object sender, EventArgs e)
@@ -558,13 +558,13 @@ namespace PDFComp
             var stopwatch = new System.Diagnostics.Stopwatch();
 
             int pages = pdfPanel1.pdfViewer.Document.PageCount;
-            int page1 = pdfPanel1.pdfViewer.Renderer.Page;
-            int page2 = pdfPanel2.pdfViewer.Renderer.Page;
+            int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
+            int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
             for (int i=page1; i<pages; i++)
             {
-                page1 = pdfPanel1.pdfViewer.Renderer.Page;
-                page2 = pdfPanel2.pdfViewer.Renderer.Page;
+                page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
+                page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
                 // If the page was just compared, compare from the next page.
                 if ((page1 == FindDiffPage1) && (page2 == FindDiffPage2))
@@ -602,13 +602,13 @@ namespace PDFComp
             var stopwatch = new System.Diagnostics.Stopwatch();
 
             int pages = pdfPanel1.pdfViewer.Document.PageCount;
-            int page1 = pdfPanel1.pdfViewer.Renderer.Page;
-            int page2 = pdfPanel2.pdfViewer.Renderer.Page;
+            int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
+            int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
             for (int i=page1; i>=0; i--)
             {
-                page1 = pdfPanel1.pdfViewer.Renderer.Page;
-                page2 = pdfPanel2.pdfViewer.Renderer.Page;
+                page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
+                page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
                 // If the page was just compared, compare from the next page.
                 if ((page1 == FindDiffPage1) && (page2 == FindDiffPage2))

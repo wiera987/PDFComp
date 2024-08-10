@@ -128,12 +128,12 @@ namespace PDFComp
                 {
                     // Extract the entire page.
                     _comp_offs = null;
-                    return pdfViewer.Document.GetPdfText(pdfViewer.Renderer.Page);
+                    return pdfViewer.Document.GetPdfText(pdfViewer.Renderer.ComparisonPage);
                 }
                 else
                 {
                     // Extract a range of CompareBounds.
-                    var page = pdfViewer.Renderer.Page;
+                    var page = pdfViewer.Renderer.ComparisonPage;
                     var text = pdfViewer.Document.GetPdfText(page);
                     var comp_text = string.Empty;
                     var comp_rect = pdfViewer.Renderer.CompareBounds;
@@ -271,11 +271,11 @@ namespace PDFComp
             }
         }
 
-        public void AddDiffMarker(int comparePage)
+        public void AddDiffMarker(int comparedPage)
         {
             if (_indexes != null)
             {
-                int page = pdfViewer.Renderer.Page;
+                int page = pdfViewer.Renderer.ComparisonPage;
                 Console.WriteLine("AddDiffMarker Page{0}:Count{1}", page, _indexes.Count);
 
                 foreach (PdfTextSpan textSpan in _indexes)
@@ -310,7 +310,7 @@ namespace PDFComp
 
                 }
 
-                _comparePage[page] = comparePage;	// Remember the compared page
+                _comparePage[page] = comparedPage;	// Remember the compared page
             }
         }
 

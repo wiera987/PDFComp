@@ -1,7 +1,7 @@
 # PDFComp
 ‚Q‚Â‚ÌPDFƒtƒ@ƒCƒ‹‚Ì•¶Žš‚ð”äŠr‚µ‚ÄAˆÙ‚È‚é•”•ª‚ðƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ü‚·B
 
-<img src="https://user-images.githubusercontent.com/50268838/221343544-6091211d-d513-426d-8aae-e756b3c5d02e.png" width="480">
+<img src="https://github.com/user-attachments/assets/f2de0712-6898-478e-a4c1-7f5fa490eac8" width="480">
 
 ## ”wŒi
 
@@ -9,8 +9,8 @@
 ’i—Ž\¬‚ðŒ©’¼‚µ‚½‚æ‚¤‚ÈPDFƒtƒ@ƒCƒ‹‚ð”äŠr‚·‚é‚Æ‚«‚ÍAŽv‚Á‚½ƒy[ƒW“¯Žm‚ª”äŠr‚³‚ê‚¸ƒy[ƒW‚ÌÄŽw’è‚ª•K—v‚É‚È‚è‚Ü‚·B
 ‚±‚ÌPDFComp‚Íƒ}ƒjƒ…ƒAƒ‹‘€ì‚É“Á‰»‚µƒy[ƒW‚ð‘f‘‚­ˆÚ“®‚µ‚ÄA‚Pƒy[ƒW‚¸‚ÂŠm”F‚µ‚Ä‚¢‚­‚½‚ß‚ÌƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Å‚·B
 
-·ˆÙƒy[ƒW‚Ö‚ÌˆÚ“®AŒŸõ—š—ð‚È‚Ç‚Ì‹@”\‚ª’Ç‰Á‚³‚ê‚Ü‚µ‚½B
-ƒy[ƒW”Ô†‚ðƒNƒŠƒbƒN‚µ‚Ä‚Ì“ü—ÍAŒ¸F‚µ‚Ä‚Ì‰æ‘œƒRƒs[‚ª’Ç‰Á‚³‚ê‚Ü‚µ‚½B
+ƒ}ƒEƒX‚ÅŒø—¦‚æ‚­‘€ì‚Å‚«‚é‚æ‚¤UI‚ðŒ©’¼‚µ‚Ü‚µ‚½B
+PDFƒtƒ@ƒCƒ‹‚ðŠJ‚­Û‚É2‚Â‚Ìƒtƒ@ƒCƒ‹‚ðˆê“x‚Éƒhƒƒbƒv‚Å‚«‚é‚æ‚¤‚É‚È‚è‚Ü‚µ‚½B‚»‚Ì‘¼’²®‚ðs‚¢‚Ü‚µ‚½B
 
 ### “®ìŠÂ‹«
 
@@ -24,9 +24,9 @@
 ### ‘€ì•û–@
 
 * 'Open' ƒ{ƒ^ƒ“‚Å 2‚Â‚Ìpdfƒtƒ@ƒCƒ‹‚ðŠJ‚«‚Ü‚·. (‚à‚µ‚­‚Íƒtƒ@ƒCƒ‹‚ðƒhƒƒbƒv)
-* '<Prev' ‚Æ '>Next' ƒ{ƒ^ƒ“‚Å@“¯Žž‚É2‚Â‚ÌPDFƒtƒ@ƒCƒ‹‚Ìƒy[ƒW‚ðˆÚ“®‚µ‚Ü‚·. (¶‰E‚Ì–îˆóƒL[)
+* '<<' ‚Æ '>>' ƒ{ƒ^ƒ“‚Å@“¯Žž‚É2‚Â‚ÌPDFƒtƒ@ƒCƒ‹‚Ìƒy[ƒW‚ðˆÚ“®‚µ‚Ü‚·. (¶‰E‚Ì–îˆóƒL[)
 * '<' ‚Æ '>' ƒ{ƒ^ƒ“‚ÍA‚»‚ê‚¼‚ê‚ÌPDFƒtƒ@ƒCƒ‹‚Ìƒy[ƒW‚ðˆÚ“®‚µ‚Ü‚·. (CTRL+–îˆóƒL[AALT+–îˆóƒL[)
-* '<<' ‚Æ '>>'ƒ{ƒ^ƒ“‚ÍA‚Q‚Â‚ÌPDFƒtƒ@ƒCƒ‹‚ð”äŠr‚µ‚È‚ª‚ç·ˆÙ‚Ì‚ ‚éƒy[ƒW‚Ü‚ÅˆÚ“®‚µ‚Ü‚·.
+* '<-' ‚Æ '->'ƒ{ƒ^ƒ“‚ÍA‚Q‚Â‚ÌPDFƒtƒ@ƒCƒ‹‚ð”äŠr‚µ‚È‚ª‚ç·ˆÙ‚Ì‚ ‚éƒy[ƒW‚Ü‚ÅˆÚ“®‚µ‚Ü‚·.
 * 'Compare page' ƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚ÆAƒy[ƒW‚Ì·ˆÙ‚ðƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ü‚·. (ƒXƒy[ƒXƒL[)
 * 'Clear markers' ‚ÌƒRƒ“ƒeƒLƒXƒgƒƒjƒ…[‚ÅAƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ä‚¢‚é·•ªƒ}[ƒJ[‚ðƒNƒŠƒA‚µ‚Ü‚·.
 * 'Copy text'  ‚ÌƒRƒ“ƒeƒLƒXƒgƒƒjƒ…[‚ÅƒeƒLƒXƒg‚ðƒRƒs[‚µ‚Ü‚·.
@@ -38,6 +38,10 @@ Panƒ‚[ƒh‚Í‚Â‚©‚ñ‚ÅPDF‚ðƒXƒNƒ[ƒ‹‚Å‚«‚Ü‚·.
 Textƒ‚[ƒh‚Í•¶Žš‚ð‘I‘ð‚µ‚ÄƒRƒs[‚Å‚«‚Ü‚·.
 Boundsƒ‚[ƒh‚Í‚»‚ê‚¼‚ê‚ÌPDF‚Ì”äŠr‘ÎÛ‚ðŽw’è‚Å‚«‚Ü‚·BˆÈ‘O‚ÌŒ‹‰Ê‚ðŽc‚µ‚½‚Ü‚ÜV‚µ‚¢”äŠr‚ð‚µ‚Ü‚·B
 
+u1ƒy[ƒW‚É‡‚í‚¹‚év‚Å‚ÍAƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚É‡‚í‚¹‚ÄPDFƒtƒ@ƒCƒ‹‚Ì•\Ž¦‚ª•Ï‚í‚è‚Ü‚·B
+u•‚É‡‚í‚¹‚év‚Å‚ÍAƒEƒBƒ“ƒhƒE‚Ì‰¡•‚É‡‚í‚¹‚ÄPDFƒtƒ@ƒCƒ‹‚Ì•\Ž¦‚ª•Ï‚í‚è‚Ü‚·B
+
+[PDFComp wiki](https://github.com/wiera987/PDFComp/wiki) ‚É‚àƒqƒ“ƒg‚ªÚ‚Á‚Ä‚¢‚Ü‚·‚Ì‚ÅA‚²——‚­‚¾‚³‚¢B
 
 ## ŠJ”­ŠÂ‹«
 
@@ -50,19 +54,18 @@ Boundsƒ‚[ƒh‚Í‚»‚ê‚¼‚ê‚ÌPDF‚Ì”äŠr‘ÎÛ‚ðŽw’è‚Å‚«‚Ü‚·BˆÈ‘O‚ÌŒ‹‰Ê‚ðŽc‚µ‚½‚Ü‚ÜV‚µ‚
 
 * [PdfiumViewer](https://github.com/pvginkel/PdfiumViewer) - PdfiumViewer is a PDF viewer based on the PDFium project.
 * [diff-match-patch](https://github.com/google/diff-match-patch/) - Diff Match Patch is a high-performance library in multiple languages that manipulates plain text.
+* [MingCute Icon](https://github.com/Richard9394/MingCute) - MingCute is a set of simple and exquisite open-source icon library.
 
 ‚Ü‚½–{ƒvƒƒOƒ‰ƒ€‚ÅƒŠƒ“ƒN‚µ‚Ä‚¢‚é [PdfiumViewer]‚ÍƒtƒH[ƒN‚µ‚½ƒJƒXƒ^ƒ€”Å‚Ì[PdfiumViewer](https://github.com/wiera987/PdfiumViewer)‚ðŽg—p‚µ‚Ä‚¢‚Ü‚·.
 
 ### PDFComp‚Ìƒrƒ‹ƒh•û–@
 
-ƒ\[ƒXƒR[ƒh‚ðƒ_ƒEƒ“ƒ[ƒh‚µ‚ÄAVisual Studio‚Ìƒ\ƒŠƒ…[ƒVƒ‡ƒ“ƒtƒ@ƒCƒ‹‚ðŠJ‚«‚Ü‚·B
-'ƒ\ƒŠƒ…[ƒVƒ‡ƒ“‚ÌNuGetƒpƒbƒP[ƒW‚ÌŠÇ—'ƒƒjƒ…[‚©‚çŽŸ‚Ì‚Q‚Â‚ðƒCƒ“ƒXƒg[ƒ‹‚µ‚Ü‚·B
+[PDFComp]‚ÆƒJƒXƒ^ƒ€”Å‚Ì[PdfiumViewer]‚Ìƒ\[ƒXƒR[ƒh‚ðƒ_ƒEƒ“ƒ[ƒh‚µ‚ÄAVisual Studio‚Ìƒ\ƒŠƒ…[ƒVƒ‡ƒ“ƒtƒ@ƒCƒ‹‚ðŠJ‚«‚Ü‚·B
+'ƒ\ƒŠƒ…[ƒVƒ‡ƒ“‚ÌNuGetƒpƒbƒP[ƒW‚ÌŠÇ—'ƒƒjƒ…[‚©‚çŽŸ‚ÌƒpƒbƒP[ƒW‚ðƒCƒ“ƒXƒg[ƒ‹‚µ‚Ü‚·B
 
-* PdfiumViewer
 * PdfiemViewer.Native.x86_xx.xxxx
 
-‚Ü‚½A[PDFComp]‚Ìƒ\ƒŠƒ…[ƒVƒ‡ƒ“‚©‚çAƒJƒXƒ^ƒ€”Å‚ÌPdfiumViewer.csproj‚ðŽQÆ‚µ‚Ä‚¢‚Ü‚·B
-‚±‚Ì‚½‚ßƒJƒXƒ^ƒ€”Å‚Ì[PdfiumViewer]‚ÍA[PDFComp]‚Æ“¯‚¶ŠK‘w‚ÌƒtƒHƒ‹ƒ_‚É“WŠJ‚µ‚Ä‚¨‚«‚Ü‚·B
+[PDFComp]‚Ìƒ\ƒŠƒ…[ƒVƒ‡ƒ“‚©‚çAƒJƒXƒ^ƒ€”Å‚ÌPdfiumViewer.csproj‚ðŽQÆ‚µ‚Ä‚¢‚é‚½‚ßAƒJƒXƒ^ƒ€”Å‚Ì[PdfiumViewer]‚ÍA[PDFComp]‚Æ“¯‚¶ŠK‘w‚ÌƒtƒHƒ‹ƒ_‚É“WŠJ‚µ‚Ä‚¨‚­•K—v‚ª‚ ‚è‚Ü‚·B
 
 ÅŒã‚É PDFCompƒvƒƒWƒFƒNƒg‚ðƒrƒ‹ƒh‚µ‚Ü‚·B
 

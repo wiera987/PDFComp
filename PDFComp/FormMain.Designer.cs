@@ -335,10 +335,10 @@
             this.toolStrip2.AutoSize = false;
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonBookmarks,
-            this.toolStripButtonPanel1Prev,
-            this.toolStripButtonPanel1Next,
             this.toolStripButtonPrevPages,
             this.toolStripButtonNextPages,
+            this.toolStripButtonPanel1Prev,
+            this.toolStripButtonPanel1Next,
             this.toolStripButtonPanel2Prev,
             this.toolStripButtonPanel2Next,
             this.toolStripSeparator4,

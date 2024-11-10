@@ -116,8 +116,10 @@ namespace PDFComp
 
         private void FormMain_Shown(object sender, EventArgs e)
         {
-            // First in text mode.
+            // First, the text mode.
             toolStripButtonTextmode.PerformClick();
+            // First, one page fits.
+            toolStripButtonFitOnePage.PerformClick();
             PdfPanelAutoSize();
         }
 
@@ -764,10 +766,23 @@ namespace PDFComp
         {
             if (toolStripTrackBarZoom.Value >= 0)
             {
-                zoom = 1.0 + toolStripTrackBarZoom.Value * ZoomInScale;
+                // Zoom in
+                if (toolStripTrackBarZoom.Value <= 10)
+                {
+                    zoom = 1.0 + toolStripTrackBarZoom.Value * ZoomInScale;
+                }
+                else if (toolStripTrackBarZoom.Value <= 20)
+                {
+                    zoom = 2.0 + (toolStripTrackBarZoom.Value - 10) * ZoomInScale * 2;
+                }
+                else
+                {
+                    zoom = 4.0 + (toolStripTrackBarZoom.Value - 20) * ZoomInScale * 5;
+                }
             }
             else
             {
+                // Zoom out
                 zoom = 1.0 + toolStripTrackBarZoom.Value * ZoomOutScale;
             }
 
@@ -834,6 +849,10 @@ namespace PDFComp
 
         private void toolStripButtonFitOnePage_Click(object sender, EventArgs e)
         {
+            // like RadioButton
+            toolStripButtonFitOnePage.BackColor = SystemColors.GradientActiveCaption;
+            toolStripButtonFitWidth.BackColor = SystemColors.Control;
+            
             // zoom 100 %
             toolStripTrackBarZoom.Value = 0;
 
@@ -843,6 +862,13 @@ namespace PDFComp
 
         private void toolStripButtonFitWidth_Click(object sender, EventArgs e)
         {
+            // like RadioButton
+            toolStripButtonFitOnePage.BackColor = SystemColors.Control;
+            toolStripButtonFitWidth.BackColor = SystemColors.GradientActiveCaption;
+
+            // zoom 100 %
+            toolStripTrackBarZoom.Value = 0;
+
             pdfPanel1.FitWidth();
             pdfPanel2.FitWidth();
         }

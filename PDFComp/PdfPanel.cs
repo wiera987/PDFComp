@@ -409,6 +409,7 @@ namespace PDFComp
         private void Renderer_DisplayRectangleChanged(object sender, EventArgs e)
         {
             toolStripLabelPage.Text = (pdfViewer.Renderer.Page + 1).ToString();
+            pdfViewer.SelectBookmarkForPage(pdfViewer.Renderer.Page);
         }
 
         private void Renderer_MouseDown(object sender, MouseEventArgs e)

@@ -61,10 +61,10 @@
             this.timerButton = new System.Windows.Forms.Timer(this.components);
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonBookmarks = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonPanel1Prev = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonPanel1Next = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonPrevPages = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonNextPages = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonPanel1Prev = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonPanel1Next = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonPanel2Prev = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonPanel2Next = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -380,30 +380,6 @@
             this.toolStripButtonBookmarks.ToolTipText = "Show Bookmarks";
             this.toolStripButtonBookmarks.Click += new System.EventHandler(this.toolStripButtonBookmarks_Click);
             // 
-            // toolStripButtonPanel1Prev
-            // 
-            this.toolStripButtonPanel1Prev.AutoSize = false;
-            this.toolStripButtonPanel1Prev.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonPanel1Prev.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPanel1Prev.Image")));
-            this.toolStripButtonPanel1Prev.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonPanel1Prev.Name = "toolStripButtonPanel1Prev";
-            this.toolStripButtonPanel1Prev.Size = new System.Drawing.Size(18, 30);
-            this.toolStripButtonPanel1Prev.Text = "Prev Page";
-            this.toolStripButtonPanel1Prev.ToolTipText = "Prev Page / Ctrl + LEFT_ARROW";
-            this.toolStripButtonPanel1Prev.Click += new System.EventHandler(this.toolStripButtonPanel1Prev_Click);
-            // 
-            // toolStripButtonPanel1Next
-            // 
-            this.toolStripButtonPanel1Next.AutoSize = false;
-            this.toolStripButtonPanel1Next.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonPanel1Next.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPanel1Next.Image")));
-            this.toolStripButtonPanel1Next.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonPanel1Next.Name = "toolStripButtonPanel1Next";
-            this.toolStripButtonPanel1Next.Size = new System.Drawing.Size(18, 30);
-            this.toolStripButtonPanel1Next.Text = "Next Page";
-            this.toolStripButtonPanel1Next.ToolTipText = "Next Page / Ctrl + RIGHT_ARROW";
-            this.toolStripButtonPanel1Next.Click += new System.EventHandler(this.toolStripButtonPanel1Next_Click);
-            // 
             // toolStripButtonPrevPages
             // 
             this.toolStripButtonPrevPages.BackColor = System.Drawing.SystemColors.Control;
@@ -430,6 +406,30 @@
             this.toolStripButtonNextPages.Text = "Next Page";
             this.toolStripButtonNextPages.ToolTipText = "Next Page / RIGHT_ARROW";
             this.toolStripButtonNextPages.Click += new System.EventHandler(this.toolStripButtonNextPages_Click);
+            // 
+            // toolStripButtonPanel1Prev
+            // 
+            this.toolStripButtonPanel1Prev.AutoSize = false;
+            this.toolStripButtonPanel1Prev.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonPanel1Prev.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPanel1Prev.Image")));
+            this.toolStripButtonPanel1Prev.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonPanel1Prev.Name = "toolStripButtonPanel1Prev";
+            this.toolStripButtonPanel1Prev.Size = new System.Drawing.Size(18, 30);
+            this.toolStripButtonPanel1Prev.Text = "Prev Page";
+            this.toolStripButtonPanel1Prev.ToolTipText = "Prev Page / Ctrl + LEFT_ARROW";
+            this.toolStripButtonPanel1Prev.Click += new System.EventHandler(this.toolStripButtonPanel1Prev_Click);
+            // 
+            // toolStripButtonPanel1Next
+            // 
+            this.toolStripButtonPanel1Next.AutoSize = false;
+            this.toolStripButtonPanel1Next.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonPanel1Next.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPanel1Next.Image")));
+            this.toolStripButtonPanel1Next.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonPanel1Next.Name = "toolStripButtonPanel1Next";
+            this.toolStripButtonPanel1Next.Size = new System.Drawing.Size(18, 30);
+            this.toolStripButtonPanel1Next.Text = "Next Page";
+            this.toolStripButtonPanel1Next.ToolTipText = "Next Page / Ctrl + RIGHT_ARROW";
+            this.toolStripButtonPanel1Next.Click += new System.EventHandler(this.toolStripButtonPanel1Next_Click);
             // 
             // toolStripButtonPanel2Prev
             // 
@@ -607,7 +607,6 @@
             this.toolStripButtonZoomIn.Name = "toolStripButtonZoomIn";
             this.toolStripButtonZoomIn.Size = new System.Drawing.Size(28, 30);
             this.toolStripButtonZoomIn.Text = "Zoom in";
-            this.toolStripButtonZoomIn.Click += new System.EventHandler(this.toolStripButtonZoomIn_Click);
             this.toolStripButtonZoomIn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomIn_MouseDown);
             this.toolStripButtonZoomIn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomIn_MouseUp);
             // 
@@ -642,7 +641,6 @@
             this.toolStripButtonZoomOut.Name = "toolStripButtonZoomOut";
             this.toolStripButtonZoomOut.Size = new System.Drawing.Size(28, 30);
             this.toolStripButtonZoomOut.Text = "Zoom out";
-            this.toolStripButtonZoomOut.Click += new System.EventHandler(this.toolStripButtonZoomOut_Click);
             this.toolStripButtonZoomOut.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomOut_MouseDown);
             this.toolStripButtonZoomOut.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomOut_MouseUp);
             // 

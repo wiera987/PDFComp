@@ -139,14 +139,16 @@ namespace PDFComp
 
         private void TimerButton_Tick(object sender, EventArgs e)
         {
+            timerButton.Interval = 100;
+
             if (zoomOut)
             {
-                toolStripButtonZoomOut.PerformClick();
+                ZoomOut();
             }
 
             if (zoomIn)
             {
-                toolStripButtonZoomIn.PerformClick();
+                ZoomIn();
             }
         }
 
@@ -792,25 +794,27 @@ namespace PDFComp
             pdfPanel2.SetZoom(zoom);
         }
 
-        private void toolStripButtonZoomIn_Click(object sender, EventArgs e)
+        private void ZoomIn()
         {
             if (toolStripTrackBarZoom.Value < toolStripTrackBarZoom.Maximum)
             {
                 toolStripTrackBarZoom.Value++;
             }
         }
-
-        private void toolStripButtonZoomOut_Click(object sender, EventArgs e)
+        
+        private void ZoomOut()
         {
             if (toolStripTrackBarZoom.Value > toolStripTrackBarZoom.Minimum)
             {
                 toolStripTrackBarZoom.Value--;
             }
         }
-
+               
         private void toolStripButtonZoomIn_MouseDown(object sender, MouseEventArgs e)
         {
+        	ZoomIn();
             zoomIn = true;
+            timerButton.Interval = 250;
             timerButton.Enabled = true;
         }
 
@@ -822,7 +826,9 @@ namespace PDFComp
 
         private void toolStripButtonZoomOut_MouseDown(object sender, MouseEventArgs e)
         {
+        	ZoomOut();
             zoomOut = true;
+            timerButton.Interval = 250;
             timerButton.Enabled = true;
         }
 

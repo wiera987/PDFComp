@@ -42,6 +42,9 @@ namespace PDFComp
 
             pdfViewer.Renderer.ContextMenuStrip = contextMenuStripPdf;
 
+            pdfViewer.Renderer.ZoomMin = 0.1;
+            pdfViewer.Renderer.ZoomMax = 9.0;
+
             _pageReading = -1;
         }
 
@@ -61,8 +64,6 @@ namespace PDFComp
 
             if (pdfViewer.Document != null)
             {
-                pdfViewer.Renderer.ZoomMin = 0.1;
-                pdfViewer.Renderer.ZoomMax = 9.0;
                 pdfViewer.ZoomMode = PdfViewerZoomMode.FitHeight;
                 pdfViewer.Renderer.Zoom = _zoom;
             }

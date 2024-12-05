@@ -608,6 +608,7 @@
             this.toolStripButtonZoomIn.Size = new System.Drawing.Size(28, 30);
             this.toolStripButtonZoomIn.Text = "Zoom in";
             this.toolStripButtonZoomIn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomIn_MouseDown);
+            this.toolStripButtonZoomIn.MouseLeave += new System.EventHandler(this.toolStripButtonZoomIn_MouseLeave);
             this.toolStripButtonZoomIn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomIn_MouseUp);
             // 
             // toolStripTrackBarZoom
@@ -642,6 +643,7 @@
             this.toolStripButtonZoomOut.Size = new System.Drawing.Size(28, 30);
             this.toolStripButtonZoomOut.Text = "Zoom out";
             this.toolStripButtonZoomOut.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomOut_MouseDown);
+            this.toolStripButtonZoomOut.MouseLeave += new System.EventHandler(this.toolStripButtonZoomOut_MouseLeave);
             this.toolStripButtonZoomOut.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomOut_MouseUp);
             // 
             // toolStripLabelZoom

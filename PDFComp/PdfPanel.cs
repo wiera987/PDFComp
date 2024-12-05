@@ -35,6 +35,8 @@ namespace PDFComp
         public PdfPanel()
         {
             InitializeComponent();
+            this.MouseWheel += PdfPanel_MouseWheel;
+
             pdfViewer.Renderer.DisplayRectangleChanged += Renderer_DisplayRectangleChanged;
             pdfViewer.Renderer.MouseDown += Renderer_MouseDown;
             pdfViewer.Renderer.MouseMove += Renderer_MouseMove;
@@ -56,6 +58,23 @@ namespace PDFComp
         public void PrevPage()
         {
             toolStripButtonPrevPage.PerformClick();
+        }
+
+        private void PdfPanel_MouseWheel(object sender, MouseEventArgs e)
+        {
+            // Adjust trackbar value when wheel zoomed.
+            
+            Form parentForm = FindForm();
+            ((FormMain)parentForm).AdjustTrackBarZoom(GetZoom());
+        }
+
+        public double GetZoom()
+        {
+            if (pdfViewer.Document != null)
+            {
+                _zoom = pdfViewer.Renderer.Zoom;
+            }
+            return _zoom;
         }
 
         public void SetZoom(double zoom)

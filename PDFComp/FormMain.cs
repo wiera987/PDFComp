@@ -17,8 +17,8 @@ namespace PDFComp
 {
     public partial class FormMain : Form
     {
-        readonly Double ZoomInScale = 0.1;      // (700% - 100%) / (100% * 60.0)
-        readonly Double ZoomOutScale = 0.03;    // (100% - 10%) / (100% * 30.0);
+        readonly Double ZoomInScale = 0.1;      // zoom : 10%..50%..100%..200%..400%...900%  
+        readonly Double ZoomOutScale = 0.01;    // scale:   -2%, -5%, +10%, +20%, +50%
         FormFind formFind = null;
         PdfRotation rotation;
         Double zoom;
@@ -28,6 +28,7 @@ namespace PDFComp
         int FindDiffPage2;
         Boolean reduceColor = true;
         Boolean autoReduceColor = false;
+        bool holdZoom = false;
 
         public FormMain()
         {
@@ -766,32 +767,94 @@ namespace PDFComp
 
         private void toolStripTrackBarZoom_ValueChanged(object sender, EventArgs e)
         {
-            if (toolStripTrackBarZoom.Value >= 0)
+			zoom = GetZoomFromTBValue(toolStripTrackBarZoom.Value);
+
+            toolStripLabelZoom.Text = String.Format("{0} %", zoom * 100);
+
+            // If holdZoom=true, adjusting the trackbar will not change the zoom level.
+            if (!holdZoom)
+            {
+                pdfPanel1.SetZoom(zoom);
+                pdfPanel2.SetZoom(zoom);
+            }
+        }
+
+		private double GetZoomFromTBValue(int value)
+		{
+            if (value >= 0)
             {
                 // Zoom in
-                if (toolStripTrackBarZoom.Value <= 10)
+                if (value <= 10)
                 {
-                    zoom = 1.0 + toolStripTrackBarZoom.Value * ZoomInScale;
+                    zoom = 1.0 + value * ZoomInScale;
                 }
-                else if (toolStripTrackBarZoom.Value <= 20)
+                else if (value <= 20)
                 {
-                    zoom = 2.0 + (toolStripTrackBarZoom.Value - 10) * ZoomInScale * 2;
+                    zoom = 2.0 + (value - 10) * ZoomInScale * 2;
                 }
                 else
                 {
-                    zoom = 4.0 + (toolStripTrackBarZoom.Value - 20) * ZoomInScale * 5;
+                    zoom = 4.0 + (value - 20) * ZoomInScale * 5;
                 }
             }
             else
             {
                 // Zoom out
-                zoom = 1.0 + toolStripTrackBarZoom.Value * ZoomOutScale;
+                if (value >= -10)
+                {
+                    zoom = 1.0 + value * ZoomOutScale * 5;
+                }
+                else
+                {
+                    zoom = 0.5 + (value + 10) * ZoomOutScale * 2;
+                }
             }
+            
+            return zoom;			
+		}
 
-            toolStripLabelZoom.Text = String.Format("{0} %", zoom * 100);
+		private int GetTBValueFromZoom(double inZoom)
+		{
+			int value = 0;
+			
+            if (inZoom >= 1.0)
+            {
+                // Zoom in
+                if (inZoom <= 2.0)
+                {
+                    value = (int)(0 + (inZoom - 1.0) / ZoomInScale);
+                }
+                else if (inZoom <= 4.0)
+                {
+                    value = (int)(10 + (inZoom - 2.0) / (ZoomInScale * 2));
+                }
+                else
+                {
+                    value = (int)(20 + (inZoom - 4.0) / (ZoomInScale * 5));
+                }
+            }
+            else
+            {
+                if (inZoom >= 0.5)
+                {
+                    value = (int)(0 + (inZoom - 1.0) / (ZoomOutScale * 5));
+                }
+                else
+                {
+                    value = (int)(-10 + (inZoom - 0.5) / (ZoomOutScale * 2));
+                }
+            }
+            return value;
+		}
 
-            pdfPanel1.SetZoom(zoom);
-            pdfPanel2.SetZoom(zoom);
+        public void AdjustTrackBarZoom(double inZoom)
+        {
+        	// Adjusting the trackbar value when wheel zoomed in the PdfPanel.
+            int value = GetTBValueFromZoom(inZoom);
+
+            holdZoom = true;
+            toolStripTrackBarZoom.Value = value;
+            holdZoom = false;
         }
 
         private void ZoomIn()
@@ -823,6 +886,14 @@ namespace PDFComp
             zoomIn = false;
             timerButton.Enabled = false;
         }
+        
+        private void toolStripButtonZoomIn_MouseLeave(object sender, EventArgs e)
+        {
+        	// Stop zooming when the mouse leaves the button.
+        	// Because the mouse-up event does not occur.
+            zoomIn = false;
+            timerButton.Enabled = false;
+        }
 
         private void toolStripButtonZoomOut_MouseDown(object sender, MouseEventArgs e)
         {
@@ -834,6 +905,14 @@ namespace PDFComp
 
         private void toolStripButtonZoomOut_MouseUp(object sender, MouseEventArgs e)
         {
+            zoomOut = false;
+            timerButton.Enabled = false;
+        }
+        
+        private void toolStripButtonZoomOut_MouseLeave(object sender, EventArgs e)
+        {
+        	// Stop zooming when the mouse leaves the button.
+        	// Because the mouse-up event does not occur.
             zoomOut = false;
             timerButton.Enabled = false;
         }

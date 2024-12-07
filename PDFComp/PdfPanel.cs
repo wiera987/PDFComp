@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using PdfiumViewer;
+using System.Runtime.CompilerServices;
 
 namespace PDFComp
 {
@@ -37,6 +38,7 @@ namespace PDFComp
             InitializeComponent();
             this.MouseWheel += PdfPanel_MouseWheel;
 
+            pdfViewer.PanelBookmarkClosed += PanelBookmarkClosed;
             pdfViewer.Renderer.DisplayRectangleChanged += Renderer_DisplayRectangleChanged;
             pdfViewer.Renderer.MouseDown += Renderer_MouseDown;
             pdfViewer.Renderer.MouseMove += Renderer_MouseMove;
@@ -235,6 +237,16 @@ namespace PDFComp
         public void ToggleBookmarks()
         {
             pdfViewer.ShowBookmarks = !pdfViewer.ShowBookmarks;
+        }
+
+        public bool GetShowBookmarks()
+        {
+            return pdfViewer.ShowBookmarks;
+        }
+
+        public void SetShowBookmarks(bool show)
+        {
+            pdfViewer.ShowBookmarks = show;
         }
 
         public void Rotate(PdfRotation rotation)
@@ -614,6 +626,12 @@ namespace PDFComp
                 // Mute the beep sound.
                 e.SuppressKeyPress = true;
             }
+        }
+
+        private void PanelBookmarkClosed(object sender, EventArgs e)
+        {
+            //Console.WriteLine("PanelBookmar has closed in PdfParent.");
+            ((FormMain)FindForm()).PanelBookmarkClosed(this);
         }
     }
 }

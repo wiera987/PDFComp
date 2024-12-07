@@ -671,6 +671,22 @@ namespace PDFComp
             pdfPanel2.ToggleBookmarks();
         }
 
+        public void PanelBookmarkClosed(object sender)
+        {
+        	// When you press the close button on a bookmark,
+        	// the other bookmark will also be closed.
+            if (sender == pdfPanel1)
+            {
+                pdfPanel2.SetShowBookmarks(false);
+            }
+
+            if (sender == pdfPanel2)
+            {
+                pdfPanel1.SetShowBookmarks(false);
+            }
+
+        }
+
         private void toolStripButtonNextPages_Click(object sender, EventArgs e)
         {
             pdfPanel1.NextPage();

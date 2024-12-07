@@ -17,8 +17,8 @@ namespace PDFComp
 {
     public partial class FormMain : Form
     {
-        readonly Double ZoomInScale = 0.1;      // zoom : 10%..50%..100%..200%..400%...900%  
-        readonly Double ZoomOutScale = 0.01;    // scale:   -2%, -5%, +10%, +20%, +50%
+        readonly Double ZoomInScale = 0.1;      // zoom : 10%..26%..80%..100%..200%..400%...900%  
+        readonly Double ZoomOutScale = 0.01;    // scale:    -2%, -3%, -5%, +10%, +20%, +50%
         FormFind formFind = null;
         PdfRotation rotation;
         Double zoom;
@@ -783,7 +783,7 @@ namespace PDFComp
 		{
             if (value >= 0)
             {
-                // Zoom in
+                // Zoom in (1.0 - 9.0x)
                 if (value <= 10)
                 {
                     zoom = 1.0 + value * ZoomInScale;
@@ -799,17 +799,21 @@ namespace PDFComp
             }
             else
             {
-                // Zoom out
-                if (value >= -10)
+                // Zoom out (1.0 - 0.01x)
+                if (value >= -4)
                 {
                     zoom = 1.0 + value * ZoomOutScale * 5;
                 }
+                else if(value >= -22)
+                {
+                    zoom = 0.8 + (value + 4) * ZoomOutScale * 3;
+                }
                 else
                 {
-                    zoom = 0.5 + (value + 10) * ZoomOutScale * 2;
+                    zoom = 0.26 + (value + 22) * ZoomOutScale * 2;
                 }
             }
-            
+
             return zoom;			
 		}
 
@@ -819,29 +823,34 @@ namespace PDFComp
 			
             if (inZoom >= 1.0)
             {
-                // Zoom in
+                // Zoom in (1.0 - 9.0x)
                 if (inZoom <= 2.0)
                 {
-                    value = (int)(0 + (inZoom - 1.0) / ZoomInScale);
+                    value = (int)Math.Round(0 + (inZoom - 1.0) / (ZoomInScale));
                 }
                 else if (inZoom <= 4.0)
                 {
-                    value = (int)(10 + (inZoom - 2.0) / (ZoomInScale * 2));
+                    value = (int)Math.Round(10 + (inZoom - 2.0) / (ZoomInScale * 2));
                 }
                 else
                 {
-                    value = (int)(20 + (inZoom - 4.0) / (ZoomInScale * 5));
+                    value = (int)Math.Round(20 + (inZoom - 4.0) / (ZoomInScale * 5));
                 }
             }
             else
             {
-                if (inZoom >= 0.5)
+                // Zoom out (1.0 - 0.01x)
+                if (inZoom >= 0.8)
                 {
-                    value = (int)(0 + (inZoom - 1.0) / (ZoomOutScale * 5));
+                    value = (int)Math.Round(0 + (inZoom - 1.0) / (ZoomOutScale * 5));
+                }
+                else if (inZoom >= 0.26)
+                {
+                    value = (int)Math.Round(-4 + (inZoom - 0.8) / (ZoomOutScale * 3));
                 }
                 else
                 {
-                    value = (int)(-10 + (inZoom - 0.5) / (ZoomOutScale * 2));
+                    value = (int)Math.Round(-22 + (inZoom - 0.26) / (ZoomOutScale * 2));
                 }
             }
             return value;

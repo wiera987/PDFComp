@@ -83,7 +83,6 @@ namespace PDFComp
 
             if (pdfViewer.Document != null)
             {
-                pdfViewer.ZoomMode = PdfViewerZoomMode.FitHeight;
                 pdfViewer.Renderer.Zoom = _zoom;
             }
         }

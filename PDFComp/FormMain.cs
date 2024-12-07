@@ -289,7 +289,7 @@ namespace PDFComp
             FindDiffPage2 = page2;
 
             // If there is a difference on either page.
-            bool found_diff = (index1.Count>0) || (index2.Count>0);  
+            bool found_diff = (index1.Count > 0) || (index2.Count > 0);
 
             return found_diff;
         }
@@ -302,7 +302,7 @@ namespace PDFComp
                 int offset2 = 0;
                 int count;
 
-                foreach(Diff diff in diffs)
+                foreach (Diff diff in diffs)
                 {
                     count = diff.text.Length;
                     switch (diff.operation)
@@ -341,21 +341,22 @@ namespace PDFComp
                 int item_offset = comp_offset;
                 int item_count = 0;
 
-                for (int i=0; i<count; i++)
+                for (int i = 0; i < count; i++)
                 {
-                    comp_offset = pdfpanel.GetCompOffset(offset+i);
+                    comp_offset = pdfpanel.GetCompOffset(offset + i);
                     if (comp_offset != item_offset + item_count)
                     {
                         spanList.Add(new PdfTextSpan(page, item_offset, item_count));
                         item_offset = comp_offset;
                         item_count = 1;
-                    } else
+                    }
+                    else
                     {
                         item_count++;
                     }
                 }
 
-                if (item_count> 0)
+                if (item_count > 0)
                 {
                     spanList.Add(new PdfTextSpan(page, item_offset, item_count));
                 }
@@ -566,7 +567,7 @@ namespace PDFComp
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
-            for (int i=page1; i<pages; i++)
+            for (int i = page1; i < pages; i++)
             {
                 page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
                 page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
@@ -610,7 +611,7 @@ namespace PDFComp
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
-            for (int i=page1; i>=0; i--)
+            for (int i = page1; i >= 0; i--)
             {
                 page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
                 page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
@@ -767,7 +768,7 @@ namespace PDFComp
 
         private void toolStripTrackBarZoom_ValueChanged(object sender, EventArgs e)
         {
-			zoom = GetZoomFromTBValue(toolStripTrackBarZoom.Value);
+            zoom = GetZoomFromTBValue(toolStripTrackBarZoom.Value);
 
             toolStripLabelZoom.Text = String.Format("{0} %", zoom * 100);
 
@@ -779,8 +780,8 @@ namespace PDFComp
             }
         }
 
-		private double GetZoomFromTBValue(int value)
-		{
+        private double GetZoomFromTBValue(int value)
+        {
             if (value >= 0)
             {
                 // Zoom in (1.0 - 9.0x)
@@ -804,7 +805,7 @@ namespace PDFComp
                 {
                     zoom = 1.0 + value * ZoomOutScale * 5;
                 }
-                else if(value >= -22)
+                else if (value >= -22)
                 {
                     zoom = 0.8 + (value + 4) * ZoomOutScale * 3;
                 }
@@ -814,13 +815,13 @@ namespace PDFComp
                 }
             }
 
-            return zoom;			
-		}
+            return zoom;
+        }
 
-		private int GetTBValueFromZoom(double inZoom)
-		{
-			int value = 0;
-			
+        private int GetTBValueFromZoom(double inZoom)
+        {
+            int value = 0;
+
             if (inZoom >= 1.0)
             {
                 // Zoom in (1.0 - 9.0x)
@@ -854,11 +855,11 @@ namespace PDFComp
                 }
             }
             return value;
-		}
+        }
 
         public void AdjustTrackBarZoom(double inZoom)
         {
-        	// Adjusting the trackbar value when wheel zoomed in the PdfPanel.
+            // Adjusting the trackbar value when wheel zoomed in the PdfPanel.
             int value = GetTBValueFromZoom(inZoom);
 
             holdZoom = true;
@@ -873,7 +874,7 @@ namespace PDFComp
                 toolStripTrackBarZoom.Value++;
             }
         }
-        
+
         private void ZoomOut()
         {
             if (toolStripTrackBarZoom.Value > toolStripTrackBarZoom.Minimum)
@@ -881,10 +882,10 @@ namespace PDFComp
                 toolStripTrackBarZoom.Value--;
             }
         }
-               
+
         private void toolStripButtonZoomIn_MouseDown(object sender, MouseEventArgs e)
         {
-        	ZoomIn();
+            ZoomIn();
             zoomIn = true;
             timerButton.Interval = 250;
             timerButton.Enabled = true;
@@ -895,18 +896,18 @@ namespace PDFComp
             zoomIn = false;
             timerButton.Enabled = false;
         }
-        
+
         private void toolStripButtonZoomIn_MouseLeave(object sender, EventArgs e)
         {
-        	// Stop zooming when the mouse leaves the button.
-        	// Because the mouse-up event does not occur.
+            // Stop zooming when the mouse leaves the button.
+            // Because the mouse-up event does not occur.
             zoomIn = false;
             timerButton.Enabled = false;
         }
 
         private void toolStripButtonZoomOut_MouseDown(object sender, MouseEventArgs e)
         {
-        	ZoomOut();
+            ZoomOut();
             zoomOut = true;
             timerButton.Interval = 250;
             timerButton.Enabled = true;
@@ -917,11 +918,11 @@ namespace PDFComp
             zoomOut = false;
             timerButton.Enabled = false;
         }
-        
+
         private void toolStripButtonZoomOut_MouseLeave(object sender, EventArgs e)
         {
-        	// Stop zooming when the mouse leaves the button.
-        	// Because the mouse-up event does not occur.
+            // Stop zooming when the mouse leaves the button.
+            // Because the mouse-up event does not occur.
             zoomOut = false;
             timerButton.Enabled = false;
         }
@@ -946,7 +947,7 @@ namespace PDFComp
             // like RadioButton
             toolStripButtonFitOnePage.BackColor = SystemColors.GradientActiveCaption;
             toolStripButtonFitWidth.BackColor = SystemColors.Control;
-            
+
             // zoom 100 %
             toolStripTrackBarZoom.Value = 0;
 
@@ -971,7 +972,6 @@ namespace PDFComp
         {
             toolStripButtonComparePage.PerformClick();
         }
-
 
     }
 }

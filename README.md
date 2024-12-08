@@ -1,7 +1,7 @@
 # PDFComp
 Compare two PDF files and highlight different characters.
 
-<img src="https://github.com/user-attachments/assets/f2de0712-6898-478e-a4c1-7f5fa490eac8" width="480">
+![PDFComp_2 6_MainForm](https://github.com/user-attachments/assets/443c2f29-7bf5-4997-9c10-5df14b8c7382)
 
 ## Background
 
@@ -9,8 +9,8 @@ There are tools that automatically compare the differences between two PDF files
 When comparing PDF files with a revised paragraph structure, the pages you want are not compared and you need to specify the pages again.
 This PDFComp is an application that specializes in manual operation and allows you to quickly move pages and check one page at a time.
 
-The UI has been redesigned so that it can be operated efficiently with a mouse.
-It is now possible to drop two files at once to open a PDF file. Other adjustments have been made.
+PDFComp 2.6.0
+Improved bookmark operations.Fixed flickering and other issues with zooming.
 
 ### Application requirements
 

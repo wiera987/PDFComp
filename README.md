@@ -1,7 +1,7 @@
 # PDFComp
 Compare two PDF files and highlight different characters.
 
-![PDFComp_2 6_MainForm](https://github.com/user-attachments/assets/443c2f29-7bf5-4997-9c10-5df14b8c7382)
+![PDFComp_2 6_MainForm](https://github.com/user-attachments/assets/a4e81cdd-8530-46b9-ad87-b36b9235a894)
 
 ## Background
 

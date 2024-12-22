@@ -12,6 +12,7 @@ using PdfiumViewer;
 using DiffMatchPatch;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
+using static PDFComp.PdfPanel;
 
 namespace PDFComp
 {
@@ -219,8 +220,8 @@ namespace PDFComp
             //Console.WriteLine("Clear:{0}", stopwatch.Elapsed);
             //stopwatch.Start();
 
-            String text1 = pdfPanel1.GetPageText();
-            String text2 = pdfPanel2.GetPageText();
+            var textData1 = new PageTextList(pdfPanel1.GetPageTextData());
+            var textData2 = new PageTextList(pdfPanel2.GetPageTextData());
             List<PdfTextSpan> index1 = new List<PdfTextSpan>();
             List<PdfTextSpan> index2 = new List<PdfTextSpan>();
 
@@ -232,41 +233,40 @@ namespace PDFComp
             diff_match_patch dmp;
             List<Diff> diffs;
 
-            //int diffType = comboBoxDiffType.SelectedIndex;
             int diffType = toolStripComboBoxDiffType.SelectedIndex;
             switch (diffType)
             {
-                case 0:     // Google Diff - Raw
+                case 0:     // Google Diff - Character Raw
                     dmp = new diff_match_patch();
-                    diffs = dmp.diff_main(text1, text2);
-                    ExtractDiffSpan2(index1, index2, diffs, page1, page2);
+                    diffs = dmp.diff_main(textData1.Text, textData2.Text);
+                    ExtractDiffSpan2(index1, index2, diffs, textData1, textData2);
                     break;
-                case 1:     // Google Diff - Semantic
+                case 1:     // Google Diff - Line Semantic
                     dmp = new diff_match_patch();
-                    diffs = dmp.diff_main(text1, text2);
+                    diffs = dmp.diff_main(textData1.Text, textData2.Text);
                     dmp.diff_cleanupSemantic(diffs);
-                    ExtractDiffSpan2(index1, index2, diffs, page1, page2);
+                    ExtractDiffSpan2(index1, index2, diffs, textData1, textData2);
                     break;
                 case 2:     // Google Diff - Effective 4
                     dmp = new diff_match_patch();
                     dmp.Diff_EditCost = 4;
-                    diffs = dmp.diff_main(text1, text2);
+                    diffs = dmp.diff_main(textData1.Text, textData2.Text);
                     dmp.diff_cleanupEfficiency(diffs);
-                    ExtractDiffSpan2(index1, index2, diffs, page1, page2);
+                    ExtractDiffSpan2(index1, index2, diffs, textData1, textData2);
                     break;
                 case 3:     // Google Diff - Effective 5
                     dmp = new diff_match_patch();
                     dmp.Diff_EditCost = 5;
-                    diffs = dmp.diff_main(text1, text2);
+                    diffs = dmp.diff_main(textData1.Text, textData2.Text);
                     dmp.diff_cleanupEfficiency(diffs);
-                    ExtractDiffSpan2(index1, index2, diffs, page1, page2);
+                    ExtractDiffSpan2(index1, index2, diffs, textData1, textData2);
                     break;
                 case 4:     // Google Diff - Effective 3
                     dmp = new diff_match_patch();
                     dmp.Diff_EditCost = 3;
-                    diffs = dmp.diff_main(text1, text2);
+                    diffs = dmp.diff_main(textData1.Text, textData2.Text);
                     dmp.diff_cleanupEfficiency(diffs);
-                    ExtractDiffSpan2(index1, index2, diffs, page1, page2);
+                    ExtractDiffSpan2(index1, index2, diffs, textData1, textData2);
                     break;
 
                 default:
@@ -278,15 +278,16 @@ namespace PDFComp
             Console.WriteLine("Diff:{0}", stopwatch.Elapsed);
             stopwatch.Start();
 
-            pdfPanel1.SetPageDiff(index1);
-            pdfPanel2.SetPageDiff(index2);
 
-            pdfPanel1.AddDiffMarker(page2);
-            pdfPanel2.AddDiffMarker(page1);
+            pdfPanel1.AddDiffMarker(index1);
+            pdfPanel2.AddDiffMarker(index2);
 
             // Remember the last page compared.
             FindDiffPage1 = page1;
             FindDiffPage2 = page2;
+
+            //pdfPanel1.pdfViewer.Renderer.Page = page1;
+            //pdfPanel1.pdfViewer.Renderer.Page = page2;
 
             // If there is a difference on either page.
             bool found_diff = (index1.Count > 0) || (index2.Count > 0);
@@ -294,7 +295,7 @@ namespace PDFComp
             return found_diff;
         }
 
-        private void ExtractDiffSpan2(List<PdfTextSpan> spanList1, List<PdfTextSpan> spanList2, List<Diff> diffs, int page1, int page2)
+        private void ExtractDiffSpan2(List<PdfTextSpan> spanList1, List<PdfTextSpan> spanList2, List<Diff> diffs, PageTextList textData1, PageTextList textData2)
         {
             if (diffs.Count() > 0)
             {
@@ -312,13 +313,11 @@ namespace PDFComp
                             offset2 += count;
                             break;
                         case Operation.INSERT:
-                            //spanList2.Add(new PdfTextSpan(page2, offset2, count));
-                            AddSpanList(spanList2, pdfPanel2, page2, offset2, count);
+                            AddSpanList(spanList2, textData2, offset2, count);
                             offset2 += count;
                             break;
                         case Operation.DELETE:
-                            //spanList1.Add(new PdfTextSpan(page1, offset1, count));
-                            AddSpanList(spanList1, pdfPanel1, page1, offset1, count);
+                            AddSpanList(spanList1, textData1, offset1, count);
                             offset1 += count;
                             break;
                     }
@@ -326,40 +325,37 @@ namespace PDFComp
             }
         }
 
-        private void AddSpanList(List<PdfTextSpan> spanList, PdfPanel pdfpanel, int page, int offset, int count)
+        private void AddSpanList(List<PdfTextSpan> spanList, PageTextList textList, int offset, int count)
         {
-            int comp_offset = pdfpanel.GetCompOffset(offset);
+            // Extract a range of CompareBounds. Convert from offset to offset within the page.
+            int page, pagePos;
+            int item_page;
+            int item_offset;
+            int item_count = 0;
 
-            if (comp_offset < 0)
+            (item_page, item_offset) = textList.GetPagePos(offset);
+
+            for (int i = 0; i < count; i++)
             {
-                // Extract the entire page. offset and comp_offset are the same.
-                spanList.Add(new PdfTextSpan(page, offset, count));
+                (page, pagePos) = textList.GetPagePos(offset + i);
+
+                // Extract consecutive characters from the original PDF text.
+                if ((pagePos != item_offset + item_count) || (page != item_page))
+                {
+                    spanList.Add(new PdfTextSpan(item_page, item_offset, item_count));
+                    item_page = page;
+                    item_offset = pagePos;
+                    item_count = 1;
+                }
+                else
+                {
+                    item_count++;
+                }
             }
-            else
+
+            if (item_count > 0)
             {
-                // Extract a range of CompareBounds. Convert from offset to comp_offset.
-                int item_offset = comp_offset;
-                int item_count = 0;
-
-                for (int i = 0; i < count; i++)
-                {
-                    comp_offset = pdfpanel.GetCompOffset(offset + i);
-                    if (comp_offset != item_offset + item_count)
-                    {
-                        spanList.Add(new PdfTextSpan(page, item_offset, item_count));
-                        item_offset = comp_offset;
-                        item_count = 1;
-                    }
-                    else
-                    {
-                        item_count++;
-                    }
-                }
-
-                if (item_count > 0)
-                {
-                    spanList.Add(new PdfTextSpan(page, item_offset, item_count));
-                }
+                spanList.Add(new PdfTextSpan(item_page, item_offset, item_count));
             }
         }
 

@@ -16,8 +16,7 @@ namespace PDFComp
     public partial class PdfPanel : UserControl
     {
         readonly int pagesPerTick = 10;
-        private List<int> _comparePage = null;
-        private List<PdfTextSpan> _indexes = null;
+        private List<int> _comparePage = null;                  // -1 or 0. Currently used to determine whether a page has been compared so that the marker does not become darker.
         private double _zoom = 1.0;
         private PdfRotation _rotation = PdfRotation.Rotate0;
         private PdfPoint _contextMenuPosition;
@@ -26,13 +25,107 @@ namespace PDFComp
         private bool _mouseDrag = false;
         private PdfPoint _mouseDown;
         private PdfPoint _mouseUp;
-        private int[] _comp_offs = null;
 
         enum PdfMarkerTag {
             Search,
             Diff
         };
 
+        /// <summary>
+        /// Data class for text enclosed in bounds.
+        /// </summary>
+        public class PageTextData
+        {
+        	// Page with Text
+            public int Page { get; }
+            // Text enclosed in bounds
+            public string Text { get; }
+            // Array to hold the position of each character in the text on the page
+            private int[] PagePos { get; }
+
+			// Get text enclosed in bounds
+            public PageTextData(int page, string text, int[] pagePos)
+            {
+                Page = page;
+                Text = text;
+                PagePos = pagePos;
+            }
+
+            // Get position of characters on the page.
+            public int GetPagePos(int textIndex)
+            {
+                if (PagePos == null)
+                {
+                    // If PagePos is null, the selection is the entire page, so return it as is.
+                    return textIndex;
+                }
+                return PagePos[textIndex];
+            }
+        }
+
+        /// <summary>
+        /// List class for text enclosed in bounds.
+        /// </summary>
+        public class PageTextList
+        {
+            private List<PageTextData> _pageTextList;
+
+            // Text enclosed in bounds
+            public string Text
+            {
+                get
+                {
+                    return GetText();
+                }
+            }
+
+            public PageTextList()
+            {
+                _pageTextList = new List<PageTextData>();
+            }
+
+            public PageTextList(PageTextData pageTextData)
+            {
+                _pageTextList = new List<PageTextData>
+                {
+                    pageTextData
+                };
+            }
+
+            public void Add(PageTextData pageTextData)
+            {
+                _pageTextList.Add(pageTextData);
+            }
+
+            public string GetText()
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (PageTextData pageTextData in _pageTextList)
+                {
+                    sb.Append(pageTextData.Text);
+                }
+                return sb.ToString();
+            }
+
+            // Get the page and the position of the character in the text on the page
+            public (int page, int pagePos) GetPagePos(int offset)
+            {
+                foreach (PageTextData pageTextData in _pageTextList)
+                {
+                    if (offset < pageTextData.Text.Length)
+                    {
+                        return (pageTextData.Page, pageTextData.GetPagePos(offset));
+                    }
+                    offset -= pageTextData.Text.Length;
+                }
+                return (-1, -1);
+            }
+        }
+
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public PdfPanel()
         {
             InitializeComponent();
@@ -65,7 +158,7 @@ namespace PDFComp
         private void PdfPanel_MouseWheel(object sender, MouseEventArgs e)
         {
             // Adjust trackbar value when wheel zoomed.
-            
+
             Form parentForm = FindForm();
             ((FormMain)parentForm).AdjustTrackBarZoom(GetZoom());
         }
@@ -143,52 +236,58 @@ namespace PDFComp
             }
         }
 
-        public String GetPageText()
+        public PageTextData GetPageTextData(int page)
+        {
+            pdfViewer.Renderer.Page = page;                 // TODO: Prevent pages from moving
+            return GetPageTextData();
+        }
+
+        public PageTextData GetPageTextData()
         {
             if (pdfViewer.Document != null)
             {
                 if (pdfViewer.Renderer.CompareBounds.IsEmpty)
                 {
                     // Extract the entire page.
-                    _comp_offs = null;
-                    return pdfViewer.Document.GetPdfText(pdfViewer.Renderer.ComparisonPage);
+                    int[] pagePos = null;
+                    string text = pdfViewer.Document.GetPdfText(pdfViewer.Renderer.ComparisonPage);
+                    return new PageTextData(pdfViewer.Renderer.ComparisonPage, text, pagePos);
                 }
                 else
                 {
                     // Extract a range of CompareBounds.
                     var page = pdfViewer.Renderer.ComparisonPage;
                     var text = pdfViewer.Document.GetPdfText(page);
-                    var comp_text = string.Empty;
-                    var comp_rect = pdfViewer.Renderer.CompareBounds;
+                    var pageText = string.Empty;
+                    var compBounds = pdfViewer.Renderer.CompareBounds;
                     var count = 0;
 
-                    _comp_offs = new int[text.Length];
+                    int[] pagePos = new int[text.Length];
 
                     for (int i = 0; i < text.Length; i++)
                     {
                         var textSpan = new PdfTextSpan(page, i, 1);
                         //Console.WriteLine("textSpan Page{0}: Offset{1}, Len{2} = {3}", textSpan.Page, textSpan.Offset, textSpan.Length, text[i]);
 
-                        var bounds = pdfViewer.Renderer.Document.GetTextBounds(textSpan);
-                        var rect = bounds[0].Bounds;
-                        NormRectangle(ref rect);
+                        var charBounds = pdfViewer.Renderer.Document.GetTextBounds(textSpan);
+                        var charRect = charBounds[0].Bounds;
+                        NormRectangle(ref charRect);
 
-                        // If the entire rect is included in the comp_rect, extract the character.
-                        if (IsIncludedEntire(comp_rect, rect))
+                        // If the entire charRect is included in the compBounds, extract the character.
+                        if (IsIncludedEntire(compBounds, charRect))
                         {
-                            comp_text += text[i];
-                            _comp_offs[count] = i;
+                            pageText += text[i];
+                            pagePos[count] = i;
                             count++;
                         }
 
                     }
-                    //Console.WriteLine("GetPageText = {0}", comp_text);
-                    return comp_text;
+                    //Console.WriteLine("GetPageTextData = {0}", pageText);
+                    return new PageTextData(page, pageText, pagePos);
                 }
-
             }
 
-            return "NULL";
+            return new PageTextData(-1, "NULL", null);
         }
 
         public void NormRectangle(ref RectangleF rect)
@@ -217,21 +316,6 @@ namespace PDFComp
             }
 
             return false;
-        }
-
-        public int GetCompOffset(int i)
-        {
-            if (_comp_offs == null)
-            {
-                return -1;
-            }
-            return _comp_offs[i];
-        }
-
-
-        internal void SetPageDiff(List<PdfTextSpan> indexes)
-        {
-            _indexes = indexes;
         }
 
         public void ToggleBookmarks()
@@ -304,17 +388,16 @@ namespace PDFComp
             }
         }
 
-        public void AddDiffMarker(int comparedPage)
+        public void AddDiffMarker(List<PdfTextSpan> indexes)
         {
-            if (_indexes != null)
+            if (indexes != null)
             {
-                int page = pdfViewer.Renderer.ComparisonPage;
-                Console.WriteLine("AddDiffMarker Page{0}:Count{1}", page, _indexes.Count);
+                Console.WriteLine("AddDiffMarker Page{0}:Count{1}", -999, indexes.Count);
 
-                foreach (PdfTextSpan textSpan in _indexes)
+                foreach (PdfTextSpan textSpan in indexes)
                 {
                     //Console.WriteLine("textSpan Page{0}: Offset{1}, Len{2}", textSpan.Page, textSpan.Offset, textSpan.Length);
-
+                    var page = textSpan.Page;
                     var bounds = pdfViewer.Renderer.Document.GetTextBounds(textSpan);
 
                     foreach (PdfRectangle pdfrect in bounds)
@@ -334,16 +417,16 @@ namespace PDFComp
                             Color.FromArgb(64, Color.Red),
                             Color.FromArgb(64, Color.Red),
                             0,
-                            (int)PdfMarkerTag.Diff);			// Add a difference marker.
+                            (int)PdfMarkerTag.Diff);            // Add a difference marker.
 
                         pdfViewer.Renderer.Markers.Add(marker);
 
                         //Console.WriteLine("Added");
                     }
 
+                    _comparePage[page] = 0;                      // Ideally, it remembers the counterpart's page. But it's not working.
                 }
 
-                _comparePage[page] = comparedPage;	// Remember the compared page
             }
         }
 
@@ -368,13 +451,14 @@ namespace PDFComp
                 // Drop only the first file.
                 string fileName = files[0];
                 OpenFile(fileName);
-            } else
+            }
+            else
             {
                 // Drop in FormMain.
                 ((FormMain)FindForm()).OpenFiles(files);
             }
         }
-        
+
         private void ToolStripButtonOpen_Click(object sender, EventArgs e)
         {
             openFileDialog.FileName = toolStripTextBoxFile.Text;
@@ -387,6 +471,7 @@ namespace PDFComp
 
         public void OpenFile(string fileName)
         {
+            pdfViewer.Document?.Dispose();
             pdfViewer.Document = PdfDocument.Load(fileName);
             pdfViewer.Renderer.Zoom = _zoom;
             pdfViewer.Renderer.Rotation = _rotation;
@@ -403,7 +488,6 @@ namespace PDFComp
                 _comparePage.Add(-1);
             }
 
-            _indexes = null;
             pdfViewer.Renderer.Markers.Clear();
 
             // Load PageData with Timer event.
@@ -485,7 +569,7 @@ namespace PDFComp
             {
                 _mouseDrag = false;
                 _mouseUp = pdfViewer.Renderer.PointToPdf(e.Location);
- 
+
                 var bounds = new RectangleF(
                     _mouseDown.Location.X,
                     _mouseDown.Location.Y,
@@ -633,5 +717,6 @@ namespace PDFComp
             //Console.WriteLine("PanelBookmar has closed in PdfParent.");
             ((FormMain)FindForm()).PanelBookmarkClosed(this);
         }
+
     }
 }

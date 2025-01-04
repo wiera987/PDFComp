@@ -70,7 +70,7 @@ namespace PDFComp
                     toolStripButtonNextPages.PerformClick();
                     return true;
                 case Keys.Space:
-                    toolStripButtonComparePage.PerformClick();
+                    toolStripSplitButtonCompare.PerformButtonClick();
                     return true;
 
                 case Keys.Control | Keys.Left:
@@ -156,7 +156,7 @@ namespace PDFComp
 
         private void ComparePage()
         {
-            Console.WriteLine("Compare Button click!");
+            Console.WriteLine("Compare Page Button click!");
 
             if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
             {
@@ -169,19 +169,12 @@ namespace PDFComp
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
-            //if ((pdfPanel1.GetComparedPage(page1) == page2) && (pdfPanel2.GetComparedPage(page2) == page1))
-            //{
-            //    toolStripLabelResult.Text = "0.0";
-            //    return;
-            //}
-
             ComparePage(stopwatch, page1, page2);
 
             stopwatch.Stop();
             Console.WriteLine("Marker:{0}", stopwatch.Elapsed);
             stopwatch.Start();
 
-            //results.ToList().ForEach(r => Console.WriteLine(r.ToFormatString()));
             if (stopwatch.ElapsedMilliseconds < 50)
             {
                 Thread.Sleep(30);
@@ -191,25 +184,153 @@ namespace PDFComp
             pdfPanel1.Update();
             pdfPanel2.Update();
 
+            // Do not revert the page.
+            // pdfPanel1.pdfViewer.Renderer.Page = page1;
+            // pdfPanel2.pdfViewer.Renderer.Page = page2;
+
             stopwatch.Stop();
             Console.WriteLine("Draw:{0}", stopwatch.Elapsed);
 
             toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
         }
 
+        private void CompareBookmark()
+        {
+            Console.WriteLine("Compare Bookmark Button click!");
+
+            if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
+            {
+                toolStripLabelResult.Text = "0.0";
+                return;
+            }
+
+            var stopwatch = new System.Diagnostics.Stopwatch();
+
+            int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
+            int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
+
+            (int startPage1, int endPage1) = pdfPanel1.GetBookmarkPages();
+            (int startPage2, int endPage2) = pdfPanel2.GetBookmarkPages();
+
+            // If a bookmark cannot be obtained, make it the current page.
+            if (startPage1 < 0)
+            {
+                startPage1 = page1;
+                endPage1 = page1;
+            }
+            if (startPage2 < 0)
+            {
+                startPage2 = page2;
+                endPage2 = page2;
+            }
+
+            Console.WriteLine("CompareBookmark():({0},{1})-({2},{3})", startPage1, endPage1, startPage2, endPage2);
+
+
+            ComparePages(stopwatch, startPage1, endPage1, startPage2, endPage2);
+
+            stopwatch.Stop();
+            Console.WriteLine("Marker:{0}", stopwatch.Elapsed);
+            stopwatch.Start();
+
+            if (stopwatch.ElapsedMilliseconds < 50)
+            {
+                Thread.Sleep(30);
+            }
+
+            // Draw with the markers.
+            pdfPanel1.Update();
+            pdfPanel2.Update();
+
+            // Revert the page.
+            pdfPanel1.pdfViewer.Renderer.Page = page1;
+            pdfPanel2.pdfViewer.Renderer.Page = page2;
+
+            stopwatch.Stop();
+            Console.WriteLine("Draw:{0}", stopwatch.Elapsed);
+
+            toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
+        }
+
+        private void CompareBook()
+        {
+            Console.WriteLine("Compare Book Button click!");
+
+            if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
+            {
+                toolStripLabelResult.Text = "0.0";
+                return;
+            }
+
+            var stopwatch = new System.Diagnostics.Stopwatch();
+
+            int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
+            int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
+
+            int startPage1 = 0;
+            int endPage1 = pdfPanel1.pdfViewer.Document.PageCount - 1;
+            int startPage2 = 0;
+            int endPage2 = pdfPanel2.pdfViewer.Document.PageCount - 1;
+
+            Console.WriteLine("CompareBookmark():({0},{1})-({2},{3})", startPage1, endPage1, startPage2, endPage2);
+
+
+            ComparePages(stopwatch, startPage1, endPage1, startPage2, endPage2);
+
+            stopwatch.Stop();
+            Console.WriteLine("Marker:{0}", stopwatch.Elapsed);
+            stopwatch.Start();
+
+            if (stopwatch.ElapsedMilliseconds < 50)
+            {
+                Thread.Sleep(30);
+            }
+
+            // Draw with the markers.
+            pdfPanel1.Update();
+            pdfPanel2.Update();
+
+            // Revert the page.
+            pdfPanel1.pdfViewer.Renderer.Page = page1;
+            pdfPanel2.pdfViewer.Renderer.Page = page2;
+
+            stopwatch.Stop();
+            Console.WriteLine("Draw:{0}", stopwatch.Elapsed);
+
+            toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
+        }
+
+
         private bool ComparePage(System.Diagnostics.Stopwatch stopwatch, int page1, int page2)
+        {
+            bool found_diff = ComparePages(stopwatch, page1, page1, page2, page2);
+
+            // Remember the last page compared.
+            FindDiffPage1 = page1;
+            FindDiffPage2 = page2;
+
+            return found_diff;
+        }
+
+
+        private bool ComparePages(System.Diagnostics.Stopwatch stopwatch, int startPage1, int endPage1, int startPage2, int endPage2)
         {
             // Once compared, clear the page number and diff markers.
             // It's translucent and overwritten, so if you don't erase it, it will get darker.
-            if (pdfPanel1.GetComparedPage(page1) >= 0)
+            var oneFullPage1 = pdfPanel1.pdfViewer.Renderer.CompareBounds.IsEmpty;
+            var oneFullPage2 = pdfPanel2.pdfViewer.Renderer.CompareBounds.IsEmpty;
+            var textData1 = new PageTextList();
+            var textData2 = new PageTextList();
+
+            for (int i = startPage1; i <= endPage1; i++)
             {
-                var oneFullPage = pdfPanel1.pdfViewer.Renderer.CompareBounds.IsEmpty;
-                pdfPanel1.ClearDiffMarker(page1, oneFullPage);
+                pdfPanel1.ClearDiffMarker(i, oneFullPage1);
+                textData1.Add(pdfPanel1.GetPageTextData(i));
             }
-            if (pdfPanel2.GetComparedPage(page2) >= 0)
+            for (int i = startPage2; i <= endPage2; i++)
             {
-                var oneFullPage = pdfPanel2.pdfViewer.Renderer.CompareBounds.IsEmpty;
-                pdfPanel2.ClearDiffMarker(page2, oneFullPage);
+                pdfPanel2.ClearDiffMarker(i, oneFullPage2);
+                textData2.Add(pdfPanel2.GetPageTextData(i));
             }
 
             // Draw without the marker.
@@ -220,8 +341,7 @@ namespace PDFComp
             //Console.WriteLine("Clear:{0}", stopwatch.Elapsed);
             //stopwatch.Start();
 
-            var textData1 = new PageTextList(pdfPanel1.GetPageTextData());
-            var textData2 = new PageTextList(pdfPanel2.GetPageTextData());
+
             List<PdfTextSpan> index1 = new List<PdfTextSpan>();
             List<PdfTextSpan> index2 = new List<PdfTextSpan>();
 
@@ -236,43 +356,22 @@ namespace PDFComp
             int diffType = toolStripComboBoxDiffType.SelectedIndex;
             switch (diffType)
             {
-                case 0:     // Google Diff - Character Raw
+                case 0:     // Google Diff - Character
                     dmp = new diff_match_patch();
                     diffs = dmp.diff_main(textData1.Text, textData2.Text);
-                    ExtractDiffSpan2(index1, index2, diffs, textData1, textData2);
                     break;
-                case 1:     // Google Diff - Line Semantic
+                case 1:     // Google Diff - Semantic
                     dmp = new diff_match_patch();
                     diffs = dmp.diff_main(textData1.Text, textData2.Text);
                     dmp.diff_cleanupSemantic(diffs);
-                    ExtractDiffSpan2(index1, index2, diffs, textData1, textData2);
-                    break;
-                case 2:     // Google Diff - Effective 4
-                    dmp = new diff_match_patch();
-                    dmp.Diff_EditCost = 4;
-                    diffs = dmp.diff_main(textData1.Text, textData2.Text);
-                    dmp.diff_cleanupEfficiency(diffs);
-                    ExtractDiffSpan2(index1, index2, diffs, textData1, textData2);
-                    break;
-                case 3:     // Google Diff - Effective 5
-                    dmp = new diff_match_patch();
-                    dmp.Diff_EditCost = 5;
-                    diffs = dmp.diff_main(textData1.Text, textData2.Text);
-                    dmp.diff_cleanupEfficiency(diffs);
-                    ExtractDiffSpan2(index1, index2, diffs, textData1, textData2);
-                    break;
-                case 4:     // Google Diff - Effective 3
-                    dmp = new diff_match_patch();
-                    dmp.Diff_EditCost = 3;
-                    diffs = dmp.diff_main(textData1.Text, textData2.Text);
-                    dmp.diff_cleanupEfficiency(diffs);
-                    ExtractDiffSpan2(index1, index2, diffs, textData1, textData2);
                     break;
 
                 default:
                     throw new Exception();
             }
 
+            ExtractDiffSpan2(index1, index2, diffs, textData1, textData2);
+            UpdateComparedPage(diffs, textData1, textData2);
 
             stopwatch.Stop();
             Console.WriteLine("Diff:{0}", stopwatch.Elapsed);
@@ -281,13 +380,6 @@ namespace PDFComp
 
             pdfPanel1.AddDiffMarker(index1);
             pdfPanel2.AddDiffMarker(index2);
-
-            // Remember the last page compared.
-            FindDiffPage1 = page1;
-            FindDiffPage2 = page2;
-
-            //pdfPanel1.pdfViewer.Renderer.Page = page1;
-            //pdfPanel1.pdfViewer.Renderer.Page = page2;
 
             // If there is a difference on either page.
             bool found_diff = (index1.Count > 0) || (index2.Count > 0);
@@ -356,6 +448,76 @@ namespace PDFComp
             if (item_count > 0)
             {
                 spanList.Add(new PdfTextSpan(item_page, item_offset, item_count));
+            }
+        }
+
+        private void UpdateComparedPage(List<Diff> diffs, PageTextList textData1, PageTextList textData2)
+        {
+            if (diffs.Count() > 0)
+            {
+                int offset1 = 0;
+                int offset2 = 0;
+                int count;
+                int nextOffset1 = 0;
+                int nextOffset2 = 0;
+
+                (int page1, int pos1) = textData1.GetPagePos(offset1);
+                (int page2, int pos2) = textData2.GetPagePos(offset2);
+
+                nextOffset1 = textData1.GetOffset(page1 + 1);
+                nextOffset2 = textData2.GetOffset(page2 + 1);
+
+                foreach (Diff diff in diffs)
+                {
+                    count = diff.text.Length;
+                    switch (diff.operation)
+                    {
+                        case Operation.EQUAL:
+                            pdfPanel1.SetComparedPage(page1, page2);
+                            pdfPanel2.SetComparedPage(page2, page1);
+
+                            while ((offset1 + count > nextOffset1) || (offset2 + count > nextOffset2))
+                            {
+                                int nextPage1 = nextOffset1 - offset1;
+                                int nextPage2 = nextOffset2 - offset2;
+
+                                if ((nextPage1 <= nextPage2) && (nextPage1 < count))
+                                {
+                                    page1++;
+                                    nextOffset1 = textData1.GetOffset(page1 + 1);
+                                }
+                                if ((nextPage2 <= nextPage1) && (nextPage2 < count))
+                                {
+                                    page2++;
+                                    nextOffset2 = textData2.GetOffset(page2 + 1);
+                                }
+                                pdfPanel1.SetComparedPage(page1, page2);
+                                pdfPanel2.SetComparedPage(page2, page1);
+                            }
+
+                            offset1 += count;
+                            offset2 += count;
+                            break;
+                        case Operation.INSERT:
+                            while (offset2 + count > nextOffset2)
+                            {
+                                page2++;
+                                nextOffset2 = textData2.GetOffset(page2 + 1);
+                                pdfPanel2.SetComparedPage(page2, page1);
+                            }
+                            offset2 += count;
+                            break;
+                        case Operation.DELETE:
+                            while (offset1+count > nextOffset1)
+                            {
+                                page1++;
+                                nextOffset1 = textData1.GetOffset(page1 + 1);
+                                pdfPanel1.SetComparedPage(page1, page2);
+                            }
+                            offset1 += count;
+                            break;
+                    }
+                }
             }
         }
 
@@ -518,11 +680,6 @@ namespace PDFComp
             form.ShowDialog();
         }
 
-        private void ComparePageToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            toolStripButtonComparePage.PerformClick();
-        }
-
         private void ClearMarker1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pdfPanel1.ClearDiffMarker(pdfPanel1.pdfViewer.Renderer.ComparisonPage, true);
@@ -559,7 +716,7 @@ namespace PDFComp
 
             var stopwatch = new System.Diagnostics.Stopwatch();
 
-            int pages = pdfPanel1.pdfViewer.Document.PageCount;
+            int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
@@ -603,7 +760,7 @@ namespace PDFComp
 
             var stopwatch = new System.Diagnostics.Stopwatch();
 
-            int pages = pdfPanel1.pdfViewer.Document.PageCount;
+            int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
@@ -634,6 +791,110 @@ namespace PDFComp
             toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
 
         }
+
+        private void FindDiffBookmark()
+        {
+            Console.WriteLine("Find diff(bm) Button click!");
+
+            if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
+            {
+                toolStripLabelResult.Text = "0.0";
+                return;
+            }
+
+            var stopwatch = new System.Diagnostics.Stopwatch();
+
+            int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
+            int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
+            int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
+
+            for (int i = page1; i < pages; i++)
+            {
+                if ((pdfPanel1.GetComparedPage(page1) < 0) || (pdfPanel2.GetComparedPage(page2) < 0))
+                {
+                    //pdfPanel1.pdfViewer.SelectBookmarkForPage(page1);
+                    //pdfPanel2.pdfViewer.SelectBookmarkForPage(page2);
+                    //CompareBookmark();
+                }
+
+                bool hold_page1 = pdfPanel2.GetComparedPage(page2) == pdfPanel2.GetComparedPage(page2 + 1);
+                bool hold_page2 = pdfPanel1.GetComparedPage(page1) == pdfPanel1.GetComparedPage(page1 + 1);
+
+                if (!hold_page1)
+                {
+                    pdfPanel1.NextPage();
+                }
+                if (!hold_page2)
+                {
+                    pdfPanel2.NextPage();
+                }
+
+                page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
+                page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
+                if (pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) || pdfPanel2.pdfViewer.Renderer.HasMarkers(page2))
+                {
+                    break;
+                }
+            }
+
+            stopwatch.Stop();
+
+            toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
+
+        }
+
+        private void PrevDiffBookmark()
+        {
+            Console.WriteLine("Prev diff(bm) Button click!");
+
+            if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
+            {
+                toolStripLabelResult.Text = "0.0";
+                return;
+            }
+
+            var stopwatch = new System.Diagnostics.Stopwatch();
+
+            int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
+            int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
+            int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
+
+            for (int i = page1; i >= 0; i--)
+            {
+                if ((pdfPanel1.GetComparedPage(page1) < 0) || (pdfPanel2.GetComparedPage(page2) < 0))
+                {
+                    //pdfPanel1.pdfViewer.SelectBookmarkForPage(page1);
+                    //pdfPanel2.pdfViewer.SelectBookmarkForPage(page2);
+                    //CompareBookmark();
+                }
+
+                bool hold_page1 = pdfPanel2.GetComparedPage(page2) == pdfPanel2.GetComparedPage(page2 - 1);
+                bool hold_page2 = pdfPanel1.GetComparedPage(page1) == pdfPanel1.GetComparedPage(page1 - 1);
+
+                if (!hold_page1)
+                {
+                    pdfPanel1.PrevPage();
+                }
+                if (!hold_page2)
+                {
+                    pdfPanel2.PrevPage();
+                }
+
+                page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
+                page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
+                if (pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) || pdfPanel2.pdfViewer.Renderer.HasMarkers(page2))
+                {
+                    break;
+                }
+            }
+
+            stopwatch.Stop();
+
+            toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
+
+        }
+
+
 
         private void previousDifferenceToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -939,19 +1200,28 @@ namespace PDFComp
             timerButton.Enabled = false;
         }
 
-        private void toolStripButtonComparePage_Click(object sender, EventArgs e)
-        {
-            ComparePage();
-        }
-
         private void toolStripButtonPrevDiff_Click(object sender, EventArgs e)
         {
-            PrevDiff();
+            if (toolStripSplitButtonCompare.Text == "Compare Page")
+            {
+                PrevDiff();
+            }
+            else
+            {
+                PrevDiffBookmark();
+            }
         }
 
         private void toolStripButtonNextDiff_Click(object sender, EventArgs e)
         {
-            FindDiff();
+            if (toolStripSplitButtonCompare.Text == "Compare Page")
+            {
+                FindDiff();
+            }
+            else
+            {
+                FindDiffBookmark();
+            }
         }
 
         private void toolStripButtonFitOnePage_Click(object sender, EventArgs e)
@@ -982,8 +1252,40 @@ namespace PDFComp
 
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            toolStripButtonComparePage.PerformClick();
+            toolStripSplitButtonCompare.PerformClick();
         }
+
+        private void toolStripSplitButtonCompare_ButtonClick(object sender, EventArgs e)
+        {
+            if (toolStripSplitButtonCompare.Text == "Compare Page")
+            {
+                ComparePage();
+            }
+            else if (toolStripSplitButtonCompare.Text == "Compare Bookmark")
+            {
+                CompareBookmark();
+            }
+            else
+            {
+                CompareBook();
+            }
+        }
+
+        private void pageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            toolStripSplitButtonCompare.Text = pageToolStripMenuItem.Text;
+        }
+
+        private void bookmarkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            toolStripSplitButtonCompare.Text = bookmarkToolStripMenuItem.Text;
+        }
+        
+        private void bookToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            toolStripSplitButtonCompare.Text = bookToolStripMenuItem.Text;
+        }
+
 
     }
 }

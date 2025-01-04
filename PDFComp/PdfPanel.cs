@@ -16,7 +16,7 @@ namespace PDFComp
     public partial class PdfPanel : UserControl
     {
         readonly int pagesPerTick = 10;
-        private List<int> _comparePage = null;                  // -1 or 0. Currently used to determine whether a page has been compared so that the marker does not become darker.
+        private List<int> _comparePage = null;                  // Remember which page the function compared to the other page.
         private double _zoom = 1.0;
         private PdfRotation _rotation = PdfRotation.Rotate0;
         private PdfPoint _contextMenuPosition;
@@ -65,6 +65,7 @@ namespace PDFComp
 
         /// <summary>
         /// List class for text enclosed in bounds.
+        /// Add one page of text at a time.
         /// </summary>
         public class PageTextList
         {
@@ -92,6 +93,7 @@ namespace PDFComp
                 };
             }
 
+            // Add one page of text at a time.
             public void Add(PageTextData pageTextData)
             {
                 _pageTextList.Add(pageTextData);
@@ -119,6 +121,24 @@ namespace PDFComp
                     offset -= pageTextData.Text.Length;
                 }
                 return (-1, -1);
+            }
+
+            public int GetOffset(int page)
+            {
+                int offset = 0;
+
+                // Get the offset of the page in the text.
+                foreach (PageTextData pageTextData in _pageTextList)
+                {
+                    if (pageTextData.Page == page)
+                    {
+                        return offset;
+                    }
+                    offset += pageTextData.Text.Length;
+                }
+
+                //throw new ArgumentOutOfRangeException("page");
+                return int.MaxValue;
             }
         }
 
@@ -318,6 +338,22 @@ namespace PDFComp
             return false;
         }
 
+        /// <summary>
+        /// Get the page number of the selected bookmark.
+        /// </summary>
+        /// <returns></returns>
+        public (int start, int end) GetBookmarkPages()
+        {
+            int start = -1;
+            int end = -1;
+            
+            if (pdfViewer.Document != null)
+            {
+                pdfViewer.GetBookmarkPageRange(out start, out end);
+            }
+            return (start, end);
+        }
+
         public void ToggleBookmarks()
         {
             pdfViewer.ShowBookmarks = !pdfViewer.ShowBookmarks;
@@ -347,7 +383,7 @@ namespace PDFComp
         {
             if (_comparePage != null)
             {
-                if (page < _comparePage.Count)
+                if ((page >= 0) && (page < _comparePage.Count))
                 {
                     return _comparePage[page];
                 }
@@ -357,6 +393,22 @@ namespace PDFComp
             return -1;
         }
 
+        public void SetComparedPage(int page, int oppositePage)
+        {
+            if (_comparePage != null)
+            {
+                if (_comparePage[page] < 0)
+                {
+                    _comparePage[page] = oppositePage;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Clear difference markers in diffpage.
+        /// </summary>
+        /// <param name="diffpage">Difference comparison page</param>
+        /// <param name="OneFullPage">If comparing the entire page, clear regardless of CompareBounds.</param>
         public void ClearDiffMarker(int diffpage, bool OneFullPage)
         {
             if (diffpage >= 0)
@@ -423,8 +475,6 @@ namespace PDFComp
 
                         //Console.WriteLine("Added");
                     }
-
-                    _comparePage[page] = 0;                      // Ideally, it remembers the counterpart's page. But it's not working.
                 }
 
             }
@@ -489,6 +539,7 @@ namespace PDFComp
             }
 
             pdfViewer.Renderer.Markers.Clear();
+            pdfViewer.SelectBookmarkForPage(0);                     // Set the first page bookmark to selected
 
             // Load PageData with Timer event.
             _pageReading = 0;

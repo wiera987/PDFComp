@@ -68,7 +68,10 @@
             this.toolStripButtonPanel2Prev = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonPanel2Next = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButtonComparePage = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSplitButtonCompare = new System.Windows.Forms.ToolStripSplitButton();
+            this.pageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bookmarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripLabelResult = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButtonPrevDiff = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonNextDiff = new System.Windows.Forms.ToolStripButton();
@@ -225,13 +228,6 @@
             this.compareToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.compareToolStripMenuItem.Text = "&Compare";
             // 
-            // comparePageToolStripMenuItem
-            // 
-            this.comparePageToolStripMenuItem.Name = "comparePageToolStripMenuItem";
-            this.comparePageToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.comparePageToolStripMenuItem.Text = "Compare page";
-            this.comparePageToolStripMenuItem.Click += new System.EventHandler(this.ComparePageToolStripMenuItem_Click);
-            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
@@ -342,7 +338,7 @@
             this.toolStripButtonPanel2Prev,
             this.toolStripButtonPanel2Next,
             this.toolStripSeparator4,
-            this.toolStripButtonComparePage,
+            this.toolStripSplitButtonCompare,
             this.toolStripLabelResult,
             this.toolStripButtonPrevDiff,
             this.toolStripButtonNextDiff,
@@ -461,18 +457,41 @@
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(32, 33);
             // 
-            // toolStripButtonComparePage
+            // toolStripSplitButtonCompare
             // 
-            this.toolStripButtonComparePage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonComparePage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripButtonComparePage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonComparePage.Image")));
-            this.toolStripButtonComparePage.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButtonComparePage.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonComparePage.Name = "toolStripButtonComparePage";
-            this.toolStripButtonComparePage.Size = new System.Drawing.Size(91, 30);
-            this.toolStripButtonComparePage.Text = "Compare Page";
-            this.toolStripButtonComparePage.ToolTipText = "Compare Page | SPACE key";
-            this.toolStripButtonComparePage.Click += new System.EventHandler(this.toolStripButtonComparePage_Click);
+            this.toolStripSplitButtonCompare.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripSplitButtonCompare.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pageToolStripMenuItem,
+            this.bookmarkToolStripMenuItem,
+            this.bookToolStripMenuItem});
+            this.toolStripSplitButtonCompare.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.toolStripSplitButtonCompare.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButtonCompare.Image")));
+            this.toolStripSplitButtonCompare.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButtonCompare.Name = "toolStripSplitButtonCompare";
+            this.toolStripSplitButtonCompare.Size = new System.Drawing.Size(103, 30);
+            this.toolStripSplitButtonCompare.Text = "Compare Page";
+            this.toolStripSplitButtonCompare.ButtonClick += new System.EventHandler(this.toolStripSplitButtonCompare_ButtonClick);
+            // 
+            // pageToolStripMenuItem
+            // 
+            this.pageToolStripMenuItem.Name = "pageToolStripMenuItem";
+            this.pageToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.pageToolStripMenuItem.Text = "Compare Page";
+            this.pageToolStripMenuItem.Click += new System.EventHandler(this.pageToolStripMenuItem_Click);
+            // 
+            // bookmarkToolStripMenuItem
+            // 
+            this.bookmarkToolStripMenuItem.Name = "bookmarkToolStripMenuItem";
+            this.bookmarkToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.bookmarkToolStripMenuItem.Text = "Compare Bookmark";
+            this.bookmarkToolStripMenuItem.Click += new System.EventHandler(this.bookmarkToolStripMenuItem_Click);
+            // 
+            // bookToolStripMenuItem
+            // 
+            this.bookToolStripMenuItem.Name = "bookToolStripMenuItem";
+            this.bookToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.bookToolStripMenuItem.Text = "Compare Book";
+            this.bookToolStripMenuItem.Click += new System.EventHandler(this.bookToolStripMenuItem_Click);
             // 
             // toolStripLabelResult
             // 
@@ -521,10 +540,7 @@
             this.toolStripComboBoxDiffType.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             this.toolStripComboBoxDiffType.Items.AddRange(new object[] {
             "Character mode",
-            "Line mode - Semantic",
-            "Line mode - Efficiency 4",
-            "Line mode - Efficiency 5",
-            "Line mode - Efficiency 3"});
+            "Semantic mode"});
             this.toolStripComboBoxDiffType.Name = "toolStripComboBoxDiffType";
             this.toolStripComboBoxDiffType.Size = new System.Drawing.Size(161, 23);
             this.toolStripComboBoxDiffType.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
@@ -758,12 +774,15 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonZoomIn;
         private System.Windows.Forms.ToolStripButton toolStripButtonPrevDiff;
         private System.Windows.Forms.ToolStripButton toolStripButtonNextDiff;
-        private System.Windows.Forms.ToolStripButton toolStripButtonComparePage;
         private ToolStripTrackBar toolStripTrackBarZoom;
         private System.Windows.Forms.ToolStripLabel toolStripLabelResult;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBoxDiffType;
+        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButtonCompare;
+        private System.Windows.Forms.ToolStripMenuItem bookmarkToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bookToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pageToolStripMenuItem;
     }
 }
 

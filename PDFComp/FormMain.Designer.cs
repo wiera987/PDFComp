@@ -46,6 +46,8 @@
             this.toolStripMenuItemEnableReduceColorCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comparePageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compareBookmarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compareBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.nextDifferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.previousDifferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,6 +56,7 @@
             this.clearMarker2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.outputDebugLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutPDFCompToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelBoth = new System.Windows.Forms.Panel();
             this.pdfPanel2 = new PDFComp.PdfPanel();
@@ -218,9 +221,11 @@
             // 
             this.compareToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.comparePageToolStripMenuItem,
+            this.compareBookmarkToolStripMenuItem,
+            this.compareBookToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.nextDifferenceToolStripMenuItem,
             this.previousDifferenceToolStripMenuItem,
+            this.nextDifferenceToolStripMenuItem,
             this.toolStripSeparator2,
             this.clearMarker1ToolStripMenuItem,
             this.clearMarker2ToolStripMenuItem});
@@ -228,41 +233,62 @@
             this.compareToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.compareToolStripMenuItem.Text = "&Compare";
             // 
+            // comparePageToolStripMenuItem
+            // 
+            this.comparePageToolStripMenuItem.Name = "comparePageToolStripMenuItem";
+            this.comparePageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.comparePageToolStripMenuItem.Text = "Compare page";
+            this.comparePageToolStripMenuItem.Click += new System.EventHandler(this.ComparePageToolStripMenuItem_Click);
+            // 
+            // compareBookmarkToolStripMenuItem
+            // 
+            this.compareBookmarkToolStripMenuItem.Name = "compareBookmarkToolStripMenuItem";
+            this.compareBookmarkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.compareBookmarkToolStripMenuItem.Text = "Compare Bookmark";
+            this.compareBookmarkToolStripMenuItem.Click += new System.EventHandler(this.compareBookmarkToolStripMenuItem_Click);
+            // 
+            // compareBookToolStripMenuItem
+            // 
+            this.compareBookToolStripMenuItem.Name = "compareBookToolStripMenuItem";
+            this.compareBookToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.compareBookToolStripMenuItem.Text = "Compare Book";
+            this.compareBookToolStripMenuItem.Click += new System.EventHandler(this.compareBookToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(172, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
             // nextDifferenceToolStripMenuItem
             // 
             this.nextDifferenceToolStripMenuItem.Name = "nextDifferenceToolStripMenuItem";
-            this.nextDifferenceToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.nextDifferenceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.nextDifferenceToolStripMenuItem.Text = "Next Difference";
-            this.nextDifferenceToolStripMenuItem.Click += new System.EventHandler(this.previousDifferenceToolStripMenuItem_Click);
+            this.nextDifferenceToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonNextDiff_Click);
             // 
             // previousDifferenceToolStripMenuItem
             // 
             this.previousDifferenceToolStripMenuItem.Name = "previousDifferenceToolStripMenuItem";
-            this.previousDifferenceToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.previousDifferenceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.previousDifferenceToolStripMenuItem.Text = "Previous Difference";
-            this.previousDifferenceToolStripMenuItem.Click += new System.EventHandler(this.previousDifferenceToolStripMenuItem_Click);
+            this.previousDifferenceToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonPrevDiff_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(172, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // clearMarker1ToolStripMenuItem
             // 
             this.clearMarker1ToolStripMenuItem.Name = "clearMarker1ToolStripMenuItem";
-            this.clearMarker1ToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.clearMarker1ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearMarker1ToolStripMenuItem.Text = "Clear marker1";
             this.clearMarker1ToolStripMenuItem.Click += new System.EventHandler(this.ClearMarker1ToolStripMenuItem_Click);
             // 
             // clearMarker2ToolStripMenuItem
             // 
             this.clearMarker2ToolStripMenuItem.Name = "clearMarker2ToolStripMenuItem";
-            this.clearMarker2ToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            this.clearMarker2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearMarker2ToolStripMenuItem.Text = "Clear marker2";
             this.clearMarker2ToolStripMenuItem.Click += new System.EventHandler(this.ClearMarker2ToolStripMenuItem_Click);
             // 
@@ -270,6 +296,7 @@
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.usageToolStripMenuItem,
+            this.outputDebugLogToolStripMenuItem,
             this.aboutPDFCompToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -281,6 +308,14 @@
             this.usageToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
             this.usageToolStripMenuItem.Text = "Usage ...";
             this.usageToolStripMenuItem.Click += new System.EventHandler(this.usageToolStripMenuItem_Click);
+            // 
+            // outputDebugLogToolStripMenuItem
+            // 
+            this.outputDebugLogToolStripMenuItem.Name = "outputDebugLogToolStripMenuItem";
+            this.outputDebugLogToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.outputDebugLogToolStripMenuItem.Text = "Output Debug Log";
+            this.outputDebugLogToolStripMenuItem.Visible = false;
+            this.outputDebugLogToolStripMenuItem.Click += new System.EventHandler(this.outputDebugLogToolStripMenuItem_Click);
             // 
             // aboutPDFCompToolStripMenuItem
             // 
@@ -740,6 +775,8 @@
         private System.Windows.Forms.ToolStripMenuItem copyBookmarks2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem compareToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem comparePageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compareBookmarkToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compareBookToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem clearMarker1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearMarker2ToolStripMenuItem;
@@ -783,6 +820,7 @@
         private System.Windows.Forms.ToolStripMenuItem bookmarkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bookToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem outputDebugLogToolStripMenuItem;
     }
 }
 

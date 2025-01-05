@@ -51,6 +51,10 @@ namespace PDFComp
 
             FindDiffPage1 = -1;
             FindDiffPage2 = -1;
+#if DEBUG
+            // Debug menu is displayed only in Debug mode.
+            outputDebugLogToolStripMenuItem.Visible = true;
+#endif
         }
 
         public void OpenFiles(String[] files)
@@ -209,8 +213,8 @@ namespace PDFComp
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
-            (int startPage1, int endPage1) = pdfPanel1.GetBookmarkPages();
-            (int startPage2, int endPage2) = pdfPanel2.GetBookmarkPages();
+            (int startPage1, int endPage1) = pdfPanel1.GetBookmarkPages(page1);
+            (int startPage2, int endPage2) = pdfPanel2.GetBookmarkPages(page2);
 
             // If a bookmark cannot be obtained, make it the current page.
             if (startPage1 < 0)
@@ -274,8 +278,9 @@ namespace PDFComp
 
             Console.WriteLine("CompareBookmark():({0},{1})-({2},{3})", startPage1, endPage1, startPage2, endPage2);
 
-
+            Cursor.Current = Cursors.WaitCursor;
             ComparePages(stopwatch, startPage1, endPage1, startPage2, endPage2);
+            Cursor.Current = Cursors.Default;
 
             stopwatch.Stop();
             Console.WriteLine("Marker:{0}", stopwatch.Elapsed);
@@ -619,7 +624,6 @@ namespace PDFComp
                 }
                 Clipboard.SetImage(bitmap);
             }
-
         }
 
         private void CopyFile2ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -673,11 +677,31 @@ namespace PDFComp
             form.ShowDialog();
         }
 
+        private void outputDebugLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OutputDebugLog();
+        }
+
         private void AboutPDFCompToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormAbout form = new FormAbout();
             form.StartPosition = FormStartPosition.CenterParent;
             form.ShowDialog();
+        }
+
+        private void ComparePageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ComparePage();
+        }
+
+        private void compareBookmarkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CompareBookmark();
+        }
+
+        private void compareBookToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CompareBook();
         }
 
         private void ClearMarker1ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -808,17 +832,20 @@ namespace PDFComp
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
+
             for (int i = page1; i < pages; i++)
             {
                 if ((pdfPanel1.GetComparedPage(page1) < 0) || (pdfPanel2.GetComparedPage(page2) < 0))
                 {
-                    //pdfPanel1.pdfViewer.SelectBookmarkForPage(page1);
-                    //pdfPanel2.pdfViewer.SelectBookmarkForPage(page2);
-                    //CompareBookmark();
+                    CompareBookmark();
+                    if (pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) || pdfPanel2.pdfViewer.Renderer.HasMarkers(page2))
+                    {
+                        break;
+                    }
                 }
 
-                bool hold_page1 = pdfPanel2.GetComparedPage(page2) == pdfPanel2.GetComparedPage(page2 + 1);
-                bool hold_page2 = pdfPanel1.GetComparedPage(page1) == pdfPanel1.GetComparedPage(page1 + 1);
+                bool hold_page1 = page1 == pdfPanel2.GetComparedPage(page2 + 1);
+                bool hold_page2 = page2 == pdfPanel1.GetComparedPage(page1 + 1);
 
                 if (!hold_page1)
                 {
@@ -831,6 +858,11 @@ namespace PDFComp
 
                 page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
                 page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
+
+                Console.WriteLine("\t\t{1}{3}\t{2}{4}", i, page1, page2, 
+                                                              pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) ? "*" : " ",
+                                                              pdfPanel2.pdfViewer.Renderer.HasMarkers(page2) ? "*" : " ");
+
                 if (pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) || pdfPanel2.pdfViewer.Renderer.HasMarkers(page2))
                 {
                     break;
@@ -859,17 +891,28 @@ namespace PDFComp
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
+            // If pages are moved arbitrarily, differences will be overlooked, so they will not be released to users.
+            //// If the comparisons are misaligned, first just align the pages.
+            //// if ((page2 != pdfPanel1.GetComparedPage(page1)) && (pdfPanel1.GetComparedPage(page1) >= 0))
+            //// {
+            ////    pdfPanel2.pdfViewer.Renderer.Page = pdfPanel1.GetComparedPage(page1);
+            ////    return;
+            //// }
+
+
             for (int i = page1; i >= 0; i--)
             {
-                if ((pdfPanel1.GetComparedPage(page1) < 0) || (pdfPanel2.GetComparedPage(page2) < 0))
+                if ((pdfPanel1.GetComparedPage(page1-1) < 0) || (pdfPanel2.GetComparedPage(page2-1) < 0))
                 {
-                    //pdfPanel1.pdfViewer.SelectBookmarkForPage(page1);
-                    //pdfPanel2.pdfViewer.SelectBookmarkForPage(page2);
-                    //CompareBookmark();
+                    pdfPanel1.PrevPage();
+                    pdfPanel2.PrevPage();
+                    CompareBookmark();
+                    pdfPanel1.pdfViewer.Renderer.Page = page1;
+                    pdfPanel2.pdfViewer.Renderer.Page = page2;
                 }
 
-                bool hold_page1 = pdfPanel2.GetComparedPage(page2) == pdfPanel2.GetComparedPage(page2 - 1);
-                bool hold_page2 = pdfPanel1.GetComparedPage(page1) == pdfPanel1.GetComparedPage(page1 - 1);
+                bool hold_page1 = page1 == pdfPanel2.GetComparedPage(page2 - 1);
+                bool hold_page2 = page2 == pdfPanel1.GetComparedPage(page1 - 1);
 
                 if (!hold_page1)
                 {
@@ -882,6 +925,11 @@ namespace PDFComp
 
                 page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
                 page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
+
+                Console.WriteLine("\t\t{1}{3}\t{2}{4}", i, page1, page2,
+                                              pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) ? "*" : " ",
+                                              pdfPanel2.pdfViewer.Renderer.HasMarkers(page2) ? "*" : " ");
+
                 if (pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) || pdfPanel2.pdfViewer.Renderer.HasMarkers(page2))
                 {
                     break;
@@ -895,16 +943,6 @@ namespace PDFComp
         }
 
 
-
-        private void previousDifferenceToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            toolStripButtonNextDiff.PerformClick();
-        }
-
-        private void previousDifferenceToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            toolStripButtonPrevDiff.PerformClick();
-        }
 
         private void toolStripMenuItemEnableReduceColorCopy_Click(object sender, EventArgs e)
         {
@@ -941,7 +979,6 @@ namespace PDFComp
             {
                 pdfPanel1.SetShowBookmarks(false);
             }
-
         }
 
         private void toolStripButtonNextPages_Click(object sender, EventArgs e)
@@ -1286,6 +1323,23 @@ namespace PDFComp
             toolStripSplitButtonCompare.Text = bookToolStripMenuItem.Text;
         }
 
+        private void OutputDebugLog()
+        {
+            try
+            {
+                int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
+                for (int i = 0; i < pages; i++)
+                {
+                    Console.WriteLine("[{0}]\t{1}{3}\t{2}{4}", i, pdfPanel1.GetComparedPage(i), pdfPanel2.GetComparedPage(i),
+                                                                  pdfPanel1.pdfViewer.Renderer.HasMarkers(i) ? "*" : " ",
+                                                                  pdfPanel2.pdfViewer.Renderer.HasMarkers(i) ? "*" : " ");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
 
     }
 }

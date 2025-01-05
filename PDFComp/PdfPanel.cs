@@ -339,17 +339,18 @@ namespace PDFComp
         }
 
         /// <summary>
-        /// Get the page number of the selected bookmark.
+        /// Gets the page range of the bookmark that corresponds to the specified page.
         /// </summary>
+        /// <param name="page"></param>
         /// <returns></returns>
-        public (int start, int end) GetBookmarkPages()
+        public (int start, int end) GetBookmarkPages(int page)
         {
             int start = -1;
             int end = -1;
             
             if (pdfViewer.Document != null)
             {
-                pdfViewer.GetBookmarkPageRange(out start, out end);
+                pdfViewer.GetBookmarkPageRange(page, out start, out end);
             }
             return (start, end);
         }
@@ -476,7 +477,6 @@ namespace PDFComp
                         //Console.WriteLine("Added");
                     }
                 }
-
             }
         }
 
@@ -556,7 +556,6 @@ namespace PDFComp
                     toolStripLabelPage.Text = (pdfViewer.Renderer.Page + 1).ToString();
                 }
             }
-
         }
 
         private void ToolStripButtonNextPage_Click(object sender, EventArgs e)
@@ -569,7 +568,6 @@ namespace PDFComp
                     toolStripLabelPage.Text = (pdfViewer.Renderer.Page + 1).ToString();
                 }
             }
-
         }
 
         private void Renderer_DisplayRectangleChanged(object sender, EventArgs e)

@@ -220,7 +220,6 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBoxFile;
         private System.Windows.Forms.ToolStripLabel toolStripLabelPage;
         private System.Windows.Forms.ToolStripLabel toolStripLabelPer;
         private System.Windows.Forms.ToolStripLabel toolStripLabelPages;
@@ -234,6 +233,7 @@
         private System.Windows.Forms.ToolStripMenuItem copyTextToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
         private System.Windows.Forms.Timer timerPageData;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBoxPageInput;
+        public System.Windows.Forms.ToolStripTextBox toolStripTextBoxFile;
+        public System.Windows.Forms.ToolStripTextBox toolStripTextBoxPageInput;
     }
 }

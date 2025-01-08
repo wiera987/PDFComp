@@ -574,6 +574,28 @@ namespace PDFComp
                 {
                     data.SetData(DataFormats.Text, text);
                 }
+
+                if (pdfPanel1.toolStripTextBoxFile.Focused)
+                {
+                    var text2 = pdfPanel1.toolStripTextBoxFile.SelectedText;
+                    if (text2?.Length > 0)
+                    {
+                        data.SetData(DataFormats.Text, text2);
+                        Clipboard.SetDataObject(data, true);
+                        return;
+                    }
+                }
+
+                if (pdfPanel1.toolStripTextBoxPageInput.Focused)
+                {
+                    var text3 = pdfPanel1.toolStripTextBoxPageInput.SelectedText;
+                    if (text3?.Length > 0)
+                    {
+                        data.SetData(DataFormats.Text, text3);
+                        Clipboard.SetDataObject(data, true);
+                        return;
+                    }
+                }
             }
 
             if ((string)Tag == "pdfPanel2")
@@ -582,6 +604,28 @@ namespace PDFComp
                 if (text?.Length > 0)
                 {
                     data.SetData(DataFormats.Text, text);
+                }
+
+                if (pdfPanel2.toolStripTextBoxFile.Focused)
+                {
+                    var text2 = pdfPanel2.toolStripTextBoxFile.SelectedText;
+                    if (text2?.Length > 0)
+                    {
+                        data.SetData(DataFormats.Text, text2);
+                        Clipboard.SetDataObject(data, true);
+                        return;
+                    }
+                }
+
+                if (pdfPanel2.toolStripTextBoxPageInput.Focused)
+                {
+                    var text3 = pdfPanel2.toolStripTextBoxPageInput.SelectedText;
+                    if (text3?.Length > 0)
+                    {
+                        data.SetData(DataFormats.Text, text3);
+                        Clipboard.SetDataObject(data, true);
+                        return;
+                    }
                 }
             }
 

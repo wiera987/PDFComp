@@ -13,6 +13,7 @@ using DiffMatchPatch;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using static PDFComp.PdfPanel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PDFComp
 {
@@ -756,6 +757,16 @@ namespace PDFComp
         private void ClearMarker2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pdfPanel2.ClearDiffMarker(pdfPanel2.pdfViewer.Renderer.ComparisonPage, true);
+        }
+
+        private void clearBook1MarkerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pdfPanel1.ClearAllDiffMarker();
+        }
+
+        private void clearBook2MarkerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pdfPanel2.ClearAllDiffMarker();
         }
 
         private void FindToolStripMenuItem_Click(object sender, EventArgs e)

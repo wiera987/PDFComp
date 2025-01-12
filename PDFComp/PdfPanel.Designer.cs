@@ -46,6 +46,8 @@
             this.copyTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timerPageData = new System.Windows.Forms.Timer(this.components);
+            this.clearAllMarkersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearBookMarkerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStripPdf.SuspendLayout();
             this.SuspendLayout();
@@ -164,31 +166,32 @@
             // 
             this.contextMenuStripPdf.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearMarkersToolStripMenuItem,
+            this.clearAllMarkersToolStripMenuItem,
             this.copyTextToolStripMenuItem,
             this.selectAllToolStripMenuItem});
             this.contextMenuStripPdf.Name = "contextMenuStripPdf";
             this.contextMenuStripPdf.ShowImageMargin = false;
-            this.contextMenuStripPdf.Size = new System.Drawing.Size(120, 70);
+            this.contextMenuStripPdf.Size = new System.Drawing.Size(156, 114);
             this.contextMenuStripPdf.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStripPdf_Opening);
             // 
             // clearMarkersToolStripMenuItem
             // 
             this.clearMarkersToolStripMenuItem.Name = "clearMarkersToolStripMenuItem";
-            this.clearMarkersToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.clearMarkersToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.clearMarkersToolStripMenuItem.Text = "Clear markers";
             this.clearMarkersToolStripMenuItem.Click += new System.EventHandler(this.ClearMarkersToolStripMenuItem_Click);
             // 
             // copyTextToolStripMenuItem
             // 
             this.copyTextToolStripMenuItem.Name = "copyTextToolStripMenuItem";
-            this.copyTextToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.copyTextToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.copyTextToolStripMenuItem.Text = "Copy Text";
             this.copyTextToolStripMenuItem.Click += new System.EventHandler(this.CopyTextToolStripMenuItem_Click);
             // 
             // selectAllToolStripMenuItem
             // 
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.selectAllToolStripMenuItem.Text = "Select All";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.SelectAllToolStripMenuItem_Click);
             // 
@@ -196,6 +199,21 @@
             // 
             this.timerPageData.Interval = 10;
             this.timerPageData.Tick += new System.EventHandler(this.timerPageData_Tick);
+            // 
+            // clearAllMarkersToolStripMenuItem
+            // 
+            this.clearAllMarkersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearBookMarkerToolStripMenuItem});
+            this.clearAllMarkersToolStripMenuItem.Name = "clearAllMarkersToolStripMenuItem";
+            this.clearAllMarkersToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.clearAllMarkersToolStripMenuItem.Text = "Clear all markers";
+            // 
+            // clearBookMarkerToolStripMenuItem
+            // 
+            this.clearBookMarkerToolStripMenuItem.Name = "clearBookMarkerToolStripMenuItem";
+            this.clearBookMarkerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearBookMarkerToolStripMenuItem.Text = "Clear book marker";
+            this.clearBookMarkerToolStripMenuItem.Click += new System.EventHandler(this.clearBookMarkerToolStripMenuItem_Click);
             // 
             // PdfPanel
             // 
@@ -235,5 +253,7 @@
         private System.Windows.Forms.Timer timerPageData;
         public System.Windows.Forms.ToolStripTextBox toolStripTextBoxFile;
         public System.Windows.Forms.ToolStripTextBox toolStripTextBoxPageInput;
+        private System.Windows.Forms.ToolStripMenuItem clearAllMarkersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearBookMarkerToolStripMenuItem;
     }
 }

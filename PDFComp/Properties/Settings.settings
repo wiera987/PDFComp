@@ -11,5 +11,8 @@
     <Setting Name="ReduceFixedColor" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">16</Value>
     </Setting>
+    <Setting Name="CopyBookmarkPage" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

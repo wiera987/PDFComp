@@ -49,8 +49,8 @@
             this.compareBookmarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compareBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.nextDifferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.previousDifferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nextDifferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.clearMarker1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearMarker2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,6 +94,9 @@
             this.toolStripLabelZoom = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButtonFitWidth = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonFitOnePage = new System.Windows.Forms.ToolStripButton();
+            this.clearAllMakersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearBook1MarkerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearBook2MarkerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelBoth.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -228,7 +231,8 @@
             this.nextDifferenceToolStripMenuItem,
             this.toolStripSeparator2,
             this.clearMarker1ToolStripMenuItem,
-            this.clearMarker2ToolStripMenuItem});
+            this.clearMarker2ToolStripMenuItem,
+            this.clearAllMakersToolStripMenuItem});
             this.compareToolStripMenuItem.Name = "compareToolStripMenuItem";
             this.compareToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.compareToolStripMenuItem.Text = "&Compare";
@@ -259,19 +263,19 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
-            // nextDifferenceToolStripMenuItem
-            // 
-            this.nextDifferenceToolStripMenuItem.Name = "nextDifferenceToolStripMenuItem";
-            this.nextDifferenceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.nextDifferenceToolStripMenuItem.Text = "Next Difference";
-            this.nextDifferenceToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonNextDiff_Click);
-            // 
             // previousDifferenceToolStripMenuItem
             // 
             this.previousDifferenceToolStripMenuItem.Name = "previousDifferenceToolStripMenuItem";
             this.previousDifferenceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.previousDifferenceToolStripMenuItem.Text = "Previous Difference";
             this.previousDifferenceToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonPrevDiff_Click);
+            // 
+            // nextDifferenceToolStripMenuItem
+            // 
+            this.nextDifferenceToolStripMenuItem.Name = "nextDifferenceToolStripMenuItem";
+            this.nextDifferenceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.nextDifferenceToolStripMenuItem.Text = "Next Difference";
+            this.nextDifferenceToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonNextDiff_Click);
             // 
             // toolStripSeparator2
             // 
@@ -728,6 +732,29 @@
             this.toolStripButtonFitOnePage.Text = "Fit one page";
             this.toolStripButtonFitOnePage.Click += new System.EventHandler(this.toolStripButtonFitOnePage_Click);
             // 
+            // clearAllMakersToolStripMenuItem
+            // 
+            this.clearAllMakersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearBook1MarkerToolStripMenuItem,
+            this.clearBook2MarkerToolStripMenuItem});
+            this.clearAllMakersToolStripMenuItem.Name = "clearAllMakersToolStripMenuItem";
+            this.clearAllMakersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearAllMakersToolStripMenuItem.Text = "Clear all makers";
+            // 
+            // clearBook1MarkerToolStripMenuItem
+            // 
+            this.clearBook1MarkerToolStripMenuItem.Name = "clearBook1MarkerToolStripMenuItem";
+            this.clearBook1MarkerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearBook1MarkerToolStripMenuItem.Text = "Clear book1 marker";
+            this.clearBook1MarkerToolStripMenuItem.Click += new System.EventHandler(this.clearBook1MarkerToolStripMenuItem_Click);
+            // 
+            // clearBook2MarkerToolStripMenuItem
+            // 
+            this.clearBook2MarkerToolStripMenuItem.Name = "clearBook2MarkerToolStripMenuItem";
+            this.clearBook2MarkerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearBook2MarkerToolStripMenuItem.Text = "Clear book2 marker";
+            this.clearBook2MarkerToolStripMenuItem.Click += new System.EventHandler(this.clearBook2MarkerToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -821,6 +848,9 @@
         private System.Windows.Forms.ToolStripMenuItem bookToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem outputDebugLogToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearAllMakersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearBook1MarkerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearBook2MarkerToolStripMenuItem;
     }
 }
 

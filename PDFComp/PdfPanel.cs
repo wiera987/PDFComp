@@ -248,7 +248,13 @@ namespace PDFComp
         {
             foreach (var bookmark in bookmarks)
             {
-                sb.AppendLine(bookmark.Title);
+                string title = bookmark.Title;
+                if ((bool)Properties.Settings.Default["CopyBookmarkPage"])
+                {
+                    title += "\t" + (bookmark.PageIndex + 1).ToString();
+                }
+                sb.AppendLine(title);
+
                 if (bookmark.Children != null)
                 {
                     GetBookmarkText(sb, bookmark.Children);
@@ -437,6 +443,18 @@ namespace PDFComp
                 if (_comparePage != null)
                 {
                     _comparePage[diffpage] = -1;
+                }
+            }
+        }
+
+        public void ClearAllDiffMarker()
+        {
+            if (pdfViewer.Document != null)
+            {
+                pdfViewer.Renderer.Markers.Clear();
+                for (int i = 0; i < pdfViewer.Document.PageCount; i++)
+                {
+                    _comparePage[i] = -1;
                 }
             }
         }
@@ -649,6 +667,11 @@ namespace PDFComp
             //Console.WriteLine(_contextMenuPosition.Location);
 
             ClearDiffMarker(_contextMenuPosition.Page, true);
+        }
+
+        private void clearBookMarkerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClearAllDiffMarker();
         }
 
         private void CopyTextToolStripMenuItem_Click(object sender, EventArgs e)

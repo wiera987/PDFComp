@@ -1,16 +1,17 @@
 # PDFComp
 Compare two PDF files and highlight different characters.
 
-![PDFComp_2 6_MainForm](https://github.com/user-attachments/assets/a4e81cdd-8530-46b9-ad87-b36b9235a894)
+![PDFComp_3 0_MainForm](https://github.com/user-attachments/assets/a10aae2a-4c8a-45b9-b398-9ff2a608c8f6)
 
 ## Background
 
 There are tools that automatically compare the differences between two PDF files, but you can't detect the difference well unless they are almost the same text.
 When comparing PDF files with a revised paragraph structure, the pages you want are not compared and you need to specify the pages again.
 This PDFComp is an application that specializes in manual operation and allows you to quickly move pages and check one page at a time.
+The latest version also adds an automatic comparison mode that uses bookmarks.
 
-PDFComp 2.6.0
-Improved bookmark operations.Fixed flickering and other issues with zooming.
+PDFComp 3.0.0
+'Compare bookmark' and 'Compare book' are now supported.
 
 ### Application requirements
 
@@ -27,11 +28,18 @@ Download the zip file from [release](https://github.com/wiera987/PDFComp/release
 * The '<<' and '>>' buttons navigate two pdf pages at the same time. (arrow left and right keys)
 * The '<' and '>' buttons move between the pages of the respective PDF file. (Ctrl+arrow keys, Alt+arrow keys)
 * The '<-' and '->' buttons navigate to the page with the differences while comparing the two PDF files.
-* The 'Compare page' button is to compare and hilight displaied pages. (space key)
+* The 'Compare page' button is to compare and highlight displaied pages. (space key)
+* The 'Compare bookmark' button is to compare and highlight the differences on the selected bookmark pages.
+* The 'Compare book' button is to compare and highlight the differences across the whole PDF file.
 * The 'Clear markers' context menu is to clear the different markers.
 * The 'Copy text' context menu copies text.
 * The 'Copy' menus copies PDF images and Bookmark text. If the 'Enable color reduction copy' menu is checked, the colors will be reduced to 256 when copying an image.
 * The 'Find...' menu show the text search window. You can search for each PDF.
+
+Use 'Compare page' to manually compare one page at a time.
+To compare across pages, use 'Compare bookmark' or 'Compare book'.
+'Compare bookmark' requires bookmarks in the PDF file and will compare pages with reference to the chapter structure of the currently selected bookmark item. For pages without bookmarks, the comparison will be on a page-by-page basis.
+'Compare book' will compare the whole file at once, without considering the chapter structure.
 
 If you hit the space key repeatedly, the part with the difference will flash.
 Pan mode can be grabbed to scroll the PDF.
@@ -41,7 +49,7 @@ Bounds mode can specify comparison targets for each PDF. Make a new comparison w
 In the 'Fit one page', the display of the PDF file changes according to the window size.
 In the 'Fit width', the display of the PDF file changes according to the horizontal size of the window.
 
-[PDFComp wiki](https://github.com/wiera987/PDFComp/wiki) also has some tips, so be sure to check it out.
+[How to use PDFComp](https://github.com/wiera987/PDFComp/wiki) also has some tips, so be sure to check it out.
 
 ## Development
 

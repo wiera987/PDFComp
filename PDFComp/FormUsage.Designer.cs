@@ -37,9 +37,9 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(24, 22);
+            this.label1.Location = new System.Drawing.Point(24, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(643, 228);
+            this.label1.Size = new System.Drawing.Size(643, 245);
             this.label1.TabIndex = 0;
             this.label1.Text = resources.GetString("label1.Text");
             // 
@@ -49,7 +49,7 @@
             this.pictureBox1.ErrorImage = null;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(26, 265);
+            this.pictureBox1.Location = new System.Drawing.Point(26, 272);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(753, 213);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;

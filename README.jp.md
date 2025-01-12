@@ -1,16 +1,17 @@
 # PDFComp
 ‚Q‚Â‚ÌPDFƒtƒ@ƒCƒ‹‚Ì•¶Žš‚ð”äŠr‚µ‚ÄAˆÙ‚È‚é•”•ª‚ðƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ü‚·B
 
-![PDFComp_2 6_MainForm](https://github.com/user-attachments/assets/a4e81cdd-8530-46b9-ad87-b36b9235a894)
+![PDFComp_3 0_MainForm](https://github.com/user-attachments/assets/a10aae2a-4c8a-45b9-b398-9ff2a608c8f6)
 
 ## ”wŒi
 
 2‚Â‚ÌPDFƒtƒ@ƒCƒ‹‚Ìˆá‚¢‚ðŽ©“®“I‚É”äŠr‚·‚éƒc[ƒ‹‚Í‚ ‚è‚Ü‚·‚ªA‚Ù‚Æ‚ñ‚Ç“¯‚¶ƒeƒLƒXƒg‚Å‚È‚¢‚ÆãŽè‚Éˆá‚¢‚ðŒŸo‚·‚é‚±‚Æ‚Ío—ˆ‚Ü‚¹‚ñB
 ’i—Ž\¬‚ðŒ©’¼‚µ‚½‚æ‚¤‚ÈPDFƒtƒ@ƒCƒ‹‚ð”äŠr‚·‚é‚Æ‚«‚ÍAŽv‚Á‚½ƒy[ƒW“¯Žm‚ª”äŠr‚³‚ê‚¸ƒy[ƒW‚ÌÄŽw’è‚ª•K—v‚É‚È‚è‚Ü‚·B
 ‚±‚ÌPDFComp‚Íƒ}ƒjƒ…ƒAƒ‹‘€ì‚É“Á‰»‚µƒy[ƒW‚ð‘f‘‚­ˆÚ“®‚µ‚ÄA‚Pƒy[ƒW‚¸‚ÂŠm”F‚µ‚Ä‚¢‚­‚½‚ß‚ÌƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Å‚·B
+‚Ü‚½ÅV”Å‚Å‚ÍAƒuƒbƒNƒ}[ƒN‚ð—˜—p‚µ‚½Ž©“®“I‚É”äŠr‚·‚éƒ‚[ƒh‚ð’Ç‰Á‚µ‚Ü‚µ‚½B
 
-PDFComp 2.6.0
-ƒuƒbƒNƒ}[ƒN‘€ì‚ð‹­‰»‚µ‚Ü‚µ‚½BƒY[ƒ€ŠÖ˜A‚Ì‚¿‚ç‚Â‚«‚â•s‹ï‡‚ðC³‚µ‚Ü‚µ‚½B
+PDFComp 3.0.0
+'Compare bookmark'‚Æ'Compare book'‚É‘Î‰ž‚µ‚Ü‚µ‚½B
 
 ### “®ìŠÂ‹«
 
@@ -28,10 +29,17 @@ PDFComp 2.6.0
 * '<' ‚Æ '>' ƒ{ƒ^ƒ“‚ÍA‚»‚ê‚¼‚ê‚ÌPDFƒtƒ@ƒCƒ‹‚Ìƒy[ƒW‚ðˆÚ“®‚µ‚Ü‚·. (CTRL+–îˆóƒL[AALT+–îˆóƒL[)
 * '<-' ‚Æ '->'ƒ{ƒ^ƒ“‚ÍA‚Q‚Â‚ÌPDFƒtƒ@ƒCƒ‹‚ð”äŠr‚µ‚È‚ª‚ç·ˆÙ‚Ì‚ ‚éƒy[ƒW‚Ü‚ÅˆÚ“®‚µ‚Ü‚·.
 * 'Compare page' ƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚ÆAƒy[ƒW‚Ì·ˆÙ‚ðƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ü‚·. (ƒXƒy[ƒXƒL[)
+* 'Compare bookmark' ƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚ÆA‘I‘ð‚³‚ê‚Ä‚¢‚éƒuƒbƒNƒ}[ƒN‚Ìƒy[ƒW‚Ì·ˆÙ‚ðƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ü‚·. 
+* 'Compare book' ƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚ÆAPDF1û•ª‚Ìƒy[ƒW‚ð”äŠr‚µ‚ÄƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ü‚·.
 * 'Clear markers' ‚ÌƒRƒ“ƒeƒLƒXƒgƒƒjƒ…[‚ÅAƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ä‚¢‚é·•ªƒ}[ƒJ[‚ðƒNƒŠƒA‚µ‚Ü‚·.
 * 'Copy text'  ‚ÌƒRƒ“ƒeƒLƒXƒgƒƒjƒ…[‚ÅƒeƒLƒXƒg‚ðƒRƒs[‚µ‚Ü‚·.
 * 'Copy' ƒƒjƒ…[‚Í PDFƒCƒ[ƒW‚â‚µ‚¨‚è‚ÌƒeƒLƒXƒg‚ðƒRƒs[‚µ‚Ü‚·. 'Enable color reduction copy'ƒƒjƒ…[‚Éƒ`ƒFƒbƒN‚ð‚Â‚¯‚é‚ÆAƒCƒ[ƒWƒRƒs[Žž‚É256F‚ÉŒ¸F‚µ‚Ü‚·.
 * 'Find...' ƒƒjƒ…[‚ÍAƒeƒLƒXƒgŒŸõ‚Ì‚½‚ß‚ÌƒEƒCƒ“ƒhƒE‚ðŠJ‚«‚Ü‚·. ‚»‚ê‚¼‚ê‚ÌPDF‚ðŒŸõ‚Å‚«‚Ü‚·.
+
+ƒ}ƒjƒ…ƒAƒ‹‘€ì‚Å1ƒy[ƒW‚¸‚Â”äŠr‚·‚éê‡‚ÍA'Compare page'‚ðŽg—p‚µ‚Ü‚·B
+ƒy[ƒW‚ð‚Ü‚½‚ª‚é”äŠr‚É‚ÍA'Compare bookmark'‚©'Compare book'‚ðŽg—p‚µ‚Ü‚·B
+'Compare bookmark'‚ÍPDFƒtƒ@ƒCƒ‹‚ÉƒuƒbƒNƒ}[ƒN‚ª•K—v‚ÅAŒ»Ý‘I‘ð‚³‚ê‚Ä‚¢‚éƒuƒbƒNƒ}[ƒN€–Ú‚ÌÍ\¬‚ðŽQÆ‚µ‚Ä‚Ìƒy[ƒW“¯Žm‚ð”äŠr‚µ‚Ü‚·BƒuƒbƒNƒ}[ƒN‚ª‘¶Ý‚µ‚È‚¢ƒy[ƒW‚Å‚Í‚Pƒy[ƒW’PˆÊ‚Ì”äŠr‚É‚È‚è‚Ü‚·B
+'Compare book'‚ÍÍ\¬‚Íl—¶‚¹‚¸ˆê“x‚Éƒtƒ@ƒCƒ‹‘S‘Ì‚ð”äŠr‚µ‚Ü‚·B
 
 ƒXƒy[ƒXƒL[‚ð˜A‘Å‚·‚é‚ÆA·ˆÙ‚Ì•”•ª‚ª“_–Å‚µ‚Ü‚·.
 Panƒ‚[ƒh‚Í‚Â‚©‚ñ‚ÅPDF‚ðƒXƒNƒ[ƒ‹‚Å‚«‚Ü‚·.
@@ -41,7 +49,7 @@ Boundsƒ‚[ƒh‚Í‚»‚ê‚¼‚ê‚ÌPDF‚Ì”äŠr‘ÎÛ‚ðŽw’è‚Å‚«‚Ü‚·BˆÈ‘O‚ÌŒ‹‰Ê‚ðŽc‚µ‚½‚Ü‚ÜV‚µ‚
 u1ƒy[ƒW‚É‡‚í‚¹‚év‚Å‚ÍAƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚É‡‚í‚¹‚ÄPDFƒtƒ@ƒCƒ‹‚Ì•\Ž¦‚ª•Ï‚í‚è‚Ü‚·B
 u•‚É‡‚í‚¹‚év‚Å‚ÍAƒEƒBƒ“ƒhƒE‚Ì‰¡•‚É‡‚í‚¹‚ÄPDFƒtƒ@ƒCƒ‹‚Ì•\Ž¦‚ª•Ï‚í‚è‚Ü‚·B
 
-[PDFComp wiki](https://github.com/wiera987/PDFComp/wiki) ‚É‚àƒqƒ“ƒg‚ªÚ‚Á‚Ä‚¢‚Ü‚·‚Ì‚ÅA‚²——‚­‚¾‚³‚¢B
+[PDFComp‚ÌŽg‚¢•û](https://github.com/wiera987/PDFComp/wiki) ‚É‚àƒqƒ“ƒg‚ªÚ‚Á‚Ä‚¢‚Ü‚·‚Ì‚ÅA‚²——‚­‚¾‚³‚¢B
 
 ## ŠJ”­ŠÂ‹«
 

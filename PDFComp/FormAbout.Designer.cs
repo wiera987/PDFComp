@@ -76,7 +76,7 @@
             this.labelAboutAuth.Name = "labelAboutAuth";
             this.labelAboutAuth.Size = new System.Drawing.Size(238, 12);
             this.labelAboutAuth.TabIndex = 4;
-            this.labelAboutAuth.Text = "(C) 2019-2024  Wiera987  All rights reserved.";
+            this.labelAboutAuth.Text = "(C) 2019-2025  Wiera987  All rights reserved.";
             // 
             // labelAboutLicense
             // 

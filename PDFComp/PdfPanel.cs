@@ -540,7 +540,7 @@ namespace PDFComp
         public void OpenFile(string fileName)
         {
             pdfViewer.Document?.Dispose();
-            pdfViewer.Document = PdfDocument.Load(fileName);
+            pdfViewer.Document = PdfDocument.Load(this.ParentForm, fileName);
             pdfViewer.Renderer.Zoom = _zoom;
             pdfViewer.Renderer.Rotation = _rotation;
 

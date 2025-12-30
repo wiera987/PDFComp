@@ -34,6 +34,7 @@ namespace PDFComp
 
         public void WriteText(string text, Color color)
         {
+#if DEBUG
             richTextBoxInfo.SelectionStart = richTextBoxInfo.TextLength;
             richTextBoxInfo.SelectionLength = 0;
             richTextBoxInfo.SelectionColor = color;
@@ -42,6 +43,7 @@ namespace PDFComp
             // Slapdash way to change the background of an entire line.
             text = text.Replace("\r\n", new string(' ', 256)+"\r\n");
             richTextBoxInfo.AppendText(text);
+#endif
         }
 
         public void ScrollToCaret()

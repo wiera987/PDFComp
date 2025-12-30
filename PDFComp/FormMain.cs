@@ -23,12 +23,14 @@ namespace PDFComp
         readonly Double ZoomOutScale = 0.01;    // scale:    -2%, -3%, -5%, +10%, +20%, +50%
         FormFind formFind = null;
         FormDiffInfo formDiffInfo = null;
+        PagePairList pagePairList = null;
         PdfRotation rotation;
         Double zoom;
         Boolean zoomIn;
         Boolean zoomOut;
         int FindDiffPage1;
         int FindDiffPage2;
+        bool flashPageFlag = true;
         Boolean reduceColor = true;
         Boolean autoReduceColor = false;
         bool holdZoom = false;
@@ -53,9 +55,10 @@ namespace PDFComp
 
             FindDiffPage1 = -1;
             FindDiffPage2 = -1;
-#if DEBUG
+
             // Debug ExtractDiffSpan2
             formDiffInfo = new FormDiffInfo();
+#if DEBUG
             formDiffInfo.Show();
 
             // Debug menu is displayed only in Debug mode.
@@ -65,8 +68,16 @@ namespace PDFComp
 
         public void OpenFiles(String[] files)
         {
+            PagePairClearAll();
+
             pdfPanel1.OpenFile(files[0]);
             pdfPanel2.OpenFile(files[1]);
+        }
+
+        public void PagePairClearAll()
+        {
+            // Initialize the page pair list.
+            pagePairList.ClearAll();
         }
 
         protected override bool ProcessDialogKey(Keys keyData)
@@ -128,6 +139,12 @@ namespace PDFComp
 
         private void FormMain_Shown(object sender, EventArgs e)
         {
+            // Initialize the page pair list.
+            pagePairList = new PagePairList();
+
+            // Start cyclic timer.
+            timerCyclic.Enabled = true;
+
             // First, the text mode.
             toolStripButtonTextmode.PerformClick();
             // First, one page fits.
@@ -161,6 +178,15 @@ namespace PDFComp
             if (zoomIn)
             {
                 ZoomIn();
+            }
+        }
+
+        private void timerCyclic_Tick(object sender, EventArgs e)
+        {
+            if (pdfPanel1.pdfViewer.Renderer.FlashTextAlpha > 0)
+            {
+                pdfPanel1.pdfViewer.Renderer.CalcFlashTextAlpha();
+                pdfPanel2.pdfViewer.Renderer.CalcFlashTextAlpha();
             }
         }
 
@@ -234,7 +260,7 @@ namespace PDFComp
                 endPage2 = page2;
             }
 
-            Console.WriteLine("CompareBookmark():({0},{1})-({2},{3})", startPage1, endPage1, startPage2, endPage2);
+            Console.WriteLine("CompareBookmark():({0},{1})-({2},{3})", startPage1+1, endPage1+1, startPage2+1, endPage2+1);
 
 
             ComparePages(stopwatch, startPage1, endPage1, startPage2, endPage2);
@@ -255,6 +281,7 @@ namespace PDFComp
             // Revert the page.
             pdfPanel1.pdfViewer.Renderer.Page = page1;
             pdfPanel2.pdfViewer.Renderer.Page = page2;
+            SetFlashPage(page1, page2);
 
             stopwatch.Stop();
             Console.WriteLine("Draw:{0}", stopwatch.Elapsed);
@@ -282,7 +309,7 @@ namespace PDFComp
             int startPage2 = 0;
             int endPage2 = pdfPanel2.pdfViewer.Document.PageCount - 1;
 
-            Console.WriteLine("CompareBookmark():({0},{1})-({2},{3})", startPage1, endPage1, startPage2, endPage2);
+            Console.WriteLine("CompareBook():({0},{1})-({2},{3})", startPage1+1, endPage1+1, startPage2+1, endPage2+1);
 
             Cursor.Current = Cursors.WaitCursor;
             ComparePages(stopwatch, startPage1, endPage1, startPage2, endPage2);
@@ -304,6 +331,7 @@ namespace PDFComp
             // Revert the page.
             pdfPanel1.pdfViewer.Renderer.Page = page1;
             pdfPanel2.pdfViewer.Renderer.Page = page2;
+            SetFlashPage(page1, page2);
 
             stopwatch.Stop();
             Console.WriteLine("Draw:{0}", stopwatch.Elapsed);
@@ -319,6 +347,8 @@ namespace PDFComp
             // Remember the last page compared.
             FindDiffPage1 = page1;
             FindDiffPage2 = page2;
+
+            SetFlashPage(page1, page2);
 
             return found_diff;
         }
@@ -343,6 +373,7 @@ namespace PDFComp
                 pdfPanel2.ClearDiffMarker(i, oneFullPage2);
                 textData2.Add(pdfPanel2.GetPageTextData(i));
             }
+            pagePairList.Clear(startPage1, endPage1, startPage2, endPage2);
 
             // Draw without the marker.
             pdfPanel1.Update();
@@ -382,7 +413,7 @@ namespace PDFComp
             }
 
             ExtractDiffSpan2(index1, index2, diffs, textData1, textData2);
-            UpdateComparedPage(diffs, textData1, textData2);
+            UpdateComparedPage2(diffs, textData1, textData2);
 
             stopwatch.Stop();
             Console.WriteLine("Diff:{0}", stopwatch.Elapsed);
@@ -468,75 +499,212 @@ namespace PDFComp
             }
         }
 
-        private void UpdateComparedPage(List<Diff> diffs, PageTextList textData1, PageTextList textData2)
+        /// <summary>
+        /// Records which pages correspond to each other based on the differences between two text lists.
+        /// </summary>
+        /// <remarks>This method updates the page pairings of the two documents by splitting the text difference list
+        /// at page boundaries and preserving the text.</remarks>
+        /// <param name="diffs">A list of text differences representing changes between the two documents.</param>
+        /// <param name="textList1">The text list representing the first document, used to determine page boundaries and extract text spans.</param>
+        /// <param name="textList2">The text list representing the second document, used to determine page boundaries and extract text spans.</param>
+        private void UpdateComparedPage2(List<Diff> diffs, PageTextList textList1, PageTextList textList2)
         {
-            if (diffs.Count() > 0)
+            // Step1. Get the starting offset of each page
+            int offset1 = 0, offset2 = 0;                       // Current position in the entire text
+            int startOffset1 = 0, startOffset2 = 0;             // Start position of the current TextSpan
+            int headOffset1 = 0, headOffset2 = 0;               // Start position of the current page
+            int previousOffset1 = 0, previousOffset2 = 0;       // Store the offset to append to the previously compared TextSpan
+
+            (int page1, _) = textList1.GetPagePos(offset1);     // Page number currently being processed
+            (int page2, _) = textList2.GetPagePos(offset2);
+            int previousPage1 = page1;                          // Store the page to append to the previously compared TextSpan
+            int previousPage2 = page2;
+            int nextOffset1 = textList1.GetOffset(page1 + 1);   // Start position of the next page
+            int nextOffset2 = textList2.GetOffset(page2 + 1);
+            bool flag = false;
+
+            // Step2. Process the difference list
+            foreach (Diff diff in diffs)
             {
-                int offset1 = 0;
-                int offset2 = 0;
-                int count;
-                int nextOffset1 = 0;
-                int nextOffset2 = 0;
+                int count = diff.text.Length;
 
-                (int page1, int pos1) = textData1.GetPagePos(offset1);
-                (int page2, int pos2) = textData2.GetPagePos(offset2);
-
-                nextOffset1 = textData1.GetOffset(page1 + 1);
-                nextOffset2 = textData2.GetOffset(page2 + 1);
-
-                foreach (Diff diff in diffs)
+                while (count > 0)
                 {
-                    count = diff.text.Length;
-                    switch (diff.operation)
+                    // Detect page boundaries
+                    int length1 = GetPageBreakForFile1(diff, offset1, count, nextOffset1);
+                    int length2 = GetPageBreakForFile2(diff, offset2, count, nextOffset2);
+                    int minLength = Math.Min(length1, length2);
+
+                    // Console.WriteLine("F1P{0}, offs={1}, count={2}, len={3}, nextOffs={4}", page1, offset1, count, length1, nextOffset1);
+                    // Console.WriteLine("F2P{0}, offs={1}, count={2}, len={3}, nextOffs={4}", page2, offset2, count, length2, nextOffset2);
+
+                    if (minLength == int.MaxValue)
                     {
-                        case Operation.EQUAL:
-                            pdfPanel1.SetComparedPage(page1, page2);
-                            pdfPanel2.SetComparedPage(page2, page1);
+                        // Neither page reaches its boundary within count steps.
+                        // Slide by count, which is the length of diff.text.
+                        SlideOffsetByOperation(diff, count, ref offset1, ref offset2);
+                        count = 0;
+                        flag = true;
+                    }
+                    else
+                    {
+                        // One or both pages reach their boundary within count steps.
+                        // Slide by the minLength, which is the shorter distance to the boundary.
+                        SlideOffsetByOperation(diff, minLength, ref offset1, ref offset2);
+                        // Console.WriteLine($"[F1p{page1+1}]" + textList1.GetText(startOffset1, offset1));
+                        // Console.WriteLine($"[F2p{page2+1}]" + textList2.GetText(startOffset2, offset2));
 
-                            while ((offset1 + count > nextOffset1) || (offset2 + count > nextOffset2))
-                            {
-                                int nextPage1 = nextOffset1 - offset1;
-                                int nextPage2 = nextOffset2 - offset2;
+                        int page1a = page1;
+                        int page2a = page2;
+                        int startOffset1a = startOffset1;
+                        int startOffset2a = startOffset2;
 
-                                if ((nextPage1 <= nextPage2) && (nextPage1 < count))
-                                {
-                                    page1++;
-                                    nextOffset1 = textData1.GetOffset(page1 + 1);
-                                }
-                                if ((nextPage2 <= nextPage1) && (nextPage2 < count))
-                                {
-                                    page2++;
-                                    nextOffset2 = textData2.GetOffset(page2 + 1);
-                                }
-                                pdfPanel1.SetComparedPage(page1, page2);
-                                pdfPanel2.SetComparedPage(page2, page1);
-                            }
+                        if ((minLength == length1) && (minLength == length2))
+                        {
+                            page1++;
+                            page2++;
+                            nextOffset1 = textList1.GetOffset(page1 + 1);
+                            nextOffset2 = textList2.GetOffset(page2 + 1);
+                        }
+                        else if (minLength == length1)
+                        {
+                            page1++;
+                            headOffset1 = nextOffset1;
+                            nextOffset1 = textList1.GetOffset(page1 + 1);
 
-                            offset1 += count;
-                            offset2 += count;
-                            break;
-                        case Operation.INSERT:
-                            while (offset2 + count > nextOffset2)
+                            // Only the diff from page 1 remains, so pair it with the preceding page 2.
+                            if ((length1 > 0) && (offset2 == headOffset2))
                             {
-                                page2++;
-                                nextOffset2 = textData2.GetOffset(page2 + 1);
-                                pdfPanel2.SetComparedPage(page2, page1);
+                                page2a = previousPage2;
+                                startOffset1a = previousOffset1;
+                                startOffset2a = previousOffset2;
                             }
-                            offset2 += count;
-                            break;
-                        case Operation.DELETE:
-                            while (offset1+count > nextOffset1)
+                        }
+                        else if (minLength == length2)
+                        {
+                            page2++;
+                            headOffset2 = nextOffset2;
+                            nextOffset2 = textList2.GetOffset(page2 + 1);
+
+                            // Only the diff from page 2 remains, so pair it with the preceding page 1.
+                            if ((length2 > 0) && (offset1 == headOffset1))
                             {
-                                page1++;
-                                nextOffset1 = textData1.GetOffset(page1 + 1);
-                                pdfPanel1.SetComparedPage(page1, page2);
+                                page1a = previousPage1;
+                                startOffset1a = previousOffset1;
+                                startOffset2a = previousOffset2;
                             }
-                            offset1 += count;
-                            break;
+                        }
+
+                        var span1 = textList1.GetTextSpans(startOffset1a, offset1);
+                        var span2 = textList2.GetTextSpans(startOffset2a, offset2);
+                        pagePairList.SetPagePair(page1a, page2a, span1, span2);
+                        pdfPanel1.SetComparedPage(page1a, page2a);
+                        pdfPanel2.SetComparedPage(page2a, page1a);
+
+                        previousPage1 = page1a;
+                        previousPage2 = page2a;
+                        previousOffset1 = startOffset1a;
+                        previousOffset2 = startOffset2a;
+                        startOffset1 = offset1;
+                        startOffset2 = offset2;
+                        count -= minLength;
+                        flag = false;
                     }
                 }
             }
+
+            if (flag)
+            {
+                var span1 = textList1.GetTextSpans(startOffset1, offset1);
+                var span2 = textList2.GetTextSpans(startOffset2, offset2);
+                pagePairList.SetPagePair(page1, page2, span1, span2);
+                pdfPanel1.SetComparedPage(page1, page2);
+                pdfPanel2.SetComparedPage(page2, page1);
+            }
+
         }
+
+        /// <summary>
+        /// Return the length up to the page boundary.
+        /// If the page boundary is reached, return the distance from the current position to the boundary.
+        /// If the page boundary is not reached, return int.MaxValue.
+        /// </summary>
+        /// <param name="diff">the target diff</param>
+        /// <param name="offset">the target offset position</param>
+        /// <param name="count">the target length</param>
+        /// <param name="nextOffset">the next page boundary</param>
+        /// <returns>the distance to the next page boundary.</returns>
+        private int GetPageBreakForFile1(Diff diff, int offset, int count, int nextOffset)
+        {
+            // text exists in File1.
+            if ((diff.operation == Operation.EQUAL) || (diff.operation == Operation.DELETE))
+            {
+                return GetPageBreak(offset, count, nextOffset);
+            }
+
+            // If File1 does not contain any text, it returns a value that is ignored.
+            return int.MaxValue;
+        }
+
+        private int GetPageBreakForFile2(Diff diff, int offset, int count, int nextOffset)
+        {
+            // text exists in File2.
+            if ((diff.operation == Operation.EQUAL) || (diff.operation == Operation.INSERT))
+            {
+                return GetPageBreak(offset, count, nextOffset);
+            }
+
+            // If File2 does not contain any text, it returns a value that is ignored.
+            return int.MaxValue;
+        }
+
+        /// <summary>
+        /// Returns the length of the page break, if any.
+        /// </summary>
+        /// <param name="offset">Current offset in the text</param>
+        /// <param name="count">Number of characters to process</param>
+        /// <param name="nextOffset">Next page offset</param>
+        /// <returns>Page break length, or int.MaxValue if no break within count</returns>
+        private int GetPageBreak(int offset, int count, int nextOffset)
+        {
+            // Get the page break position.
+            if (offset + count >= nextOffset)
+            {
+                return nextOffset - offset;
+            }
+            return int.MaxValue;
+        }
+
+        private void SlideOffsetByOperation(Diff diff, int slide, ref int offset1, ref int offset2)
+        {
+            switch (diff.operation)
+            {
+                case Operation.EQUAL:
+                    offset1 += slide;
+                    offset2 += slide;
+                    break;
+                case Operation.INSERT:
+                    // Present only in the 2nd text
+                    offset2 += slide;
+                    break;
+                case Operation.DELETE:
+                    // Present only in the 1st text
+                    offset1 += slide;
+                    break;
+            }
+        }
+
+
+        private void SetFlashPage(int page1, int page2)
+        {
+            PagePair pair = pagePairList.GetPagePair(page1, page2);
+            if (pair != null)
+            {
+                pdfPanel1.pdfViewer.Renderer.SetFlashTextSpans(pair.Span1);
+                pdfPanel2.pdfViewer.Renderer.SetFlashTextSpans(pair.Span2);
+            }
+        }
+
 
         private void ButtonBookmark_Click(object sender, EventArgs e)
         {
@@ -794,7 +962,7 @@ namespace PDFComp
             formFind.Show(this);
         }
 
-        private void FindDiff()
+        private void FindDiffByMode()
         {
             Console.WriteLine("Find diff Button click!");
 
@@ -809,101 +977,15 @@ namespace PDFComp
             int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
+            int startpage1 = pdfPanel1.pdfViewer.Renderer.Page;
+            int startpage2 = pdfPanel2.pdfViewer.Renderer.Page;
 
-            for (int i = page1; i < pages; i++)
-            {
-                page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
-                page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
-
-                // If the page was just compared, compare from the next page.
-                if ((page1 == FindDiffPage1) && (page2 == FindDiffPage2))
-                {
-                    // skip compare.
-                }
-                else
-                {
-                    if (ComparePage(stopwatch, page1, page2))
-                    {
-                        break;
-                    }
-                }
-
-                pdfPanel1.NextPage();
-                pdfPanel2.NextPage();
-            }
-
-            stopwatch.Stop();
-
-            toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
-
-        }
-
-        private void PrevDiff()
-        {
-            Console.WriteLine("Prev diff Button click!");
-
-            if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
-            {
-                toolStripLabelResult.Text = "0.0";
-                return;
-            }
-
-            var stopwatch = new System.Diagnostics.Stopwatch();
-
-            int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
-            int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
-            int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
-
-            for (int i = page1; i >= 0; i--)
-            {
-                page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
-                page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
-
-                // If the page was just compared, compare from the next page.
-                if ((page1 == FindDiffPage1) && (page2 == FindDiffPage2))
-                {
-                    // skip compare.
-                }
-                else
-                {
-                    if (ComparePage(stopwatch, page1, page2))
-                    {
-                        break;
-                    }
-                }
-
-                pdfPanel1.PrevPage();
-                pdfPanel2.PrevPage();
-            }
-
-            stopwatch.Stop();
-
-            toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
-
-        }
-
-        private void FindDiffBookmark()
-        {
-            Console.WriteLine("Find diff(bm) Button click!");
-
-            if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
-            {
-                toolStripLabelResult.Text = "0.0";
-                return;
-            }
-
-            var stopwatch = new System.Diagnostics.Stopwatch();
-
-            int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
-            int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
-            int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
-
-
+            // Search for diff pages.
             for (int i = page1; i < pages; i++)
             {
                 if ((pdfPanel1.GetComparedPage(page1) < 0) || (pdfPanel2.GetComparedPage(page2) < 0))
                 {
-                    CompareBookmark();
+                    CompareByMode();
                     if (pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) || pdfPanel2.pdfViewer.Renderer.HasMarkers(page2))
                     {
                         break;
@@ -925,7 +1007,7 @@ namespace PDFComp
                 page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
                 page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
-                Console.WriteLine("\t\t{1}{3}\t{2}{4}", i, page1, page2, 
+                Console.WriteLine("\t\t{1}{3}\t{2}{4}", i, page1+1, page2+1, 
                                                               pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) ? "*" : " ",
                                                               pdfPanel2.pdfViewer.Renderer.HasMarkers(page2) ? "*" : " ");
 
@@ -937,13 +1019,15 @@ namespace PDFComp
 
             stopwatch.Stop();
 
+            SetFlashPage(page1, page2);
+
             toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
 
         }
 
-        private void PrevDiffBookmark()
+        private void PrevDiffByMode()
         {
-            Console.WriteLine("Prev diff(bm) Button click!");
+            Console.WriteLine("Prev diff Button click!");
 
             if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
             {
@@ -956,23 +1040,17 @@ namespace PDFComp
             int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
+            int startpage1 = pdfPanel1.pdfViewer.Renderer.Page;
+            int startpage2 = pdfPanel2.pdfViewer.Renderer.Page;
 
-            // If pages are moved arbitrarily, differences will be overlooked, so they will not be released to users.
-            //// If the comparisons are misaligned, first just align the pages.
-            //// if ((page2 != pdfPanel1.GetComparedPage(page1)) && (pdfPanel1.GetComparedPage(page1) >= 0))
-            //// {
-            ////    pdfPanel2.pdfViewer.Renderer.Page = pdfPanel1.GetComparedPage(page1);
-            ////    return;
-            //// }
-
-
+            // Search for diff pages.
             for (int i = page1; i >= 0; i--)
             {
                 if ((pdfPanel1.GetComparedPage(page1-1) < 0) || (pdfPanel2.GetComparedPage(page2-1) < 0))
                 {
                     pdfPanel1.PrevPage();
                     pdfPanel2.PrevPage();
-                    CompareBookmark();
+                    CompareByMode();
                     pdfPanel1.pdfViewer.Renderer.Page = page1;
                     pdfPanel2.pdfViewer.Renderer.Page = page2;
                 }
@@ -992,7 +1070,7 @@ namespace PDFComp
                 page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
                 page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
-                Console.WriteLine("\t\t{1}{3}\t{2}{4}", i, page1, page2,
+                Console.WriteLine("\t\t{1}{3}\t{2}{4}", i, page1+1, page2+1,
                                               pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) ? "*" : " ",
                                               pdfPanel2.pdfViewer.Renderer.HasMarkers(page2) ? "*" : " ");
 
@@ -1004,11 +1082,11 @@ namespace PDFComp
 
             stopwatch.Stop();
 
+            SetFlashPage(page1, page2);
+
             toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
 
         }
-
-
 
         private void toolStripMenuItemEnableReduceColorCopy_Click(object sender, EventArgs e)
         {
@@ -1305,26 +1383,12 @@ namespace PDFComp
 
         private void toolStripButtonPrevDiff_Click(object sender, EventArgs e)
         {
-            if (toolStripSplitButtonCompare.Text == "Compare Page")
-            {
-                PrevDiff();
-            }
-            else
-            {
-                PrevDiffBookmark();
-            }
+			PrevDiffByMode();
         }
 
         private void toolStripButtonNextDiff_Click(object sender, EventArgs e)
         {
-            if (toolStripSplitButtonCompare.Text == "Compare Page")
-            {
-                FindDiff();
-            }
-            else
-            {
-                FindDiffBookmark();
-            }
+			FindDiffByMode();
         }
 
         private void toolStripButtonFitOnePage_Click(object sender, EventArgs e)
@@ -1359,6 +1423,11 @@ namespace PDFComp
         }
 
         private void toolStripSplitButtonCompare_ButtonClick(object sender, EventArgs e)
+        {
+            CompareByMode();
+        }
+
+        private void CompareByMode()
         {
             if (toolStripSplitButtonCompare.Text == "Compare Page")
             {
@@ -1396,7 +1465,7 @@ namespace PDFComp
                 int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
                 for (int i = 0; i < pages; i++)
                 {
-                    Console.WriteLine("[{0}]\t{1}{3}\t{2}{4}", i, pdfPanel1.GetComparedPage(i), pdfPanel2.GetComparedPage(i),
+                    Console.WriteLine("[{0}]\t{1}{3}\t{2}{4}", i, pdfPanel1.GetComparedPage(i)+1, pdfPanel2.GetComparedPage(i)+1,
                                                                   pdfPanel1.pdfViewer.Renderer.HasMarkers(i) ? "*" : " ",
                                                                   pdfPanel2.pdfViewer.Renderer.HasMarkers(i) ? "*" : " ");
                 }

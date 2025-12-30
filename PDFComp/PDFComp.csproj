@@ -102,6 +102,7 @@
       <DependentUpon>FormUsage.cs</DependentUpon>
     </Compile>
     <Compile Include="ImageProcess.cs" />
+    <Compile Include="PagePairList.cs" />
     <Compile Include="PdfPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

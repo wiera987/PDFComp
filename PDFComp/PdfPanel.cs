@@ -41,9 +41,9 @@ namespace PDFComp
             // Text enclosed in bounds
             public string Text { get; }
             // Array to hold the position of each character in the text on the page
-            private int[] PagePos { get; }
+            private int[] PagePos { get; }                      // Set to null if PagePos conversion is not needed.
 
-			// Get text enclosed in bounds
+            // Constructor
             public PageTextData(int page, string text, int[] pagePos)
             {
                 Page = page;
@@ -71,7 +71,7 @@ namespace PDFComp
         {
             private List<PageTextData> _pageTextList;
 
-            // Text enclosed in bounds
+            // All text enclosed in bounds
             public string Text
             {
                 get
@@ -80,11 +80,13 @@ namespace PDFComp
                 }
             }
 
+            // Constructor
             public PageTextList()
             {
                 _pageTextList = new List<PageTextData>();
             }
 
+            // Constructor
             public PageTextList(PageTextData pageTextData)
             {
                 _pageTextList = new List<PageTextData>
@@ -93,12 +95,16 @@ namespace PDFComp
                 };
             }
 
-            // Add one page of text at a time.
+            // Add one page of text data at a time.
             public void Add(PageTextData pageTextData)
             {
                 _pageTextList.Add(pageTextData);
             }
 
+            /// <summary>
+            /// Get the text of the entire PageTextList.
+            /// </summary>
+            /// <returns></returns>
             public string GetText()
             {
                 StringBuilder sb = new StringBuilder();
@@ -109,20 +115,47 @@ namespace PDFComp
                 return sb.ToString();
             }
 
-            // Get the page and the position of the character in the text on the page
+            /// <summary>
+            /// Get a portion of the text from the entire PageTextList.
+            /// </summary>
+            /// <param name="start">Start offset in PageTextList</param>
+            /// <param name="end">End offset +1 in PageTextList</param>
+            /// <returns></returns>
+            public string GetText(int start, int end)
+            {
+                return GetText().Substring(start, end - start);
+            }
+
+            /// <summary>
+            /// Get the page and the position of the character in the text on the page.
+            /// </summary>
+            /// <param name="offset">Offset position counted throughout the entire PageTextList</param>
+            /// <returns>Page and pagePos. The pagePos is the offset position in the text obtained with GetPdfText().</returns>
             public (int page, int pagePos) GetPagePos(int offset)
             {
                 foreach (PageTextData pageTextData in _pageTextList)
                 {
+                    // There are times when PageTextList.Text is "".
+                    if (offset == 0)
+                    {
+                        return (pageTextData.Page, pageTextData.GetPagePos(offset));
+                    }
+
+                    // Normally
                     if (offset < pageTextData.Text.Length)
                     {
                         return (pageTextData.Page, pageTextData.GetPagePos(offset));
                     }
                     offset -= pageTextData.Text.Length;
                 }
-                return (-1, -1);
+                throw new ArgumentOutOfRangeException("offset");
             }
 
+            /// <summary>
+            /// Returns the offset position of the first character of the page.
+            /// </summary>
+            /// <param name="page">Page for which you want to know the top position.</param>
+            /// <returns>Offset position counted throughout the entire PageTextList</returns>
             public int GetOffset(int page)
             {
                 int offset = 0;
@@ -137,11 +170,50 @@ namespace PDFComp
                     offset += pageTextData.Text.Length;
                 }
 
-                //throw new ArgumentOutOfRangeException("page");
-                return int.MaxValue;
+                return offset;      // return the offset of last page.
             }
-        }
 
+            /// <summary>
+            /// Get a list of PdfTextSpan from the specified range in the PageTextList.
+            /// </summary>
+            /// <param name="start">Start offset in PageTextList</param>
+            /// <param name="end">End offset +1 in PageTextList</param>
+            /// <returns></returns>
+            public List<PdfTextSpan> GetTextSpans(int start, int end)
+            {
+                List<PdfTextSpan> textSpans = new List<PdfTextSpan>();
+                int startCount = 0;
+
+                (int startPage, int startPos) = GetPagePos(start);
+
+                for (int i = start; i < end; i++)
+                {
+                    (int page, int pagePos) = GetPagePos(i);
+
+                    if ((pagePos != startPos + startCount) || (page != startPage))
+                    {
+                        // Add a new PdfTextSpan
+                        textSpans.Add(new PdfTextSpan(startPage, startPos, startCount));
+                        startPage = page;
+                        startPos = pagePos;
+                        startCount = 1;
+                    }
+                    else
+                    {
+                        startCount++;
+                    }
+                }
+
+                if (startCount > 0)
+                {
+                    // Add a new PdfTextSpan
+                    textSpans.Add(new PdfTextSpan(startPage, startPos, startCount));
+                }
+
+                return textSpans;
+            }
+
+        }
 
         /// <summary>
         /// Constructor
@@ -558,6 +630,9 @@ namespace PDFComp
 
             pdfViewer.Renderer.Markers.Clear();
             pdfViewer.SelectBookmarkForPage(0);                     // Set the first page bookmark to selected
+
+            Form parentForm = FindForm();
+            ((FormMain)parentForm).PagePairClearAll();
 
             // Load PageData with Timer event.
             _pageReading = 0;

@@ -22,6 +22,7 @@ namespace PDFComp
         readonly Double ZoomInScale = 0.1;      // zoom : 10%..26%..80%..100%..200%..400%...900%  
         readonly Double ZoomOutScale = 0.01;    // scale:    -2%, -3%, -5%, +10%, +20%, +50%
         FormFind formFind = null;
+        FormDiffInfo formDiffInfo = null;
         PdfRotation rotation;
         Double zoom;
         Boolean zoomIn;
@@ -53,6 +54,10 @@ namespace PDFComp
             FindDiffPage1 = -1;
             FindDiffPage2 = -1;
 #if DEBUG
+            // Debug ExtractDiffSpan2
+            formDiffInfo = new FormDiffInfo();
+            formDiffInfo.Show();
+
             // Debug menu is displayed only in Debug mode.
             outputDebugLogToolStripMenuItem.Visible = true;
 #endif
@@ -407,19 +412,25 @@ namespace PDFComp
                     switch (diff.operation)
                     {
                         case Operation.EQUAL:
+                            formDiffInfo.WriteText(diff.text, Color.Black);
                             offset1 += count;
                             offset2 += count;
                             break;
                         case Operation.INSERT:
+                            formDiffInfo.WriteText(diff.text, Color.Blue);
                             AddSpanList(spanList2, textData2, offset2, count);
                             offset2 += count;
                             break;
                         case Operation.DELETE:
+                            formDiffInfo.WriteText(diff.text, Color.Red);
                             AddSpanList(spanList1, textData1, offset1, count);
                             offset1 += count;
                             break;
                     }
                 }
+                formDiffInfo.WriteText("\r\n", Color.Black);
+                formDiffInfo.ScrollToCaret();
+                formDiffInfo.ToggleBackColor();
             }
         }
 

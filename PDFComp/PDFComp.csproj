@@ -77,6 +77,12 @@
     <Compile Include="FormAbout.Designer.cs">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormDiffInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDiffInfo.Designer.cs">
+      <DependentUpon>FormDiffInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormFind.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     </Compile>
     <EmbeddedResource Include="FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDiffInfo.resx">
+      <DependentUpon>FormDiffInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormFind.resx">
       <DependentUpon>FormFind.cs</DependentUpon>
@@ -159,8 +168,6 @@
     <Content Include="Images\Left_8.png" />
     <Content Include="Images\left_line.png" />
     <Content Include="Images\left_line_2.png" />
-    <Content Include="Images\PDFComp1.png" />
-    <Content Include="Images\PDFComp2.png" />
     <Content Include="Images\rectangle_line.png" />
     <Content Include="Images\rectangle_vertical_line.png" />
     <Content Include="Images\Right_8.png" />

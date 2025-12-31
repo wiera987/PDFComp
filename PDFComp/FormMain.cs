@@ -28,11 +28,7 @@ namespace PDFComp
         Double zoom;
         Boolean zoomIn;
         Boolean zoomOut;
-        int FindDiffPage1;
-        int FindDiffPage2;
-        bool flashPageFlag = true;
         Boolean reduceColor = true;
-        Boolean autoReduceColor = false;
         bool holdZoom = false;
 
         public FormMain()
@@ -52,9 +48,6 @@ namespace PDFComp
             zoomIn = false;
             zoomOut = false;
             rotation = PdfRotation.Rotate0;
-
-            FindDiffPage1 = -1;
-            FindDiffPage2 = -1;
 
             // Debug ExtractDiffSpan2
             formDiffInfo = new FormDiffInfo();
@@ -343,10 +336,6 @@ namespace PDFComp
         private bool ComparePage(System.Diagnostics.Stopwatch stopwatch, int page1, int page2)
         {
             bool found_diff = ComparePages(stopwatch, page1, page1, page2, page2);
-
-            // Remember the last page compared.
-            FindDiffPage1 = page1;
-            FindDiffPage2 = page2;
 
             SetFlashPage(page1, page2);
 
@@ -977,12 +966,11 @@ namespace PDFComp
             int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
-            int startpage1 = pdfPanel1.pdfViewer.Renderer.Page;
-            int startpage2 = pdfPanel2.pdfViewer.Renderer.Page;
 
             // Search for diff pages.
             for (int i = page1; i < pages; i++)
             {
+                // Compare if not already compared.
                 if ((pdfPanel1.GetComparedPage(page1) < 0) || (pdfPanel2.GetComparedPage(page2) < 0))
                 {
                     CompareByMode();
@@ -992,18 +980,22 @@ namespace PDFComp
                     }
                 }
 
-                bool hold_page1 = page1 == pdfPanel2.GetComparedPage(page2 + 1);
-                bool hold_page2 = page2 == pdfPanel1.GetComparedPage(page1 + 1);
-
-                if (!hold_page1)
-                {
-                    pdfPanel1.NextPage();
-                }
-                if (!hold_page2)
+                // Determine whether a page turn occurred.
+                if (pagePairList.GetPagePair(page1, page2 + 1) != null)
                 {
                     pdfPanel2.NextPage();
                 }
+                else if (pagePairList.GetPagePair(page1 + 1, page2) != null)
+                {
+                    pdfPanel1.NextPage();
+                }
+                else
+                {
+                    pdfPanel1.NextPage();
+                    pdfPanel2.NextPage();
+                }
 
+                // Show the page if differences are found after moving.
                 page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
                 page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
@@ -1040,12 +1032,11 @@ namespace PDFComp
             int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
-            int startpage1 = pdfPanel1.pdfViewer.Renderer.Page;
-            int startpage2 = pdfPanel2.pdfViewer.Renderer.Page;
 
             // Search for diff pages.
             for (int i = page1; i >= 0; i--)
             {
+                // Compare if not already compared.
                 if ((pdfPanel1.GetComparedPage(page1-1) < 0) || (pdfPanel2.GetComparedPage(page2-1) < 0))
                 {
                     pdfPanel1.PrevPage();
@@ -1055,18 +1046,22 @@ namespace PDFComp
                     pdfPanel2.pdfViewer.Renderer.Page = page2;
                 }
 
-                bool hold_page1 = page1 == pdfPanel2.GetComparedPage(page2 - 1);
-                bool hold_page2 = page2 == pdfPanel1.GetComparedPage(page1 - 1);
-
-                if (!hold_page1)
-                {
-                    pdfPanel1.PrevPage();
-                }
-                if (!hold_page2)
+                // Determine whether a page turn occurred.
+                if (pagePairList.GetPagePair(page1, page2 - 1) != null)
                 {
                     pdfPanel2.PrevPage();
                 }
+                else if (pagePairList.GetPagePair(page1 - 1, page2) != null)
+                {
+                    pdfPanel1.PrevPage();
+                }
+                else
+                {
+                    pdfPanel1.PrevPage();
+                    pdfPanel2.PrevPage();
+                }
 
+                // Show the page if differences are found after moving.
                 page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
                 page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
@@ -1460,15 +1455,33 @@ namespace PDFComp
 
         private void OutputDebugLog()
         {
+            int i = 0;
+
             try
             {
-                int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
-                for (int i = 0; i < pages; i++)
+                foreach (var PagePair in pagePairList)
                 {
-                    Console.WriteLine("[{0}]\t{1}{3}\t{2}{4}", i, pdfPanel1.GetComparedPage(i)+1, pdfPanel2.GetComparedPage(i)+1,
-                                                                  pdfPanel1.pdfViewer.Renderer.HasMarkers(i) ? "*" : " ",
-                                                                  pdfPanel2.pdfViewer.Renderer.HasMarkers(i) ? "*" : " ");
-                }
+                    string result1 = "";
+                    string result2 = "";
+                    if (PagePair.Span1.Count > 0)
+                    {
+                        string span1text = pdfPanel1.pdfViewer.Document.GetPdfText(PagePair.Span1[0]);
+                        int pos1 = span1text.IndexOfAny(new[] { '\r', '\n' });
+                        result1 = pos1 >= 0 ? span1text.Substring(0, pos1) : span1text;
+                    }
+                    if (PagePair.Span2.Count > 0)
+                    {
+                        string span2text = pdfPanel2.pdfViewer.Document.GetPdfText(PagePair.Span2[0]);
+                        int pos2 = span2text.IndexOfAny(new[] { '\r', '\n' });
+                        result2 = pos2 >= 0 ? span2text.Substring(0, pos2) : span2text;
+                    }
+
+                    Console.WriteLine("[{0}]\t{1}{3}\t{2}{4}\t{5},{6}", i, PagePair.Page1 + 1, PagePair.Page2 + 1,
+                                                                  pdfPanel1.pdfViewer.Renderer.HasMarkers(PagePair.Page1) ? "*" : " ",
+                                                                  pdfPanel2.pdfViewer.Renderer.HasMarkers(PagePair.Page2) ? "*" : " ",
+                                                                  result1, result2);
+                    i++;
+                } 
             }
             catch (Exception ex)
             {

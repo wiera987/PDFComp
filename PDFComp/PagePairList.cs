@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using PdfiumViewer;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -13,9 +14,18 @@ namespace PDFComp
         public List<PdfTextSpan> Span2 { get; set; }
     }
 
-    public class PagePairList
+    public class PagePairList : IEnumerable<PagePair>
     {
         List<PagePair> PairList = new List<PagePair>();
+
+        public IEnumerator<PagePair> GetEnumerator()
+        {
+            return PairList.GetEnumerator();
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
         public void ClearAll()
         {

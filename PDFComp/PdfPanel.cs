@@ -336,25 +336,18 @@ namespace PDFComp
 
         public PageTextData GetPageTextData(int page)
         {
-            pdfViewer.Renderer.Page = page;                 // TODO: Prevent pages from moving
-            return GetPageTextData();
-        }
-
-        public PageTextData GetPageTextData()
-        {
             if (pdfViewer.Document != null)
             {
                 if (pdfViewer.Renderer.CompareBounds.IsEmpty)
                 {
                     // Extract the entire page.
                     int[] pagePos = null;
-                    string text = pdfViewer.Document.GetPdfText(pdfViewer.Renderer.ComparisonPage);
-                    return new PageTextData(pdfViewer.Renderer.ComparisonPage, text, pagePos);
+                    string text = pdfViewer.Document.GetPdfText(page);
+                    return new PageTextData(page, text, pagePos);
                 }
                 else
                 {
                     // Extract a range of CompareBounds.
-                    var page = pdfViewer.Renderer.ComparisonPage;
                     var text = pdfViewer.Document.GetPdfText(page);
                     var pageText = string.Empty;
                     var compBounds = pdfViewer.Renderer.CompareBounds;

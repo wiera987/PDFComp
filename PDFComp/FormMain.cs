@@ -13,7 +13,6 @@ using DiffMatchPatch;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using static PDFComp.PdfPanel;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PDFComp
 {
@@ -356,11 +355,13 @@ namespace PDFComp
             {
                 pdfPanel1.ClearDiffMarker(i, oneFullPage1);
                 textData1.Add(pdfPanel1.GetPageTextData(i));
+                //Console.WriteLine("Get1-{0}:{1}", i+1, pdfPanel1.GetPageTextData(i).Text);
             }
             for (int i = startPage2; i <= endPage2; i++)
             {
                 pdfPanel2.ClearDiffMarker(i, oneFullPage2);
                 textData2.Add(pdfPanel2.GetPageTextData(i));
+                //Console.WriteLine("Get2-{0}:{1}", i+1, pdfPanel2.GetPageTextData(i).Text);
             }
             pagePairList.Clear(startPage1, endPage1, startPage2, endPage2);
 
@@ -418,6 +419,17 @@ namespace PDFComp
             return found_diff;
         }
 
+
+        /// <summary>
+        /// To register difference markers, create a DELETE list for File1 and an INSERT list
+        /// for File2 from the differences.
+        /// Elements that span multiple pages are split at page boundaries.
+        /// </summary>
+        /// <param name="spanList1"></param>
+        /// <param name="spanList2"></param>
+        /// <param name="diffs"></param>
+        /// <param name="textData1"></param>
+        /// <param name="textData2"></param>
         private void ExtractDiffSpan2(List<PdfTextSpan> spanList1, List<PdfTextSpan> spanList2, List<Diff> diffs, PageTextList textData1, PageTextList textData2)
         {
             if (diffs.Count() > 0)
@@ -454,6 +466,14 @@ namespace PDFComp
             }
         }
 
+        /// <summary>
+        /// Create a PdfTextSpan from the offset and count and add it to the list. 
+        /// If the element spans pages, it will be split.
+        /// </summary>
+        /// <param name="spanList"></param>
+        /// <param name="textList"></param>
+        /// <param name="offset"></param>
+        /// <param name="count"></param>
         private void AddSpanList(List<PdfTextSpan> spanList, PageTextList textList, int offset, int count)
         {
             // Extract a range of CompareBounds. Convert from offset to offset within the page.
@@ -966,6 +986,8 @@ namespace PDFComp
             int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
+            int pageCount1 = 0;
+            int pageCount2 = 0;
 
             // Search for diff pages.
             for (int i = page1; i < pages; i++)
@@ -984,15 +1006,19 @@ namespace PDFComp
                 if (pagePairList.GetPagePair(page1, page2 + 1) != null)
                 {
                     pdfPanel2.NextPage();
+                    pageCount2++;
                 }
                 else if (pagePairList.GetPagePair(page1 + 1, page2) != null)
                 {
                     pdfPanel1.NextPage();
+                    pageCount1++;
                 }
                 else
                 {
                     pdfPanel1.NextPage();
                     pdfPanel2.NextPage();
+                    pageCount1++;
+                    pageCount2++;
                 }
 
                 // Show the page if differences are found after moving.
@@ -1013,6 +1039,20 @@ namespace PDFComp
 
             SetFlashPage(page1, page2);
 
+            // Show a tip if there are undisplayed pages.
+            if (pageCount1 > 1)
+            {
+                ToolTip tip = new ToolTip();
+                Point pos = new Point(100, 64);
+                tip.Show($"{pageCount1 - 1} pages matched. Diff shown.", pdfPanel1, pos, 2000);
+            }
+            if (pageCount2 > 1)
+            {
+                ToolTip tip = new ToolTip();
+                Point pos = new Point(100, 64);
+                tip.Show($"{pageCount2 - 1} pages matched. Diff shown", pdfPanel2, pos, 2000);
+            }
+
             toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
 
         }
@@ -1032,6 +1072,8 @@ namespace PDFComp
             int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
+            int pageCount1 = 0;
+            int pageCount2 = 0;
 
             // Search for diff pages.
             for (int i = page1; i >= 0; i--)
@@ -1050,15 +1092,19 @@ namespace PDFComp
                 if (pagePairList.GetPagePair(page1, page2 - 1) != null)
                 {
                     pdfPanel2.PrevPage();
+                    pageCount2++;
                 }
                 else if (pagePairList.GetPagePair(page1 - 1, page2) != null)
                 {
                     pdfPanel1.PrevPage();
+                    pageCount1++;
                 }
                 else
                 {
                     pdfPanel1.PrevPage();
                     pdfPanel2.PrevPage();
+                    pageCount1++;
+                    pageCount2++;
                 }
 
                 // Show the page if differences are found after moving.
@@ -1078,6 +1124,20 @@ namespace PDFComp
             stopwatch.Stop();
 
             SetFlashPage(page1, page2);
+
+            // Show a tip if there are undisplayed pages.
+            if (pageCount1 > 1)
+            {
+                ToolTip tip = new ToolTip();
+                Point pos = new Point(100, 64);
+                tip.Show($"{pageCount1 - 1} pages matched. Diff shown.", pdfPanel1, pos, 2000);
+            }
+            if (pageCount2 > 1)
+            {
+                ToolTip tip = new ToolTip();
+                Point pos = new Point(100, 64);
+                tip.Show($"{pageCount2 - 1} pages matched. Diff shown", pdfPanel2, pos, 2000);
+            }
 
             toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
 

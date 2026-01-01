@@ -36,6 +36,8 @@
             this.labelAboutLicense = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.labelAoutVerNo = new System.Windows.Forms.Label();
+            this.labelViewOnGitHub = new System.Windows.Forms.Label();
+            this.labelPDFComp = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIcon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,7 +55,7 @@
             // 
             this.labelAboutApp.AutoSize = true;
             this.labelAboutApp.Font = new System.Drawing.Font("Impact", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAboutApp.Location = new System.Drawing.Point(204, 29);
+            this.labelAboutApp.Location = new System.Drawing.Point(194, 25);
             this.labelAboutApp.Name = "labelAboutApp";
             this.labelAboutApp.Size = new System.Drawing.Size(209, 60);
             this.labelAboutApp.TabIndex = 1;
@@ -63,7 +65,7 @@
             // 
             this.labelAboutVersion.AutoSize = true;
             this.labelAboutVersion.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAboutVersion.Location = new System.Drawing.Point(409, 62);
+            this.labelAboutVersion.Location = new System.Drawing.Point(402, 62);
             this.labelAboutVersion.Name = "labelAboutVersion";
             this.labelAboutVersion.Size = new System.Drawing.Size(59, 16);
             this.labelAboutVersion.TabIndex = 3;
@@ -72,18 +74,19 @@
             // labelAboutAuth
             // 
             this.labelAboutAuth.AutoSize = true;
-            this.labelAboutAuth.Location = new System.Drawing.Point(219, 136);
+            this.labelAboutAuth.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAboutAuth.Location = new System.Drawing.Point(201, 127);
             this.labelAboutAuth.Name = "labelAboutAuth";
-            this.labelAboutAuth.Size = new System.Drawing.Size(238, 12);
+            this.labelAboutAuth.Size = new System.Drawing.Size(294, 14);
             this.labelAboutAuth.TabIndex = 4;
-            this.labelAboutAuth.Text = "(C) 2019-2025  Wiera987  All rights reserved.";
+            this.labelAboutAuth.Text = "(C) 2019-2026  Wiera987  All rights reserved.";
             // 
             // labelAboutLicense
             // 
             this.labelAboutLicense.AutoSize = true;
             this.labelAboutLicense.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAboutLicense.ForeColor = System.Drawing.Color.Blue;
-            this.labelAboutLicense.Location = new System.Drawing.Point(216, 101);
+            this.labelAboutLicense.Location = new System.Drawing.Point(201, 93);
             this.labelAboutLicense.Name = "labelAboutLicense";
             this.labelAboutLicense.Size = new System.Drawing.Size(299, 14);
             this.labelAboutLicense.TabIndex = 6;
@@ -92,7 +95,7 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(400, 184);
+            this.buttonOK.Location = new System.Drawing.Point(431, 177);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(93, 31);
             this.buttonOK.TabIndex = 7;
@@ -104,17 +107,40 @@
             // 
             this.labelAoutVerNo.AutoSize = true;
             this.labelAoutVerNo.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAoutVerNo.Location = new System.Drawing.Point(467, 62);
+            this.labelAoutVerNo.Location = new System.Drawing.Point(460, 62);
             this.labelAoutVerNo.Name = "labelAoutVerNo";
             this.labelAoutVerNo.Size = new System.Drawing.Size(55, 16);
             this.labelAoutVerNo.TabIndex = 8;
             this.labelAoutVerNo.Text = "number";
+            // 
+            // labelViewOnGitHub
+            // 
+            this.labelViewOnGitHub.AutoSize = true;
+            this.labelViewOnGitHub.Font = new System.Drawing.Font("Lucida Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelViewOnGitHub.Location = new System.Drawing.Point(53, 184);
+            this.labelViewOnGitHub.Name = "labelViewOnGitHub";
+            this.labelViewOnGitHub.Size = new System.Drawing.Size(109, 15);
+            this.labelViewOnGitHub.TabIndex = 10;
+            this.labelViewOnGitHub.Text = "View on GitHub :";
+            // 
+            // labelPDFComp
+            // 
+            this.labelPDFComp.AutoSize = true;
+            this.labelPDFComp.Font = new System.Drawing.Font("Lucida Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPDFComp.ForeColor = System.Drawing.Color.Blue;
+            this.labelPDFComp.Location = new System.Drawing.Point(160, 184);
+            this.labelPDFComp.Name = "labelPDFComp";
+            this.labelPDFComp.Size = new System.Drawing.Size(246, 15);
+            this.labelPDFComp.TabIndex = 11;
+            this.labelPDFComp.Text = "https://github.com/wiera987/PDFComp";
             // 
             // FormAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(558, 244);
+            this.Controls.Add(this.labelPDFComp);
+            this.Controls.Add(this.labelViewOnGitHub);
             this.Controls.Add(this.labelAoutVerNo);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.labelAboutLicense);
@@ -142,5 +168,7 @@
         private System.Windows.Forms.Label labelAboutLicense;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Label labelAoutVerNo;
+        private System.Windows.Forms.Label labelViewOnGitHub;
+        private System.Windows.Forms.Label labelPDFComp;
     }
 }

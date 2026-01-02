@@ -33,6 +33,7 @@ namespace PDFComp
         public FormMain()
         {
             InitializeComponent();
+            toolStripSplitButtonCompare.Text = bookmarkToolStripMenuItem.Text;
             toolStripComboBoxDiffType.SelectedIndex = 0;
             // Designer settings are not reflected in TrackBar.AutoSize.
             toolStripTrackBarZoom.Height = 22;

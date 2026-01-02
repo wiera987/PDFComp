@@ -26,5 +26,10 @@ namespace PDFComp
         {
             Close();
         }
+
+        private void linkLabelHowTo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/wiera987/PDFComp/wiki");
+        }
     }
 }

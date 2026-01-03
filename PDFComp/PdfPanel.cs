@@ -133,6 +133,7 @@ namespace PDFComp
             /// <returns>Page and pagePos. The pagePos is the offset position in the text obtained with GetPdfText().</returns>
             public (int page, int pagePos) GetPagePos(int offset)
             {
+                int a = 0, b = 0;
                 foreach (PageTextData pageTextData in _pageTextList)
                 {
                     // There are times when PageTextList.Text is "".
@@ -147,6 +148,12 @@ namespace PDFComp
                         return (pageTextData.Page, pageTextData.GetPagePos(offset));
                     }
                     offset -= pageTextData.Text.Length;
+                    a = pageTextData.Page;
+                    b = pageTextData.GetPagePos(offset);
+                }
+                if (offset == 0)
+                {
+                    return (a, b);
                 }
                 throw new ArgumentOutOfRangeException("offset");
             }
@@ -421,6 +428,15 @@ namespace PDFComp
             
             if (pdfViewer.Document != null)
             {
+                // If the document contains no bookmarks, the entire document will be returned.
+                var bookmarks = pdfViewer.Document.Bookmarks;
+                if (bookmarks == null || bookmarks.Count == 0)
+                {
+                    return (0, pdfViewer.Document.PageCount - 1);
+                }
+
+                // Returns the hierarchical range (chapter, section, etc.) of the bookmark currently selected
+                // in the Bookmark panel’s tree view.
                 pdfViewer.GetBookmarkPageRange(page, out start, out end);
             }
             return (start, end);
@@ -528,7 +544,7 @@ namespace PDFComp
         {
             if (indexes != null)
             {
-                Console.WriteLine("AddDiffMarker Page{0}:Count{1}", -999, indexes.Count);
+                //Console.WriteLine("AddDiffMarker Page{0}:Count{1}", -999, indexes.Count);
 
                 foreach (PdfTextSpan textSpan in indexes)
                 {

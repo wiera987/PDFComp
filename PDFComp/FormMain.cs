@@ -537,6 +537,8 @@ namespace PDFComp
             foreach (Diff diff in diffs)
             {
                 int count = diff.text.Length;
+                bool IsDiffCombined1 = false;
+                bool IsDiffCombined2 = false;
 
                 while (count > 0)
                 {
@@ -575,6 +577,8 @@ namespace PDFComp
                             page2++;
                             nextOffset1 = textList1.GetOffset(page1 + 1);
                             nextOffset2 = textList2.GetOffset(page2 + 1);
+                            IsDiffCombined1 = false;
+                            IsDiffCombined2 = false;
                         }
                         else if (minLength == length1)
                         {
@@ -583,11 +587,14 @@ namespace PDFComp
                             nextOffset1 = textList1.GetOffset(page1 + 1);
 
                             // Only the diff from page 1 remains, so pair it with the preceding page 2.
-                            if ((length1 > 0) && (offset2 == headOffset2))
+                            if ((length1 > 0) && (offset2 == headOffset2) && !IsDiffCombined1)
                             {
                                 page2a = previousPage2;
                                 startOffset1a = previousOffset1;
                                 startOffset2a = previousOffset2;
+                                IsDiffCombined1 = true;
+                            } else {
+                                IsDiffCombined1 = false;
                             }
                         }
                         else if (minLength == length2)
@@ -597,11 +604,14 @@ namespace PDFComp
                             nextOffset2 = textList2.GetOffset(page2 + 1);
 
                             // Only the diff from page 2 remains, so pair it with the preceding page 1.
-                            if ((length2 > 0) && (offset1 == headOffset1))
+                            if ((length2 > 0) && (offset1 == headOffset1) && !IsDiffCombined2)
                             {
                                 page1a = previousPage1;
                                 startOffset1a = previousOffset1;
                                 startOffset2a = previousOffset2;
+                                IsDiffCombined2 = true;
+                            } else {
+                                IsDiffCombined1 = false;
                             }
                         }
 

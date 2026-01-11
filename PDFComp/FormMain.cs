@@ -44,6 +44,10 @@ namespace PDFComp
             pdfPanel2.toolStripButtonNextPage.ToolTipText = "Next Page / Alt + RIGHT_ARROW";
             pdfPanel2.toolStripButtonPrevPage.ToolTipText = "Prev Page / Alt + LEFT_ARROW";
 
+            // Operate Jump scope navigation like a toggle button
+            toolStripButtonJumpScopeDiff.Visible = true;
+            toolStripButtonJumpScopePage.Visible = false;
+
             zoom = 1.0;
             zoomIn = false;
             zoomOut = false;
@@ -1039,8 +1043,13 @@ namespace PDFComp
                 Console.WriteLine("\t\t{1}{3}\t{2}{4}", i, page1+1, page2+1, 
                                                               pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) ? "*" : " ",
                                                               pdfPanel2.pdfViewer.Renderer.HasMarkers(page2) ? "*" : " ");
-
+                // Stop condition for Diff Jump
                 if (pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) || pdfPanel2.pdfViewer.Renderer.HasMarkers(page2))
+                {
+                    break;
+                }
+                // Stop condition for Page Jump
+                if (toolStripButtonJumpScopePage.Visible == true)
                 {
                     break;
                 }
@@ -1560,5 +1569,16 @@ namespace PDFComp
             }
         }
 
+        private void toolStripButtonJumpScopeDiff_Click(object sender, EventArgs e)
+        {
+            toolStripButtonJumpScopeDiff.Visible = false;
+            toolStripButtonJumpScopePage.Visible = true;
+        }
+
+        private void toolStripButtonJumpScopePage_Click(object sender, EventArgs e)
+        {
+            toolStripButtonJumpScopeDiff.Visible = true;
+            toolStripButtonJumpScopePage.Visible = false;
+        }
     }
 }

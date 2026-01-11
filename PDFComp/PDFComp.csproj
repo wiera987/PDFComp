@@ -162,6 +162,7 @@
     <Content Include="Images\back_2_line.png" />
     <Content Include="Images\bookmarks_line.png" />
     <Content Include="Images\clockwise_line.png" />
+    <Content Include="Images\diff_jump.png" />
     <Content Include="Images\fit_one_page.png" />
     <Content Include="Images\fit_width.png" />
     <Content Include="Images\forward_2_line.png" />
@@ -169,6 +170,7 @@
     <Content Include="Images\Left_8.png" />
     <Content Include="Images\left_line.png" />
     <Content Include="Images\left_line_2.png" />
+    <Content Include="Images\page_jump.png" />
     <Content Include="Images\rectangle_line.png" />
     <Content Include="Images\rectangle_vertical_line.png" />
     <Content Include="Images\Right_8.png" />

@@ -98,6 +98,8 @@
             this.toolStripButtonFitWidth = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonFitOnePage = new System.Windows.Forms.ToolStripButton();
             this.timerCyclic = new System.Windows.Forms.Timer(this.components);
+            this.toolStripButtonJumpScopeDiff = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonJumpScopePage = new System.Windows.Forms.ToolStripButton();
             this.menuStrip.SuspendLayout();
             this.panelBoth.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -405,6 +407,8 @@
             this.toolStripLabelResult,
             this.toolStripButtonPrevDiff,
             this.toolStripButtonNextDiff,
+            this.toolStripButtonJumpScopeDiff,
+            this.toolStripButtonJumpScopePage,
             this.toolStripLabel2,
             this.toolStripComboBoxDiffType,
             this.toolStripSeparator6,
@@ -760,6 +764,30 @@
             // 
             this.timerCyclic.Tick += new System.EventHandler(this.timerCyclic_Tick);
             // 
+            // toolStripButtonJumpScopeDiff
+            // 
+            this.toolStripButtonJumpScopeDiff.AutoSize = false;
+            this.toolStripButtonJumpScopeDiff.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonJumpScopeDiff.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonJumpScopeDiff.Image")));
+            this.toolStripButtonJumpScopeDiff.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.toolStripButtonJumpScopeDiff.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonJumpScopeDiff.Name = "toolStripButtonJumpScopeDiff";
+            this.toolStripButtonJumpScopeDiff.Size = new System.Drawing.Size(23, 30);
+            this.toolStripButtonJumpScopeDiff.ToolTipText = "Diff Jump";
+            this.toolStripButtonJumpScopeDiff.Click += new System.EventHandler(this.toolStripButtonJumpScopeDiff_Click);
+            // 
+            // toolStripButtonJumpScopePage
+            // 
+            this.toolStripButtonJumpScopePage.AutoSize = false;
+            this.toolStripButtonJumpScopePage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonJumpScopePage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonJumpScopePage.Image")));
+            this.toolStripButtonJumpScopePage.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.toolStripButtonJumpScopePage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonJumpScopePage.Name = "toolStripButtonJumpScopePage";
+            this.toolStripButtonJumpScopePage.Size = new System.Drawing.Size(23, 30);
+            this.toolStripButtonJumpScopePage.ToolTipText = "Page Jump";
+            this.toolStripButtonJumpScopePage.Click += new System.EventHandler(this.toolStripButtonJumpScopePage_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -857,6 +885,8 @@
         private System.Windows.Forms.ToolStripMenuItem clearBook1MarkerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearBook2MarkerToolStripMenuItem;
         private System.Windows.Forms.Timer timerCyclic;
+        private System.Windows.Forms.ToolStripButton toolStripButtonJumpScopeDiff;
+        private System.Windows.Forms.ToolStripButton toolStripButtonJumpScopePage;
     }
 }
 

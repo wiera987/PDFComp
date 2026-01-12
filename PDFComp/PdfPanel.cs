@@ -133,13 +133,21 @@ namespace PDFComp
             /// <returns>Page and pagePos. The pagePos is the offset position in the text obtained with GetPdfText().</returns>
             public (int page, int pagePos) GetPagePos(int offset)
             {
-                int a = 0, b = 0;
+                var last = _pageTextList.Last();
+
                 foreach (PageTextData pageTextData in _pageTextList)
                 {
-                    // There are times when PageTextList.Text is "".
-                    if (offset == 0)
+                    // There are times when PageTextData.Text is "".
+                    if (pageTextData.Text.Length == 0)
                     {
-                        return (pageTextData.Page, pageTextData.GetPagePos(offset));
+                        if (pageTextData == last)
+                        {
+                            return (pageTextData.Page, pageTextData.GetPagePos(offset));
+                        }
+                        else
+                        {
+                            continue;   // Skip blank
+                        }
                     }
 
                     // Normally
@@ -148,12 +156,6 @@ namespace PDFComp
                         return (pageTextData.Page, pageTextData.GetPagePos(offset));
                     }
                     offset -= pageTextData.Text.Length;
-                    a = pageTextData.Page;
-                    b = pageTextData.GetPagePos(offset);
-                }
-                if (offset == 0)
-                {
-                    return (a, b);
                 }
                 throw new ArgumentOutOfRangeException("offset");
             }
@@ -341,6 +343,11 @@ namespace PDFComp
             }
         }
 
+        /// <summary>
+        /// Returns one page of text data, but discards any area not enclosed by compBounds.
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns>Returns PageTextData mapping text extracted from compBounds to each character's offset on the original page.</returns>
         public PageTextData GetPageTextData(int page)
         {
             if (pdfViewer.Document != null)

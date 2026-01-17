@@ -349,13 +349,18 @@ namespace PDFComp
 
         private bool ComparePages(System.Diagnostics.Stopwatch stopwatch, int startPage1, int endPage1, int startPage2, int endPage2)
         {
-            // Once compared, clear the page number and diff markers.
-            // It's translucent and overwritten, so if you don't erase it, it will get darker.
             var oneFullPage1 = pdfPanel1.pdfViewer.Renderer.CompareBounds.IsEmpty;
             var oneFullPage2 = pdfPanel2.pdfViewer.Renderer.CompareBounds.IsEmpty;
             var textData1 = new PageTextList();
             var textData2 = new PageTextList();
 
+            Console.WriteLine("PDF1 = {0}", pdfPanel1.toolStripTextBoxFile.Text);
+            Console.WriteLine("PDF2 = {0}", pdfPanel2.toolStripTextBoxFile.Text);
+            Console.WriteLine("PDF1 CompareBounds = {0}", pdfPanel1.pdfViewer.Renderer.CompareBounds);
+            Console.WriteLine("PDF2 CompareBounds = {0}", pdfPanel2.pdfViewer.Renderer.CompareBounds);
+
+            // Once compared, clear the page number and diff markers.
+            // It's translucent and overwritten, so if you don't erase it, it will get darker.
             for (int i = startPage1; i <= endPage1; i++)
             {
                 pdfPanel1.ClearDiffMarker(i, oneFullPage1);
@@ -551,8 +556,8 @@ namespace PDFComp
                     int length2 = GetPageBreakForFile2(diff, offset2, count, nextOffset2);
                     int minLength = Math.Min(length1, length2);
 
-                    // Console.WriteLine("F1P{0}, offs={1}, count={2}, len={3}, nextOffs={4}", page1, offset1, count, length1, nextOffset1);
-                    // Console.WriteLine("F2P{0}, offs={1}, count={2}, len={3}, nextOffs={4}", page2, offset2, count, length2, nextOffset2);
+                    // Console.WriteLine("F1P{0}, offs={1}, count={2}, len={3}, nextOffs={4}", page1+1, offset1, count, length1, nextOffset1);
+                    // Console.WriteLine("F2P{0}, offs={1}, count={2}, len={3}, nextOffs={4}", page2+1, offset2, count, length2, nextOffset2);
 
                     if (minLength == int.MaxValue)
                     {
@@ -624,6 +629,8 @@ namespace PDFComp
                         pagePairList.SetPagePair(page1a, page2a, span1, span2);
                         pdfPanel1.SetComparedPage(page1a, page2a);
                         pdfPanel2.SetComparedPage(page2a, page1a);
+
+                        Console.WriteLine($"SetComparedPage({page1a+1},{page2a+1})");
 
                         previousPage1 = page1a;
                         previousPage2 = page2a;

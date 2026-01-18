@@ -89,5 +89,39 @@ namespace PDFComp
             }
             return null;
         }
+
+        /// <summary>
+        /// Returns the first counter page found without strict accuracy.
+        /// </summary>
+        /// <param name="page1"></param>
+        /// <returns></returns>
+        public int GetPage1Counter(int page1)
+        {
+            foreach (var p in PairList)
+            {
+                if (p.Page1 == page1)
+                {
+                    return p.Page2;
+                }
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// Returns the first counter page found without strict accuracy.
+        /// </summary>
+        /// <param name="page2"></param>
+        /// <returns></returns>
+        public int GetPage2Counter(int page2)
+        {
+            foreach (var p in PairList)
+            {
+                if (p.Page2 == page2)
+                {
+                    return p.Page1;
+                }
+            }
+            return -1;
+        }
     }
 }

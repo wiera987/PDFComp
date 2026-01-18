@@ -1022,26 +1022,65 @@ namespace PDFComp
                     {
                         break;
                     }
+                    // Stops at the first comparison page in Page Jump mode.
+                    if (toolStripButtonJumpScopePage.Visible == true)
+                    {
+                        break;
+                    }
                 }
 
                 // Determine whether a page turn occurred.
                 if (pagePairList.GetPagePair(page1, page2 + 1) != null)
                 {
+                    // If only page2 has changed, moves page2 only.
                     pdfPanel2.NextPage();
                     pageCount2++;
                 }
                 else if (pagePairList.GetPagePair(page1 + 1, page2) != null)
                 {
+                    // If only page1 has changed, moves page1 only.
                     pdfPanel1.NextPage();
                     pageCount1++;
                 }
-                else
+                else if (pagePairList.GetPagePair(page1 + 1, page2 + 1) != null)
                 {
                     pdfPanel1.NextPage();
                     pdfPanel2.NextPage();
                     pageCount1++;
                     pageCount2++;
                 }
+                else
+                {
+                    // Moves so that misalignments are further reduced.
+                    var currPage1Counter = pagePairList.GetPage1Counter(page1);
+                    var currPage2Counter = pagePairList.GetPage2Counter(page2);
+                    if (currPage1Counter < 0)
+                    {
+                        // Move page1 when it has no counter (blank page or hasn't been compared).
+                        pdfPanel1.NextPage();
+                        pageCount1++;
+                    }
+                    else if (currPage1Counter >= page2)
+                    {
+                        // Moves page2 because it is lagging.
+                        pdfPanel2.NextPage();
+                        pageCount2++;
+                    }
+
+                    if (currPage2Counter < 0)
+                    {
+                        // Move page2 when it has no counter (blank page or hasn't been compared).
+                        pdfPanel2.NextPage();
+                        pageCount2++;
+                    }
+                    else if (currPage2Counter >= page1)
+                    {
+                        // Moves page1 because it is lagging.
+                        pdfPanel1.NextPage();
+                        pageCount1++;
+                    }
+                }
+
 
                 // Show the page if differences are found after moving.
                 page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
@@ -1106,32 +1145,70 @@ namespace PDFComp
             for (int i = page1; i >= 0; i--)
             {
                 // Compare if not already compared.
-                if ((pdfPanel1.GetComparedPage(page1-1) < 0) || (pdfPanel2.GetComparedPage(page2-1) < 0))
+                if ((pdfPanel1.GetComparedPage(page1) < 0) || (pdfPanel2.GetComparedPage(page2) < 0))
                 {
-                    pdfPanel1.PrevPage();
-                    pdfPanel2.PrevPage();
                     CompareByMode();
-                    pdfPanel1.pdfViewer.Renderer.Page = page1;
-                    pdfPanel2.pdfViewer.Renderer.Page = page2;
+                    if (pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) || pdfPanel2.pdfViewer.Renderer.HasMarkers(page2))
+                    {
+                        break;
+                    }
+                    // Stops at the first comparison page in Page Jump mode.
+                    if (toolStripButtonJumpScopePage.Visible == true)
+                    {
+                        break;
+                    }
                 }
 
                 // Determine whether a page turn occurred.
                 if (pagePairList.GetPagePair(page1, page2 - 1) != null)
                 {
+                    // If only page2 has changed, moves page2 only.
                     pdfPanel2.PrevPage();
                     pageCount2++;
                 }
                 else if (pagePairList.GetPagePair(page1 - 1, page2) != null)
                 {
+                    // If only page1 has changed, moves page1 only.
                     pdfPanel1.PrevPage();
                     pageCount1++;
                 }
-                else
+                else if (pagePairList.GetPagePair(page1 - 1, page2 - 1) != null)
                 {
                     pdfPanel1.PrevPage();
                     pdfPanel2.PrevPage();
                     pageCount1++;
                     pageCount2++;
+                }
+                else
+                {
+                    // Moves so that misalignments are further reduced.
+                    var currPage1Counter = pagePairList.GetPage1Counter(page1);
+                    var currPage2Counter = pagePairList.GetPage2Counter(page2);
+                    if (currPage1Counter < 0)
+                    {
+                        // Move page1 when it has no counter (blank page or hasn't been compared).
+                        pdfPanel1.PrevPage();
+                        pageCount1++;
+                    }
+                    else if (currPage1Counter <= page2)
+                    {
+                        // Moves page2 because it is lagging.
+                        pdfPanel2.PrevPage();
+                        pageCount2++;
+                    }
+
+                    if (currPage2Counter < 0)
+                    {
+                        // Move page2 when it has no counter (blank page or hasn't been compared).
+                        pdfPanel2.PrevPage();
+                        pageCount2++;
+                    }
+                    else if (currPage2Counter <= page1)
+                    {
+                        // Moves page1 because it is lagging.
+                        pdfPanel1.PrevPage();
+                        pageCount1++;
+                    }
                 }
 
                 // Show the page if differences are found after moving.
@@ -1142,7 +1219,13 @@ namespace PDFComp
                                               pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) ? "*" : " ",
                                               pdfPanel2.pdfViewer.Renderer.HasMarkers(page2) ? "*" : " ");
 
+                // Stop condition for Diff Jump
                 if (pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) || pdfPanel2.pdfViewer.Renderer.HasMarkers(page2))
+                {
+                    break;
+                }
+                // Stop condition for Page Jump
+                if (toolStripButtonJumpScopePage.Visible == true)
                 {
                     break;
                 }

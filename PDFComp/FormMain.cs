@@ -531,7 +531,6 @@ namespace PDFComp
             // Step1. Get the starting offset of each page
             int offset1 = 0, offset2 = 0;                       // Current position in the entire text
             int startOffset1 = 0, startOffset2 = 0;             // Start position of the current TextSpan
-            int headOffset1 = 0, headOffset2 = 0;               // Start position of the current page
             int previousOffset1 = 0, previousOffset2 = 0;       // Store the offset to append to the previously compared TextSpan
 
             (int page1, _) = textList1.GetPagePos(offset1);     // Page number currently being processed
@@ -540,14 +539,17 @@ namespace PDFComp
             int previousPage2 = page2;
             int nextOffset1 = textList1.GetOffset(page1 + 1);   // Start position of the next page
             int nextOffset2 = textList2.GetOffset(page2 + 1);
+            bool hasContent1 = false;
+            bool hasContent2 = false;
+            bool hasDiffEqu1 = false;
+            bool hasDiffEqu2 = false;
             bool flag = false;
 
             // Step2. Process the difference list
             foreach (Diff diff in diffs)
             {
                 int count = diff.text.Length;
-                bool IsDiffCombined1 = false;
-                bool IsDiffCombined2 = false;
+
 
                 while (count > 0)
                 {
@@ -556,6 +558,9 @@ namespace PDFComp
                     int length2 = GetPageBreakForFile2(diff, offset2, count, nextOffset2);
                     int minLength = Math.Min(length1, length2);
 
+                    hasDiffEqu1 |= (diff.operation == Operation.EQUAL);
+                    hasDiffEqu2 |= (diff.operation == Operation.EQUAL);
+
                     // Console.WriteLine("F1P{0}, offs={1}, count={2}, len={3}, nextOffs={4}", page1+1, offset1, count, length1, nextOffset1);
                     // Console.WriteLine("F2P{0}, offs={1}, count={2}, len={3}, nextOffs={4}", page2+1, offset2, count, length2, nextOffset2);
 
@@ -563,7 +568,7 @@ namespace PDFComp
                     {
                         // Neither page reaches its boundary within count steps.
                         // Slide by count, which is the length of diff.text.
-                        SlideOffsetByOperation(diff, count, ref offset1, ref offset2);
+                        SlideOffsetByOperation(diff, count, ref offset1, ref offset2, ref hasContent1, ref hasContent2);
                         count = 0;
                         flag = true;
                     }
@@ -571,7 +576,7 @@ namespace PDFComp
                     {
                         // One or both pages reach their boundary within count steps.
                         // Slide by the minLength, which is the shorter distance to the boundary.
-                        SlideOffsetByOperation(diff, minLength, ref offset1, ref offset2);
+                        SlideOffsetByOperation(diff, minLength, ref offset1, ref offset2, ref hasContent1, ref hasContent2);
                         // Console.WriteLine($"[F1p{page1+1}]" + textList1.GetText(startOffset1, offset1));
                         // Console.WriteLine($"[F2p{page2+1}]" + textList2.GetText(startOffset2, offset2));
 
@@ -582,46 +587,47 @@ namespace PDFComp
 
                         if ((minLength == length1) && (minLength == length2))
                         {
-                            page1++;
-                            page2++;
-                            nextOffset1 = textList1.GetOffset(page1 + 1);
-                            nextOffset2 = textList2.GetOffset(page2 + 1);
-                            IsDiffCombined1 = false;
-                            IsDiffCombined2 = false;
+                            SlideNextPage(ref page1, ref nextOffset1, textList1);
+                            SlideNextPage(ref page2, ref nextOffset2, textList2);
+
+                            hasContent1 = false;
+                            hasContent2 = false;
+                            hasDiffEqu1 = false;
+                            hasDiffEqu2 = false;
                         }
                         else if (minLength == length1)
                         {
-                            page1++;
-                            headOffset1 = nextOffset1;
-                            nextOffset1 = textList1.GetOffset(page1 + 1);
+                            SlideNextPage(ref page1, ref nextOffset1, textList1);
 
-                            // Only the diff from page 1 remains, so pair it with the preceding page 2.
-                            if ((length1 > 0) && (offset2 == headOffset2) && !IsDiffCombined1)
+                            // If only Page1 has remaining unprocessed text, pair Page1 with the preceding Page2.
+                            // - Page1 has unprocessed diff text remaining.
+                            // - Page1 contains processed text that should be grouped with the unprocessed segment.
+                            // - Page2 has no diff text yet and is available to be paired with Page1.
+                            if ((length1 > 0) && hasDiffEqu1 && !hasContent2)
                             {
                                 page2a = previousPage2;
                                 startOffset1a = previousOffset1;
                                 startOffset2a = previousOffset2;
-                                IsDiffCombined1 = true;
-                            } else {
-                                IsDiffCombined1 = false;
                             }
+                            hasContent1 = false;
+                            hasDiffEqu1 = false;
                         }
                         else if (minLength == length2)
                         {
-                            page2++;
-                            headOffset2 = nextOffset2;
-                            nextOffset2 = textList2.GetOffset(page2 + 1);
+                            SlideNextPage(ref page2, ref nextOffset2, textList2);
 
-                            // Only the diff from page 2 remains, so pair it with the preceding page 1.
-                            if ((length2 > 0) && (offset1 == headOffset1) && !IsDiffCombined2)
+                            // If only Page2 has remaining unprocessed text, pair Page2 with the preceding Page1.
+                            // - Page2 has unprocessed diff text remaining.
+                            // - Page2 contains processed text that should be grouped with the unprocessed segment.
+                            // - Page1 has no diff text yet and is available to be paired with Page2.
+                            if ((length2 > 0) && hasDiffEqu2 && !hasContent1)
                             {
                                 page1a = previousPage1;
                                 startOffset1a = previousOffset1;
                                 startOffset2a = previousOffset2;
-                                IsDiffCombined2 = true;
-                            } else {
-                                IsDiffCombined1 = false;
                             }
+                            hasContent2 = false;
+                            hasDiffEqu2 = false;
                         }
 
                         var span1 = textList1.GetTextSpans(startOffset1a, offset1);
@@ -653,6 +659,22 @@ namespace PDFComp
                 pdfPanel2.SetComparedPage(page2, page1);
             }
 
+        }
+
+        private void SlideNextPage(ref int page, ref int nextOffset, PageTextList textList)
+        {
+            if (page < textList.LastPage)
+            {
+                page++;
+                nextOffset = textList.GetOffset(page + 1);
+            }
+            else
+            {
+                // Sets the position to the end of the last page. 
+                Console.WriteLine("Lastpage");
+                page = textList.LastPage;
+                nextOffset = 0;
+            }
         }
 
         /// <summary>
@@ -706,21 +728,26 @@ namespace PDFComp
             return int.MaxValue;
         }
 
-        private void SlideOffsetByOperation(Diff diff, int slide, ref int offset1, ref int offset2)
+        private void SlideOffsetByOperation(Diff diff, int slide, ref int offset1, ref int offset2,
+                                            ref bool hasText1, ref bool hasText2)
         {
             switch (diff.operation)
             {
                 case Operation.EQUAL:
                     offset1 += slide;
                     offset2 += slide;
+                    hasText1 = true;
+                    hasText2 = true;
                     break;
                 case Operation.INSERT:
                     // Present only in the 2nd text
                     offset2 += slide;
+                    hasText2 = true;
                     break;
                 case Operation.DELETE:
                     // Present only in the 1st text
                     offset1 += slide;
+                    hasText1 = true;
                     break;
             }
         }

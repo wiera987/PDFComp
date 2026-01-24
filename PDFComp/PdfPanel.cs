@@ -80,6 +80,17 @@ namespace PDFComp
                 }
             }
 
+            public int LastPage
+            {
+                get
+                {
+                    if (_pageTextList == null || _pageTextList.Count == 0)
+                        return -1;
+
+                    return _pageTextList[_pageTextList.Count - 1].Page;
+                }
+            }
+
             // Constructor
             public PageTextList()
             {
@@ -128,10 +139,29 @@ namespace PDFComp
 
             /// <summary>
             /// Get the page and the position of the character in the text on the page.
+            /// Ensures the call does not exceed the stored offset.
             /// </summary>
             /// <param name="offset">Offset position counted throughout the entire PageTextList</param>
             /// <returns>Page and pagePos. The pagePos is the offset position in the text obtained with GetPdfText().</returns>
             public (int page, int pagePos) GetPagePos(int offset)
+            {
+                (var page, var pagePos) = GetPagePosLimit(offset, -1);
+
+                if (pagePos < 0)
+                {
+                    throw new ArgumentOutOfRangeException("offset");
+                }
+
+                return (page, pagePos);
+            }
+
+            /// <summary>
+            /// Get the page and the position of the character in the text on the page.
+            /// Returns endOffset when exceeding the stored offset limit.
+            /// </summary>
+            /// <param name="offset">Offset position counted throughout the entire PageTextList</param>
+            /// <returns>Page and pagePos. The pagePos is the offset position in the text obtained with GetPdfText().</returns>
+            public (int page, int pagePos) GetPagePosLimit(int offset, int endOffset)
             {
                 var last = _pageTextList.Last();
 
@@ -156,6 +186,11 @@ namespace PDFComp
                         return (pageTextData.Page, pageTextData.GetPagePos(offset));
                     }
                     offset -= pageTextData.Text.Length;
+                }
+                if (offset == 0)
+                {
+                    // Not expected to reach here; returns the last character’s offset if the offset end is exceeded.
+                    return (last.Page, last.GetPagePos(endOffset));
                 }
                 throw new ArgumentOutOfRangeException("offset");
             }
@@ -193,7 +228,7 @@ namespace PDFComp
                 List<PdfTextSpan> textSpans = new List<PdfTextSpan>();
                 int startCount = 0;
 
-                (int startPage, int startPos) = GetPagePos(start);
+                (int startPage, int startPos) = GetPagePosLimit(start, end);
 
                 for (int i = start; i < end; i++)
                 {

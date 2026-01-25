@@ -139,29 +139,11 @@ namespace PDFComp
 
             /// <summary>
             /// Get the page and the position of the character in the text on the page.
-            /// Ensures the call does not exceed the stored offset.
+            /// When the offset is exceeded, return the offset of the last character.
             /// </summary>
             /// <param name="offset">Offset position counted throughout the entire PageTextList</param>
             /// <returns>Page and pagePos. The pagePos is the offset position in the text obtained with GetPdfText().</returns>
             public (int page, int pagePos) GetPagePos(int offset)
-            {
-                (var page, var pagePos) = GetPagePosLimit(offset, -1);
-
-                if (pagePos < 0)
-                {
-                    throw new ArgumentOutOfRangeException("offset");
-                }
-
-                return (page, pagePos);
-            }
-
-            /// <summary>
-            /// Get the page and the position of the character in the text on the page.
-            /// Returns endOffset when exceeding the stored offset limit.
-            /// </summary>
-            /// <param name="offset">Offset position counted throughout the entire PageTextList</param>
-            /// <returns>Page and pagePos. The pagePos is the offset position in the text obtained with GetPdfText().</returns>
-            public (int page, int pagePos) GetPagePosLimit(int offset, int endOffset)
             {
                 var last = _pageTextList.Last();
 
@@ -190,7 +172,15 @@ namespace PDFComp
                 if (offset == 0)
                 {
                     // Not expected to reach here; returns the last character’s offset if the offset end is exceeded.
-                    return (last.Page, last.GetPagePos(endOffset));
+                    if (last.Text.Length > 0)
+                    {
+                        return (last.Page, last.GetPagePos(last.Text.Length - 1));
+                    }
+                    else
+                    {
+                        // Can this code path ever be reached?
+                        return (last.Page, 0);
+                    }
                 }
                 throw new ArgumentOutOfRangeException("offset");
             }
@@ -228,7 +218,7 @@ namespace PDFComp
                 List<PdfTextSpan> textSpans = new List<PdfTextSpan>();
                 int startCount = 0;
 
-                (int startPage, int startPos) = GetPagePosLimit(start, end);
+                (int startPage, int startPos) = GetPagePos(start);
 
                 for (int i = start; i < end; i++)
                 {

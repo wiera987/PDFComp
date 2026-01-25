@@ -1043,7 +1043,8 @@ namespace PDFComp
 
             var stopwatch = new System.Diagnostics.Stopwatch();
 
-            int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
+            int page1end = pdfPanel1.pdfViewer.Document.PageCount-1;
+            int page2end = pdfPanel2.pdfViewer.Document.PageCount-1;
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
             int pageCount1 = 0;
@@ -1053,7 +1054,7 @@ namespace PDFComp
             tipJump2.Hide(pdfPanel2);
 
             // Search for diff pages.
-            for (int i = page1; i < pages; i++)
+            while ((page1 < page1end) || (page2 < page2end))
             {
                 // Compare if not already compared.
                 if ((pagePairList.GetPage1Counter(page1) < 0) || (pagePairList.GetPage2Counter(page2) < 0))
@@ -1136,7 +1137,7 @@ namespace PDFComp
                 page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
                 page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
-                Console.WriteLine("\t\t{1}{3}\t{2}{4}", i, page1+1, page2+1, 
+                Console.WriteLine("\t\t{0}{2}\t{1}{3}", page1+1, page2+1, 
                                                         pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) ? "*" : " ",
                                                         pdfPanel2.pdfViewer.Renderer.HasMarkers(page2) ? "*" : " ");
                 // Stop condition for Diff Jump
@@ -1185,7 +1186,8 @@ namespace PDFComp
 
             var stopwatch = new System.Diagnostics.Stopwatch();
 
-            int pages = Math.Max(pdfPanel1.pdfViewer.Document.PageCount, pdfPanel2.pdfViewer.Document.PageCount);
+            int page1start = 0;
+            int page2start = 0;
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
             int pageCount1 = 0;
@@ -1195,7 +1197,7 @@ namespace PDFComp
             tipJump2.Hide(pdfPanel2);
 
             // Search for diff pages.
-            for (int i = page1; i >= 0; i--)
+            while ((page1 >= page1start) || (page2 >= page2start))
             {
                 // Compare if not already compared.
                 if ((pagePairList.GetPage1Counter(page1) < 0) || (pagePairList.GetPage2Counter(page2) < 0))
@@ -1277,9 +1279,15 @@ namespace PDFComp
                 page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
                 page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
-                Console.WriteLine("\t\t{1}{3}\t{2}{4}", i, page1+1, page2+1,
+                Console.WriteLine("\t\t{0}{2}\t{1}{3}", page1+1, page2+1,
                                                         pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) ? "*" : " ",
                                                         pdfPanel2.pdfViewer.Renderer.HasMarkers(page2) ? "*" : " ");
+
+                // For Prev, stop when reaching the first page.
+                if ((page1 == page1start) && (page2 == page2start))
+                {
+                    break;
+                }
 
                 // Stop condition for Diff Jump
                 if (pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) || pdfPanel2.pdfViewer.Renderer.HasMarkers(page2))

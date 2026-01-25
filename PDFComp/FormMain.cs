@@ -22,6 +22,8 @@ namespace PDFComp
         readonly Double ZoomOutScale = 0.01;    // scale:    -2%, -3%, -5%, +10%, +20%, +50%
         FormFind formFind = null;
         FormDiffInfo formDiffInfo = null;
+        ToolTip tipJump1 = null;
+        ToolTip tipJump2 = null;
         PagePairList pagePairList = null;
         PdfRotation rotation;
         Double zoom;
@@ -52,6 +54,9 @@ namespace PDFComp
             zoomIn = false;
             zoomOut = false;
             rotation = PdfRotation.Rotate0;
+
+            tipJump1 = new ToolTip();
+            tipJump2 = new ToolTip();
 
             // Debug ExtractDiffSpan2
             formDiffInfo = new FormDiffInfo();
@@ -998,12 +1003,18 @@ namespace PDFComp
 
         private void clearBook1MarkerToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // The data couldn’t be merged, so...
+            // Clear PdfPanel’s page comparison data and MainForm’s PagePairList.
             pdfPanel1.ClearAllDiffMarker();
+            PagePairClearAll();
         }
 
         private void clearBook2MarkerToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // The data couldn’t be merged, so...
+            // Clear PdfPanel’s page comparison data and MainForm’s PagePairList.
             pdfPanel2.ClearAllDiffMarker();
+            PagePairClearAll();
         }
 
         private void FindToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1038,11 +1049,14 @@ namespace PDFComp
             int pageCount1 = 0;
             int pageCount2 = 0;
 
+            tipJump1.Hide(pdfPanel1);
+            tipJump2.Hide(pdfPanel2);
+
             // Search for diff pages.
             for (int i = page1; i < pages; i++)
             {
                 // Compare if not already compared.
-                if ((pdfPanel1.GetComparedPage(page1) < 0) || (pdfPanel2.GetComparedPage(page2) < 0))
+                if ((pagePairList.GetPage1Counter(page1) < 0) || (pagePairList.GetPage2Counter(page2) < 0))
                 {
                     CompareByMode();
                     if (pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) || pdfPanel2.pdfViewer.Renderer.HasMarkers(page2))
@@ -1106,6 +1120,15 @@ namespace PDFComp
                         pdfPanel1.NextPage();
                         pageCount1++;
                     }
+
+                    // Since no PagePair was found for the moved page,
+                    // compare the moved page if it hasn't been compared yet.
+                    page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
+                    page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
+                    if ((pagePairList.GetPage1Counter(page1) < 0) || (pagePairList.GetPage2Counter(page2) < 0))
+                    {
+                        CompareByMode();
+                    }
                 }
 
 
@@ -1114,8 +1137,8 @@ namespace PDFComp
                 page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
                 Console.WriteLine("\t\t{1}{3}\t{2}{4}", i, page1+1, page2+1, 
-                                                              pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) ? "*" : " ",
-                                                              pdfPanel2.pdfViewer.Renderer.HasMarkers(page2) ? "*" : " ");
+                                                        pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) ? "*" : " ",
+                                                        pdfPanel2.pdfViewer.Renderer.HasMarkers(page2) ? "*" : " ");
                 // Stop condition for Diff Jump
                 if (pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) || pdfPanel2.pdfViewer.Renderer.HasMarkers(page2))
                 {
@@ -1135,15 +1158,15 @@ namespace PDFComp
             // Show a tip if there are undisplayed pages.
             if (pageCount1 > 1)
             {
-                ToolTip tip = new ToolTip();
                 Point pos = new Point(100, 64);
-                tip.Show($"{pageCount1 - 1} pages matched. Diff shown.", pdfPanel1, pos, 2000);
+                tipJump1.Hide(pdfPanel1);
+                tipJump1.Show($"Jumped {pageCount1} pages to next diff.", pdfPanel1, pos, 2000);
             }
             if (pageCount2 > 1)
             {
-                ToolTip tip = new ToolTip();
                 Point pos = new Point(100, 64);
-                tip.Show($"{pageCount2 - 1} pages matched. Diff shown", pdfPanel2, pos, 2000);
+                tipJump2.Hide(pdfPanel2);
+                tipJump2.Show($"Jumped {pageCount2} pages to next diff.", pdfPanel2, pos, 2000);
             }
 
             toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
@@ -1168,11 +1191,14 @@ namespace PDFComp
             int pageCount1 = 0;
             int pageCount2 = 0;
 
+            tipJump1.Hide(pdfPanel1);
+            tipJump2.Hide(pdfPanel2);
+
             // Search for diff pages.
             for (int i = page1; i >= 0; i--)
             {
                 // Compare if not already compared.
-                if ((pdfPanel1.GetComparedPage(page1) < 0) || (pdfPanel2.GetComparedPage(page2) < 0))
+                if ((pagePairList.GetPage1Counter(page1) < 0) || (pagePairList.GetPage2Counter(page2) < 0))
                 {
                     CompareByMode();
                     if (pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) || pdfPanel2.pdfViewer.Renderer.HasMarkers(page2))
@@ -1236,6 +1262,15 @@ namespace PDFComp
                         pdfPanel1.PrevPage();
                         pageCount1++;
                     }
+
+                    // Since no PagePair was found for the moved page,
+                    // compare the moved page if it hasn't been compared yet.
+                    page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
+                    page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
+                    if ((pagePairList.GetPage1Counter(page1) < 0) || (pagePairList.GetPage2Counter(page2) < 0))
+                    {
+                        CompareByMode();
+                    }
                 }
 
                 // Show the page if differences are found after moving.
@@ -1243,8 +1278,8 @@ namespace PDFComp
                 page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
                 Console.WriteLine("\t\t{1}{3}\t{2}{4}", i, page1+1, page2+1,
-                                              pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) ? "*" : " ",
-                                              pdfPanel2.pdfViewer.Renderer.HasMarkers(page2) ? "*" : " ");
+                                                        pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) ? "*" : " ",
+                                                        pdfPanel2.pdfViewer.Renderer.HasMarkers(page2) ? "*" : " ");
 
                 // Stop condition for Diff Jump
                 if (pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) || pdfPanel2.pdfViewer.Renderer.HasMarkers(page2))
@@ -1265,15 +1300,15 @@ namespace PDFComp
             // Show a tip if there are undisplayed pages.
             if (pageCount1 > 1)
             {
-                ToolTip tip = new ToolTip();
                 Point pos = new Point(100, 64);
-                tip.Show($"{pageCount1 - 1} pages matched. Diff shown.", pdfPanel1, pos, 2000);
+                tipJump1.Hide(pdfPanel1);
+                tipJump1.Show($"Jumped {pageCount1} pages to prev diff.", pdfPanel1, pos, 2000);
             }
             if (pageCount2 > 1)
             {
-                ToolTip tip = new ToolTip();
                 Point pos = new Point(100, 64);
-                tip.Show($"{pageCount2 - 1} pages matched. Diff shown", pdfPanel2, pos, 2000);
+                tipJump2.Hide(pdfPanel2);
+                tipJump2.Show($"Jumped {pageCount2} pages to prev diff.", pdfPanel2, pos, 2000);
             }
 
             toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
@@ -1678,7 +1713,12 @@ namespace PDFComp
                                                                   pdfPanel2.pdfViewer.Renderer.HasMarkers(PagePair.Page2) ? "*" : " ",
                                                                   result1, result2);
                     i++;
-                } 
+                }
+                
+                if (i==0)
+                {
+                    Console.WriteLine("[-] no pair");
+                }
             }
             catch (Exception ex)
             {

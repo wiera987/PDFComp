@@ -295,8 +295,8 @@ namespace PDFComp
         {
             // Adjust trackbar value when wheel zoomed.
 
-            Form parentForm = FindForm();
-            ((FormMain)parentForm).AdjustTrackBarZoom(GetZoom());
+            var parentForm = FindForm() as FormMain;
+            parentForm?.AdjustTrackBarZoom(GetZoom());
         }
 
         public double GetZoom()
@@ -682,8 +682,8 @@ namespace PDFComp
             pdfViewer.Renderer.Markers.Clear();
             pdfViewer.SelectBookmarkForPage(0);                     // Set the first page bookmark to selected
 
-            Form parentForm = FindForm();
-            ((FormMain)parentForm).PagePairClearAll();
+            var parentForm = FindForm() as FormMain;
+            parentForm?.PagePairClearAll();
 
             // Load PageData with Timer event.
             _pageReading = 0;
@@ -797,7 +797,10 @@ namespace PDFComp
 
         private void clearBookMarkerToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Clear PdfPanel’s page comparison data and MainForm’s PagePairList.
             ClearAllDiffMarker();
+            var parentForm = FindForm() as FormMain;
+            parentForm?.PagePairClearAll();
         }
 
         private void CopyTextToolStripMenuItem_Click(object sender, EventArgs e)

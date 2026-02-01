@@ -34,5 +34,10 @@ namespace PDFComp
         {
             System.Diagnostics.Process.Start("http://www.apache.org/licenses/LICENSE-2.0");
         }
+
+        private void labelPDFComp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(labelPDFComp.Text);
+        }
     }
 }

@@ -84,6 +84,7 @@
             // labelAboutLicense
             // 
             this.labelAboutLicense.AutoSize = true;
+            this.labelAboutLicense.Cursor = System.Windows.Forms.Cursors.Hand;
             this.labelAboutLicense.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAboutLicense.ForeColor = System.Drawing.Color.Blue;
             this.labelAboutLicense.Location = new System.Drawing.Point(201, 93);
@@ -126,13 +127,15 @@
             // labelPDFComp
             // 
             this.labelPDFComp.AutoSize = true;
-            this.labelPDFComp.Font = new System.Drawing.Font("Lucida Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPDFComp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.labelPDFComp.Font = new System.Drawing.Font("Lucida Sans", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPDFComp.ForeColor = System.Drawing.Color.Blue;
             this.labelPDFComp.Location = new System.Drawing.Point(160, 184);
             this.labelPDFComp.Name = "labelPDFComp";
             this.labelPDFComp.Size = new System.Drawing.Size(246, 15);
             this.labelPDFComp.TabIndex = 11;
             this.labelPDFComp.Text = "https://github.com/wiera987/PDFComp";
+            this.labelPDFComp.Click += new System.EventHandler(this.labelPDFComp_Click);
             // 
             // FormAbout
             // 

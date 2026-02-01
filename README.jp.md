@@ -1,7 +1,7 @@
 # PDFComp
 ‚Q‚Â‚ÌPDFƒtƒ@ƒCƒ‹‚Ì•¶Žš‚ð”äŠr‚µ‚ÄAˆÙ‚È‚é•”•ª‚ðƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ü‚·B
 
-![PDFComp_3 0_MainForm](https://github.com/user-attachments/assets/a10aae2a-4c8a-45b9-b398-9ff2a608c8f6)
+![PDFComp_3 1_MainForm](https://github.com/user-attachments/assets/c7d06a98-609c-4f78-a509-539faa3c7cfe)
 
 ## ”wŒi
 
@@ -10,12 +10,13 @@
 ‚±‚ÌPDFComp‚Íƒ}ƒjƒ…ƒAƒ‹‘€ì‚É“Á‰»‚µƒy[ƒW‚ð‘f‘‚­ˆÚ“®‚µ‚ÄA‚Pƒy[ƒW‚¸‚ÂŠm”F‚µ‚Ä‚¢‚­‚½‚ß‚ÌƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Å‚·B
 ‚Ü‚½ÅV”Å‚Å‚ÍAƒuƒbƒNƒ}[ƒN‚ð—˜—p‚µ‚½Ž©“®“I‚É”äŠr‚·‚éƒ‚[ƒh‚ð’Ç‰Á‚µ‚Ü‚µ‚½B
 
-PDFComp 3.0.0
-'Compare bookmark'‚Æ'Compare book'‚É‘Î‰ž‚µ‚Ü‚µ‚½B
+PDFComp 3.1.0
+'Compare Bookmark'ƒ‚[ƒh‚ªƒfƒtƒHƒ‹ƒg‚Ì”äŠr•û–@‚É‚È‚è‚Ü‚µ‚½B'Compare Book'‚Í'Compare Document'‚É‰ü–¼‚µ‚Ü‚µ‚½B
+V‚µ‚¢ƒtƒ‰ƒbƒVƒ…ƒCƒ“ƒWƒP[ƒ^[‚ð’Ç‰Á‚µ‚Ü‚µ‚½B'Jump to Prev/Next'ƒ{ƒ^ƒ“‚ðŽg—p‚µ‚½‚Æ‚«‚É”äŠr‚³‚ê‚½—Ìˆæ‚ªˆêŽž“I‚É‹­’²•\Ž¦‚³‚êA2‚Â‚ÌƒhƒLƒ…ƒƒ“ƒg‚Ì”äŠr‘ÎÛ‚ðŽ¦‚µ‚Ü‚·B
 
 ### “®ìŠÂ‹«
 
-* Microsoft Windows 11(22H2) with .NET Framework 4.8
+* Microsoft Windows 11(24H2) with .NET Framework 4.8
 
 ## Žg‚¢•û
 ### ƒCƒ“ƒXƒg[ƒ‹
@@ -24,30 +25,31 @@ PDFComp 3.0.0
 
 ### ‘€ì•û–@
 
-* 'Open' ƒ{ƒ^ƒ“‚Å 2‚Â‚Ìpdfƒtƒ@ƒCƒ‹‚ðŠJ‚«‚Ü‚·. (‚à‚µ‚­‚Íƒtƒ@ƒCƒ‹‚ðƒhƒƒbƒv)
+* 'Open' ƒ{ƒ^ƒ“‚Å 2‚Â‚ÌPDFƒtƒ@ƒCƒ‹‚ðŠJ‚«‚Ü‚·. (‚à‚µ‚­‚Íƒtƒ@ƒCƒ‹‚ðƒhƒƒbƒv)
 * '<<' ‚Æ '>>' ƒ{ƒ^ƒ“‚Å@“¯Žž‚É2‚Â‚ÌPDFƒtƒ@ƒCƒ‹‚Ìƒy[ƒW‚ðˆÚ“®‚µ‚Ü‚·. (¶‰E‚Ì–îˆóƒL[)
 * '<' ‚Æ '>' ƒ{ƒ^ƒ“‚ÍA‚»‚ê‚¼‚ê‚ÌPDFƒtƒ@ƒCƒ‹‚Ìƒy[ƒW‚ðˆÚ“®‚µ‚Ü‚·. (CTRL+–îˆóƒL[AALT+–îˆóƒL[)
-* '<-' ‚Æ '->'ƒ{ƒ^ƒ“‚ÍA‚Q‚Â‚ÌPDFƒtƒ@ƒCƒ‹‚ð”äŠr‚µ‚È‚ª‚ç·ˆÙ‚Ì‚ ‚éƒy[ƒW‚Ü‚ÅˆÚ“®‚µ‚Ü‚·.
-* 'Compare page' ƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚ÆAƒy[ƒW‚Ì·ˆÙ‚ðƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ü‚·. (ƒXƒy[ƒXƒL[)
-* 'Compare bookmark' ƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚ÆA‘I‘ð‚³‚ê‚Ä‚¢‚éƒuƒbƒNƒ}[ƒN‚Ìƒy[ƒW‚Ì·ˆÙ‚ðƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ü‚·. 
-* 'Compare book' ƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚ÆAPDF1û•ª‚Ìƒy[ƒW‚ð”äŠr‚µ‚ÄƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ü‚·.
-* 'Clear markers' ‚ÌƒRƒ“ƒeƒLƒXƒgƒƒjƒ…[‚ÅAƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ä‚¢‚é·•ªƒ}[ƒJ[‚ðƒNƒŠƒA‚µ‚Ü‚·.
-* 'Copy text'  ‚ÌƒRƒ“ƒeƒLƒXƒgƒƒjƒ…[‚ÅƒeƒLƒXƒg‚ðƒRƒs[‚µ‚Ü‚·.
+* 'Jump to Prev/Next'ƒ{ƒ^ƒ“('<-' ‚Æ '->')‚ÍA‚Q‚Â‚ÌPDFƒtƒ@ƒCƒ‹‚ð”äŠr‚µ‚È‚ª‚ç·ˆÙ‚âŽŸ‚Ìƒy[ƒW‚Ü‚ÅˆÚ“®‚µ‚Ü‚·.
+   ‚±‚Ì“®ì‚Í'Jump to Diffs/Pages'ƒ{ƒ^ƒ“‚ÅØ‚è‘Ö‚¦‚Ü‚·.
+* 'Compare Page' ƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚ÆAƒy[ƒW‚Ì·ˆÙ‚ðƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ü‚·. (ƒXƒy[ƒXƒL[)
+* 'Compare Bookmark' ƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚ÆA‘I‘ð‚³‚ê‚Ä‚¢‚éƒuƒbƒNƒ}[ƒN‚Ìƒy[ƒW‚Ì·ˆÙ‚ðƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ü‚·. 
+* 'Compare Document' ƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚ÆAPDF1û•ª‚Ìƒy[ƒW‚ð”äŠr‚µ‚ÄƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ü‚·.
+* 'Clear Markers' ‚ÌƒRƒ“ƒeƒLƒXƒgƒƒjƒ…[‚ÅAƒnƒCƒ‰ƒCƒg•\Ž¦‚µ‚Ä‚¢‚é·•ªƒ}[ƒJ[‚ðƒNƒŠƒA‚µ‚Ü‚·.
+* 'Copy Text'  ‚ÌƒRƒ“ƒeƒLƒXƒgƒƒjƒ…[‚ÅƒeƒLƒXƒg‚ðƒRƒs[‚µ‚Ü‚·.
 * 'Copy' ƒƒjƒ…[‚Í PDFƒCƒ[ƒW‚â‚µ‚¨‚è‚ÌƒeƒLƒXƒg‚ðƒRƒs[‚µ‚Ü‚·. 'Enable color reduction copy'ƒƒjƒ…[‚Éƒ`ƒFƒbƒN‚ð‚Â‚¯‚é‚ÆAƒCƒ[ƒWƒRƒs[Žž‚É256F‚ÉŒ¸F‚µ‚Ü‚·.
 * 'Find...' ƒƒjƒ…[‚ÍAƒeƒLƒXƒgŒŸõ‚Ì‚½‚ß‚ÌƒEƒCƒ“ƒhƒE‚ðŠJ‚«‚Ü‚·. ‚»‚ê‚¼‚ê‚ÌPDF‚ðŒŸõ‚Å‚«‚Ü‚·.
 
-ƒ}ƒjƒ…ƒAƒ‹‘€ì‚Å1ƒy[ƒW‚¸‚Â”äŠr‚·‚éê‡‚ÍA'Compare page'‚ðŽg—p‚µ‚Ü‚·B
-ƒy[ƒW‚ð‚Ü‚½‚ª‚é”äŠr‚É‚ÍA'Compare bookmark'‚©'Compare book'‚ðŽg—p‚µ‚Ü‚·B
-'Compare bookmark'‚ÍPDFƒtƒ@ƒCƒ‹‚ÉƒuƒbƒNƒ}[ƒN‚ª•K—v‚ÅAŒ»Ý‘I‘ð‚³‚ê‚Ä‚¢‚éƒuƒbƒNƒ}[ƒN€–Ú‚ÌÍ\¬‚ðŽQÆ‚µ‚Ä‚Ìƒy[ƒW“¯Žm‚ð”äŠr‚µ‚Ü‚·BƒuƒbƒNƒ}[ƒN‚ª‘¶Ý‚µ‚È‚¢ƒy[ƒW‚Å‚Í‚Pƒy[ƒW’PˆÊ‚Ì”äŠr‚É‚È‚è‚Ü‚·B
-'Compare book'‚ÍÍ\¬‚Íl—¶‚¹‚¸ˆê“x‚Éƒtƒ@ƒCƒ‹‘S‘Ì‚ð”äŠr‚µ‚Ü‚·B
+ƒ}ƒjƒ…ƒAƒ‹‘€ì‚Å1ƒy[ƒW‚¸‚Â”äŠr‚·‚éê‡‚ÍA'Compare Page'‚ðŽg—p‚µ‚Ü‚·.
+ƒy[ƒW‚ð‚Ü‚½‚ª‚é”äŠr‚É‚ÍA'Compare Bookmark'‚©'Compare Document'‚ðŽg—p‚µ‚Ü‚·.
+'Compare Bookmark'‚Í‘I‘ð‚µ‚½ƒuƒbƒNƒ}[ƒN‚Ì”ÍˆÍ‚Ìƒy[ƒW‚ð”äŠr‚µ‚Ü‚·BƒuƒbƒNƒ}[ƒN‚ª‚È‚¢ƒy[ƒW‚Í‚»‚ê‚ç‚ð‚Ü‚Æ‚ß”äŠr‚µ‚Ü‚·.
+'Compare Document'‚ÍƒuƒbƒNƒ}[ƒN‚ðl—¶‚¹‚¸‚ÉƒhƒLƒ…ƒƒ“ƒg‘S‘Ì‚ðˆê“x‚É”äŠr‚µ‚Ü‚·.
 
 ƒXƒy[ƒXƒL[‚ð˜A‘Å‚·‚é‚ÆA·ˆÙ‚Ì•”•ª‚ª“_–Å‚µ‚Ü‚·.
 Panƒ‚[ƒh‚Í‚Â‚©‚ñ‚ÅPDF‚ðƒXƒNƒ[ƒ‹‚Å‚«‚Ü‚·.
 Textƒ‚[ƒh‚Í•¶Žš‚ð‘I‘ð‚µ‚ÄƒRƒs[‚Å‚«‚Ü‚·.
-Boundsƒ‚[ƒh‚Í‚»‚ê‚¼‚ê‚ÌPDF‚Ì”äŠr‘ÎÛ‚ðŽw’è‚Å‚«‚Ü‚·BˆÈ‘O‚ÌŒ‹‰Ê‚ðŽc‚µ‚½‚Ü‚ÜV‚µ‚¢”äŠr‚ð‚µ‚Ü‚·B
+Boundsƒ‚[ƒh‚Í‚»‚ê‚¼‚ê‚ÌPDF‚Ì”äŠr‘ÎÛ‚ðŽw’è‚Å‚«‚Ü‚·BˆÈ‘O‚ÌŒ‹‰Ê‚ðŽc‚µ‚½‚Ü‚ÜV‚µ‚¢”äŠr‚ð‚µ‚Ü‚·.
 
-u1ƒy[ƒW‚É‡‚í‚¹‚év‚Å‚ÍAƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚É‡‚í‚¹‚ÄPDFƒtƒ@ƒCƒ‹‚Ì•\Ž¦‚ª•Ï‚í‚è‚Ü‚·B
-u•‚É‡‚í‚¹‚év‚Å‚ÍAƒEƒBƒ“ƒhƒE‚Ì‰¡•‚É‡‚í‚¹‚ÄPDFƒtƒ@ƒCƒ‹‚Ì•\Ž¦‚ª•Ï‚í‚è‚Ü‚·B
+'Fit One Page' ‚Å‚ÍAƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚É‡‚í‚¹‚ÄPDFƒtƒ@ƒCƒ‹‚Ì•\Ž¦‚ª•Ï‚í‚è‚Ü‚·.
+'Fit Width' ‚Å‚ÍAƒEƒBƒ“ƒhƒE‚Ì‰¡•‚É‡‚í‚¹‚ÄPDFƒtƒ@ƒCƒ‹‚Ì•\Ž¦‚ª•Ï‚í‚è‚Ü‚·.
 
 [PDFComp‚ÌŽg‚¢•û](https://github.com/wiera987/PDFComp/wiki) ‚É‚àƒqƒ“ƒg‚ªÚ‚Á‚Ä‚¢‚Ü‚·‚Ì‚ÅA‚²——‚­‚¾‚³‚¢B
 
@@ -55,7 +57,7 @@ Boundsƒ‚[ƒh‚Í‚»‚ê‚¼‚ê‚ÌPDF‚Ì”äŠr‘ÎÛ‚ðŽw’è‚Å‚«‚Ü‚·BˆÈ‘O‚ÌŒ‹‰Ê‚ðŽc‚µ‚½‚Ü‚ÜV‚µ‚
 
 ‚±‚ÌƒvƒƒOƒ‰ƒ€‚ÍC#‚ÅŠJ”­‚³‚ê‚Ä‚¨‚èAŽŸ‚ÌŠÂ‹«‚Åƒrƒ‹ƒh‚³‚ê‚Ü‚µ‚½B
 
-* Microsoft Windows 11(22H2) with .NET Framework 4.8
+* Microsoft Windows 11(24H2) with .NET Framework 4.8
 * Microsoft Visual Studio Community 2022
 
 ### ƒ‰ƒCƒuƒ‰ƒŠ

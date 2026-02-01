@@ -311,7 +311,7 @@
             // clearBook1MarkerToolStripMenuItem
             // 
             this.clearBook1MarkerToolStripMenuItem.Name = "clearBook1MarkerToolStripMenuItem";
-            this.clearBook1MarkerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearBook1MarkerToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.clearBook1MarkerToolStripMenuItem.Text = "Left Document";
             this.clearBook1MarkerToolStripMenuItem.ToolTipText = "This action cannot be undone.";
             this.clearBook1MarkerToolStripMenuItem.Click += new System.EventHandler(this.clearBook1MarkerToolStripMenuItem_Click);
@@ -319,7 +319,7 @@
             // clearBook2MarkerToolStripMenuItem
             // 
             this.clearBook2MarkerToolStripMenuItem.Name = "clearBook2MarkerToolStripMenuItem";
-            this.clearBook2MarkerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearBook2MarkerToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.clearBook2MarkerToolStripMenuItem.Text = "Right Document";
             this.clearBook2MarkerToolStripMenuItem.ToolTipText = "This action cannot be undone.";
             this.clearBook2MarkerToolStripMenuItem.Click += new System.EventHandler(this.clearBook2MarkerToolStripMenuItem_Click);
@@ -597,6 +597,30 @@
             this.toolStripButtonNextDiff.Text = "Jump to Next";
             this.toolStripButtonNextDiff.Click += new System.EventHandler(this.toolStripButtonNextDiff_Click);
             // 
+            // toolStripButtonJumpScopeDiff
+            // 
+            this.toolStripButtonJumpScopeDiff.AutoSize = false;
+            this.toolStripButtonJumpScopeDiff.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonJumpScopeDiff.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonJumpScopeDiff.Image")));
+            this.toolStripButtonJumpScopeDiff.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.toolStripButtonJumpScopeDiff.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonJumpScopeDiff.Name = "toolStripButtonJumpScopeDiff";
+            this.toolStripButtonJumpScopeDiff.Size = new System.Drawing.Size(23, 30);
+            this.toolStripButtonJumpScopeDiff.ToolTipText = "Prev/Next will jump to differences";
+            this.toolStripButtonJumpScopeDiff.Click += new System.EventHandler(this.toolStripButtonJumpScopeDiff_Click);
+            // 
+            // toolStripButtonJumpScopePage
+            // 
+            this.toolStripButtonJumpScopePage.AutoSize = false;
+            this.toolStripButtonJumpScopePage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonJumpScopePage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonJumpScopePage.Image")));
+            this.toolStripButtonJumpScopePage.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.toolStripButtonJumpScopePage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonJumpScopePage.Name = "toolStripButtonJumpScopePage";
+            this.toolStripButtonJumpScopePage.Size = new System.Drawing.Size(23, 30);
+            this.toolStripButtonJumpScopePage.ToolTipText = "Prev/Next will jump to pages";
+            this.toolStripButtonJumpScopePage.Click += new System.EventHandler(this.toolStripButtonJumpScopePage_Click);
+            // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.AutoSize = false;
@@ -614,7 +638,7 @@
             "Character mode",
             "Semantic mode"});
             this.toolStripComboBoxDiffType.Name = "toolStripComboBoxDiffType";
-            this.toolStripComboBoxDiffType.Size = new System.Drawing.Size(161, 23);
+            this.toolStripComboBoxDiffType.Size = new System.Drawing.Size(140, 23);
             this.toolStripComboBoxDiffType.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
             // 
             // toolStripSeparator6
@@ -768,30 +792,6 @@
             // timerCyclic
             // 
             this.timerCyclic.Tick += new System.EventHandler(this.timerCyclic_Tick);
-            // 
-            // toolStripButtonJumpScopeDiff
-            // 
-            this.toolStripButtonJumpScopeDiff.AutoSize = false;
-            this.toolStripButtonJumpScopeDiff.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonJumpScopeDiff.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonJumpScopeDiff.Image")));
-            this.toolStripButtonJumpScopeDiff.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.toolStripButtonJumpScopeDiff.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonJumpScopeDiff.Name = "toolStripButtonJumpScopeDiff";
-            this.toolStripButtonJumpScopeDiff.Size = new System.Drawing.Size(23, 30);
-            this.toolStripButtonJumpScopeDiff.ToolTipText = "Prev/Next will jump to differences";
-            this.toolStripButtonJumpScopeDiff.Click += new System.EventHandler(this.toolStripButtonJumpScopeDiff_Click);
-            // 
-            // toolStripButtonJumpScopePage
-            // 
-            this.toolStripButtonJumpScopePage.AutoSize = false;
-            this.toolStripButtonJumpScopePage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonJumpScopePage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonJumpScopePage.Image")));
-            this.toolStripButtonJumpScopePage.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.toolStripButtonJumpScopePage.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonJumpScopePage.Name = "toolStripButtonJumpScopePage";
-            this.toolStripButtonJumpScopePage.Size = new System.Drawing.Size(23, 30);
-            this.toolStripButtonJumpScopePage.ToolTipText = "Prev/Next will jump to pages";
-            this.toolStripButtonJumpScopePage.Click += new System.EventHandler(this.toolStripButtonJumpScopePage_Click);
             // 
             // FormMain
             // 

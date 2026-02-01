@@ -122,11 +122,11 @@
 * The '&lt;&lt;' and '&gt;&gt;' buttons navigate two pdf pages at the same time. (arrow left and right keys)
 * The '&lt;' and '&gt;' buttons move between the pages of the respective PDF file. (Ctrl+arrow keys, Alt+arrow keys)
 * The '&lt;-' and '-&gt;' buttons navigate to the page with the differences while comparing the two PDF files.
-* The 'Compare page' button is to compare and highlight displaied pages. (space key)
-* The 'Compare bookmark' button is to compare and highlight the differences on the selected bookmark pages.
-* The 'Compare book' button is to compare and highlight the differences across the whole PDF file.
-* The 'Clear markers' context menu is to clear the different markers.
-* The 'Copy text' context menu copies text.
+* The 'Compare Page' button is to compare and highlight displaied pages. (space key)
+* The 'Compare Bookmark' button is to compare and highlight the differences on the selected bookmark pages.
+* The 'Compare Document' button is to compare and highlight the differences across the whole PDF file.
+* The 'Clear Page Markers' context menu is to clear the different markers.
+* The 'Copy Text' context menu copies text.
 * The 'Copy' menus copies PDF images and Bookmark text. If the 'Enable color reduction copy' menu is checked,
    the colors will be reduced to 256 when copying an image.
 * The 'Find...' menu show the text search window. You can search for each PDF.
@@ -136,8 +136,8 @@ Pan mode can be grabbed to scroll the PDF.
 Text mode allows you to select and copy characters.
 Bounds mode can specify comparison targets for each PDF. Make a new comparison while preserving the previous result.
 
-In the 'Fit one page', the display of the PDF file changes according to the window size.
-In the 'Fit width', the display of the PDF file changes according to the horizontal size of the window.</value>
+In the 'Fit One Page', the display of the PDF file changes according to the window size.
+In the 'Fit Width', the display of the PDF file changes according to the horizontal size of the window.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

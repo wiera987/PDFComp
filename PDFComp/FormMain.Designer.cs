@@ -47,14 +47,14 @@
             this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comparePageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compareBookmarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.compareBookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compareDocumentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.previousDifferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nextDifferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.clearMarker1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearMarker2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearAllMakersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearAllMarkersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearBook1MarkerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearBook2MarkerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,6 +81,8 @@
             this.toolStripLabelResult = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButtonPrevDiff = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonNextDiff = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonJumpScopeDiff = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonJumpScopePage = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripComboBoxDiffType = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
@@ -98,8 +100,6 @@
             this.toolStripButtonFitWidth = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonFitOnePage = new System.Windows.Forms.ToolStripButton();
             this.timerCyclic = new System.Windows.Forms.Timer(this.components);
-            this.toolStripButtonJumpScopeDiff = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonJumpScopePage = new System.Windows.Forms.ToolStripButton();
             this.menuStrip.SuspendLayout();
             this.panelBoth.SuspendLayout();
             this.toolStrip2.SuspendLayout();
@@ -162,7 +162,7 @@
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.copyToolStripMenuItem.Text = "&Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.CopyToolStripMenuItem_Click);
             // 
@@ -170,56 +170,56 @@
             // 
             this.copyFile1ToolStripMenuItem.Name = "copyFile1ToolStripMenuItem";
             this.copyFile1ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
-            this.copyFile1ToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.copyFile1ToolStripMenuItem.Text = "Copy file1";
+            this.copyFile1ToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.copyFile1ToolStripMenuItem.Text = "Copy Image (Left)";
             this.copyFile1ToolStripMenuItem.Click += new System.EventHandler(this.CopyFile1ToolStripMenuItem_Click);
             // 
             // copyFile2ToolStripMenuItem
             // 
             this.copyFile2ToolStripMenuItem.Name = "copyFile2ToolStripMenuItem";
             this.copyFile2ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
-            this.copyFile2ToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.copyFile2ToolStripMenuItem.Text = "Copy file2";
+            this.copyFile2ToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.copyFile2ToolStripMenuItem.Text = "Copy Image (Right)";
             this.copyFile2ToolStripMenuItem.Click += new System.EventHandler(this.CopyFile2ToolStripMenuItem_Click);
             // 
             // copyBookmarks1ToolStripMenuItem
             // 
             this.copyBookmarks1ToolStripMenuItem.Name = "copyBookmarks1ToolStripMenuItem";
             this.copyBookmarks1ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D3)));
-            this.copyBookmarks1ToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.copyBookmarks1ToolStripMenuItem.Text = "Copy bookmarks1";
+            this.copyBookmarks1ToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.copyBookmarks1ToolStripMenuItem.Text = "Copy Bookmarks (Left)";
             this.copyBookmarks1ToolStripMenuItem.Click += new System.EventHandler(this.CopyBookmarks1ToolStripMenuItem_Click);
             // 
             // copyBookmarks2ToolStripMenuItem
             // 
             this.copyBookmarks2ToolStripMenuItem.Name = "copyBookmarks2ToolStripMenuItem";
             this.copyBookmarks2ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D4)));
-            this.copyBookmarks2ToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.copyBookmarks2ToolStripMenuItem.Text = "Copy bookmarks2";
+            this.copyBookmarks2ToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.copyBookmarks2ToolStripMenuItem.Text = "Copy Bookmarks (Right)";
             this.copyBookmarks2ToolStripMenuItem.Click += new System.EventHandler(this.CopyBookmarks2ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(219, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(237, 6);
             // 
             // findToolStripMenuItem
             // 
             this.findToolStripMenuItem.Name = "findToolStripMenuItem";
             this.findToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.findToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.findToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.findToolStripMenuItem.Text = "Find...";
             this.findToolStripMenuItem.Click += new System.EventHandler(this.FindToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(219, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(237, 6);
             // 
             // toolStripMenuItemEnableReduceColorCopy
             // 
             this.toolStripMenuItemEnableReduceColorCopy.Name = "toolStripMenuItemEnableReduceColorCopy";
-            this.toolStripMenuItemEnableReduceColorCopy.Size = new System.Drawing.Size(222, 22);
+            this.toolStripMenuItemEnableReduceColorCopy.Size = new System.Drawing.Size(240, 22);
             this.toolStripMenuItemEnableReduceColorCopy.Text = "Enable color reduction copy";
             this.toolStripMenuItemEnableReduceColorCopy.Click += new System.EventHandler(this.toolStripMenuItemEnableReduceColorCopy_Click);
             // 
@@ -228,14 +228,14 @@
             this.compareToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.comparePageToolStripMenuItem,
             this.compareBookmarkToolStripMenuItem,
-            this.compareBookToolStripMenuItem,
+            this.compareDocumentToolStripMenuItem,
             this.toolStripMenuItem1,
             this.previousDifferenceToolStripMenuItem,
             this.nextDifferenceToolStripMenuItem,
             this.toolStripSeparator2,
             this.clearMarker1ToolStripMenuItem,
             this.clearMarker2ToolStripMenuItem,
-            this.clearAllMakersToolStripMenuItem});
+            this.clearAllMarkersToolStripMenuItem});
             this.compareToolStripMenuItem.Name = "compareToolStripMenuItem";
             this.compareToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.compareToolStripMenuItem.Text = "&Compare";
@@ -243,83 +243,85 @@
             // comparePageToolStripMenuItem
             // 
             this.comparePageToolStripMenuItem.Name = "comparePageToolStripMenuItem";
-            this.comparePageToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.comparePageToolStripMenuItem.Text = "Compare page";
+            this.comparePageToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.comparePageToolStripMenuItem.Text = "Compare Page";
             this.comparePageToolStripMenuItem.Click += new System.EventHandler(this.ComparePageToolStripMenuItem_Click);
             // 
             // compareBookmarkToolStripMenuItem
             // 
             this.compareBookmarkToolStripMenuItem.Name = "compareBookmarkToolStripMenuItem";
-            this.compareBookmarkToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.compareBookmarkToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.compareBookmarkToolStripMenuItem.Text = "Compare Bookmark";
             this.compareBookmarkToolStripMenuItem.Click += new System.EventHandler(this.compareBookmarkToolStripMenuItem_Click);
             // 
-            // compareBookToolStripMenuItem
+            // compareDocumentToolStripMenuItem
             // 
-            this.compareBookToolStripMenuItem.Name = "compareBookToolStripMenuItem";
-            this.compareBookToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.compareBookToolStripMenuItem.Text = "Compare Book";
-            this.compareBookToolStripMenuItem.Click += new System.EventHandler(this.compareBookToolStripMenuItem_Click);
+            this.compareDocumentToolStripMenuItem.Name = "compareDocumentToolStripMenuItem";
+            this.compareDocumentToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.compareDocumentToolStripMenuItem.Text = "Compare Document";
+            this.compareDocumentToolStripMenuItem.Click += new System.EventHandler(this.compareDocumentToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(174, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(210, 6);
             // 
             // previousDifferenceToolStripMenuItem
             // 
             this.previousDifferenceToolStripMenuItem.Name = "previousDifferenceToolStripMenuItem";
-            this.previousDifferenceToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.previousDifferenceToolStripMenuItem.Text = "Previous Difference";
+            this.previousDifferenceToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.previousDifferenceToolStripMenuItem.Text = "Jump to Previous";
             this.previousDifferenceToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonPrevDiff_Click);
             // 
             // nextDifferenceToolStripMenuItem
             // 
             this.nextDifferenceToolStripMenuItem.Name = "nextDifferenceToolStripMenuItem";
-            this.nextDifferenceToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.nextDifferenceToolStripMenuItem.Text = "Next Difference";
+            this.nextDifferenceToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.nextDifferenceToolStripMenuItem.Text = "Jump to Next";
             this.nextDifferenceToolStripMenuItem.Click += new System.EventHandler(this.toolStripButtonNextDiff_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(174, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(210, 6);
             // 
             // clearMarker1ToolStripMenuItem
             // 
             this.clearMarker1ToolStripMenuItem.Name = "clearMarker1ToolStripMenuItem";
-            this.clearMarker1ToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.clearMarker1ToolStripMenuItem.Text = "Clear marker1";
+            this.clearMarker1ToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.clearMarker1ToolStripMenuItem.Text = "Clear Page Markers (Left)";
             this.clearMarker1ToolStripMenuItem.Click += new System.EventHandler(this.ClearMarker1ToolStripMenuItem_Click);
             // 
             // clearMarker2ToolStripMenuItem
             // 
             this.clearMarker2ToolStripMenuItem.Name = "clearMarker2ToolStripMenuItem";
-            this.clearMarker2ToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.clearMarker2ToolStripMenuItem.Text = "Clear marker2";
+            this.clearMarker2ToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.clearMarker2ToolStripMenuItem.Text = "Clear Page Markers (Right)";
             this.clearMarker2ToolStripMenuItem.Click += new System.EventHandler(this.ClearMarker2ToolStripMenuItem_Click);
             // 
-            // clearAllMakersToolStripMenuItem
+            // clearAllMarkersToolStripMenuItem
             // 
-            this.clearAllMakersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearAllMarkersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearBook1MarkerToolStripMenuItem,
             this.clearBook2MarkerToolStripMenuItem});
-            this.clearAllMakersToolStripMenuItem.Name = "clearAllMakersToolStripMenuItem";
-            this.clearAllMakersToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.clearAllMakersToolStripMenuItem.Text = "Clear all makers";
+            this.clearAllMarkersToolStripMenuItem.Name = "clearAllMarkersToolStripMenuItem";
+            this.clearAllMarkersToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.clearAllMarkersToolStripMenuItem.Text = "Clear All Markers";
             // 
             // clearBook1MarkerToolStripMenuItem
             // 
             this.clearBook1MarkerToolStripMenuItem.Name = "clearBook1MarkerToolStripMenuItem";
-            this.clearBook1MarkerToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.clearBook1MarkerToolStripMenuItem.Text = "Clear book1 marker";
+            this.clearBook1MarkerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearBook1MarkerToolStripMenuItem.Text = "Left Document";
+            this.clearBook1MarkerToolStripMenuItem.ToolTipText = "This action cannot be undone.";
             this.clearBook1MarkerToolStripMenuItem.Click += new System.EventHandler(this.clearBook1MarkerToolStripMenuItem_Click);
             // 
             // clearBook2MarkerToolStripMenuItem
             // 
             this.clearBook2MarkerToolStripMenuItem.Name = "clearBook2MarkerToolStripMenuItem";
-            this.clearBook2MarkerToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            this.clearBook2MarkerToolStripMenuItem.Text = "Clear book2 marker";
+            this.clearBook2MarkerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearBook2MarkerToolStripMenuItem.Text = "Right Document";
+            this.clearBook2MarkerToolStripMenuItem.ToolTipText = "This action cannot be undone.";
             this.clearBook2MarkerToolStripMenuItem.Click += new System.EventHandler(this.clearBook2MarkerToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
@@ -542,22 +544,25 @@
             // pageToolStripMenuItem
             // 
             this.pageToolStripMenuItem.Name = "pageToolStripMenuItem";
-            this.pageToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.pageToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.pageToolStripMenuItem.Text = "Compare Page";
+            this.pageToolStripMenuItem.ToolTipText = "Compare by page";
             this.pageToolStripMenuItem.Click += new System.EventHandler(this.pageToolStripMenuItem_Click);
             // 
             // bookmarkToolStripMenuItem
             // 
             this.bookmarkToolStripMenuItem.Name = "bookmarkToolStripMenuItem";
-            this.bookmarkToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.bookmarkToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.bookmarkToolStripMenuItem.Text = "Compare Bookmark";
+            this.bookmarkToolStripMenuItem.ToolTipText = "Compare by bookmarks";
             this.bookmarkToolStripMenuItem.Click += new System.EventHandler(this.bookmarkToolStripMenuItem_Click);
             // 
             // bookToolStripMenuItem
             // 
             this.bookToolStripMenuItem.Name = "bookToolStripMenuItem";
-            this.bookToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.bookToolStripMenuItem.Text = "Compare Book";
+            this.bookToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.bookToolStripMenuItem.Text = "Compare Document";
+            this.bookToolStripMenuItem.ToolTipText = "Compare entire document";
             this.bookToolStripMenuItem.Click += new System.EventHandler(this.bookToolStripMenuItem_Click);
             // 
             // toolStripLabelResult
@@ -578,7 +583,7 @@
             this.toolStripButtonPrevDiff.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPrevDiff.Name = "toolStripButtonPrevDiff";
             this.toolStripButtonPrevDiff.Size = new System.Drawing.Size(28, 30);
-            this.toolStripButtonPrevDiff.Text = "Prev different page";
+            this.toolStripButtonPrevDiff.Text = "Jump to Prev";
             this.toolStripButtonPrevDiff.Click += new System.EventHandler(this.toolStripButtonPrevDiff_Click);
             // 
             // toolStripButtonNextDiff
@@ -589,7 +594,7 @@
             this.toolStripButtonNextDiff.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonNextDiff.Name = "toolStripButtonNextDiff";
             this.toolStripButtonNextDiff.Size = new System.Drawing.Size(28, 30);
-            this.toolStripButtonNextDiff.Text = "Next different page";
+            this.toolStripButtonNextDiff.Text = "Jump to Next";
             this.toolStripButtonNextDiff.Click += new System.EventHandler(this.toolStripButtonNextDiff_Click);
             // 
             // toolStripLabel2
@@ -689,7 +694,7 @@
             this.toolStripButtonZoomIn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonZoomIn.Name = "toolStripButtonZoomIn";
             this.toolStripButtonZoomIn.Size = new System.Drawing.Size(28, 30);
-            this.toolStripButtonZoomIn.Text = "Zoom in";
+            this.toolStripButtonZoomIn.Text = "Zoom In";
             this.toolStripButtonZoomIn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomIn_MouseDown);
             this.toolStripButtonZoomIn.MouseLeave += new System.EventHandler(this.toolStripButtonZoomIn_MouseLeave);
             this.toolStripButtonZoomIn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomIn_MouseUp);
@@ -724,7 +729,7 @@
             this.toolStripButtonZoomOut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonZoomOut.Name = "toolStripButtonZoomOut";
             this.toolStripButtonZoomOut.Size = new System.Drawing.Size(28, 30);
-            this.toolStripButtonZoomOut.Text = "Zoom out";
+            this.toolStripButtonZoomOut.Text = "Zoom Out";
             this.toolStripButtonZoomOut.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomOut_MouseDown);
             this.toolStripButtonZoomOut.MouseLeave += new System.EventHandler(this.toolStripButtonZoomOut_MouseLeave);
             this.toolStripButtonZoomOut.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolStripButtonZoomOut_MouseUp);
@@ -746,7 +751,7 @@
             this.toolStripButtonFitWidth.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFitWidth.Name = "toolStripButtonFitWidth";
             this.toolStripButtonFitWidth.Size = new System.Drawing.Size(28, 30);
-            this.toolStripButtonFitWidth.Text = "Fit width";
+            this.toolStripButtonFitWidth.Text = "Fit Width";
             this.toolStripButtonFitWidth.Click += new System.EventHandler(this.toolStripButtonFitWidth_Click);
             // 
             // toolStripButtonFitOnePage
@@ -757,7 +762,7 @@
             this.toolStripButtonFitOnePage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFitOnePage.Name = "toolStripButtonFitOnePage";
             this.toolStripButtonFitOnePage.Size = new System.Drawing.Size(28, 30);
-            this.toolStripButtonFitOnePage.Text = "Fit one page";
+            this.toolStripButtonFitOnePage.Text = "Fit One Page";
             this.toolStripButtonFitOnePage.Click += new System.EventHandler(this.toolStripButtonFitOnePage_Click);
             // 
             // timerCyclic
@@ -773,7 +778,7 @@
             this.toolStripButtonJumpScopeDiff.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonJumpScopeDiff.Name = "toolStripButtonJumpScopeDiff";
             this.toolStripButtonJumpScopeDiff.Size = new System.Drawing.Size(23, 30);
-            this.toolStripButtonJumpScopeDiff.ToolTipText = "Diff Jump";
+            this.toolStripButtonJumpScopeDiff.ToolTipText = "Prev/Next will jump to differences";
             this.toolStripButtonJumpScopeDiff.Click += new System.EventHandler(this.toolStripButtonJumpScopeDiff_Click);
             // 
             // toolStripButtonJumpScopePage
@@ -785,7 +790,7 @@
             this.toolStripButtonJumpScopePage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonJumpScopePage.Name = "toolStripButtonJumpScopePage";
             this.toolStripButtonJumpScopePage.Size = new System.Drawing.Size(23, 30);
-            this.toolStripButtonJumpScopePage.ToolTipText = "Page Jump";
+            this.toolStripButtonJumpScopePage.ToolTipText = "Prev/Next will jump to pages";
             this.toolStripButtonJumpScopePage.Click += new System.EventHandler(this.toolStripButtonJumpScopePage_Click);
             // 
             // FormMain
@@ -836,7 +841,7 @@
         private System.Windows.Forms.ToolStripMenuItem compareToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem comparePageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem compareBookmarkToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem compareBookToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compareDocumentToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem clearMarker1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearMarker2ToolStripMenuItem;
@@ -881,7 +886,7 @@
         private System.Windows.Forms.ToolStripMenuItem bookToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem outputDebugLogToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clearAllMakersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearAllMarkersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearBook1MarkerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearBook2MarkerToolStripMenuItem;
         private System.Windows.Forms.Timer timerCyclic;

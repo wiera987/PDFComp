@@ -47,8 +47,7 @@ namespace PDFComp
             pdfPanel2.toolStripButtonPrevPage.ToolTipText = "Prev Page / Alt + LEFT_ARROW";
 
             // Operate Jump scope navigation like a toggle button
-            toolStripButtonJumpScopeDiff.Visible = true;
-            toolStripButtonJumpScopePage.Visible = false;
+            SwitchJumpScopeToDiffMode();
 
             zoom = 1.0;
             zoomIn = false;
@@ -291,9 +290,9 @@ namespace PDFComp
             toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
         }
 
-        private void CompareBook()
+        private void CompareDocument()
         {
-            Console.WriteLine("Compare Book Button click!");
+            Console.WriteLine("Compare Document Button click!");
 
             if ((pdfPanel1.pdfViewer.Document == null) || (pdfPanel2.pdfViewer.Document == null))
             {
@@ -311,7 +310,7 @@ namespace PDFComp
             int startPage2 = 0;
             int endPage2 = pdfPanel2.pdfViewer.Document.PageCount - 1;
 
-            Console.WriteLine("CompareBook():({0},{1})-({2},{3})", startPage1+1, endPage1+1, startPage2+1, endPage2+1);
+            Console.WriteLine("CompareDocument():({0},{1})-({2},{3})", startPage1+1, endPage1+1, startPage2+1, endPage2+1);
 
             Cursor.Current = Cursors.WaitCursor;
             ComparePages(stopwatch, startPage1, endPage1, startPage2, endPage2);
@@ -986,9 +985,9 @@ namespace PDFComp
             CompareBookmark();
         }
 
-        private void compareBookToolStripMenuItem_Click(object sender, EventArgs e)
+        private void compareDocumentToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CompareBook();
+            CompareDocument();
         }
 
         private void ClearMarker1ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1674,7 +1673,7 @@ namespace PDFComp
             }
             else
             {
-                CompareBook();
+                CompareDocument();
             }
         }
 
@@ -1736,14 +1735,33 @@ namespace PDFComp
 
         private void toolStripButtonJumpScopeDiff_Click(object sender, EventArgs e)
         {
-            toolStripButtonJumpScopeDiff.Visible = false;
-            toolStripButtonJumpScopePage.Visible = true;
+            // Switched from Diff mode to Page mode.
+            SwitchJumpScopeToPageMode();
+        }
+        private void toolStripButtonJumpScopePage_Click(object sender, EventArgs e)
+        {
+            // Switched from Page mode to Diff mode.
+            SwitchJumpScopeToDiffMode();
         }
 
-        private void toolStripButtonJumpScopePage_Click(object sender, EventArgs e)
+        private void SwitchJumpScopeToPageMode()
+        {
+            toolStripButtonJumpScopeDiff.Visible = false;
+            toolStripButtonJumpScopePage.Visible = true;
+            toolStripButtonPrevDiff.Text = "Jump to Previous Page";
+            toolStripButtonNextDiff.Text = "Jump to Next Page";
+            previousDifferenceToolStripMenuItem.Text = "Jump to Previous Page";
+            nextDifferenceToolStripMenuItem.Text = "Jump to Next Page";
+        }
+
+        private void SwitchJumpScopeToDiffMode()
         {
             toolStripButtonJumpScopeDiff.Visible = true;
             toolStripButtonJumpScopePage.Visible = false;
+            toolStripButtonPrevDiff.Text = "Jump to Previous Difference";
+            toolStripButtonNextDiff.Text = "Jump to Next Difference";
+            previousDifferenceToolStripMenuItem.Text = "Jump to Previous Difference"; ;
+            nextDifferenceToolStripMenuItem.Text = "Jump to Next Difference";
         }
     }
 }

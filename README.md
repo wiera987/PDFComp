@@ -10,8 +10,8 @@ When comparing PDF files with a revised paragraph structure, the pages you want 
 This PDFComp is an application that specializes in manual operation and allows you to quickly move pages and check one page at a time.
 The latest version also adds an automatic comparison mode that uses bookmarks.
 
-PDFComp 3.1.0
-Default mode is now 'Compare Bookmark', and 'Compare Book' is now 'Compare Document'.
+PDFComp 3.1.0  
+Default mode is now 'Compare Bookmark', and 'Compare Book' is now 'Compare Document'.  
 New: Flash indicators! Now, the compared areas are temporarily highlighted when you jump to the next/prev difference, making it easy to see the target in both files.
 
 ### Application requirements

@@ -95,6 +95,12 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormMainCompare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormUsage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -196,11 +202,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="PdfiumViewer.Native.x86_64.no_v8-no_xfa">
-      <Version>2018.4.8.256</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\PdfiumViewer\PdfiumViewer\PdfiumViewer.csproj">

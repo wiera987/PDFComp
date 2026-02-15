@@ -95,12 +95,7 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormMainCompare.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormOptions.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="FormMainCompare.cs" />
     <Compile Include="FormUsage.cs">
       <SubType>Form</SubType>
     </Compile>

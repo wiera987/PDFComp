@@ -909,5 +909,24 @@ namespace PDFComp
             ((FormMain)FindForm()).PanelBookmarkClosed(this);
         }
 
+        /// <summary>
+        /// Retrieves the text appearance information for a specific character on a page.
+        /// </summary>
+        /// <param name="page">The page number.</param>
+        /// <param name="index">The character index on the page.</param>
+        /// <returns>A PdfTextStyle object containing style information.</returns>
+        public PdfTextStyle GetTextStyle(int page, int index)
+        {
+            if (pdfViewer.Document == null)
+                throw new InvalidOperationException("No document loaded.");
+
+            return pdfViewer.Renderer.Document.GetTextStyle(page, index);
+        }
+
+        public PdfTextStyle GetTextStyle((int page, int index) pos)
+        {
+            return GetTextStyle(pos.page, pos.index);
+        }
+
     }
 }

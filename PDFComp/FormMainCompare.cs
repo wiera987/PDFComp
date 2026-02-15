@@ -19,7 +19,7 @@ namespace PDFComp
     [System.ComponentModel.DesignerCategory("Code")]
     internal class DesignerBlocker { }
 
-    public partial class FormMain : Form
+    public partial class FormMain
     {
 
         public void PagePairClearAll()
@@ -253,6 +253,7 @@ namespace PDFComp
                     throw new Exception();
             }
 
+            CompareStyle(diffs, textData1, textData2);
             ExtractDiffSpan2(index1, index2, diffs, textData1, textData2);
             UpdateComparedPage2(diffs, textData1, textData2);
 
@@ -270,6 +271,102 @@ namespace PDFComp
             return found_diff;
         }
 
+        /// <summary>
+        /// Performs post-comparison processing to analyze style-based differences in the text.
+        /// For EQUAL operations, checks if corresponding characters have different styles.
+        /// If styles differ consistently, replaces EQUAL with INSERT and DELETE operations.
+        /// If styles match, keeps as EQUAL.
+        /// </summary>
+        /// <param name="diffs"></param>
+        /// <param name="textData1"></param>
+        /// <param name="textData2"></param>
+        private void CompareStyle(List<Diff> diffs, PageTextList textData1, PageTextList textData2)
+        {
+            if (diffs.Count == 0)
+                return;
+
+            List<Diff> newDiffs = new List<Diff>();
+            int offset1 = 0;
+            int offset2 = 0;
+            int count;
+
+            foreach (Diff diff in diffs)
+            {
+                count = diff.text.Length;
+                switch (diff.operation)
+                {
+                    // Process EQUAL operation: check for style differences
+                    case Operation.EQUAL:
+                        SplitEqualByTextStyle(diff.text, textData1, textData2, offset1, offset2, newDiffs);
+                        offset1 += count;
+                        offset2 += count;
+                        break;
+                    // Non-EQUAL operations are kept as-is
+                    case Operation.INSERT:
+                        newDiffs.Add(diff);
+                        offset2 += count;
+                        break;
+                    case Operation.DELETE:
+                        newDiffs.Add(diff);
+                        offset1 += count;
+                        break;
+                }
+            }
+
+            // Replace the original diffs with the modified list
+            diffs.Clear();
+            diffs.AddRange(newDiffs);
+        }
+
+        private int SplitEqualByTextStyle(string textEqual, PageTextList textData1, PageTextList textData2, int offset1, int offset2, List<Diff> newDiffs)
+        {
+            int i = 0;
+            int count_eq = textEqual.Length;
+            
+            while (i < count_eq)
+            {
+                // Get style information for current character
+                var style1 = pdfPanel1.GetTextStyle(textData1.GetPagePos(offset1 + i));
+                var style2 = pdfPanel2.GetTextStyle(textData2.GetPagePos(offset2 + i));
+                bool styleMatches = PdfTextStyle.IsMatched(style1, style2, styleFlags);
+
+                // Accumulate consecutive characters with the same style relationship
+                int j = i + 1;
+                while (j < count_eq)
+                {
+                    style1 = pdfPanel1.GetTextStyle(textData1.GetPagePos(offset1 + j));
+                    style2 = pdfPanel2.GetTextStyle(textData2.GetPagePos(offset2 + j));
+                    bool currentStyleMatches = PdfTextStyle.IsMatched(style1, style2, styleFlags);
+
+                    // Stop when style relationship changes
+                    if (currentStyleMatches != styleMatches)
+                        break;
+
+                    j++;
+                }
+
+                // Add diff based on whether styles match
+                string text = textEqual.Substring(i, j - i);
+                if (styleMatches)
+                {
+                    // Styles are the same, keep as EQUAL
+                    newDiffs.Add(new Diff(Operation.EQUAL, text));
+                }
+                else
+                {
+                    // Styles differ, split into DELETE and INSERT
+                    newDiffs.Add(new Diff(Operation.DELETE, text));
+                    newDiffs.Add(new Diff(Operation.INSERT, text));
+
+                    formDiffInfo.WriteText(text, Color.Red);
+                    formDiffInfo.WriteText(text, Color.Blue);
+                }
+
+                i = j;
+            }
+
+            return i;
+        }
 
         /// <summary>
         /// To register difference markers, create a DELETE list for File1 and an INSERT list
@@ -295,19 +392,6 @@ namespace PDFComp
                     switch (diff.operation)
                     {
                         case Operation.EQUAL:
-                            for (int i = 0;i<count;i++)
-                            {
-                                (int item_page1, int item_offset1) = textData1.GetPagePos(offset1 + i);
-                                (int item_page2, int item_offset2) = textData2.GetPagePos(offset2 + i);
-                                var style1 = pdfPanel1.GetTextStyle(item_page1, item_offset1);
-                                var style2 = pdfPanel2.GetTextStyle(item_page2, item_offset2);
-                                if (style1.FillColor !=  style2.FillColor)
-                                {
-                                    formDiffInfo.WriteText("A", style1.FillColor);
-                                    formDiffInfo.WriteText("B", style2.FillColor);
-                                }
-                            }
-
                             formDiffInfo.WriteText(diff.text, Color.Black);
                             offset1 += count;
                             offset2 += count;
@@ -616,21 +700,6 @@ namespace PDFComp
             }
         }
                 
-        /// <summary>
-        /// Retrieves the text style information for a specific character on a page from the specified PdfPanel.
-        /// </summary>
-        /// <param name="panel">The PdfPanel to retrieve the text style from.</param>
-        /// <param name="page">The page number.</param>
-        /// <param name="charIndex">The character index on the page.</param>
-        /// <returns>A PdfTextStyle object containing style information.</returns>
-        public PdfTextStyle GetTextStyle(PdfPanel panel, int page, int charIndex)
-        {
-            if (panel == null)
-                throw new ArgumentNullException(nameof(panel));
-
-            return panel.GetTextStyle(page, charIndex);
-        }
-
         private void OutputDebugLog()
         {
             int i = 0;

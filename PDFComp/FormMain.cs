@@ -1,17 +1,18 @@
-﻿using System;
+﻿using DiffMatchPatch;
+using PdfiumViewer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using PdfiumViewer;
-using DiffMatchPatch;
-using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
 using static PDFComp.PdfPanel;
 
 namespace PDFComp
@@ -22,8 +23,10 @@ namespace PDFComp
         readonly Double ZoomOutScale = 0.01;    // scale:    -2%, -3%, -5%, +10%, +20%, +50%
         FormFind formFind = null;
         FormDiffInfo formDiffInfo = null;
+        FormOptions formOptions = null;
         ToolTip tipJump1 = null;
         ToolTip tipJump2 = null;
+        PdfTextStyleFlags styleFlags = PdfTextStyleFlags.None;
         PagePairList pagePairList = null;
         PdfRotation rotation;
         Double zoom;
@@ -134,6 +137,10 @@ namespace PDFComp
 
         private void FormMain_Shown(object sender, EventArgs e)
         {
+            // Reload options
+            formOptions = new FormOptions();
+            styleFlags = formOptions.StyleFlags;
+
             // Initialize the page pair list.
             pagePairList = new PagePairList();
 
@@ -294,7 +301,7 @@ namespace PDFComp
             {
                 Bitmap bitmap = new Bitmap(panelBoth.ClientSize.Width, panelBoth.ClientSize.Height);
                 panelBoth.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
-                reduceColor = toolStripMenuItemEnableReduceColorCopy.Checked;
+                reduceColor = Properties.Settings.Default.EnableColorReductionCopy;
                 if (reduceColor)
                 {
                     int finalCol = (int)Properties.Settings.Default["ReduceFinalColor"];
@@ -316,7 +323,7 @@ namespace PDFComp
             {
                 Bitmap bitmap = new Bitmap(pdfPanel1.ClientSize.Width, pdfPanel1.ClientSize.Height);
                 pdfPanel1.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
-                reduceColor = toolStripMenuItemEnableReduceColorCopy.Checked;
+                reduceColor = Properties.Settings.Default.EnableColorReductionCopy;
                 if (reduceColor)
                 {
                     int finalCol = (int)Properties.Settings.Default["ReduceFinalColor"];
@@ -336,7 +343,7 @@ namespace PDFComp
             {
                 Bitmap bitmap = new Bitmap(pdfPanel2.ClientSize.Width, pdfPanel2.ClientSize.Height);
                 pdfPanel2.DrawToBitmap(bitmap, new Rectangle(0, 0, bitmap.Width, bitmap.Height));
-                reduceColor = toolStripMenuItemEnableReduceColorCopy.Checked;
+                reduceColor = Properties.Settings.Default.EnableColorReductionCopy;
                 if (reduceColor)
                 {
                     int finalCol = (int)Properties.Settings.Default["ReduceFinalColor"];
@@ -365,6 +372,16 @@ namespace PDFComp
             if (text != null)
             {
                 Clipboard.SetText(text);
+            }
+        }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formOptions.StartPosition = FormStartPosition.CenterParent;
+            var result = formOptions.ShowDialog(this);
+            if (result == DialogResult.OK)
+            {
+                styleFlags = formOptions.StyleFlags;
             }
         }
 
@@ -738,17 +755,6 @@ namespace PDFComp
 
             toolStripLabelResult.Text = String.Format("{0:0.0}", stopwatch.ElapsedMilliseconds / 1000.0);
 
-        }
-
-        private void toolStripMenuItemEnableReduceColorCopy_Click(object sender, EventArgs e)
-        {
-            toolStripMenuItemEnableReduceColorCopy.Checked ^= true;
-            Properties.Settings.Default["EnableColorReductionCopy"] = toolStripMenuItemEnableReduceColorCopy.Checked;
-        }
-
-        private void editToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
-        {
-            toolStripMenuItemEnableReduceColorCopy.Checked = (bool)Properties.Settings.Default["EnableColorReductionCopy"];
         }
 
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)

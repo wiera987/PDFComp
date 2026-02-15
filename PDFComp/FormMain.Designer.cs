@@ -43,7 +43,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItemEnableReduceColorCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comparePageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compareBookmarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -152,11 +152,10 @@
             this.toolStripSeparator1,
             this.findToolStripMenuItem,
             this.toolStripSeparator3,
-            this.toolStripMenuItemEnableReduceColorCopy});
+            this.optionsToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "&Edit";
-            this.editToolStripMenuItem.DropDownOpening += new System.EventHandler(this.editToolStripMenuItem_DropDownOpening);
             // 
             // copyToolStripMenuItem
             // 
@@ -216,12 +215,12 @@
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(237, 6);
             // 
-            // toolStripMenuItemEnableReduceColorCopy
+            // optionsToolStripMenuItem
             // 
-            this.toolStripMenuItemEnableReduceColorCopy.Name = "toolStripMenuItemEnableReduceColorCopy";
-            this.toolStripMenuItemEnableReduceColorCopy.Size = new System.Drawing.Size(240, 22);
-            this.toolStripMenuItemEnableReduceColorCopy.Text = "Enable color reduction copy";
-            this.toolStripMenuItemEnableReduceColorCopy.Click += new System.EventHandler(this.toolStripMenuItemEnableReduceColorCopy_Click);
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.optionsToolStripMenuItem.Text = "Options...";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // compareToolStripMenuItem
             // 
@@ -847,12 +846,11 @@
         private System.Windows.Forms.ToolStripMenuItem clearMarker2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem usageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nextDifferenceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem previousDifferenceToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEnableReduceColorCopy;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton toolStripButtonPrevPages;
         private System.Windows.Forms.ToolStripButton toolStripButtonNextPages;
@@ -892,6 +890,7 @@
         private System.Windows.Forms.Timer timerCyclic;
         private System.Windows.Forms.ToolStripButton toolStripButtonJumpScopeDiff;
         private System.Windows.Forms.ToolStripButton toolStripButtonJumpScopePage;
+        private System.Windows.Forms.ToolStripMenuItem usageToolStripMenuItem;
     }
 }
 

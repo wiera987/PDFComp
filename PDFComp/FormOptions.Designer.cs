@@ -28,9 +28,9 @@ namespace PDFComp
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Comparation");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Display");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Others");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Comparation");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Display");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Others");
             this.treeViewOptions = new System.Windows.Forms.TreeView();
             this.panelRight = new System.Windows.Forms.Panel();
             this.panelCompare = new System.Windows.Forms.Panel();
@@ -67,16 +67,16 @@ namespace PDFComp
             this.treeViewOptions.ItemHeight = 16;
             this.treeViewOptions.Location = new System.Drawing.Point(12, 12);
             this.treeViewOptions.Name = "treeViewOptions";
-            treeNode13.Name = "";
-            treeNode13.Text = "Comparation";
-            treeNode14.Name = "";
-            treeNode14.Text = "Display";
-            treeNode15.Name = "";
-            treeNode15.Text = "Others";
+            treeNode4.Name = "";
+            treeNode4.Text = "Comparation";
+            treeNode5.Name = "";
+            treeNode5.Text = "Display";
+            treeNode6.Name = "";
+            treeNode6.Text = "Others";
             this.treeViewOptions.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode13,
-            treeNode14,
-            treeNode15});
+            treeNode4,
+            treeNode5,
+            treeNode6});
             this.treeViewOptions.Size = new System.Drawing.Size(151, 260);
             this.treeViewOptions.TabIndex = 0;
             this.treeViewOptions.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewOptions_AfterSelect);
@@ -165,7 +165,7 @@ namespace PDFComp
             this.chkCompareUnderlined.Checked = true;
             this.chkCompareUnderlined.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkCompareUnderlined.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCompareUnderlined.Location = new System.Drawing.Point(14, 65);
+            this.chkCompareUnderlined.Location = new System.Drawing.Point(14, 87);
             this.chkCompareUnderlined.Name = "chkCompareUnderlined";
             this.chkCompareUnderlined.Size = new System.Drawing.Size(77, 19);
             this.chkCompareUnderlined.TabIndex = 2;
@@ -178,7 +178,7 @@ namespace PDFComp
             this.chkCompareStrikethrough.Checked = true;
             this.chkCompareStrikethrough.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkCompareStrikethrough.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCompareStrikethrough.Location = new System.Drawing.Point(14, 87);
+            this.chkCompareStrikethrough.Location = new System.Drawing.Point(14, 65);
             this.chkCompareStrikethrough.Name = "chkCompareStrikethrough";
             this.chkCompareStrikethrough.Size = new System.Drawing.Size(98, 19);
             this.chkCompareStrikethrough.TabIndex = 3;
@@ -191,7 +191,7 @@ namespace PDFComp
             this.chkCompareHighlighted.Checked = true;
             this.chkCompareHighlighted.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkCompareHighlighted.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCompareHighlighted.Location = new System.Drawing.Point(14, 109);
+            this.chkCompareHighlighted.Location = new System.Drawing.Point(14, 131);
             this.chkCompareHighlighted.Name = "chkCompareHighlighted";
             this.chkCompareHighlighted.Size = new System.Drawing.Size(76, 19);
             this.chkCompareHighlighted.TabIndex = 4;
@@ -204,7 +204,7 @@ namespace PDFComp
             this.chkCompareSquiggly.Checked = true;
             this.chkCompareSquiggly.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkCompareSquiggly.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCompareSquiggly.Location = new System.Drawing.Point(14, 131);
+            this.chkCompareSquiggly.Location = new System.Drawing.Point(14, 109);
             this.chkCompareSquiggly.Name = "chkCompareSquiggly";
             this.chkCompareSquiggly.Size = new System.Drawing.Size(72, 19);
             this.chkCompareSquiggly.TabIndex = 5;

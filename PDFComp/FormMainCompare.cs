@@ -358,8 +358,8 @@ namespace PDFComp
                     newDiffs.Add(new Diff(Operation.DELETE, text));
                     newDiffs.Add(new Diff(Operation.INSERT, text));
 
-                    formDiffInfo.WriteText(text, Color.Red);
-                    formDiffInfo.WriteText(text, Color.Blue);
+                    //formDiffInfo.WriteText(text, Color.Red);
+                    //formDiffInfo.WriteText(text, Color.Blue);
                 }
 
                 i = j;

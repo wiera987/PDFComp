@@ -476,6 +476,7 @@ namespace PDFComp
             }
 
             var stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
 
             int page1end = pdfPanel1.pdfViewer.Document.PageCount-1;
             int page2end = pdfPanel2.pdfViewer.Document.PageCount-1;
@@ -508,13 +509,13 @@ namespace PDFComp
                 // Determine whether a page turn occurred.
                 if (pagePairList.GetPagePair(page1, page2 + 1) != null)
                 {
-                    // If only page2 has changed, moves page2 only.
+                    // If only page2 has changed, advance page2 only.
                     pdfPanel2.NextPage();
                     pageCount2++;
                 }
                 else if (pagePairList.GetPagePair(page1 + 1, page2) != null)
                 {
-                    // If only page1 has changed, moves page1 only.
+                    // If only page1 has changed, advance page1 only.
                     pdfPanel1.NextPage();
                     pageCount1++;
                 }
@@ -527,37 +528,64 @@ namespace PDFComp
                 }
                 else
                 {
-                    // Moves so that misalignments are further reduced.
-                    var currPage1Counter = pagePairList.GetPage1Counter(page1);
-                    var currPage2Counter = pagePairList.GetPage2Counter(page2);
-                    if (currPage1Counter < 0)
+                    var currPage1Counter = pagePairList.GetPage1Counter(page1);         // compared
+                    var currPage2Counter = pagePairList.GetPage2Counter(page2);         // compared
+                    var destPage1Counter = pagePairList.GetPage1Counter(page1 + 1);     // pending
+                    var destPage2Counter = pagePairList.GetPage2Counter(page2 + 1);     // pending
+
+                    // Basically, each page advances one step at a time.
+                    bool advancePage1 = true;
+                    bool advancePage2 = true;
+
+                    // Advance the page to further reduce misalignments.
+                    // If the current page is ahead of the other page’s counter page, it cannot proceed.
+
+                    if (page1 > currPage2Counter)
                     {
-                        // Move page1 when it has no counter (blank page or hasn't been compared).
+                        // When the comparison is one-to-many
+                        // and the other page’s counter page does not point to the current page
+                        if (page2 != currPage1Counter)
+                        {
+                            advancePage1 = false;
+                        }
+
+                    }
+
+                    if (page2 > currPage1Counter)
+                    {
+                        // When the comparison is one-to-many
+                        // and the other page’s counter page does not point to the current page
+                        if (page1 != currPage2Counter)
+                        {
+                            advancePage2 = false;
+                        }
+                    }
+
+                    // When the comparison is one-to-many.
+                    // If the counter page of the dest page points to itself, it cannot proceed.
+                    if (page1 == destPage2Counter)
+                    {
+                        advancePage1 = false;
+                    }
+                    if (page2 == destPage1Counter)
+                    {
+                        advancePage2 = false;
+                    }
+
+                    // Advance page
+                    if (advancePage1)
+                    {
                         pdfPanel1.NextPage();
                         pageCount1++;
                     }
-                    else if (currPage1Counter >= page2)
+                    if (advancePage2)
                     {
-                        // Moves page2 because it is lagging.
                         pdfPanel2.NextPage();
                         pageCount2++;
                     }
 
-                    if (currPage2Counter < 0)
-                    {
-                        // Move page2 when it has no counter (blank page or hasn't been compared).
-                        pdfPanel2.NextPage();
-                        pageCount2++;
-                    }
-                    else if (currPage2Counter >= page1)
-                    {
-                        // Moves page1 because it is lagging.
-                        pdfPanel1.NextPage();
-                        pageCount1++;
-                    }
-
-                    // Since no PagePair was found for the moved page,
-                    // compare the moved page if it hasn't been compared yet.
+                    // Since no PagePair was found for the destination page,
+                    // compare it if not yet compared.
                     page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
                     page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
                     if ((pagePairList.GetPage1Counter(page1) < 0) || (pagePairList.GetPage2Counter(page2) < 0))
@@ -567,7 +595,7 @@ namespace PDFComp
                 }
 
 
-                // Show the page if differences are found after moving.
+                // Show the page if differences are found after advancing.
                 page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
                 page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
@@ -619,6 +647,7 @@ namespace PDFComp
             }
 
             var stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
 
             int page1start = 0;
             int page2start = 0;
@@ -651,13 +680,13 @@ namespace PDFComp
                 // Determine whether a page turn occurred.
                 if (pagePairList.GetPagePair(page1, page2 - 1) != null)
                 {
-                    // If only page2 has changed, moves page2 only.
+                    // If only page2 has changed, advance page2 only.
                     pdfPanel2.PrevPage();
                     pageCount2++;
                 }
                 else if (pagePairList.GetPagePair(page1 - 1, page2) != null)
                 {
-                    // If only page1 has changed, moves page1 only.
+                    // If only page1 has changed, advance page1 only.
                     pdfPanel1.PrevPage();
                     pageCount1++;
                 }
@@ -670,37 +699,63 @@ namespace PDFComp
                 }
                 else
                 {
-                    // Moves so that misalignments are further reduced.
-                    var currPage1Counter = pagePairList.GetPage1Counter(page1);
-                    var currPage2Counter = pagePairList.GetPage2Counter(page2);
-                    if (currPage1Counter < 0)
+                    var currPage1Counter = pagePairList.GetPage1Counter(page1);         // compared
+                    var currPage2Counter = pagePairList.GetPage2Counter(page2);         // compared
+                    var destPage1Counter = pagePairList.GetPage1Counter(page1 - 1);     // pending
+                    var destPage2Counter = pagePairList.GetPage2Counter(page2 - 1);     // pending
+
+                    // Basically, each page advances one step at a time.
+                    bool advancePage1 = true;
+                    bool advancePage2 = true;
+
+                    // Advance the page to further reduce misalignments.
+                    // If the current page is ahead of the other page’s counter page, it cannot proceed.
+
+                    if (page1 < currPage2Counter)
                     {
-                        // Move page1 when it has no counter (blank page or hasn't been compared).
+                        // When the comparison is one-to-many
+                        // and the other page’s counter page does not point to the current page
+                        if (page2 != currPage1Counter)
+                        {
+                            advancePage1 = false;
+                        }
+                    }
+
+                    if (page2 < currPage1Counter)
+                    {
+                        // When the comparison is one-to-many
+                        // and the other page’s counter page does not point to the current page
+                        if (page1 != currPage2Counter)
+                        {
+                            advancePage2 = false;
+                        }
+                    }
+
+                    // When the comparison is one-to-many.
+                    // If the counter page of the dest page points to itself, it cannot proceed.
+                    if (page1 == destPage2Counter)
+                    {
+                        advancePage1 = false;
+                    }
+                    if (page2 == destPage1Counter)
+                    {
+                        advancePage2 = false;
+                    }
+
+                    // Advance page
+                    if (advancePage1)
+                    {
                         pdfPanel1.PrevPage();
                         pageCount1++;
                     }
-                    else if (currPage1Counter <= page2)
+                    if (advancePage2)
                     {
-                        // Moves page2 because it is lagging.
                         pdfPanel2.PrevPage();
                         pageCount2++;
                     }
 
-                    if (currPage2Counter < 0)
-                    {
-                        // Move page2 when it has no counter (blank page or hasn't been compared).
-                        pdfPanel2.PrevPage();
-                        pageCount2++;
-                    }
-                    else if (currPage2Counter <= page1)
-                    {
-                        // Moves page1 because it is lagging.
-                        pdfPanel1.PrevPage();
-                        pageCount1++;
-                    }
-
-                    // Since no PagePair was found for the moved page,
-                    // compare the moved page if it hasn't been compared yet.
+                    // Since no PagePair was found for the destination page,
+                    // compare it if not yet compared.
                     page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
                     page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
                     if ((pagePairList.GetPage1Counter(page1) < 0) || (pagePairList.GetPage2Counter(page2) < 0))
@@ -709,7 +764,7 @@ namespace PDFComp
                     }
                 }
 
-                // Show the page if differences are found after moving.
+                // Show the page if differences are found after advancing.
                 page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
                 page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 

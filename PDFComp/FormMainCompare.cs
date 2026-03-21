@@ -609,7 +609,7 @@ namespace PDFComp
             else
             {
                 // Sets the position to the end of the last page. 
-                Console.WriteLine("Lastpage");
+                Console.WriteLine("Lastpage({0})", page + 1);
                 page = textList.LastPage;
                 nextOffset = 0;
             }

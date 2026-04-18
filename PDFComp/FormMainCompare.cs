@@ -322,20 +322,24 @@ namespace PDFComp
         {
             int i = 0;
             int count_eq = textEqual.Length;
-            
+
+            // Initialize text style caches for this comparison
+            pdfPanel1.InitializeTextStyleCache();
+            pdfPanel2.InitializeTextStyleCache();
+
             while (i < count_eq)
             {
-                // Get style information for current character
-                var style1 = pdfPanel1.GetTextStyle(textData1.GetPagePos(offset1 + i));
-                var style2 = pdfPanel2.GetTextStyle(textData2.GetPagePos(offset2 + i));
+                // Get style information for current character using panel's cache
+                var style1 = pdfPanel1.GetCachedTextStyle(textData1.GetPagePos(offset1 + i));
+                var style2 = pdfPanel2.GetCachedTextStyle(textData2.GetPagePos(offset2 + i));
                 bool styleMatches = PdfTextStyle.IsMatched(style1, style2, styleFlags);
 
                 // Accumulate consecutive characters with the same style relationship
                 int j = i + 1;
                 while (j < count_eq)
                 {
-                    style1 = pdfPanel1.GetTextStyle(textData1.GetPagePos(offset1 + j));
-                    style2 = pdfPanel2.GetTextStyle(textData2.GetPagePos(offset2 + j));
+                    style1 = pdfPanel1.GetCachedTextStyle(textData1.GetPagePos(offset1 + j));
+                    style2 = pdfPanel2.GetCachedTextStyle(textData2.GetPagePos(offset2 + j));
                     bool currentStyleMatches = PdfTextStyle.IsMatched(style1, style2, styleFlags);
 
                     // Stop when style relationship changes
@@ -364,6 +368,10 @@ namespace PDFComp
 
                 i = j;
             }
+
+            // Clear the caches after comparison is complete
+            pdfPanel1.ClearTextStyleCache();
+            pdfPanel2.ClearTextStyleCache();
 
             return i;
         }

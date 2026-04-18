@@ -25,6 +25,7 @@ namespace PDFComp
         private bool _mouseDrag = false;
         private PdfPoint _mouseDown;
         private PdfPoint _mouseUp;
+        private Dictionary<(int page, int index), PdfTextStyle> _textStyleCache = null;  // Cache for text styles
 
         enum PdfMarkerTag {
             Search,
@@ -36,7 +37,7 @@ namespace PDFComp
         /// </summary>
         public class PageTextData
         {
-        	// Page with Text
+            // Page with Text
             public int Page { get; }
             // Text enclosed in bounds
             public string Text { get; }
@@ -926,6 +927,49 @@ namespace PDFComp
         public PdfTextStyle GetTextStyle((int page, int index) pos)
         {
             return GetTextStyle(pos.page, pos.index);
+        }
+
+        /// <summary>
+        /// Initializes a new TextStyle cache for comparison operations.
+        /// Call this before starting a comparison to ensure a fresh cache.
+        /// </summary>
+        public void InitializeTextStyleCache()
+        {
+            _textStyleCache = new Dictionary<(int, int), PdfTextStyle>();
+        }
+
+        /// <summary>
+        /// Clears the TextStyle cache.
+        /// Call this after comparison is complete to free memory.
+        /// </summary>
+        public void ClearTextStyleCache()
+        {
+            if (_textStyleCache != null)
+            {
+                _textStyleCache.Clear();
+                _textStyleCache = null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the text style from cache if available, otherwise retrieves from document and caches it.
+        /// </summary>
+        /// <param name="page">The page number.</param>
+        /// <param name="index">The character index on the page.</param>
+        /// <returns>A PdfTextStyle object containing style information.</returns>
+        public PdfTextStyle GetCachedTextStyle((int page, int index) pos)
+        {
+            if (_textStyleCache == null)
+            {
+                throw new InvalidOperationException("TextStyle cache has not been initialized. Call InitializeTextStyleCache() first.");
+            }
+
+            if (!_textStyleCache.ContainsKey(pos))
+            {
+                _textStyleCache[pos] = GetTextStyle(pos.page, pos.index);
+            }
+
+            return _textStyleCache[pos];
         }
 
     }

@@ -83,6 +83,8 @@
             this.toolStripButtonNextDiff = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonJumpScopeDiff = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonJumpScopePage = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonStaticMarker = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonBlinkMarker = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripComboBoxDiffType = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
@@ -410,6 +412,8 @@
             this.toolStripButtonNextDiff,
             this.toolStripButtonJumpScopeDiff,
             this.toolStripButtonJumpScopePage,
+            this.toolStripButtonStaticMarker,
+            this.toolStripButtonBlinkMarker,
             this.toolStripLabel2,
             this.toolStripComboBoxDiffType,
             this.toolStripSeparator6,
@@ -620,6 +624,30 @@
             this.toolStripButtonJumpScopePage.ToolTipText = "Prev/Next will jump to pages";
             this.toolStripButtonJumpScopePage.Click += new System.EventHandler(this.toolStripButtonJumpScopePage_Click);
             // 
+            // toolStripButtonStaticMarker
+            // 
+            this.toolStripButtonStaticMarker.AutoSize = false;
+            this.toolStripButtonStaticMarker.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonStaticMarker.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonStaticMarker.Image")));
+            this.toolStripButtonStaticMarker.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.toolStripButtonStaticMarker.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonStaticMarker.Name = "toolStripButtonStaticMarker";
+            this.toolStripButtonStaticMarker.Size = new System.Drawing.Size(23, 30);
+            this.toolStripButtonStaticMarker.ToolTipText = "Static diff marker";
+            this.toolStripButtonStaticMarker.Click += new System.EventHandler(this.toolStripButtonStaticMarker_Click);
+            // 
+            // toolStripButtonBlinkMarker
+            // 
+            this.toolStripButtonBlinkMarker.AutoSize = false;
+            this.toolStripButtonBlinkMarker.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonBlinkMarker.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonBlinkMarker.Image")));
+            this.toolStripButtonBlinkMarker.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.toolStripButtonBlinkMarker.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonBlinkMarker.Name = "toolStripButtonBlinkMarker";
+            this.toolStripButtonBlinkMarker.Size = new System.Drawing.Size(23, 30);
+            this.toolStripButtonBlinkMarker.ToolTipText = "Blinking diff marker";
+            this.toolStripButtonBlinkMarker.Click += new System.EventHandler(this.toolStripButtonBlinkMarker_Click);
+            // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.AutoSize = false;
@@ -784,7 +812,7 @@
             this.toolStripButtonFitOnePage.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonFitOnePage.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFitOnePage.Name = "toolStripButtonFitOnePage";
-            this.toolStripButtonFitOnePage.Size = new System.Drawing.Size(28, 30);
+            this.toolStripButtonFitOnePage.Size = new System.Drawing.Size(28, 28);
             this.toolStripButtonFitOnePage.Text = "Fit One Page";
             this.toolStripButtonFitOnePage.Click += new System.EventHandler(this.toolStripButtonFitOnePage_Click);
             // 
@@ -891,6 +919,8 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonJumpScopeDiff;
         private System.Windows.Forms.ToolStripButton toolStripButtonJumpScopePage;
         private System.Windows.Forms.ToolStripMenuItem usageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButtonBlinkMarker;
+        private System.Windows.Forms.ToolStripButton toolStripButtonStaticMarker;
     }
 }
 

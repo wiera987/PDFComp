@@ -4,12 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -34,6 +36,9 @@ namespace PDFComp
         Boolean zoomOut;
         Boolean reduceColor = true;
         bool holdZoom = false;
+        bool blinkingMarker = false;
+        int blinkIntervalMS = 0;
+        Stopwatch stopwatchBlinking = new Stopwatch();
 
         public FormMain()
         {
@@ -51,6 +56,9 @@ namespace PDFComp
 
             // Operate Jump scope navigation like a toggle button
             SwitchJumpScopeToDiffMode();
+
+            // Operate Blinking diff marker like a toggle button
+            SwitchBlinkMarker(Properties.Settings.Default.UseBlinkingDiffMarker);
 
             zoom = 1.0;
             zoomIn = false;
@@ -189,6 +197,15 @@ namespace PDFComp
             {
                 pdfPanel1.pdfViewer.Renderer.CalcFlashTextAlpha();
                 pdfPanel2.pdfViewer.Renderer.CalcFlashTextAlpha();
+            }
+
+            if (blinkingMarker)
+            {
+                if (stopwatchBlinking.ElapsedMilliseconds >= blinkIntervalMS)
+                {
+                    stopwatchBlinking.Restart();
+                    timerMarker_Tick();
+                }
             }
         }
 
@@ -383,6 +400,9 @@ namespace PDFComp
             {
                 styleFlags = formOptions.StyleFlags;
             }
+
+            // Revert to the correct setting after previewing in the options form.
+            SwitchBlinkMarker(Properties.Settings.Default.UseBlinkingDiffMarker);
         }
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -618,6 +638,9 @@ namespace PDFComp
 
             SetFlashPage(page1, page2);
 
+            // Reset the blink timing.
+            SwitchBlinkMarker(blinkingMarker);
+
             // Show a tip if there are undisplayed pages.
             if (pageCount1 > 1)
             {
@@ -793,6 +816,9 @@ namespace PDFComp
             stopwatch.Stop();
 
             SetFlashPage(page1, page2);
+
+            // Reset the blink timing.
+            SwitchBlinkMarker(blinkingMarker);
 
             // Show a tip if there are undisplayed pages.
             if (pageCount1 > 1)
@@ -1201,5 +1227,60 @@ namespace PDFComp
             previousDifferenceToolStripMenuItem.Text = "Jump to Previous Difference"; ;
             nextDifferenceToolStripMenuItem.Text = "Jump to Next Difference";
         }
+
+        private void toolStripButtonStaticMarker_Click(object sender, EventArgs e)
+        {
+            SwitchBlinkMarker(true);
+        }
+
+        private void toolStripButtonBlinkMarker_Click(object sender, EventArgs e)
+        {
+            SwitchBlinkMarker(false);
+        }
+
+        private void SwitchBlinkMarker(bool isBlinking)
+        {
+            if (isBlinking)
+            {
+                // Blinking marker
+                toolStripButtonBlinkMarker.Visible = true;
+                toolStripButtonStaticMarker.Visible = false;
+                StartMarkerFlashing(Properties.Settings.Default.BlinkingPeriodMS);
+            }
+            else
+            {
+                // Static marker
+                toolStripButtonBlinkMarker.Visible = false;
+                toolStripButtonStaticMarker.Visible = true;
+                StopMarkerFlashing();
+            }
+            // Save blinking marker property
+            Properties.Settings.Default.UseBlinkingDiffMarker = isBlinking;
+            Properties.Settings.Default.Save();
+        }
+
+        public void StartMarkerFlashing(int intervalMs)
+        {
+            pdfPanel1.pdfViewer.Renderer.SetMarkerVisible(true);
+            pdfPanel2.pdfViewer.Renderer.SetMarkerVisible(true);
+            blinkIntervalMS = intervalMs / 2;
+            stopwatchBlinking.Restart();
+            blinkingMarker = true;
+        }
+
+        public void StopMarkerFlashing()
+        {
+            blinkIntervalMS = 0;
+            blinkingMarker = false;
+            pdfPanel1.pdfViewer.Renderer.SetMarkerVisible(true);
+            pdfPanel2.pdfViewer.Renderer.SetMarkerVisible(true);
+        }
+
+        private void timerMarker_Tick()
+        {
+            pdfPanel1.pdfViewer.Renderer.ToggleMarkerVisible();
+            pdfPanel2.pdfViewer.Renderer.ToggleMarkerVisible();
+        }
+
     }
 }

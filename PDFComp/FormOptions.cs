@@ -13,11 +13,12 @@ namespace PDFComp
         {
             InitializeComponent();
 
-            LoadSettings();
+            // Hide TabControl tab
+            tabControlOptions.Appearance = TabAppearance.FlatButtons;
+            tabControlOptions.SizeMode = TabSizeMode.Fixed;
+            tabControlOptions.ItemSize = new System.Drawing.Size(0, 1);
 
-            panelCompare.Location = new System.Drawing.Point(0, 0);
-            panelDisplay.Location = new System.Drawing.Point(0, 0);
-            panelOthers.Location = new System.Drawing.Point(0, 0);
+            LoadSettings();
         }
 
         private void TreeViewOptions_AfterSelect(object sender, TreeViewEventArgs e)
@@ -30,28 +31,23 @@ namespace PDFComp
 
         private void ShowPanel(string nodeText)
         {
-            panelCompare.Visible = false;
-            panelDisplay.Visible = false;
-            panelOthers.Visible = false;
-
             switch (nodeText)
             {
                 case "Comparation":
-                    panelCompare.Visible = true;
+                    tabControlOptions.SelectedTab = tabPageComparation;
                     break;
                 case "Display":
-                    panelDisplay.Visible = true;
+                    tabControlOptions.SelectedTab = tabPageDisplay;
                     break;
                 case "Others":
-                    panelOthers.Visible = true;
+                    tabControlOptions.SelectedTab = tabPageOthers;
                     break;
                 default:
-                    panelCompare.Visible = true;
                     break;
             }
         }
 
-        private void FormOptions_Load(object sender, EventArgs e)
+        private void FormOptions_Shown(object sender, EventArgs e)
         {
             // Reload saved settings.
             LoadSettings();
@@ -60,7 +56,14 @@ namespace PDFComp
             if (treeViewOptions.Nodes.Count > 0)
             {
                 treeViewOptions.SelectedNode = treeViewOptions.Nodes[0];
+                treeViewOptions.Focus();
             }
+
+            // Initialize the linked controls.
+            int timeMS = Properties.Settings.Default.BlinkingPeriodMS;
+            labelBlinkingPeriod.Text = timeMS + " ms";
+
+            numericUpDownReducedColor.Enabled = chkReduceColorCopy.Checked;
         }
 
         private void LoadSettings()
@@ -79,6 +82,18 @@ namespace PDFComp
             try
             {
                 numericUpDownReducedColor.Value = Properties.Settings.Default.ReduceFinalColor;
+            }
+            catch { }
+
+            // Load "Display" panel settings
+            try
+            {
+                checkBoxBlinkingDiffMarker.Checked = Properties.Settings.Default.UseBlinkingDiffMarker;
+            }
+            catch { }
+            try
+            {
+                trackBarBlinkingPeriod.Value = Properties.Settings.Default.BlinkingPeriodMS / 100;
             }
             catch { }
 
@@ -175,6 +190,10 @@ namespace PDFComp
                 Properties.Settings.Default.CopyBookmarkPage = chkCopyBookmarkPage.Checked;
                 Properties.Settings.Default.ReduceFinalColor = (int)numericUpDownReducedColor.Value;
 
+                // Save "Display" panel settings
+                Properties.Settings.Default.UseBlinkingDiffMarker = checkBoxBlinkingDiffMarker.Checked;
+                Properties.Settings.Default.BlinkingPeriodMS = trackBarBlinkingPeriod.Value * 100;
+
                 // Save "Comparison" panel settings
                 Properties.Settings.Default.CompareStyles = checkBoxCompareStyles.Checked;
                 Properties.Settings.Default.CompareFillColor = chkCompareFillColor.Checked;
@@ -203,5 +222,38 @@ namespace PDFComp
         {
             numericUpDownReducedColor.Enabled = chkReduceColorCopy.Checked;
         }
+
+        private void checkBoxBlinkDiffMarker_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxBlinkingDiffMarker.Checked)
+            {
+                // Blink the diff marker for preview in the options form.
+                label3.Enabled = true;
+                labelBlinkingPeriod.Enabled = true;
+                trackBarBlinkingPeriod.Enabled = true;
+                int value = trackBarBlinkingPeriod.Value;
+                int timeMS = value * 100;
+                (this.Owner as FormMain)?.StartMarkerFlashing(timeMS);
+
+            }
+            else
+            {
+                // Stop blinking the diff marker.
+                label3.Enabled = false;
+                labelBlinkingPeriod.Enabled = false;
+                trackBarBlinkingPeriod.Enabled = false;
+                (this.Owner as FormMain)?.StopMarkerFlashing();
+            }
+        }
+
+        private void trackBarBlinkingPeriod_ValueChanged(object sender, EventArgs e)
+        {
+            int value = trackBarBlinkingPeriod.Value;
+            int timeMS = value * 100;
+            labelBlinkingPeriod.Text = timeMS + " ms";
+            (this.Owner as FormMain)?.StartMarkerFlashing(timeMS);
+        }
+
+
     }
 }

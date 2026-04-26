@@ -166,5 +166,29 @@ namespace PDFComp.Properties {
                 this["CompareAnnotationColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseBlinkingDiffMarker {
+            get {
+                return ((bool)(this["UseBlinkingDiffMarker"]));
+            }
+            set {
+                this["UseBlinkingDiffMarker"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int BlinkingPeriodMS {
+            get {
+                return ((int)(this["BlinkingPeriodMS"]));
+            }
+            set {
+                this["BlinkingPeriodMS"] = value;
+            }
+        }
     }
 }

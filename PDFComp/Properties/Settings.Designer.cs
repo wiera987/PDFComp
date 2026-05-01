@@ -190,5 +190,77 @@ namespace PDFComp.Properties {
                 this["BlinkingPeriodMS"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IgnoreWsOnly {
+            get {
+                return ((bool)(this["IgnoreWsOnly"]));
+            }
+            set {
+                this["IgnoreWsOnly"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IgnoreWsSpace {
+            get {
+                return ((bool)(this["IgnoreWsSpace"]));
+            }
+            set {
+                this["IgnoreWsSpace"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IgnoreWsTab {
+            get {
+                return ((bool)(this["IgnoreWsTab"]));
+            }
+            set {
+                this["IgnoreWsTab"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IgnoreWsBreaks {
+            get {
+                return ((bool)(this["IgnoreWsBreaks"]));
+            }
+            set {
+                this["IgnoreWsBreaks"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IgnoreWsFullwidthSpace {
+            get {
+                return ((bool)(this["IgnoreWsFullwidthSpace"]));
+            }
+            set {
+                this["IgnoreWsFullwidthSpace"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IgnoreWsOthers {
+            get {
+                return ((bool)(this["IgnoreWsOthers"]));
+            }
+            set {
+                this["IgnoreWsOthers"] = value;
+            }
+        }
     }
 }

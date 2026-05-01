@@ -28,16 +28,19 @@ namespace PDFComp
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Comparation");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Display");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Others");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Text Styling");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Spaces & Breaks");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Display Setting");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Others");
             this.treeViewOptions = new System.Windows.Forms.TreeView();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.tabControlOptions = new System.Windows.Forms.TabControl();
-            this.tabPageComparation = new System.Windows.Forms.TabPage();
+            this.tabPageStyles = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
             this.checkBoxCompareStyles = new System.Windows.Forms.CheckBox();
             this.groupBoxCompareStyle = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.chkCompareFillColor = new System.Windows.Forms.CheckBox();
             this.chkCompareStrokeColor = new System.Windows.Forms.CheckBox();
             this.chkCompareUnderlined = new System.Windows.Forms.CheckBox();
@@ -57,13 +60,26 @@ namespace PDFComp
             this.labelReduceColorCount = new System.Windows.Forms.Label();
             this.chkCopyBookmarkPage = new System.Windows.Forms.CheckBox();
             this.chkReduceColorCopy = new System.Windows.Forms.CheckBox();
+            this.tabPageWs = new System.Windows.Forms.TabPage();
+            this.labelWsWarning = new System.Windows.Forms.Label();
+            this.groupBoxIgnoreWsDetail = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.checkBoxWsSpace = new System.Windows.Forms.CheckBox();
+            this.checkBoxWsTab = new System.Windows.Forms.CheckBox();
+            this.checkBoxWsBreaks = new System.Windows.Forms.CheckBox();
+            this.checkBoxWsFullWidthSpace = new System.Windows.Forms.CheckBox();
+            this.checkBoxWsOthers = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.checkBoxIgnoreWsOnly = new System.Windows.Forms.CheckBox();
             this.tabControlOptions.SuspendLayout();
-            this.tabPageComparation.SuspendLayout();
+            this.tabPageStyles.SuspendLayout();
             this.groupBoxCompareStyle.SuspendLayout();
             this.tabPageDisplay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarBlinkingPeriod)).BeginInit();
             this.tabPageOthers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownReducedColor)).BeginInit();
+            this.tabPageWs.SuspendLayout();
+            this.groupBoxIgnoreWsDetail.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeViewOptions
@@ -73,16 +89,19 @@ namespace PDFComp
             this.treeViewOptions.ItemHeight = 20;
             this.treeViewOptions.Location = new System.Drawing.Point(12, 12);
             this.treeViewOptions.Name = "treeViewOptions";
-            treeNode16.Name = "";
-            treeNode16.Text = "Comparation";
-            treeNode17.Name = "";
-            treeNode17.Text = "Display";
-            treeNode18.Name = "";
-            treeNode18.Text = "Others";
+            treeNode1.Name = "";
+            treeNode1.Text = "Text Styling";
+            treeNode2.Name = "";
+            treeNode2.Text = "Spaces & Breaks";
+            treeNode3.Name = "";
+            treeNode3.Text = "Display Setting";
+            treeNode4.Name = "";
+            treeNode4.Text = "Others";
             this.treeViewOptions.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode16,
-            treeNode17,
-            treeNode18});
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4});
             this.treeViewOptions.Size = new System.Drawing.Size(151, 260);
             this.treeViewOptions.TabIndex = 0;
             this.treeViewOptions.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewOptions_AfterSelect);
@@ -90,7 +109,7 @@ namespace PDFComp
             // buttonOK
             // 
             this.buttonOK.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOK.Location = new System.Drawing.Point(320, 282);
+            this.buttonOK.Location = new System.Drawing.Point(374, 278);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 5;
@@ -102,7 +121,7 @@ namespace PDFComp
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.Location = new System.Drawing.Point(401, 282);
+            this.buttonCancel.Location = new System.Drawing.Point(455, 278);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 6;
@@ -111,43 +130,56 @@ namespace PDFComp
             // 
             // tabControlOptions
             // 
-            this.tabControlOptions.Controls.Add(this.tabPageComparation);
+            this.tabControlOptions.Controls.Add(this.tabPageStyles);
             this.tabControlOptions.Controls.Add(this.tabPageDisplay);
             this.tabControlOptions.Controls.Add(this.tabPageOthers);
+            this.tabControlOptions.Controls.Add(this.tabPageWs);
             this.tabControlOptions.Location = new System.Drawing.Point(181, 3);
             this.tabControlOptions.Name = "tabControlOptions";
             this.tabControlOptions.SelectedIndex = 0;
             this.tabControlOptions.Size = new System.Drawing.Size(362, 269);
             this.tabControlOptions.TabIndex = 7;
             // 
-            // tabPageComparation
+            // tabPageStyles
             // 
-            this.tabPageComparation.Controls.Add(this.checkBoxCompareStyles);
-            this.tabPageComparation.Controls.Add(this.groupBoxCompareStyle);
-            this.tabPageComparation.Location = new System.Drawing.Point(4, 24);
-            this.tabPageComparation.Name = "tabPageComparation";
-            this.tabPageComparation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageComparation.Size = new System.Drawing.Size(354, 241);
-            this.tabPageComparation.TabIndex = 0;
-            this.tabPageComparation.Text = "tabPage1";
-            this.tabPageComparation.UseVisualStyleBackColor = true;
+            this.tabPageStyles.Controls.Add(this.label7);
+            this.tabPageStyles.Controls.Add(this.checkBoxCompareStyles);
+            this.tabPageStyles.Controls.Add(this.groupBoxCompareStyle);
+            this.tabPageStyles.Location = new System.Drawing.Point(4, 24);
+            this.tabPageStyles.Name = "tabPageStyles";
+            this.tabPageStyles.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageStyles.Size = new System.Drawing.Size(354, 241);
+            this.tabPageStyles.TabIndex = 0;
+            this.tabPageStyles.Text = "tabPage1";
+            this.tabPageStyles.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(6, 12);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(99, 17);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Compare Styles";
             // 
             // checkBoxCompareStyles
             // 
             this.checkBoxCompareStyles.AutoSize = true;
             this.checkBoxCompareStyles.Checked = true;
             this.checkBoxCompareStyles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxCompareStyles.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCompareStyles.Location = new System.Drawing.Point(4, 11);
+            this.checkBoxCompareStyles.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxCompareStyles.Location = new System.Drawing.Point(24, 40);
             this.checkBoxCompareStyles.Name = "checkBoxCompareStyles";
-            this.checkBoxCompareStyles.Size = new System.Drawing.Size(118, 21);
+            this.checkBoxCompareStyles.Size = new System.Drawing.Size(179, 19);
             this.checkBoxCompareStyles.TabIndex = 16;
-            this.checkBoxCompareStyles.Text = "Compare Styles";
+            this.checkBoxCompareStyles.Text = "Compare with font attributes";
             this.checkBoxCompareStyles.UseVisualStyleBackColor = true;
             this.checkBoxCompareStyles.CheckedChanged += new System.EventHandler(this.CheckBoxCompareStyles_CheckedChanged);
             // 
             // groupBoxCompareStyle
             // 
+            this.groupBoxCompareStyle.Controls.Add(this.label5);
             this.groupBoxCompareStyle.Controls.Add(this.chkCompareFillColor);
             this.groupBoxCompareStyle.Controls.Add(this.chkCompareStrokeColor);
             this.groupBoxCompareStyle.Controls.Add(this.chkCompareUnderlined);
@@ -156,11 +188,21 @@ namespace PDFComp
             this.groupBoxCompareStyle.Controls.Add(this.chkCompareSquiggly);
             this.groupBoxCompareStyle.Controls.Add(this.chkCompareAnnotationColor);
             this.groupBoxCompareStyle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxCompareStyle.Location = new System.Drawing.Point(12, 15);
+            this.groupBoxCompareStyle.Location = new System.Drawing.Point(34, 65);
             this.groupBoxCompareStyle.Name = "groupBoxCompareStyle";
-            this.groupBoxCompareStyle.Size = new System.Drawing.Size(279, 189);
+            this.groupBoxCompareStyle.Size = new System.Drawing.Size(279, 179);
             this.groupBoxCompareStyle.TabIndex = 15;
             this.groupBoxCompareStyle.TabStop = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.SystemColors.Control;
+            this.label5.Location = new System.Drawing.Point(6, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(42, 15);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Details";
             // 
             // chkCompareFillColor
             // 
@@ -259,10 +301,10 @@ namespace PDFComp
             this.tabPageDisplay.Controls.Add(this.trackBarBlinkingPeriod);
             this.tabPageDisplay.Controls.Add(this.checkBoxBlinkingDiffMarker);
             this.tabPageDisplay.Controls.Add(this.label2);
-            this.tabPageDisplay.Location = new System.Drawing.Point(4, 24);
+            this.tabPageDisplay.Location = new System.Drawing.Point(4, 22);
             this.tabPageDisplay.Name = "tabPageDisplay";
             this.tabPageDisplay.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDisplay.Size = new System.Drawing.Size(354, 241);
+            this.tabPageDisplay.Size = new System.Drawing.Size(354, 243);
             this.tabPageDisplay.TabIndex = 1;
             this.tabPageDisplay.Text = "tabPage2";
             this.tabPageDisplay.UseVisualStyleBackColor = true;
@@ -325,10 +367,10 @@ namespace PDFComp
             this.tabPageOthers.Controls.Add(this.labelReduceColorCount);
             this.tabPageOthers.Controls.Add(this.chkCopyBookmarkPage);
             this.tabPageOthers.Controls.Add(this.chkReduceColorCopy);
-            this.tabPageOthers.Location = new System.Drawing.Point(4, 24);
+            this.tabPageOthers.Location = new System.Drawing.Point(4, 22);
             this.tabPageOthers.Name = "tabPageOthers";
             this.tabPageOthers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOthers.Size = new System.Drawing.Size(354, 241);
+            this.tabPageOthers.Size = new System.Drawing.Size(354, 243);
             this.tabPageOthers.TabIndex = 2;
             this.tabPageOthers.Text = "tabPage3";
             this.tabPageOthers.UseVisualStyleBackColor = true;
@@ -400,11 +442,152 @@ namespace PDFComp
             this.chkReduceColorCopy.UseVisualStyleBackColor = true;
             this.chkReduceColorCopy.CheckedChanged += new System.EventHandler(this.ChkReduceColorCopy_CheckedChanged);
             // 
+            // tabPageWs
+            // 
+            this.tabPageWs.Controls.Add(this.labelWsWarning);
+            this.tabPageWs.Controls.Add(this.groupBoxIgnoreWsDetail);
+            this.tabPageWs.Controls.Add(this.label4);
+            this.tabPageWs.Controls.Add(this.checkBoxIgnoreWsOnly);
+            this.tabPageWs.Location = new System.Drawing.Point(4, 24);
+            this.tabPageWs.Name = "tabPageWs";
+            this.tabPageWs.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageWs.Size = new System.Drawing.Size(354, 241);
+            this.tabPageWs.TabIndex = 3;
+            this.tabPageWs.Text = "tabPageWs";
+            this.tabPageWs.UseVisualStyleBackColor = true;
+            // 
+            // labelWsWarning
+            // 
+            this.labelWsWarning.AutoSize = true;
+            this.labelWsWarning.ForeColor = System.Drawing.Color.Red;
+            this.labelWsWarning.Location = new System.Drawing.Point(45, 213);
+            this.labelWsWarning.Name = "labelWsWarning";
+            this.labelWsWarning.Size = new System.Drawing.Size(199, 15);
+            this.labelWsWarning.TabIndex = 17;
+            this.labelWsWarning.Text = "No characters are selected to ignore.";
+            // 
+            // groupBoxIgnoreWsDetail
+            // 
+            this.groupBoxIgnoreWsDetail.Controls.Add(this.label6);
+            this.groupBoxIgnoreWsDetail.Controls.Add(this.checkBoxWsSpace);
+            this.groupBoxIgnoreWsDetail.Controls.Add(this.checkBoxWsTab);
+            this.groupBoxIgnoreWsDetail.Controls.Add(this.checkBoxWsBreaks);
+            this.groupBoxIgnoreWsDetail.Controls.Add(this.checkBoxWsFullWidthSpace);
+            this.groupBoxIgnoreWsDetail.Controls.Add(this.checkBoxWsOthers);
+            this.groupBoxIgnoreWsDetail.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxIgnoreWsDetail.Location = new System.Drawing.Point(34, 65);
+            this.groupBoxIgnoreWsDetail.Name = "groupBoxIgnoreWsDetail";
+            this.groupBoxIgnoreWsDetail.Size = new System.Drawing.Size(279, 145);
+            this.groupBoxIgnoreWsDetail.TabIndex = 16;
+            this.groupBoxIgnoreWsDetail.TabStop = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.SystemColors.Control;
+            this.label6.Location = new System.Drawing.Point(6, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(42, 15);
+            this.label6.TabIndex = 18;
+            this.label6.Text = "Details";
+            // 
+            // checkBoxWsSpace
+            // 
+            this.checkBoxWsSpace.AutoSize = true;
+            this.checkBoxWsSpace.Checked = true;
+            this.checkBoxWsSpace.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxWsSpace.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxWsSpace.Location = new System.Drawing.Point(14, 21);
+            this.checkBoxWsSpace.Name = "checkBoxWsSpace";
+            this.checkBoxWsSpace.Size = new System.Drawing.Size(57, 19);
+            this.checkBoxWsSpace.TabIndex = 0;
+            this.checkBoxWsSpace.Text = "Space";
+            this.checkBoxWsSpace.UseVisualStyleBackColor = true;
+            this.checkBoxWsSpace.CheckedChanged += new System.EventHandler(this.checkBoxWs_CheckedChanged);
+            // 
+            // checkBoxWsTab
+            // 
+            this.checkBoxWsTab.AutoSize = true;
+            this.checkBoxWsTab.Checked = true;
+            this.checkBoxWsTab.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxWsTab.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxWsTab.Location = new System.Drawing.Point(14, 43);
+            this.checkBoxWsTab.Name = "checkBoxWsTab";
+            this.checkBoxWsTab.Size = new System.Drawing.Size(45, 19);
+            this.checkBoxWsTab.TabIndex = 1;
+            this.checkBoxWsTab.Text = "Tab";
+            this.checkBoxWsTab.UseVisualStyleBackColor = true;
+            this.checkBoxWsTab.CheckedChanged += new System.EventHandler(this.checkBoxWs_CheckedChanged);
+            // 
+            // checkBoxWsBreaks
+            // 
+            this.checkBoxWsBreaks.AutoSize = true;
+            this.checkBoxWsBreaks.Checked = true;
+            this.checkBoxWsBreaks.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxWsBreaks.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxWsBreaks.Location = new System.Drawing.Point(14, 65);
+            this.checkBoxWsBreaks.Name = "checkBoxWsBreaks";
+            this.checkBoxWsBreaks.Size = new System.Drawing.Size(85, 19);
+            this.checkBoxWsBreaks.TabIndex = 3;
+            this.checkBoxWsBreaks.Text = "Line Breaks";
+            this.checkBoxWsBreaks.UseVisualStyleBackColor = true;
+            this.checkBoxWsBreaks.CheckedChanged += new System.EventHandler(this.checkBoxWs_CheckedChanged);
+            // 
+            // checkBoxWsFullWidthSpace
+            // 
+            this.checkBoxWsFullWidthSpace.AutoSize = true;
+            this.checkBoxWsFullWidthSpace.Checked = true;
+            this.checkBoxWsFullWidthSpace.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxWsFullWidthSpace.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxWsFullWidthSpace.Location = new System.Drawing.Point(14, 87);
+            this.checkBoxWsFullWidthSpace.Name = "checkBoxWsFullWidthSpace";
+            this.checkBoxWsFullWidthSpace.Size = new System.Drawing.Size(114, 19);
+            this.checkBoxWsFullWidthSpace.TabIndex = 2;
+            this.checkBoxWsFullWidthSpace.Text = "Full-width Space";
+            this.checkBoxWsFullWidthSpace.UseVisualStyleBackColor = true;
+            this.checkBoxWsFullWidthSpace.CheckedChanged += new System.EventHandler(this.checkBoxWs_CheckedChanged);
+            // 
+            // checkBoxWsOthers
+            // 
+            this.checkBoxWsOthers.AutoSize = true;
+            this.checkBoxWsOthers.Checked = true;
+            this.checkBoxWsOthers.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxWsOthers.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxWsOthers.Location = new System.Drawing.Point(14, 109);
+            this.checkBoxWsOthers.Name = "checkBoxWsOthers";
+            this.checkBoxWsOthers.Size = new System.Drawing.Size(179, 19);
+            this.checkBoxWsOthers.TabIndex = 5;
+            this.checkBoxWsOthers.Text = "Other Whitespace Characters";
+            this.checkBoxWsOthers.UseVisualStyleBackColor = true;
+            this.checkBoxWsOthers.CheckedChanged += new System.EventHandler(this.checkBoxWs_CheckedChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(6, 12);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(115, 17);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Ignore Differences";
+            // 
+            // checkBoxIgnoreWsOnly
+            // 
+            this.checkBoxIgnoreWsOnly.AutoSize = true;
+            this.checkBoxIgnoreWsOnly.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxIgnoreWsOnly.Location = new System.Drawing.Point(24, 40);
+            this.checkBoxIgnoreWsOnly.Name = "checkBoxIgnoreWsOnly";
+            this.checkBoxIgnoreWsOnly.Size = new System.Drawing.Size(211, 19);
+            this.checkBoxIgnoreWsOnly.TabIndex = 13;
+            this.checkBoxIgnoreWsOnly.Text = "Ignore whitespace-only differences";
+            this.checkBoxIgnoreWsOnly.UseVisualStyleBackColor = true;
+            this.checkBoxIgnoreWsOnly.CheckedChanged += new System.EventHandler(this.checkBoxIgnoreWsOnly_CheckedChanged);
+            // 
             // FormOptions
             // 
             this.AcceptButton = this.buttonOK;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(588, 312);
+            this.ClientSize = new System.Drawing.Size(552, 312);
             this.Controls.Add(this.tabControlOptions);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
@@ -418,8 +601,8 @@ namespace PDFComp
             this.Text = "Options";
             this.Shown += new System.EventHandler(this.FormOptions_Shown);
             this.tabControlOptions.ResumeLayout(false);
-            this.tabPageComparation.ResumeLayout(false);
-            this.tabPageComparation.PerformLayout();
+            this.tabPageStyles.ResumeLayout(false);
+            this.tabPageStyles.PerformLayout();
             this.groupBoxCompareStyle.ResumeLayout(false);
             this.groupBoxCompareStyle.PerformLayout();
             this.tabPageDisplay.ResumeLayout(false);
@@ -428,6 +611,10 @@ namespace PDFComp
             this.tabPageOthers.ResumeLayout(false);
             this.tabPageOthers.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownReducedColor)).EndInit();
+            this.tabPageWs.ResumeLayout(false);
+            this.tabPageWs.PerformLayout();
+            this.groupBoxIgnoreWsDetail.ResumeLayout(false);
+            this.groupBoxIgnoreWsDetail.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -438,7 +625,7 @@ namespace PDFComp
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.TabControl tabControlOptions;
-        private System.Windows.Forms.TabPage tabPageComparation;
+        private System.Windows.Forms.TabPage tabPageStyles;
         private System.Windows.Forms.TabPage tabPageDisplay;
         private System.Windows.Forms.TabPage tabPageOthers;
         private System.Windows.Forms.NumericUpDown numericUpDownReducedColor;
@@ -460,5 +647,18 @@ namespace PDFComp
         private System.Windows.Forms.TrackBar trackBarBlinkingPeriod;
         private System.Windows.Forms.Label labelBlinkingPeriod;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TabPage tabPageWs;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox checkBoxIgnoreWsOnly;
+        private System.Windows.Forms.GroupBox groupBoxIgnoreWsDetail;
+        private System.Windows.Forms.CheckBox checkBoxWsSpace;
+        private System.Windows.Forms.CheckBox checkBoxWsTab;
+        private System.Windows.Forms.CheckBox checkBoxWsBreaks;
+        private System.Windows.Forms.CheckBox checkBoxWsFullWidthSpace;
+        private System.Windows.Forms.CheckBox checkBoxWsOthers;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labelWsWarning;
+        private System.Windows.Forms.Label label7;
     }
 }

@@ -148,6 +148,7 @@ namespace PDFComp
             // Reload options
             formOptions = new FormOptions();
             styleFlags = formOptions.StyleFlags;
+            SetIgnoreStrings();
 
             // Initialize the page pair list.
             pagePairList = new PagePairList();
@@ -399,6 +400,7 @@ namespace PDFComp
             if (result == DialogResult.OK)
             {
                 styleFlags = formOptions.StyleFlags;
+                SetIgnoreStrings();
             }
 
             // Revert to the correct setting after previewing in the options form.

@@ -33,10 +33,13 @@ namespace PDFComp
         {
             switch (nodeText)
             {
-                case "Comparation":
-                    tabControlOptions.SelectedTab = tabPageComparation;
+                case "Text Styling":
+                    tabControlOptions.SelectedTab = tabPageStyles;
                     break;
-                case "Display":
+                case "Spaces & Breaks":
+                    tabControlOptions.SelectedTab = tabPageWs;
+                    break;
+                case "Display Setting":
                     tabControlOptions.SelectedTab = tabPageDisplay;
                     break;
                 case "Others":
@@ -63,7 +66,7 @@ namespace PDFComp
             int timeMS = Properties.Settings.Default.BlinkingPeriodMS;
             labelBlinkingPeriod.Text = timeMS + " ms";
 
-            numericUpDownReducedColor.Enabled = chkReduceColorCopy.Checked;
+            UpdateIgnoreWsWarning();
         }
 
         private void LoadSettings()
@@ -97,7 +100,39 @@ namespace PDFComp
             }
             catch { }
 
-            // Load "Comparison" panel settings
+            // Load "Space & Breaks" panel settings
+            try
+            {
+                checkBoxIgnoreWsOnly.Checked = Properties.Settings.Default.IgnoreWsOnly;
+            }
+            catch { }
+            try
+            {
+                checkBoxWsSpace.Checked = Properties.Settings.Default.IgnoreWsSpace;
+            }
+            catch { }
+            try
+            {
+                checkBoxWsTab.Checked = Properties.Settings.Default.IgnoreWsTab;
+            }
+            catch { }
+            try
+            {
+                checkBoxWsBreaks.Checked = Properties.Settings.Default.IgnoreWsBreaks;
+            }
+            catch { }
+            try
+            {
+                checkBoxWsFullWidthSpace.Checked = Properties.Settings.Default.IgnoreWsFullwidthSpace;
+            }
+            catch { }
+            try
+            {
+                checkBoxWsOthers.Checked = Properties.Settings.Default.IgnoreWsOthers;
+            }
+            catch { }
+
+            // Load "Text Styling" panel settings
             try
             {
                 checkBoxCompareStyles.Checked = Properties.Settings.Default.CompareStyles;
@@ -151,6 +186,12 @@ namespace PDFComp
 
             // Update UI state based on CompareStyles checkbox
             groupBoxCompareStyle.Enabled = checkBoxCompareStyles.Checked;
+
+            // Update UI state based on Ignore Whitespace only checkbox
+            groupBoxIgnoreWsDetail.Enabled = checkBoxIgnoreWsOnly.Checked;
+
+            // Update UI state based on Reduce Color Copy checkbox
+            numericUpDownReducedColor.Enabled = chkReduceColorCopy.Checked;
         }
 
         private void UpdateStyleFlags()
@@ -194,7 +235,15 @@ namespace PDFComp
                 Properties.Settings.Default.UseBlinkingDiffMarker = checkBoxBlinkingDiffMarker.Checked;
                 Properties.Settings.Default.BlinkingPeriodMS = trackBarBlinkingPeriod.Value * 100;
 
-                // Save "Comparison" panel settings
+                // Save "Space & Breaks" panel settings
+                Properties.Settings.Default.IgnoreWsOnly = checkBoxIgnoreWsOnly.Checked;
+                Properties.Settings.Default.IgnoreWsSpace = checkBoxWsSpace.Checked;
+                Properties.Settings.Default.IgnoreWsTab = checkBoxWsTab.Checked;
+                Properties.Settings.Default.IgnoreWsBreaks = checkBoxWsBreaks.Checked;
+                Properties.Settings.Default.IgnoreWsFullwidthSpace = checkBoxWsFullWidthSpace.Checked;
+                Properties.Settings.Default.IgnoreWsOthers = checkBoxWsOthers.Checked;
+
+                // Save "Text Styling" panel settings
                 Properties.Settings.Default.CompareStyles = checkBoxCompareStyles.Checked;
                 Properties.Settings.Default.CompareFillColor = chkCompareFillColor.Checked;
                 Properties.Settings.Default.CompareStrokeColor = chkCompareStrokeColor.Checked;
@@ -216,6 +265,12 @@ namespace PDFComp
         private void CheckBoxCompareStyles_CheckedChanged(object sender, EventArgs e)
         {
             groupBoxCompareStyle.Enabled = checkBoxCompareStyles.Checked;
+        }
+
+        private void checkBoxIgnoreWsOnly_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxIgnoreWsDetail.Enabled = checkBoxIgnoreWsOnly.Checked;
+            UpdateIgnoreWsWarning();
         }
 
         private void ChkReduceColorCopy_CheckedChanged(object sender, EventArgs e)
@@ -254,6 +309,23 @@ namespace PDFComp
             (this.Owner as FormMain)?.StartMarkerFlashing(timeMS);
         }
 
+        private void checkBoxWs_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxWsSpace.Checked = true;
+            UpdateIgnoreWsWarning();
+        }
 
+        private void UpdateIgnoreWsWarning()
+        {
+            bool check = checkBoxWsSpace.Checked
+                        || checkBoxWsTab.Checked
+                        || checkBoxWsBreaks.Checked
+                        || checkBoxWsFullWidthSpace.Checked
+                        || checkBoxWsOthers.Checked;
+
+            bool visible = checkBoxIgnoreWsOnly.Checked && (check == false);
+
+            labelWsWarning.Visible = visible;
+        }
     }
 }

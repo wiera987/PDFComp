@@ -21,6 +21,9 @@ namespace PDFComp
 
     public partial class FormMain
     {
+        private HashSet<char> ignoreChars;
+        private bool ignoreWsOthers;
+
 
         public void PagePairClearAll()
         {
@@ -386,7 +389,7 @@ namespace PDFComp
         /// <param name="diffs"></param>
         /// <param name="textData1"></param>
         /// <param name="textData2"></param>
-        private void ExtractDiffSpan2(List<PdfTextSpan> spanList1, List<PdfTextSpan> spanList2, List<Diff> diffs, PageTextList textData1, PageTextList textData2)
+        private void ExtractDiffSpan2(List<PdfTextSpan> spanList1, List<PdfTextSpan> spanList2, List<Diff> diffs, PageTextList textData1, PageTextList textData2, bool ignoreWSFlags = false)
         {
             if (diffs.Count() > 0)
             {
@@ -406,12 +409,18 @@ namespace PDFComp
                             break;
                         case Operation.INSERT:
                             formDiffInfo.WriteText(diff.text, Color.Blue);
-                            AddSpanList(spanList2, textData2, offset2, count);
+                            if (IsIgnoreWsOnly(diff.text) == false)
+                            {
+                                AddSpanList(spanList2, textData2, offset2, count);
+                            }
                             offset2 += count;
                             break;
                         case Operation.DELETE:
                             formDiffInfo.WriteText(diff.text, Color.Red);
-                            AddSpanList(spanList1, textData1, offset1, count);
+                            if (IsIgnoreWsOnly(diff.text) == false)
+                            {
+                                AddSpanList(spanList1, textData1, offset1, count);
+                            }
                             offset1 += count;
                             break;
                     }
@@ -749,5 +758,58 @@ namespace PDFComp
             }
         }
 
+        /// <summary>
+        /// Configures the set of characters to ignore based on application settings.
+        /// </summary>
+        private void SetIgnoreStrings()
+        {
+            ignoreWsOthers = false;
+            ignoreChars = new HashSet<char>();
+
+            if (Properties.Settings.Default.IgnoreWsOnly)
+            {
+                if (Properties.Settings.Default.IgnoreWsSpace)
+                {
+                    ignoreChars.Add(' ');
+                }
+
+                if (Properties.Settings.Default.IgnoreWsTab)
+                {
+                    ignoreChars.Add('\t');
+                }
+
+                if (Properties.Settings.Default.IgnoreWsBreaks)
+                {
+                    ignoreChars.Add('\r');
+                    ignoreChars.Add('\n');
+                }
+
+                if (Properties.Settings.Default.IgnoreWsFullwidthSpace)
+                {
+                    ignoreChars.Add('　');
+                }
+
+                ignoreWsOthers = Properties.Settings.Default.IgnoreWsOthers;
+            }
+        }
+
+        /// <summary>
+        /// Determines whether the input string consists solely of whitespace characters or characters in the ignore
+        /// list.
+        /// </summary>
+        /// <param name="text">The string to evaluate for whitespace and ignore characters.</param>
+        /// <returns>True if the string contains only whitespace characters or characters in the ignore list; otherwise, false.</returns>
+        private bool IsIgnoreWsOnly(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return true;
+
+            if ((ignoreWsOthers == false) && (ignoreChars.Count == 0))
+                return false;
+
+            // Returns true if every character 'c' is either considered whitespace
+            // (when the corresponding flag is enabled) or is included in the ignore list.
+            return text.All(c => (ignoreWsOthers && char.IsWhiteSpace(c)) || ignoreChars.Contains(c));
+        }
     }
 }

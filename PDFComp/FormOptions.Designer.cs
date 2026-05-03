@@ -499,9 +499,9 @@ namespace PDFComp
             this.checkBoxWsSpace.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxWsSpace.Location = new System.Drawing.Point(14, 21);
             this.checkBoxWsSpace.Name = "checkBoxWsSpace";
-            this.checkBoxWsSpace.Size = new System.Drawing.Size(57, 19);
+            this.checkBoxWsSpace.Size = new System.Drawing.Size(251, 19);
             this.checkBoxWsSpace.TabIndex = 0;
-            this.checkBoxWsSpace.Text = "Space";
+            this.checkBoxWsSpace.Text = "Space  - Selecting Space is usually enough.";
             this.checkBoxWsSpace.UseVisualStyleBackColor = true;
             this.checkBoxWsSpace.CheckedChanged += new System.EventHandler(this.checkBoxWs_CheckedChanged);
             // 

@@ -311,6 +311,7 @@ namespace PDFComp
 
         private void checkBoxWs_CheckedChanged(object sender, EventArgs e)
         {
+            checkBoxWsSpace.Checked = true;
             UpdateIgnoreWsWarning();
         }
 

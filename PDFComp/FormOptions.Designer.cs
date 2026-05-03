@@ -28,10 +28,10 @@ namespace PDFComp
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Text Styling");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Spaces & Breaks");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Display Setting");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Others");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Text Styling");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Spaces & Breaks");
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Display Setting");
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Others");
             this.treeViewOptions = new System.Windows.Forms.TreeView();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -89,19 +89,19 @@ namespace PDFComp
             this.treeViewOptions.ItemHeight = 20;
             this.treeViewOptions.Location = new System.Drawing.Point(12, 12);
             this.treeViewOptions.Name = "treeViewOptions";
-            treeNode1.Name = "";
-            treeNode1.Text = "Text Styling";
-            treeNode2.Name = "";
-            treeNode2.Text = "Spaces & Breaks";
-            treeNode3.Name = "";
-            treeNode3.Text = "Display Setting";
-            treeNode4.Name = "";
-            treeNode4.Text = "Others";
+            treeNode25.Name = "";
+            treeNode25.Text = "Text Styling";
+            treeNode26.Name = "";
+            treeNode26.Text = "Spaces & Breaks";
+            treeNode27.Name = "";
+            treeNode27.Text = "Display Setting";
+            treeNode28.Name = "";
+            treeNode28.Text = "Others";
             this.treeViewOptions.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4});
+            treeNode25,
+            treeNode26,
+            treeNode27,
+            treeNode28});
             this.treeViewOptions.Size = new System.Drawing.Size(151, 260);
             this.treeViewOptions.TabIndex = 0;
             this.treeViewOptions.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewOptions_AfterSelect);
@@ -285,7 +285,8 @@ namespace PDFComp
             // chkCompareAnnotationColor
             // 
             this.chkCompareAnnotationColor.AutoSize = true;
-            this.chkCompareAnnotationColor.Enabled = false;
+            this.chkCompareAnnotationColor.Checked = true;
+            this.chkCompareAnnotationColor.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkCompareAnnotationColor.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkCompareAnnotationColor.Location = new System.Drawing.Point(14, 153);
             this.chkCompareAnnotationColor.Name = "chkCompareAnnotationColor";

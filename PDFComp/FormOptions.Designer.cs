@@ -28,10 +28,10 @@ namespace PDFComp
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Text Styling");
-            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Spaces & Breaks");
-            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Display Setting");
-            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Others");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Text Styling");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Spaces & Breaks");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Display Setting");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Others");
             this.treeViewOptions = new System.Windows.Forms.TreeView();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -71,6 +71,7 @@ namespace PDFComp
             this.checkBoxWsOthers = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.checkBoxIgnoreWsOnly = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.tabControlOptions.SuspendLayout();
             this.tabPageStyles.SuspendLayout();
             this.groupBoxCompareStyle.SuspendLayout();
@@ -89,19 +90,19 @@ namespace PDFComp
             this.treeViewOptions.ItemHeight = 20;
             this.treeViewOptions.Location = new System.Drawing.Point(12, 12);
             this.treeViewOptions.Name = "treeViewOptions";
-            treeNode25.Name = "";
-            treeNode25.Text = "Text Styling";
-            treeNode26.Name = "";
-            treeNode26.Text = "Spaces & Breaks";
-            treeNode27.Name = "";
-            treeNode27.Text = "Display Setting";
-            treeNode28.Name = "";
-            treeNode28.Text = "Others";
+            treeNode13.Name = "";
+            treeNode13.Text = "Text Styling";
+            treeNode14.Name = "";
+            treeNode14.Text = "Spaces & Breaks";
+            treeNode15.Name = "";
+            treeNode15.Text = "Display Setting";
+            treeNode16.Name = "";
+            treeNode16.Text = "Others";
             this.treeViewOptions.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode25,
-            treeNode26,
-            treeNode27,
-            treeNode28});
+            treeNode13,
+            treeNode14,
+            treeNode15,
+            treeNode16});
             this.treeViewOptions.Size = new System.Drawing.Size(151, 260);
             this.treeViewOptions.TabIndex = 0;
             this.treeViewOptions.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewOptions_AfterSelect);
@@ -142,6 +143,7 @@ namespace PDFComp
             // 
             // tabPageStyles
             // 
+            this.tabPageStyles.Controls.Add(this.label8);
             this.tabPageStyles.Controls.Add(this.label7);
             this.tabPageStyles.Controls.Add(this.checkBoxCompareStyles);
             this.tabPageStyles.Controls.Add(this.groupBoxCompareStyle);
@@ -449,10 +451,10 @@ namespace PDFComp
             this.tabPageWs.Controls.Add(this.groupBoxIgnoreWsDetail);
             this.tabPageWs.Controls.Add(this.label4);
             this.tabPageWs.Controls.Add(this.checkBoxIgnoreWsOnly);
-            this.tabPageWs.Location = new System.Drawing.Point(4, 24);
+            this.tabPageWs.Location = new System.Drawing.Point(4, 22);
             this.tabPageWs.Name = "tabPageWs";
             this.tabPageWs.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageWs.Size = new System.Drawing.Size(354, 241);
+            this.tabPageWs.Size = new System.Drawing.Size(354, 243);
             this.tabPageWs.TabIndex = 3;
             this.tabPageWs.Text = "tabPageWs";
             this.tabPageWs.UseVisualStyleBackColor = true;
@@ -584,6 +586,16 @@ namespace PDFComp
             this.checkBoxIgnoreWsOnly.UseVisualStyleBackColor = true;
             this.checkBoxIgnoreWsOnly.CheckedChanged += new System.EventHandler(this.checkBoxIgnoreWsOnly_CheckedChanged);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(198, 41);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(90, 15);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "- Experimental";
+            // 
             // FormOptions
             // 
             this.AcceptButton = this.buttonOK;
@@ -661,5 +673,6 @@ namespace PDFComp
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label labelWsWarning;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }

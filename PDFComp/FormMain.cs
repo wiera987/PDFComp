@@ -641,7 +641,7 @@ namespace PDFComp
             SetFlashPage(page1, page2);
 
             // Reset the blink timing.
-            SwitchBlinkMarker(blinkingMarker);
+            ResetBlinkingMarkerTiming(blinkingMarker);
 
             // Show a tip if there are undisplayed pages.
             if (pageCount1 > 1)
@@ -820,7 +820,7 @@ namespace PDFComp
             SetFlashPage(page1, page2);
 
             // Reset the blink timing.
-            SwitchBlinkMarker(blinkingMarker);
+            ResetBlinkingMarkerTiming(blinkingMarker);
 
             // Show a tip if there are undisplayed pages.
             if (pageCount1 > 1)
@@ -1242,23 +1242,30 @@ namespace PDFComp
 
         private void SwitchBlinkMarker(bool isBlinking)
         {
+            // Start Blinking Marker when necessary
+            ResetBlinkingMarkerTiming(isBlinking);
+
+            // Save Blinking Marker property
+            Properties.Settings.Default.UseBlinkingDiffMarker = isBlinking;
+            Properties.Settings.Default.Save();
+        }
+
+        private void ResetBlinkingMarkerTiming(bool isBlinking)
+        {
             if (isBlinking)
             {
-                // Blinking marker
+                // Blinking Marker
                 toolStripButtonBlinkMarker.Visible = true;
                 toolStripButtonStaticMarker.Visible = false;
                 StartMarkerFlashing(Properties.Settings.Default.BlinkingPeriodMS);
             }
             else
             {
-                // Static marker
+                // Static Marker
                 toolStripButtonBlinkMarker.Visible = false;
                 toolStripButtonStaticMarker.Visible = true;
                 StopMarkerFlashing();
             }
-            // Save blinking marker property
-            Properties.Settings.Default.UseBlinkingDiffMarker = isBlinking;
-            Properties.Settings.Default.Save();
         }
 
         public void StartMarkerFlashing(int intervalMs)

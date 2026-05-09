@@ -395,14 +395,18 @@ namespace PDFComp
 
                     int[] pagePos = new int[text.Length];
 
+                    //Console.WriteLine($"Page{page+1}: text.Length{text.Length}");
+                    //Console.WriteLine($"CompareBounds({compBounds})");
+
                     for (int i = 0; i < text.Length; i++)
                     {
                         var textSpan = new PdfTextSpan(page, i, 1);
-                        //Console.WriteLine("textSpan Page{0}: Offset{1}, Len{2} = {3}", textSpan.Page, textSpan.Offset, textSpan.Length, text[i]);
 
                         var charBounds = pdfViewer.Renderer.Document.GetTextBounds(textSpan);
                         var charRect = charBounds[0].Bounds;
                         NormRectangle(ref charRect);
+
+                        //Console.WriteLine($"Page{textSpan.Page+1}: Offset{textSpan.Offset}, {i}/{textSpan.Length} = {text[i]}, {charRect}");
 
                         // If the entire charRect is included in the compBounds, extract the character.
                         if (IsIncludedEntire(compBounds, charRect))

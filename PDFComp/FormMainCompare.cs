@@ -345,6 +345,15 @@ namespace PDFComp
                     style2 = pdfPanel2.GetCachedTextStyle(textData2.GetPagePos(offset2 + j));
                     bool currentStyleMatches = PdfTextStyle.IsMatched(style1, style2, styleFlags);
 
+                    /* Up to which character was compared
+                    var pagePos1 = textData1.GetPagePos(offset1 + j);
+                    var pagePos2 = textData1.GetPagePos(offset2 + j);
+                    var data1 = pdfPanel1.GetPageTextData(pagePos1.page);
+                    var data2 = pdfPanel2.GetPageTextData(pagePos2.page);
+                    Console.WriteLine($"{data1.Text[pagePos1.pagePos]}, {style1}");
+                    Console.WriteLine($"{data2.Text[pagePos2.pagePos]}, {style2}");
+                    */
+
                     // Stop when style relationship changes
                     if (currentStyleMatches != styleMatches)
                         break;

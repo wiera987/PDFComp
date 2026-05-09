@@ -28,18 +28,20 @@ namespace PDFComp
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Text Styling");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Spaces & Breaks");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Display Setting");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Others");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Text Styling");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Spaces & Breaks");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Display Setting");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Others");
             this.treeViewOptions = new System.Windows.Forms.TreeView();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.tabControlOptions = new System.Windows.Forms.TabControl();
             this.tabPageStyles = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.checkBoxCompareStyles = new System.Windows.Forms.CheckBox();
             this.groupBoxCompareStyle = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.chkCompareFillColor = new System.Windows.Forms.CheckBox();
             this.chkCompareStrokeColor = new System.Windows.Forms.CheckBox();
@@ -71,7 +73,8 @@ namespace PDFComp
             this.checkBoxWsOthers = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.checkBoxIgnoreWsOnly = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.tabControlOptions.SuspendLayout();
             this.tabPageStyles.SuspendLayout();
             this.groupBoxCompareStyle.SuspendLayout();
@@ -90,19 +93,19 @@ namespace PDFComp
             this.treeViewOptions.ItemHeight = 20;
             this.treeViewOptions.Location = new System.Drawing.Point(12, 12);
             this.treeViewOptions.Name = "treeViewOptions";
-            treeNode13.Name = "";
-            treeNode13.Text = "Text Styling";
-            treeNode14.Name = "";
-            treeNode14.Text = "Spaces & Breaks";
-            treeNode15.Name = "";
-            treeNode15.Text = "Display Setting";
-            treeNode16.Name = "";
-            treeNode16.Text = "Others";
+            treeNode5.Name = "";
+            treeNode5.Text = "Text Styling";
+            treeNode6.Name = "";
+            treeNode6.Text = "Spaces & Breaks";
+            treeNode7.Name = "";
+            treeNode7.Text = "Display Setting";
+            treeNode8.Name = "";
+            treeNode8.Text = "Others";
             this.treeViewOptions.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode13,
-            treeNode14,
-            treeNode15,
-            treeNode16});
+            treeNode5,
+            treeNode6,
+            treeNode7,
+            treeNode8});
             this.treeViewOptions.Size = new System.Drawing.Size(151, 260);
             this.treeViewOptions.TabIndex = 0;
             this.treeViewOptions.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewOptions_AfterSelect);
@@ -155,6 +158,16 @@ namespace PDFComp
             this.tabPageStyles.Text = "tabPage1";
             this.tabPageStyles.UseVisualStyleBackColor = true;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(198, 41);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(90, 15);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "- Experimental";
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -181,6 +194,9 @@ namespace PDFComp
             // 
             // groupBoxCompareStyle
             // 
+            this.groupBoxCompareStyle.Controls.Add(this.label11);
+            this.groupBoxCompareStyle.Controls.Add(this.label10);
+            this.groupBoxCompareStyle.Controls.Add(this.label9);
             this.groupBoxCompareStyle.Controls.Add(this.label5);
             this.groupBoxCompareStyle.Controls.Add(this.chkCompareFillColor);
             this.groupBoxCompareStyle.Controls.Add(this.chkCompareStrokeColor);
@@ -195,6 +211,16 @@ namespace PDFComp
             this.groupBoxCompareStyle.Size = new System.Drawing.Size(279, 179);
             this.groupBoxCompareStyle.TabIndex = 15;
             this.groupBoxCompareStyle.TabStop = false;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(128, 153);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(102, 15);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "-  Needs others on";
             // 
             // label5
             // 
@@ -586,15 +612,25 @@ namespace PDFComp
             this.checkBoxIgnoreWsOnly.UseVisualStyleBackColor = true;
             this.checkBoxIgnoreWsOnly.CheckedChanged += new System.EventHandler(this.checkBoxIgnoreWsOnly_CheckedChanged);
             // 
-            // label8
+            // label10
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(198, 41);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(90, 15);
-            this.label8.TabIndex = 18;
-            this.label8.Text = "- Experimental";
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(129, 115);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(147, 15);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "-  Needs well-formed PDFs";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(129, 135);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(147, 15);
+            this.label11.TabIndex = 11;
+            this.label11.Text = "-  Needs well-formed PDFs";
             // 
             // FormOptions
             // 
@@ -674,5 +710,8 @@ namespace PDFComp
         private System.Windows.Forms.Label labelWsWarning;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
     }
 }

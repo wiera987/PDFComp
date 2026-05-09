@@ -616,21 +616,21 @@ namespace PDFComp
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(129, 115);
+            this.label10.Location = new System.Drawing.Point(88, 110);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(147, 15);
+            this.label10.Size = new System.Drawing.Size(186, 15);
             this.label10.TabIndex = 10;
-            this.label10.Text = "-  Needs well-formed PDFs";
+            this.label10.Text = "-  Colors require well-formed PDFs";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(129, 135);
+            this.label11.Location = new System.Drawing.Point(88, 132);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(147, 15);
+            this.label11.Size = new System.Drawing.Size(186, 15);
             this.label11.TabIndex = 11;
-            this.label11.Text = "-  Needs well-formed PDFs";
+            this.label11.Text = "-  Colors require well-formed PDFs";
             // 
             // FormOptions
             // 

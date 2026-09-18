@@ -1141,8 +1141,8 @@ namespace PDFComp
             // zoom 100 %
             toolStripTrackBarZoom.Value = 0;
 
-            pdfPanel1.FitHeight();
-            pdfPanel2.FitHeight();
+            pdfPanel1.FitBest();
+            pdfPanel2.FitBest();
         }
 
         private void toolStripButtonFitWidth_Click(object sender, EventArgs e)

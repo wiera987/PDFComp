@@ -333,6 +333,18 @@ namespace PDFComp
             }
         }
 
+        public void FitBest()
+        {
+            if (pdfViewer.Document != null)
+            {
+                int page = pdfViewer.Renderer.Page;
+                pdfViewer.ZoomMode = PdfViewerZoomMode.FitBest;
+                pdfViewer.Renderer.Zoom = 1;
+                pdfViewer.Renderer.Page = page;
+
+            }
+        }
+
         public String GetBookmarksText()
         {
             if (pdfViewer.Document != null)

@@ -256,6 +256,10 @@ namespace PDFComp
         public PdfPanel()
         {
             InitializeComponent();
+            InitializeViewHistory();
+            toolStripTextBoxFile.AutoSize = false;
+            toolStrip1.Layout += ToolStrip1_Layout;
+            toolStrip1.PerformLayout();
             this.MouseWheel += PdfPanel_MouseWheel;
 
             pdfViewer.PanelBookmarkClosed += PanelBookmarkClosed;
@@ -270,6 +274,29 @@ namespace PDFComp
             pdfViewer.Renderer.ZoomMax = 9.0;
 
             _pageReading = -1;
+        }
+
+        /// <summary>
+        /// Allocates the remaining width to the file name input after accounting for other visible items and margins.
+        /// </summary>
+        /// <remarks>
+        /// Calculate during Layout to handle page input visibility and font size changes as well as resizing.
+        /// Keep a DPI-scaled minimum width and set the input width only when it changes to avoid redundant layout passes.
+        /// </remarks>
+        private void ToolStrip1_Layout(object sender, LayoutEventArgs e)
+        {
+            int width = toolStrip1.DisplayRectangle.Width - toolStripTextBoxFile.Margin.Horizontal;
+            foreach (ToolStripItem item in toolStrip1.Items)
+            {
+                if (item != toolStripTextBoxFile && item.Available)
+                    width -= (item.AutoSize ? item.GetPreferredSize(Size.Empty).Width : item.Width)
+                        + item.Margin.Horizontal;
+            }
+
+            // Leave a usable minimum at narrow sizes; ToolStrip handles overflow.
+            width = Math.Max(40 * toolStrip1.DeviceDpi / 96, width);
+            if (toolStripTextBoxFile.Width != width)
+                toolStripTextBoxFile.Width = width;
         }
 
         public void NextPage()
@@ -669,6 +696,7 @@ namespace PDFComp
 
         public void OpenFile(string fileName)
         {
+            BeginHistoryDocumentChange();
             pdfViewer.Document?.Dispose();
             pdfViewer.Document = PdfDocument.Load(this.ParentForm, fileName);
             pdfViewer.Renderer.Zoom = _zoom;
@@ -695,6 +723,7 @@ namespace PDFComp
             // Load PageData with Timer event.
             _pageReading = 0;
             timerPageData.Enabled = true;
+            EndHistoryDocumentChange();
         }
 
         private void ToolStripButtonPrevPage_Click(object sender, EventArgs e)
@@ -721,10 +750,18 @@ namespace PDFComp
             }
         }
 
+        /// <summary>
+        /// Updates the displayed page number and button states without adding history entries for view changes alone.
+        /// </summary>
+        /// <remarks>
+        /// During history restoration or a user's bookmark selection, prevent automatic selection from replacing the intended node.
+        /// </remarks>
         private void Renderer_DisplayRectangleChanged(object sender, EventArgs e)
         {
             toolStripLabelPage.Text = (pdfViewer.Renderer.Page + 1).ToString();
-            pdfViewer.SelectBookmarkForPage(pdfViewer.Renderer.Page);
+            if (!_restoringHistory && _bookmarkJump == null)
+                pdfViewer.SelectBookmarkForPage(pdfViewer.Renderer.Page);
+            UpdateHistoryButtons();
         }
 
         private void Renderer_MouseDown(object sender, MouseEventArgs e)
@@ -887,11 +924,25 @@ namespace PDFComp
 
         }
 
+        /// <summary>
+        /// Commits the page number on Enter or focus loss and records the views before and after navigation.
+        /// </summary>
+        /// <remarks>
+        /// When a history button is used, check the previously set discard flag to avoid an extra jump from page input.
+        /// Preserve existing input validation and correction rules; add no history if neither position nor bookmark selection changes.
+        /// </remarks>
         private void toolStripTextBoxPageInput_Leave(object sender, EventArgs e)
         {
+            StopHistoryInputFilter();
             // Switch TextBox to Label.
             toolStripTextBoxPageInput.Visible = false;
             toolStripLabelPage.Visible = true;
+
+            if (_discardHistoryPageInput)
+            {
+                _discardHistoryPageInput = false;
+                return;
+            }
 
             if (pdfViewer.Document != null)
             {
@@ -901,7 +952,7 @@ namespace PDFComp
                     if (newPage <= pdfViewer.Document.PageCount)
                     {
                         newPage = (newPage > 0) ? newPage : 1;
-                        pdfViewer.Renderer.Page = newPage - 1;
+                        NavigateWithHistory(() => pdfViewer.Renderer.Page = newPage - 1);
                         toolStripLabelPage.Text = newPage.ToString();
                     }
                 }

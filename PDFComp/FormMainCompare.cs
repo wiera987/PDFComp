@@ -27,8 +27,10 @@ namespace PDFComp
 
         public void PagePairClearAll()
         {
-            // Initialize the page pair list.
-            pagePairList.ClearAll();
+            // Document replacement and explicit document-wide clearing reset navigation.
+            pagePairList?.ClearAll();
+            pdfPanel1.pdfViewer.Renderer.SetFlashTextSpans(new List<PdfTextSpan>());
+            pdfPanel2.pdfViewer.Renderer.SetFlashTextSpans(new List<PdfTextSpan>());
         }
 
         private void ComparePage()
@@ -86,20 +88,12 @@ namespace PDFComp
             int page1 = pdfPanel1.pdfViewer.Renderer.ComparisonPage;
             int page2 = pdfPanel2.pdfViewer.Renderer.ComparisonPage;
 
-            (int startPage1, int endPage1) = pdfPanel1.GetBookmarkPages(page1);
-            (int startPage2, int endPage2) = pdfPanel2.GetBookmarkPages(page2);
-
-            // If a bookmark cannot be obtained, make it the current page.
-            if (startPage1 < 0)
-            {
-                startPage1 = page1;
-                endPage1 = page1;
-            }
-            if (startPage2 < 0)
-            {
-                startPage2 = page2;
-                endPage2 = page2;
-            }
+            var range1 = pdfPanel1.GetBookmarkPages(page1);
+            var range2 = pdfPanel2.GetBookmarkPages(page2);
+            int startPage1 = range1.start < 0 ? page1 : range1.start;
+            int endPage1 = range1.start < 0 ? page1 : range1.end;
+            int startPage2 = range2.start < 0 ? page2 : range2.start;
+            int endPage2 = range2.start < 0 ? page2 : range2.end;
 
             Console.WriteLine("CompareBookmark():({0},{1})-({2},{3})", startPage1+1, endPage1+1, startPage2+1, endPage2+1);
 
@@ -193,85 +187,111 @@ namespace PDFComp
 
         private bool ComparePages(System.Diagnostics.Stopwatch stopwatch, int startPage1, int endPage1, int startPage2, int endPage2)
         {
-            var oneFullPage1 = pdfPanel1.pdfViewer.Renderer.CompareBounds.IsEmpty;
-            var oneFullPage2 = pdfPanel2.pdfViewer.Renderer.CompareBounds.IsEmpty;
-            var textData1 = new PageTextList();
-            var textData2 = new PageTextList();
-
-            Console.WriteLine("PDF1 = {0}", pdfPanel1.toolStripTextBoxFile.Text);
-            Console.WriteLine("PDF2 = {0}", pdfPanel2.toolStripTextBoxFile.Text);
-            Console.WriteLine("PDF1 CompareBounds = {0}", pdfPanel1.pdfViewer.Renderer.CompareBounds);
-            Console.WriteLine("PDF2 CompareBounds = {0}", pdfPanel2.pdfViewer.Renderer.CompareBounds);
-
-            // Once compared, clear the page number and diff markers.
-            // It's translucent and overwritten, so if you don't erase it, it will get darker.
-            for (int i = startPage1; i <= endPage1; i++)
-            {
-                pdfPanel1.ClearDiffMarker(i, oneFullPage1);
-                textData1.Add(pdfPanel1.GetPageTextData(i));
-                //Console.WriteLine("Get1-{0}:{1}", i+1, pdfPanel1.GetPageTextData(i).Text);
-            }
-            for (int i = startPage2; i <= endPage2; i++)
-            {
-                pdfPanel2.ClearDiffMarker(i, oneFullPage2);
-                textData2.Add(pdfPanel2.GetPageTextData(i));
-                //Console.WriteLine("Get2-{0}:{1}", i+1, pdfPanel2.GetPageTextData(i).Text);
-            }
+            bool completed = false;
+            int diffType = toolStripComboBoxDiffType.SelectedIndex;
             pagePairList.Clear(startPage1, endPage1, startPage2, endPage2);
 
-            // Draw without the marker.
-            pdfPanel1.Update();
-            pdfPanel2.Update();
-
-            //stopwatch.Stop();
-            //Console.WriteLine("Clear:{0}", stopwatch.Elapsed);
-            //stopwatch.Start();
-
-
-            List<PdfTextSpan> index1 = new List<PdfTextSpan>();
-            List<PdfTextSpan> index2 = new List<PdfTextSpan>();
-
-            stopwatch.Stop();
-            Console.WriteLine("Get:{0}", stopwatch.Elapsed);
-
-            stopwatch.Start();
-
-            diff_match_patch dmp;
-            List<Diff> diffs;
-
-            int diffType = toolStripComboBoxDiffType.SelectedIndex;
-            switch (diffType)
+            try
             {
-                case 0:     // Google Diff - Character
-                    dmp = new diff_match_patch();
-                    diffs = dmp.diff_main(textData1.Text, textData2.Text);
-                    break;
-                case 1:     // Google Diff - Semantic
-                    dmp = new diff_match_patch();
-                    diffs = dmp.diff_main(textData1.Text, textData2.Text);
-                    dmp.diff_cleanupSemantic(diffs);
-                    break;
+                var oneFullPage1 = pdfPanel1.pdfViewer.Renderer.CompareBounds.IsEmpty;
+                var oneFullPage2 = pdfPanel2.pdfViewer.Renderer.CompareBounds.IsEmpty;
+                var textData1 = new PageTextList();
+                var textData2 = new PageTextList();
 
-                default:
-                    throw new Exception();
+                Console.WriteLine("PDF1 = {0}", pdfPanel1.toolStripTextBoxFile.Text);
+                Console.WriteLine("PDF2 = {0}", pdfPanel2.toolStripTextBoxFile.Text);
+                Console.WriteLine("PDF1 CompareBounds = {0}", pdfPanel1.pdfViewer.Renderer.CompareBounds);
+                Console.WriteLine("PDF2 CompareBounds = {0}", pdfPanel2.pdfViewer.Renderer.CompareBounds);
+
+                // Replace only the compared region's diff markers so translucent
+                // overlays do not accumulate when the same region is compared again.
+                for (int i = startPage1; i <= endPage1; i++)
+                {
+                    pdfPanel1.ClearDiffMarker(i, oneFullPage1);
+                    textData1.Add(pdfPanel1.GetPageTextData(i));
+                    //Console.WriteLine("Get1-{0}:{1}", i+1, pdfPanel1.GetPageTextData(i).Text);
+                }
+                for (int i = startPage2; i <= endPage2; i++)
+                {
+                    pdfPanel2.ClearDiffMarker(i, oneFullPage2);
+                    textData2.Add(pdfPanel2.GetPageTextData(i));
+                    //Console.WriteLine("Get2-{0}:{1}", i+1, pdfPanel2.GetPageTextData(i).Text);
+                }
+
+                // Draw without the marker.
+                pdfPanel1.Update();
+                pdfPanel2.Update();
+
+                //stopwatch.Stop();
+                //Console.WriteLine("Clear:{0}", stopwatch.Elapsed);
+                //stopwatch.Start();
+
+
+                List<PdfTextSpan> index1 = new List<PdfTextSpan>();
+                List<PdfTextSpan> index2 = new List<PdfTextSpan>();
+
+                stopwatch.Stop();
+                Console.WriteLine("Get:{0}", stopwatch.Elapsed);
+
+                stopwatch.Start();
+
+                diff_match_patch dmp;
+                List<Diff> diffs;
+
+                switch (diffType)
+                {
+                    case 0:     // Google Diff - Character
+                        dmp = new diff_match_patch();
+                        diffs = dmp.diff_main(textData1.Text, textData2.Text);
+                        break;
+                    case 1:     // Google Diff - Semantic
+                        dmp = new diff_match_patch();
+                        diffs = dmp.diff_main(textData1.Text, textData2.Text);
+                        dmp.diff_cleanupSemantic(diffs);
+                        break;
+
+                    default:
+                        throw new Exception();
+                }
+
+                // Build source correspondences and visible differences for this execution only.
+                // Register them without retaining a second copy of either result.
+                var sourcePairs = new PagePairList();
+                CompareStyle(diffs, textData1, textData2);
+                UpdateComparedPage2(diffs, textData1, textData2, sourcePairs);
+                IncludeEmptyPagesInPairs(textData1, textData2, sourcePairs);
+                ExtractDiffSpan2(index1, index2, diffs, textData1, textData2);
+
+                stopwatch.Stop();
+                Console.WriteLine("Diff:{0}", stopwatch.Elapsed);
+                stopwatch.Start();
+
+
+                pdfPanel1.AddDiffMarker(index1);
+                pdfPanel2.AddDiffMarker(index2);
+
+                foreach (var pair in sourcePairs)
+                {
+                    pagePairList.SetPagePair(pair.Page1, pair.Page2, pair.Span1, pair.Span2);
+                }
+
+                // Mark this execution complete after both displays and page pairs are updated.
+                completed = true;
+
+                // If there is a difference on either page.
+                bool found_diff = (index1.Count > 0) || (index2.Count > 0);
+
+                return found_diff;
             }
-
-            CompareStyle(diffs, textData1, textData2);
-            ExtractDiffSpan2(index1, index2, diffs, textData1, textData2);
-            UpdateComparedPage2(diffs, textData1, textData2);
-
-            stopwatch.Stop();
-            Console.WriteLine("Diff:{0}", stopwatch.Elapsed);
-            stopwatch.Start();
-
-
-            pdfPanel1.AddDiffMarker(index1);
-            pdfPanel2.AddDiffMarker(index2);
-
-            // If there is a difference on either page.
-            bool found_diff = (index1.Count > 0) || (index2.Count > 0);
-
-            return found_diff;
+            finally
+            {
+                if (!completed)
+                {
+                    // A partial display update is not a completed comparison. Remove any
+                    // partially registered navigation state; marker rollback is not promised.
+                    pagePairList.Clear(startPage1, endPage1, startPage2, endPage2);
+                }
+            }
         }
 
         /// <summary>
@@ -490,15 +510,21 @@ namespace PDFComp
         /// <param name="diffs">A list of text differences representing changes between the two documents.</param>
         /// <param name="textList1">The text list representing the first document, used to determine page boundaries and extract text spans.</param>
         /// <param name="textList2">The text list representing the second document, used to determine page boundaries and extract text spans.</param>
-        private void UpdateComparedPage2(List<Diff> diffs, PageTextList textList1, PageTextList textList2)
+        private void UpdateComparedPage2(List<Diff> diffs, PageTextList textList1, PageTextList textList2, PagePairList sourcePairs)
         {
+            // Two empty lists have no character-bearing anchors.
+            // IncludeEmptyPagesInPairs adds page correspondences without inventing character spans.
+            if (textList1.TextLength == 0 && textList2.TextLength == 0)
+            {
+                return;
+            }
             // Step1. Get the starting offset of each page
             int offset1 = 0, offset2 = 0;                       // Current position in the entire text
             int startOffset1 = 0, startOffset2 = 0;             // Start position of the current TextSpan
             int previousOffset1 = 0, previousOffset2 = 0;       // Store the offset to append to the previously compared TextSpan
 
-            (int page1, _) = textList1.GetPagePos(offset1);     // Page number currently being processed
-            (int page2, _) = textList2.GetPagePos(offset2);
+            int page1 = textList1.TextLength == 0 ? textList1.LastPage : textList1.GetPagePos(0).page;
+            int page2 = textList2.TextLength == 0 ? textList2.LastPage : textList2.GetPagePos(0).page;
             int previousPage1 = page1;                          // Store the page to append to the previously compared TextSpan
             int previousPage2 = page2;
             int nextOffset1 = textList1.GetOffset(page1 + 1);   // Start position of the next page
@@ -596,11 +622,9 @@ namespace PDFComp
 
                         var span1 = textList1.GetTextSpans(startOffset1a, offset1);
                         var span2 = textList2.GetTextSpans(startOffset2a, offset2);
-                        pagePairList.SetPagePair(page1a, page2a, span1, span2);
-                        pdfPanel1.SetComparedPage(page1a, page2a);
-                        pdfPanel2.SetComparedPage(page2a, page1a);
+                        sourcePairs.SetPagePair(page1a, page2a, span1, span2);
 
-                        Console.WriteLine($"SetComparedPage({page1a+1},{page2a+1})");
+                        Console.WriteLine($"SetPagePair({page1a+1},{page2a+1})");
 
                         previousPage1 = page1a;
                         previousPage2 = page2a;
@@ -618,11 +642,73 @@ namespace PDFComp
             {
                 var span1 = textList1.GetTextSpans(startOffset1, offset1);
                 var span2 = textList2.GetTextSpans(startOffset2, offset2);
-                pagePairList.SetPagePair(page1, page2, span1, span2);
-                pdfPanel1.SetComparedPage(page1, page2);
-                pdfPanel2.SetComparedPage(page2, page1);
+                sourcePairs.SetPagePair(page1, page2, span1, span2);
             }
 
+        }
+
+        /// <summary>
+        /// Includes every compared zero-text page in the navigation correspondence.
+        /// Existing character ranges remain in original PDF coordinates; an empty list
+        /// represents a page boundary with no characters consumed on that side.
+        /// </summary>
+        private static void IncludeEmptyPagesInPairs(PageTextList textList1, PageTextList textList2, PagePairList sourcePairs)
+        {
+            // Retain the text-bearing anchors and rebuild the intervening zero-text steps.
+            // The original boundary walk may have placed those steps on the following page.
+            var anchors = sourcePairs.Where(pair => pair.Span1.Count > 0 || pair.Span2.Count > 0).ToList();
+            sourcePairs.ClearAll();
+            var pages1 = textList1.Pages;
+            var pages2 = textList2.Pages;
+            int index1 = 0, index2 = 0;
+
+            // A final pass with no anchor includes trailing pages, or the whole range
+            // when neither document contributed any characters.
+            for (int anchorIndex = 0; anchorIndex <= anchors.Count; anchorIndex++)
+            {
+                var anchor = anchorIndex < anchors.Count ? anchors[anchorIndex] : null;
+                int limit1 = anchor == null ? textList1.LastPage + 1 : anchor.Page1;
+                int limit2 = anchor == null ? textList2.LastPage + 1 : anchor.Page2;
+                var emptyPages1 = new List<int>();
+                var emptyPages2 = new List<int>();
+                while (index1 < pages1.Count && pages1[index1].Page < limit1)
+                {
+                    if (pages1[index1].Text.Length == 0)
+                        emptyPages1.Add(pages1[index1].Page);
+                    index1++;
+                }
+                while (index2 < pages2.Count && pages2[index2].Page < limit2)
+                {
+                    if (pages2[index2].Text.Length == 0)
+                        emptyPages2.Add(pages2[index2].Page);
+                    index2++;
+                }
+
+                // Advance both empty runs together, holding the last empty page if
+                // their lengths differ. A one-sided run uses the following anchor,
+                // or the other document's last compared page at the end of the range.
+                for (int step = 0; step < Math.Max(emptyPages1.Count, emptyPages2.Count); step++)
+                {
+                    int page1 = emptyPages1.Count > 0
+                        ? emptyPages1[Math.Min(step, emptyPages1.Count - 1)]
+                        : anchor == null ? textList1.LastPage : anchor.Page1;
+                    int page2 = emptyPages2.Count > 0
+                        ? emptyPages2[Math.Min(step, emptyPages2.Count - 1)]
+                        : anchor == null ? textList2.LastPage : anchor.Page2;
+                    sourcePairs.SetPagePair(page1, page2, new List<PdfTextSpan>(), new List<PdfTextSpan>());
+                }
+
+                if (anchor != null)
+                {
+                    sourcePairs.SetPagePair(anchor.Page1, anchor.Page2, anchor.Span1, anchor.Span2);
+                    // A page can participate in several anchors. Consume its source
+                    // entry once so one-to-many anchors do not skip later empty pages.
+                    if (index1 < pages1.Count && pages1[index1].Page == anchor.Page1)
+                        index1++;
+                    if (index2 < pages2.Count && pages2[index2].Page == anchor.Page2)
+                        index2++;
+                }
+            }
         }
 
         private void SlideNextPage(ref int page, ref int nextOffset, PageTextList textList)
@@ -723,6 +809,11 @@ namespace PDFComp
             {
                 pdfPanel1.pdfViewer.Renderer.SetFlashTextSpans(pair.Span1);
                 pdfPanel2.pdfViewer.Renderer.SetFlashTextSpans(pair.Span2);
+            }
+            else
+            {
+                pdfPanel1.pdfViewer.Renderer.SetFlashTextSpans(new List<PdfTextSpan>());
+                pdfPanel2.pdfViewer.Renderer.SetFlashTextSpans(new List<PdfTextSpan>());
             }
         }
                 

@@ -16,7 +16,6 @@ namespace PDFComp
     public partial class PdfPanel : UserControl
     {
         readonly int pagesPerTick = 10;
-        private List<int> _comparePage = null;                  // Remember which page the function compared to the other page.
         private double _zoom = 1.0;
         private PdfRotation _rotation = PdfRotation.Rotate0;
         private PdfPoint _contextMenuPosition;
@@ -71,6 +70,10 @@ namespace PDFComp
         public class PageTextList
         {
             private List<PageTextData> _pageTextList;
+            private int _textLength;
+
+            public IReadOnlyList<PageTextData> Pages => _pageTextList.AsReadOnly();
+            public int TextLength => _textLength;
 
             // All text enclosed in bounds
             public string Text
@@ -105,11 +108,13 @@ namespace PDFComp
                 {
                     pageTextData
                 };
+                _textLength = pageTextData.Text.Length;
             }
 
             // Add one page of text data at a time.
             public void Add(PageTextData pageTextData)
             {
+                _textLength = checked(_textLength + pageTextData.Text.Length);
                 _pageTextList.Add(pageTextData);
             }
 
@@ -146,6 +151,10 @@ namespace PDFComp
             /// <returns>Page and pagePos. The pagePos is the offset position in the text obtained with GetPdfText().</returns>
             public (int page, int pagePos) GetPagePos(int offset)
             {
+                if (offset < 0 || offset > TextLength)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(offset));
+                }
                 var last = _pageTextList.Last();
 
                 foreach (PageTextData pageTextData in _pageTextList)
@@ -155,7 +164,8 @@ namespace PDFComp
                     {
                         if (pageTextData == last)
                         {
-                            return (pageTextData.Page, pageTextData.GetPagePos(offset));
+                            // An empty page has no character position to index, even at its boundary.
+                            return (pageTextData.Page, 0);
                         }
                         else
                         {
@@ -216,7 +226,22 @@ namespace PDFComp
             /// <returns></returns>
             public List<PdfTextSpan> GetTextSpans(int start, int end)
             {
+                // Validate both endpoints before allowing an empty range to bypass character lookup.
+                if (start < 0 || start > TextLength)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(start));
+                }
+                if (end < start || end > TextLength)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(end));
+                }
+
                 List<PdfTextSpan> textSpans = new List<PdfTextSpan>();
+                // A zero-length range has no character position to look up, including on blank pages.
+                if (start == end)
+                {
+                    return textSpans;
+                }
                 int startCount = 0;
 
                 (int startPage, int startPos) = GetPagePos(start);
@@ -543,31 +568,6 @@ namespace PDFComp
             }
         }
 
-        public int GetComparedPage(int page)
-        {
-            if (_comparePage != null)
-            {
-                if ((page >= 0) && (page < _comparePage.Count))
-                {
-                    return _comparePage[page];
-                }
-            }
-
-            // Not any page
-            return -1;
-        }
-
-        public void SetComparedPage(int page, int oppositePage)
-        {
-            if (_comparePage != null)
-            {
-                if (_comparePage[page] < 0)
-                {
-                    _comparePage[page] = oppositePage;
-                }
-            }
-        }
-
         /// <summary>
         /// Clear difference markers in diffpage.
         /// </summary>
@@ -596,11 +596,6 @@ namespace PDFComp
                         pdfViewer.Renderer.Markers.RemoveAt(i);
                     }
                 }
-
-                if (_comparePage != null)
-                {
-                    _comparePage[diffpage] = -1;
-                }
             }
         }
 
@@ -609,10 +604,6 @@ namespace PDFComp
             if (pdfViewer.Document != null)
             {
                 pdfViewer.Renderer.Markers.Clear();
-                for (int i = 0; i < pdfViewer.Document.PageCount; i++)
-                {
-                    _comparePage[i] = -1;
-                }
             }
         }
 
@@ -707,12 +698,6 @@ namespace PDFComp
             toolStripTextBoxFile.Text = fileName;                   // Drop only the first file.
             toolStripTextBoxFile.SelectionStart = fileName.Length;  // Move the caret to the end of the text box
             toolStripTextBoxFile.ToolTipText = fileName;
-
-            _comparePage = new List<int>(pdfViewer.Document.PageCount);
-            for (int i = 0; i < pdfViewer.Document.PageCount; i++)
-            {
-                _comparePage.Add(-1);
-            }
 
             pdfViewer.Renderer.Markers.Clear();
             pdfViewer.SelectBookmarkForPage(0);                     // Set the first page bookmark to selected

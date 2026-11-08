@@ -54,6 +54,9 @@ namespace PDFComp
             pdfPanel2.toolStripButtonNextPage.ToolTipText = "Next Page / Alt + RIGHT_ARROW";
             pdfPanel2.toolStripButtonPrevPage.ToolTipText = "Prev Page / Alt + LEFT_ARROW";
 
+            previousDifferenceToolStripMenuItem.ShortcutKeyDisplayString = "Shift+F8 / P";
+            nextDifferenceToolStripMenuItem.ShortcutKeyDisplayString = "F8 / N";
+
             // Operate Jump scope navigation like a toggle button
             SwitchJumpScopeToDiffMode();
 
@@ -84,6 +87,37 @@ namespace PDFComp
 
             pdfPanel1.OpenFile(files[0]);
             pdfPanel2.OpenFile(files[1]);
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            bool next = keyData == Keys.F8 || keyData == Keys.N;
+            bool previous = keyData == (Keys.Shift | Keys.F8) || keyData == Keys.P;
+            if (next || previous)
+            {
+                Control target = Control.FromChildHandle(msg.HWnd);
+                bool pdfView = target == pdfPanel1.pdfViewer.Renderer ||
+                    target == pdfPanel2.pdfViewer.Renderer;
+                bool functionKey = (keyData & Keys.KeyCode) == Keys.F8;
+                if ((functionKey || pdfView) && !IsJumpShortcutInput(target))
+                {
+                    (next ? toolStripButtonNextDiff : toolStripButtonPrevDiff).PerformClick();
+                    return true;
+                }
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private static bool IsJumpShortcutInput(Control control)
+        {
+            // Preserve text entry, list selection and IME conversion in input controls.
+            for (; control != null; control = control.Parent)
+            {
+                if (control is TextBoxBase || control is ComboBox || control is UpDownBase)
+                    return true;
+            }
+            return false;
         }
 
         protected override bool ProcessDialogKey(Keys keyData)
@@ -1218,6 +1252,7 @@ namespace PDFComp
             toolStripButtonNextDiff.Text = "Jump to Next Page";
             previousDifferenceToolStripMenuItem.Text = "Jump to Previous Page";
             nextDifferenceToolStripMenuItem.Text = "Jump to Next Page";
+            UpdateJumpShortcutToolTips();
         }
 
         private void SwitchJumpScopeToDiffMode()
@@ -1228,6 +1263,13 @@ namespace PDFComp
             toolStripButtonNextDiff.Text = "Jump to Next Difference";
             previousDifferenceToolStripMenuItem.Text = "Jump to Previous Difference"; ;
             nextDifferenceToolStripMenuItem.Text = "Jump to Next Difference";
+            UpdateJumpShortcutToolTips();
+        }
+
+        private void UpdateJumpShortcutToolTips()
+        {
+            toolStripButtonPrevDiff.ToolTipText = toolStripButtonPrevDiff.Text + "\nShift+F8 / P";
+            toolStripButtonNextDiff.ToolTipText = toolStripButtonNextDiff.Text + "\nF8 / N";
         }
 
         private void toolStripButtonStaticMarker_Click(object sender, EventArgs e)

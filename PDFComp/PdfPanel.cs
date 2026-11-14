@@ -442,7 +442,7 @@ namespace PDFComp
         {
             if (pdfViewer.Document != null)
             {
-                if (pdfViewer.Renderer.CompareBounds.IsEmpty)
+                if (pdfViewer.Renderer.IsEmptyCompareBounds)
                 {
                     // Extract the entire page.
                     int[] pagePos = null;
@@ -454,7 +454,9 @@ namespace PDFComp
                     // Extract a range of CompareBounds.
                     var text = pdfViewer.Document.GetPdfText(page);
                     var pageText = string.Empty;
-                    var compBounds = pdfViewer.Renderer.CompareBounds;
+                    var compBounds = pdfViewer.Renderer.GetCompareBounds(page);
+                    if (compBounds.IsEmpty)
+                        return new PageTextData(page, string.Empty, new int[0]);
                     var count = 0;
 
                     int[] pagePos = new int[text.Length];
@@ -577,11 +579,14 @@ namespace PDFComp
         {
             if (diffpage >= 0)
             {
+                var comp_rect = OneFullPage ? RectangleF.Empty : pdfViewer.Renderer.GetCompareBounds(diffpage);
+                if (!OneFullPage && comp_rect.IsEmpty)
+                    return;
+
                 // Delete difference markers in the diffpage.
                 for (int i = pdfViewer.Renderer.Markers.Count - 1; i >= 0; i--)
                 {
                     PdfMarker marker = (PdfMarker)pdfViewer.Renderer.Markers[i];
-                    var comp_rect = pdfViewer.Renderer.CompareBounds;
                     // Decrease the amount increased in AddDiffMarker().
                     var boundsRect = new RectangleF(
                                         marker.Bounds.Left + 1,
@@ -751,16 +756,17 @@ namespace PDFComp
 
         private void Renderer_MouseDown(object sender, MouseEventArgs e)
         {
-            if (pdfViewer.Renderer.CursorMode == PdfCursorMode.Bounds)
+            if (pdfViewer.Renderer.CursorMode == PdfCursorMode.Bounds && e.Button == MouseButtons.Left)
             {
-                _mouseDrag = true;
                 _mouseDown = pdfViewer.Renderer.PointToPdf(e.Location);
+                _mouseDrag = _mouseDown.IsValid;
+                if (!_mouseDrag)
+                    return;
+
                 _mouseUp = _mouseDown;
 
                 var bounds = new RectangleF(_mouseDown.Location, new SizeF(0, 0));
-                pdfViewer.Renderer.CompareBounds = bounds;
-
-                //Console.WriteLine("Down:{0}", bounds);
+                pdfViewer.Renderer.SetRelativeCompareBounds(_mouseDown.Page, bounds);
             }
         }
         private void Renderer_MouseMove(object sender, MouseEventArgs e)
@@ -769,40 +775,42 @@ namespace PDFComp
             {
                 if (_mouseDrag)
                 {
-                    _mouseUp = pdfViewer.Renderer.PointToPdf(e.Location);
-
-                    var bounds = new RectangleF(
-                            _mouseDown.Location.X,
-                            _mouseDown.Location.Y,
-                            _mouseUp.Location.X - _mouseDown.Location.X,
-                            _mouseUp.Location.Y - _mouseDown.Location.Y
-                            );
-
-                    pdfViewer.Renderer.CompareBounds = bounds;
-
-                    //Console.WriteLine("Move:{0}", bounds);
+                    UpdateCompareBoundsFromMouse(e.Location);
                 }
             }
         }
 
         private void Renderer_MouseUp(object sender, MouseEventArgs e)
         {
-            if (pdfViewer.Renderer.CursorMode == PdfCursorMode.Bounds)
+            if (pdfViewer.Renderer.CursorMode == PdfCursorMode.Bounds && _mouseDrag && e.Button == MouseButtons.Left)
             {
                 _mouseDrag = false;
-                _mouseUp = pdfViewer.Renderer.PointToPdf(e.Location);
-
-                var bounds = new RectangleF(
-                    _mouseDown.Location.X,
-                    _mouseDown.Location.Y,
-                    _mouseUp.Location.X - _mouseDown.Location.X,
-                    _mouseUp.Location.Y - _mouseDown.Location.Y
-                    );
-
-                pdfViewer.Renderer.CompareBounds = bounds;
-
-                //Console.WriteLine("Up  :{0}", bounds);
+                UpdateCompareBoundsFromMouse(e.Location);
+                // A click clears Bounds; a nonzero selection clipped outside a page remains active.
+                if (pdfViewer.Renderer.CompareBounds.IsEmpty)
+                {
+                    pdfViewer.Renderer.CompareBounds = RectangleF.Empty;
+                }
             }
+        }
+
+        /// <summary>
+        /// Keeps the drag in its source page's PDF coordinates; the renderer clips each page's result.
+        /// </summary>
+        private void UpdateCompareBoundsFromMouse(Point location)
+        {
+            _mouseUp = pdfViewer.Renderer.PointToPdfOnPage(_mouseDown.Page, location);
+            if (!_mouseUp.IsValid)
+            {
+                return;
+            }
+
+            var bounds = new RectangleF(
+                _mouseDown.Location.X,
+                _mouseDown.Location.Y,
+                _mouseUp.Location.X - _mouseDown.Location.X,
+                _mouseUp.Location.Y - _mouseDown.Location.Y);
+            pdfViewer.Renderer.SetRelativeCompareBounds(_mouseDown.Page, bounds);
         }
 
         private void ContextMenuStripPdf_Opening(object sender, CancelEventArgs e)

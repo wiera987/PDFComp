@@ -28,10 +28,11 @@ namespace PDFComp
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Text Styling");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Spaces & Breaks");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Display Setting");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Others");
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Text Styling");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Spaces & Breaks");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Display Setting");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Others");
             this.treeViewOptions = new System.Windows.Forms.TreeView();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -41,6 +42,8 @@ namespace PDFComp
             this.label7 = new System.Windows.Forms.Label();
             this.checkBoxCompareStyles = new System.Windows.Forms.CheckBox();
             this.groupBoxCompareStyle = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.chkCompareFillColor = new System.Windows.Forms.CheckBox();
@@ -50,18 +53,6 @@ namespace PDFComp
             this.chkCompareHighlighted = new System.Windows.Forms.CheckBox();
             this.chkCompareSquiggly = new System.Windows.Forms.CheckBox();
             this.chkCompareAnnotationColor = new System.Windows.Forms.CheckBox();
-            this.tabPageDisplay = new System.Windows.Forms.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
-            this.labelBlinkingPeriod = new System.Windows.Forms.Label();
-            this.trackBarBlinkingPeriod = new System.Windows.Forms.TrackBar();
-            this.checkBoxBlinkingDiffMarker = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tabPageOthers = new System.Windows.Forms.TabPage();
-            this.numericUpDownReducedColor = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
-            this.labelReduceColorCount = new System.Windows.Forms.Label();
-            this.chkCopyBookmarkPage = new System.Windows.Forms.CheckBox();
-            this.chkReduceColorCopy = new System.Windows.Forms.CheckBox();
             this.tabPageWs = new System.Windows.Forms.TabPage();
             this.labelWsWarning = new System.Windows.Forms.Label();
             this.groupBoxIgnoreWsDetail = new System.Windows.Forms.GroupBox();
@@ -73,17 +64,30 @@ namespace PDFComp
             this.checkBoxWsOthers = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.checkBoxIgnoreWsOnly = new System.Windows.Forms.CheckBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.tabPageDisplay = new System.Windows.Forms.TabPage();
+            this.comboBoxBoundsFallback = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.labelBlinkingPeriod = new System.Windows.Forms.Label();
+            this.trackBarBlinkingPeriod = new System.Windows.Forms.TrackBar();
+            this.checkBoxBlinkingDiffMarker = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tabPageOthers = new System.Windows.Forms.TabPage();
+            this.numericUpDownReducedColor = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelReduceColorCount = new System.Windows.Forms.Label();
+            this.chkCopyBookmarkPage = new System.Windows.Forms.CheckBox();
+            this.chkReduceColorCopy = new System.Windows.Forms.CheckBox();
+            this.toolTipBoundsFallback = new System.Windows.Forms.ToolTip(this.components);
             this.tabControlOptions.SuspendLayout();
             this.tabPageStyles.SuspendLayout();
             this.groupBoxCompareStyle.SuspendLayout();
+            this.tabPageWs.SuspendLayout();
+            this.groupBoxIgnoreWsDetail.SuspendLayout();
             this.tabPageDisplay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarBlinkingPeriod)).BeginInit();
             this.tabPageOthers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownReducedColor)).BeginInit();
-            this.tabPageWs.SuspendLayout();
-            this.groupBoxIgnoreWsDetail.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeViewOptions
@@ -93,19 +97,19 @@ namespace PDFComp
             this.treeViewOptions.ItemHeight = 20;
             this.treeViewOptions.Location = new System.Drawing.Point(12, 12);
             this.treeViewOptions.Name = "treeViewOptions";
-            treeNode5.Name = "";
-            treeNode5.Text = "Text Styling";
-            treeNode6.Name = "";
-            treeNode6.Text = "Spaces & Breaks";
-            treeNode7.Name = "";
-            treeNode7.Text = "Display Setting";
-            treeNode8.Name = "";
-            treeNode8.Text = "Others";
+            treeNode9.Name = "";
+            treeNode9.Text = "Text Styling";
+            treeNode10.Name = "";
+            treeNode10.Text = "Spaces & Breaks";
+            treeNode11.Name = "";
+            treeNode11.Text = "Display Setting";
+            treeNode12.Name = "";
+            treeNode12.Text = "Others";
             this.treeViewOptions.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode6,
-            treeNode7,
-            treeNode8});
+            treeNode9,
+            treeNode10,
+            treeNode11,
+            treeNode12});
             this.treeViewOptions.Size = new System.Drawing.Size(151, 260);
             this.treeViewOptions.TabIndex = 0;
             this.treeViewOptions.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewOptions_AfterSelect);
@@ -135,9 +139,9 @@ namespace PDFComp
             // tabControlOptions
             // 
             this.tabControlOptions.Controls.Add(this.tabPageStyles);
+            this.tabControlOptions.Controls.Add(this.tabPageWs);
             this.tabControlOptions.Controls.Add(this.tabPageDisplay);
             this.tabControlOptions.Controls.Add(this.tabPageOthers);
-            this.tabControlOptions.Controls.Add(this.tabPageWs);
             this.tabControlOptions.Location = new System.Drawing.Point(181, 3);
             this.tabControlOptions.Name = "tabControlOptions";
             this.tabControlOptions.SelectedIndex = 0;
@@ -155,7 +159,7 @@ namespace PDFComp
             this.tabPageStyles.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageStyles.Size = new System.Drawing.Size(354, 241);
             this.tabPageStyles.TabIndex = 0;
-            this.tabPageStyles.Text = "tabPage1";
+            this.tabPageStyles.Text = "tabStyles";
             this.tabPageStyles.UseVisualStyleBackColor = true;
             // 
             // label8
@@ -211,6 +215,26 @@ namespace PDFComp
             this.groupBoxCompareStyle.Size = new System.Drawing.Size(279, 179);
             this.groupBoxCompareStyle.TabIndex = 15;
             this.groupBoxCompareStyle.TabStop = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(88, 132);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(186, 15);
+            this.label11.TabIndex = 11;
+            this.label11.Text = "-  Colors require well-formed PDFs";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(88, 110);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(186, 15);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "-  Colors require well-formed PDFs";
             // 
             // label9
             // 
@@ -323,154 +347,6 @@ namespace PDFComp
             this.chkCompareAnnotationColor.Text = "Annotation Color";
             this.chkCompareAnnotationColor.UseVisualStyleBackColor = true;
             // 
-            // tabPageDisplay
-            // 
-            this.tabPageDisplay.Controls.Add(this.label3);
-            this.tabPageDisplay.Controls.Add(this.labelBlinkingPeriod);
-            this.tabPageDisplay.Controls.Add(this.trackBarBlinkingPeriod);
-            this.tabPageDisplay.Controls.Add(this.checkBoxBlinkingDiffMarker);
-            this.tabPageDisplay.Controls.Add(this.label2);
-            this.tabPageDisplay.Location = new System.Drawing.Point(4, 22);
-            this.tabPageDisplay.Name = "tabPageDisplay";
-            this.tabPageDisplay.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDisplay.Size = new System.Drawing.Size(354, 243);
-            this.tabPageDisplay.TabIndex = 1;
-            this.tabPageDisplay.Text = "tabPage2";
-            this.tabPageDisplay.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(32, 71);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 19);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Blinking Period : ";
-            // 
-            // labelBlinkingPeriod
-            // 
-            this.labelBlinkingPeriod.Location = new System.Drawing.Point(123, 69);
-            this.labelBlinkingPeriod.Name = "labelBlinkingPeriod";
-            this.labelBlinkingPeriod.Size = new System.Drawing.Size(56, 19);
-            this.labelBlinkingPeriod.TabIndex = 16;
-            this.labelBlinkingPeriod.Text = "label3";
-            this.labelBlinkingPeriod.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // trackBarBlinkingPeriod
-            // 
-            this.trackBarBlinkingPeriod.Location = new System.Drawing.Point(181, 60);
-            this.trackBarBlinkingPeriod.Maximum = 50;
-            this.trackBarBlinkingPeriod.Minimum = 2;
-            this.trackBarBlinkingPeriod.Name = "trackBarBlinkingPeriod";
-            this.trackBarBlinkingPeriod.Size = new System.Drawing.Size(168, 45);
-            this.trackBarBlinkingPeriod.TabIndex = 15;
-            this.trackBarBlinkingPeriod.TickFrequency = 2;
-            this.trackBarBlinkingPeriod.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBarBlinkingPeriod.Value = 10;
-            this.trackBarBlinkingPeriod.ValueChanged += new System.EventHandler(this.trackBarBlinkingPeriod_ValueChanged);
-            // 
-            // checkBoxBlinkingDiffMarker
-            // 
-            this.checkBoxBlinkingDiffMarker.AutoSize = true;
-            this.checkBoxBlinkingDiffMarker.Location = new System.Drawing.Point(24, 40);
-            this.checkBoxBlinkingDiffMarker.Name = "checkBoxBlinkingDiffMarker";
-            this.checkBoxBlinkingDiffMarker.Size = new System.Drawing.Size(152, 19);
-            this.checkBoxBlinkingDiffMarker.TabIndex = 14;
-            this.checkBoxBlinkingDiffMarker.Text = "Use blinking diff marker";
-            this.checkBoxBlinkingDiffMarker.UseVisualStyleBackColor = true;
-            this.checkBoxBlinkingDiffMarker.CheckedChanged += new System.EventHandler(this.checkBoxBlinkDiffMarker_CheckedChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(128, 17);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "Diff Marker Behavior\n";
-            // 
-            // tabPageOthers
-            // 
-            this.tabPageOthers.Controls.Add(this.numericUpDownReducedColor);
-            this.tabPageOthers.Controls.Add(this.label1);
-            this.tabPageOthers.Controls.Add(this.labelReduceColorCount);
-            this.tabPageOthers.Controls.Add(this.chkCopyBookmarkPage);
-            this.tabPageOthers.Controls.Add(this.chkReduceColorCopy);
-            this.tabPageOthers.Location = new System.Drawing.Point(4, 22);
-            this.tabPageOthers.Name = "tabPageOthers";
-            this.tabPageOthers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOthers.Size = new System.Drawing.Size(354, 243);
-            this.tabPageOthers.TabIndex = 2;
-            this.tabPageOthers.Text = "tabPage3";
-            this.tabPageOthers.UseVisualStyleBackColor = true;
-            // 
-            // numericUpDownReducedColor
-            // 
-            this.numericUpDownReducedColor.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownReducedColor.Location = new System.Drawing.Point(187, 60);
-            this.numericUpDownReducedColor.Maximum = new decimal(new int[] {
-            1024,
-            0,
-            0,
-            0});
-            this.numericUpDownReducedColor.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownReducedColor.Name = "numericUpDownReducedColor";
-            this.numericUpDownReducedColor.Size = new System.Drawing.Size(55, 23);
-            this.numericUpDownReducedColor.TabIndex = 14;
-            this.numericUpDownReducedColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDownReducedColor.Value = new decimal(new int[] {
-            256,
-            0,
-            0,
-            0});
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 17);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Copy Behavior\n";
-            // 
-            // labelReduceColorCount
-            // 
-            this.labelReduceColorCount.AutoSize = true;
-            this.labelReduceColorCount.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelReduceColorCount.Location = new System.Drawing.Point(48, 63);
-            this.labelReduceColorCount.Name = "labelReduceColorCount";
-            this.labelReduceColorCount.Size = new System.Drawing.Size(130, 15);
-            this.labelReduceColorCount.TabIndex = 13;
-            this.labelReduceColorCount.Text = "Reduced Color Count:  ";
-            // 
-            // chkCopyBookmarkPage
-            // 
-            this.chkCopyBookmarkPage.AutoSize = true;
-            this.chkCopyBookmarkPage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCopyBookmarkPage.Location = new System.Drawing.Point(24, 91);
-            this.chkCopyBookmarkPage.Name = "chkCopyBookmarkPage";
-            this.chkCopyBookmarkPage.Size = new System.Drawing.Size(284, 19);
-            this.chkCopyBookmarkPage.TabIndex = 11;
-            this.chkCopyBookmarkPage.Text = "Include page numbers when copying bookmarks";
-            this.chkCopyBookmarkPage.UseVisualStyleBackColor = true;
-            // 
-            // chkReduceColorCopy
-            // 
-            this.chkReduceColorCopy.AutoSize = true;
-            this.chkReduceColorCopy.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkReduceColorCopy.Location = new System.Drawing.Point(24, 40);
-            this.chkReduceColorCopy.Name = "chkReduceColorCopy";
-            this.chkReduceColorCopy.Size = new System.Drawing.Size(219, 19);
-            this.chkReduceColorCopy.TabIndex = 10;
-            this.chkReduceColorCopy.Text = "Reduce colors when copying images";
-            this.chkReduceColorCopy.UseVisualStyleBackColor = true;
-            this.chkReduceColorCopy.CheckedChanged += new System.EventHandler(this.ChkReduceColorCopy_CheckedChanged);
-            // 
             // tabPageWs
             // 
             this.tabPageWs.Controls.Add(this.labelWsWarning);
@@ -482,7 +358,7 @@ namespace PDFComp
             this.tabPageWs.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageWs.Size = new System.Drawing.Size(354, 243);
             this.tabPageWs.TabIndex = 3;
-            this.tabPageWs.Text = "tabPageWs";
+            this.tabPageWs.Text = "tabWsBreaks";
             this.tabPageWs.UseVisualStyleBackColor = true;
             // 
             // labelWsWarning
@@ -612,25 +488,178 @@ namespace PDFComp
             this.checkBoxIgnoreWsOnly.UseVisualStyleBackColor = true;
             this.checkBoxIgnoreWsOnly.CheckedChanged += new System.EventHandler(this.checkBoxIgnoreWsOnly_CheckedChanged);
             // 
-            // label10
+            // tabPageDisplay
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(88, 110);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(186, 15);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "-  Colors require well-formed PDFs";
+            this.tabPageDisplay.Controls.Add(this.comboBoxBoundsFallback);
+            this.tabPageDisplay.Controls.Add(this.label12);
+            this.tabPageDisplay.Controls.Add(this.label3);
+            this.tabPageDisplay.Controls.Add(this.labelBlinkingPeriod);
+            this.tabPageDisplay.Controls.Add(this.trackBarBlinkingPeriod);
+            this.tabPageDisplay.Controls.Add(this.checkBoxBlinkingDiffMarker);
+            this.tabPageDisplay.Controls.Add(this.label2);
+            this.tabPageDisplay.Location = new System.Drawing.Point(4, 24);
+            this.tabPageDisplay.Name = "tabPageDisplay";
+            this.tabPageDisplay.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageDisplay.Size = new System.Drawing.Size(354, 241);
+            this.tabPageDisplay.TabIndex = 1;
+            this.tabPageDisplay.Text = "tabDisplay";
+            this.tabPageDisplay.UseVisualStyleBackColor = true;
             // 
-            // label11
+            // comboBoxBoundsFallback
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(88, 132);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(186, 15);
-            this.label11.TabIndex = 11;
-            this.label11.Text = "-  Colors require well-formed PDFs";
+            this.comboBoxBoundsFallback.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxBoundsFallback.FormattingEnabled = true;
+            this.comboBoxBoundsFallback.Items.AddRange(new object[] {
+            "Do Not Rotate",
+            "Rotate Right",
+            "Rotate Left"});
+            this.comboBoxBoundsFallback.Location = new System.Drawing.Point(24, 142);
+            this.comboBoxBoundsFallback.Name = "comboBoxBoundsFallback";
+            this.comboBoxBoundsFallback.Size = new System.Drawing.Size(189, 23);
+            this.comboBoxBoundsFallback.TabIndex = 19;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(6, 111);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(154, 17);
+            this.label12.TabIndex = 18;
+            this.label12.Text = "Bounds Rotation Fallback\n";
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(32, 71);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(93, 19);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "Blinking Period : ";
+            // 
+            // labelBlinkingPeriod
+            // 
+            this.labelBlinkingPeriod.Location = new System.Drawing.Point(123, 69);
+            this.labelBlinkingPeriod.Name = "labelBlinkingPeriod";
+            this.labelBlinkingPeriod.Size = new System.Drawing.Size(56, 19);
+            this.labelBlinkingPeriod.TabIndex = 16;
+            this.labelBlinkingPeriod.Text = "label3";
+            this.labelBlinkingPeriod.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // trackBarBlinkingPeriod
+            // 
+            this.trackBarBlinkingPeriod.Location = new System.Drawing.Point(181, 60);
+            this.trackBarBlinkingPeriod.Maximum = 50;
+            this.trackBarBlinkingPeriod.Minimum = 2;
+            this.trackBarBlinkingPeriod.Name = "trackBarBlinkingPeriod";
+            this.trackBarBlinkingPeriod.Size = new System.Drawing.Size(168, 45);
+            this.trackBarBlinkingPeriod.TabIndex = 15;
+            this.trackBarBlinkingPeriod.TickFrequency = 2;
+            this.trackBarBlinkingPeriod.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarBlinkingPeriod.Value = 10;
+            this.trackBarBlinkingPeriod.ValueChanged += new System.EventHandler(this.trackBarBlinkingPeriod_ValueChanged);
+            // 
+            // checkBoxBlinkingDiffMarker
+            // 
+            this.checkBoxBlinkingDiffMarker.AutoSize = true;
+            this.checkBoxBlinkingDiffMarker.Location = new System.Drawing.Point(24, 40);
+            this.checkBoxBlinkingDiffMarker.Name = "checkBoxBlinkingDiffMarker";
+            this.checkBoxBlinkingDiffMarker.Size = new System.Drawing.Size(152, 19);
+            this.checkBoxBlinkingDiffMarker.TabIndex = 14;
+            this.checkBoxBlinkingDiffMarker.Text = "Use blinking diff marker";
+            this.checkBoxBlinkingDiffMarker.UseVisualStyleBackColor = true;
+            this.checkBoxBlinkingDiffMarker.CheckedChanged += new System.EventHandler(this.checkBoxBlinkDiffMarker_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(6, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(128, 17);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Diff Marker Behavior\n";
+            // 
+            // tabPageOthers
+            // 
+            this.tabPageOthers.Controls.Add(this.numericUpDownReducedColor);
+            this.tabPageOthers.Controls.Add(this.label1);
+            this.tabPageOthers.Controls.Add(this.labelReduceColorCount);
+            this.tabPageOthers.Controls.Add(this.chkCopyBookmarkPage);
+            this.tabPageOthers.Controls.Add(this.chkReduceColorCopy);
+            this.tabPageOthers.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOthers.Name = "tabPageOthers";
+            this.tabPageOthers.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageOthers.Size = new System.Drawing.Size(354, 243);
+            this.tabPageOthers.TabIndex = 2;
+            this.tabPageOthers.Text = "tabOthers";
+            this.tabPageOthers.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownReducedColor
+            // 
+            this.numericUpDownReducedColor.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownReducedColor.Location = new System.Drawing.Point(187, 60);
+            this.numericUpDownReducedColor.Maximum = new decimal(new int[] {
+            1024,
+            0,
+            0,
+            0});
+            this.numericUpDownReducedColor.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownReducedColor.Name = "numericUpDownReducedColor";
+            this.numericUpDownReducedColor.Size = new System.Drawing.Size(55, 23);
+            this.numericUpDownReducedColor.TabIndex = 14;
+            this.numericUpDownReducedColor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownReducedColor.Value = new decimal(new int[] {
+            256,
+            0,
+            0,
+            0});
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(6, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(92, 17);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Copy Behavior\n";
+            // 
+            // labelReduceColorCount
+            // 
+            this.labelReduceColorCount.AutoSize = true;
+            this.labelReduceColorCount.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelReduceColorCount.Location = new System.Drawing.Point(48, 63);
+            this.labelReduceColorCount.Name = "labelReduceColorCount";
+            this.labelReduceColorCount.Size = new System.Drawing.Size(130, 15);
+            this.labelReduceColorCount.TabIndex = 13;
+            this.labelReduceColorCount.Text = "Reduced Color Count:  ";
+            // 
+            // chkCopyBookmarkPage
+            // 
+            this.chkCopyBookmarkPage.AutoSize = true;
+            this.chkCopyBookmarkPage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkCopyBookmarkPage.Location = new System.Drawing.Point(24, 91);
+            this.chkCopyBookmarkPage.Name = "chkCopyBookmarkPage";
+            this.chkCopyBookmarkPage.Size = new System.Drawing.Size(284, 19);
+            this.chkCopyBookmarkPage.TabIndex = 11;
+            this.chkCopyBookmarkPage.Text = "Include page numbers when copying bookmarks";
+            this.chkCopyBookmarkPage.UseVisualStyleBackColor = true;
+            // 
+            // chkReduceColorCopy
+            // 
+            this.chkReduceColorCopy.AutoSize = true;
+            this.chkReduceColorCopy.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkReduceColorCopy.Location = new System.Drawing.Point(24, 40);
+            this.chkReduceColorCopy.Name = "chkReduceColorCopy";
+            this.chkReduceColorCopy.Size = new System.Drawing.Size(219, 19);
+            this.chkReduceColorCopy.TabIndex = 10;
+            this.chkReduceColorCopy.Text = "Reduce colors when copying images";
+            this.chkReduceColorCopy.UseVisualStyleBackColor = true;
+            this.chkReduceColorCopy.CheckedChanged += new System.EventHandler(this.ChkReduceColorCopy_CheckedChanged);
             // 
             // FormOptions
             // 
@@ -654,16 +683,16 @@ namespace PDFComp
             this.tabPageStyles.PerformLayout();
             this.groupBoxCompareStyle.ResumeLayout(false);
             this.groupBoxCompareStyle.PerformLayout();
+            this.tabPageWs.ResumeLayout(false);
+            this.tabPageWs.PerformLayout();
+            this.groupBoxIgnoreWsDetail.ResumeLayout(false);
+            this.groupBoxIgnoreWsDetail.PerformLayout();
             this.tabPageDisplay.ResumeLayout(false);
             this.tabPageDisplay.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarBlinkingPeriod)).EndInit();
             this.tabPageOthers.ResumeLayout(false);
             this.tabPageOthers.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownReducedColor)).EndInit();
-            this.tabPageWs.ResumeLayout(false);
-            this.tabPageWs.PerformLayout();
-            this.groupBoxIgnoreWsDetail.ResumeLayout(false);
-            this.groupBoxIgnoreWsDetail.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -713,5 +742,8 @@ namespace PDFComp
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox comboBoxBoundsFallback;
+        private System.Windows.Forms.ToolTip toolTipBoundsFallback;
     }
 }

@@ -114,9 +114,7 @@
     <Compile Include="PdfPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PdfPanel.History.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="PdfPanel.History.cs" />
     <Compile Include="PdfPanel.Designer.cs">
       <DependentUpon>PdfPanel.cs</DependentUpon>
     </Compile>

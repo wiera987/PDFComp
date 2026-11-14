@@ -1,3 +1,4 @@
+
 using PdfiumViewer;
 using System;
 using System.Windows.Forms;
@@ -8,10 +9,35 @@ namespace PDFComp
     {
         public PdfTextStyleFlags StyleFlags => styleFlags;
         private PdfTextStyleFlags styleFlags;
+        private static readonly PdfBoundsRotationFallback[] boundsFallbackValues =
+        {
+            PdfBoundsRotationFallback.None,
+            PdfBoundsRotationFallback.Clockwise,
+            PdfBoundsRotationFallback.Anticlockwise
+        };
+
+        public PdfBoundsRotationFallback BoundsRotationFallback
+        {
+            get
+            {
+                int index = comboBoxBoundsFallback.SelectedIndex;
+                return index >= 0 && index < boundsFallbackValues.Length
+                    ? boundsFallbackValues[index]
+                    : PdfBoundsRotationFallback.None;
+            }
+        }
 
         public FormOptions()
         {
             InitializeComponent();
+
+            const string boundsFallbackTip =
+                "Rotate the Bounds according to this setting\n" +
+                "when a rotated page layout does not specify a rotation.\n" +
+                "Rotates comparison bounds only.";
+            toolTipBoundsFallback.AutoPopDelay = 15000;
+            toolTipBoundsFallback.SetToolTip(label12, boundsFallbackTip);
+            toolTipBoundsFallback.SetToolTip(comboBoxBoundsFallback, boundsFallbackTip);
 
             // Hide TabControl tab
             tabControlOptions.Appearance = TabAppearance.FlatButtons;
@@ -19,6 +45,12 @@ namespace PDFComp
             tabControlOptions.ItemSize = new System.Drawing.Size(0, 1);
 
             LoadSettings();
+            comboBoxBoundsFallback.SelectedIndexChanged += ComboBoxBoundsFallback_SelectedIndexChanged;
+        }
+
+        private void ComboBoxBoundsFallback_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            (this.Owner as FormMain)?.ApplyBoundsRotationFallback(BoundsRotationFallback);
         }
 
         private void TreeViewOptions_AfterSelect(object sender, TreeViewEventArgs e)
@@ -89,6 +121,15 @@ namespace PDFComp
             catch { }
 
             // Load "Display" panel settings
+            comboBoxBoundsFallback.SelectedIndex = 0;
+            try
+            {
+                // Stored values are rotation choices, independent of item order and text.
+                int index = Array.IndexOf(boundsFallbackValues,
+                    (PdfBoundsRotationFallback)Properties.Settings.Default.BoundsRotationFallback);
+                comboBoxBoundsFallback.SelectedIndex = Math.Max(index, 0);
+            }
+            catch { }
             try
             {
                 checkBoxBlinkingDiffMarker.Checked = Properties.Settings.Default.UseBlinkingDiffMarker;
@@ -232,6 +273,7 @@ namespace PDFComp
                 Properties.Settings.Default.ReduceFinalColor = (int)numericUpDownReducedColor.Value;
 
                 // Save "Display" panel settings
+                Properties.Settings.Default.BoundsRotationFallback = (int)BoundsRotationFallback;
                 Properties.Settings.Default.UseBlinkingDiffMarker = checkBoxBlinkingDiffMarker.Checked;
                 Properties.Settings.Default.BlinkingPeriodMS = trackBarBlinkingPeriod.Value * 100;
 

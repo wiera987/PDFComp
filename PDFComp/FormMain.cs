@@ -182,6 +182,7 @@ namespace PDFComp
             // Reload options
             formOptions = new FormOptions();
             styleFlags = formOptions.StyleFlags;
+            ApplyBoundsRotationFallback(formOptions.BoundsRotationFallback);
             SetIgnoreStrings();
 
             // Initialize the page pair list.
@@ -429,16 +430,31 @@ namespace PDFComp
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Keep each view's current choice so canceling only reverses the preview.
+            var boundsFallback1 = pdfPanel1.pdfViewer.Renderer.BoundsRotationFallback;
+            var boundsFallback2 = pdfPanel2.pdfViewer.Renderer.BoundsRotationFallback;
             formOptions.StartPosition = FormStartPosition.CenterParent;
             var result = formOptions.ShowDialog(this);
             if (result == DialogResult.OK)
             {
                 styleFlags = formOptions.StyleFlags;
+                ApplyBoundsRotationFallback(formOptions.BoundsRotationFallback);
                 SetIgnoreStrings();
+            }
+            else
+            {
+                pdfPanel1.pdfViewer.Renderer.BoundsRotationFallback = boundsFallback1;
+                pdfPanel2.pdfViewer.Renderer.BoundsRotationFallback = boundsFallback2;
             }
 
             // Revert to the correct setting after previewing in the options form.
             SwitchBlinkMarker(Properties.Settings.Default.UseBlinkingDiffMarker);
+        }
+
+        internal void ApplyBoundsRotationFallback(PdfBoundsRotationFallback fallback)
+        {
+            pdfPanel1.pdfViewer.Renderer.BoundsRotationFallback = fallback;
+            pdfPanel2.pdfViewer.Renderer.BoundsRotationFallback = fallback;
         }
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)

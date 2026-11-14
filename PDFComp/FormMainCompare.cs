@@ -193,8 +193,8 @@ namespace PDFComp
 
             try
             {
-                var oneFullPage1 = pdfPanel1.pdfViewer.Renderer.CompareBounds.IsEmpty;
-                var oneFullPage2 = pdfPanel2.pdfViewer.Renderer.CompareBounds.IsEmpty;
+                var oneFullPage1 = pdfPanel1.pdfViewer.Renderer.IsEmptyCompareBounds;
+                var oneFullPage2 = pdfPanel2.pdfViewer.Renderer.IsEmptyCompareBounds;
                 var textData1 = new PageTextList();
                 var textData2 = new PageTextList();
 

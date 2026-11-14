@@ -6,6 +6,9 @@ using PdfiumViewer;
 
 namespace PDFComp
 {
+    [System.ComponentModel.DesignerCategory("Code")]
+    internal class DesignerBlockerHistory { }
+
     public partial class PdfPanel
     {
         // View history (managed per panel on its UI thread):

@@ -89,7 +89,9 @@ namespace PDFComp
                 get
                 {
                     if (_pageTextList == null || _pageTextList.Count == 0)
+                    {
                         return -1;
+                    }
 
                     return _pageTextList[_pageTextList.Count - 1].Page;
                 }
@@ -314,14 +316,18 @@ namespace PDFComp
             foreach (ToolStripItem item in toolStrip1.Items)
             {
                 if (item != toolStripTextBoxFile && item.Available)
+                {
                     width -= (item.AutoSize ? item.GetPreferredSize(Size.Empty).Width : item.Width)
                         + item.Margin.Horizontal;
+                }
             }
 
             // Leave a usable minimum at narrow sizes; ToolStrip handles overflow.
             width = Math.Max(40 * toolStrip1.DeviceDpi / 96, width);
             if (toolStripTextBoxFile.Width != width)
+            {
                 toolStripTextBoxFile.Width = width;
+            }
         }
 
         public void NextPage()
@@ -456,7 +462,9 @@ namespace PDFComp
                     var pageText = string.Empty;
                     var compBounds = pdfViewer.Renderer.GetCompareBounds(page);
                     if (compBounds.IsEmpty)
+                    {
                         return new PageTextData(page, string.Empty, new int[0]);
+                    }
                     var count = 0;
 
                     int[] pagePos = new int[text.Length];
@@ -581,7 +589,9 @@ namespace PDFComp
             {
                 var comp_rect = OneFullPage ? RectangleF.Empty : pdfViewer.Renderer.GetCompareBounds(diffpage);
                 if (!OneFullPage && comp_rect.IsEmpty)
+                {
                     return;
+                }
 
                 // Delete difference markers in the diffpage.
                 for (int i = pdfViewer.Renderer.Markers.Count - 1; i >= 0; i--)
@@ -750,7 +760,9 @@ namespace PDFComp
         {
             toolStripLabelPage.Text = (pdfViewer.Renderer.Page + 1).ToString();
             if (!_restoringHistory && _bookmarkJump == null)
+            {
                 pdfViewer.SelectBookmarkForPage(pdfViewer.Renderer.Page);
+            }
             UpdateHistoryButtons();
         }
 
@@ -761,7 +773,9 @@ namespace PDFComp
                 _mouseDown = pdfViewer.Renderer.PointToPdf(e.Location);
                 _mouseDrag = _mouseDown.IsValid;
                 if (!_mouseDrag)
+                {
                     return;
+                }
 
                 _mouseUp = _mouseDown;
 
@@ -979,7 +993,9 @@ namespace PDFComp
         public PdfTextStyle GetTextStyle(int page, int index)
         {
             if (pdfViewer.Document == null)
+            {
                 throw new InvalidOperationException("No document loaded.");
+            }
 
             return pdfViewer.Renderer.Document.GetTextStyle(page, index);
         }

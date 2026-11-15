@@ -115,7 +115,9 @@ namespace PDFComp
             for (; control != null; control = control.Parent)
             {
                 if (control is TextBoxBase || control is ComboBox || control is UpDownBase)
+                {
                     return true;
+                }
             }
             return false;
         }

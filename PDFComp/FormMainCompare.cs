@@ -306,7 +306,9 @@ namespace PDFComp
         private void CompareStyle(List<Diff> diffs, PageTextList textData1, PageTextList textData2)
         {
             if (diffs.Count == 0)
+            {
                 return;
+            }
 
             List<Diff> newDiffs = new List<Diff>();
             int offset1 = 0;
@@ -376,7 +378,9 @@ namespace PDFComp
 
                     // Stop when style relationship changes
                     if (currentStyleMatches != styleMatches)
+                    {
                         break;
+                    }
 
                     j++;
                 }
@@ -674,13 +678,17 @@ namespace PDFComp
                 while (index1 < pages1.Count && pages1[index1].Page < limit1)
                 {
                     if (pages1[index1].Text.Length == 0)
+                    {
                         emptyPages1.Add(pages1[index1].Page);
+                    }
                     index1++;
                 }
                 while (index2 < pages2.Count && pages2[index2].Page < limit2)
                 {
                     if (pages2[index2].Text.Length == 0)
+                    {
                         emptyPages2.Add(pages2[index2].Page);
+                    }
                     index2++;
                 }
 
@@ -704,9 +712,13 @@ namespace PDFComp
                     // A page can participate in several anchors. Consume its source
                     // entry once so one-to-many anchors do not skip later empty pages.
                     if (index1 < pages1.Count && pages1[index1].Page == anchor.Page1)
+                    {
                         index1++;
+                    }
                     if (index2 < pages2.Count && pages2[index2].Page == anchor.Page2)
+                    {
                         index2++;
+                    }
                 }
             }
         }
@@ -902,10 +914,14 @@ namespace PDFComp
         private bool IsIgnoreWsOnly(string text)
         {
             if (string.IsNullOrEmpty(text))
+            {
                 return true;
+            }
 
             if ((ignoreWsOthers == false) && (ignoreChars.Count == 0))
+            {
                 return false;
+            }
 
             // Returns true if every character 'c' is either considered whitespace
             // (when the corresponding flag is enabled) or is included in the ignore list.

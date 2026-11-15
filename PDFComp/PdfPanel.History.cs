@@ -127,10 +127,14 @@ namespace PDFComp
             foreach (Control child in parent.Controls)
             {
                 if (child is TreeView tree)
+                {
                     return tree;
+                }
                 var nested = FindBookmarkTree(child);
                 if (nested != null)
+                {
                     return nested;
+                }
             }
             return null;
         }
@@ -200,7 +204,9 @@ namespace PDFComp
         private HistoryView CaptureHistoryView()
         {
             if (!CanUseHistory())
+            {
                 return null;
+            }
             var renderer = pdfViewer.Renderer;
             var layout = GetHistoryLayout();
             var center = new Point(layout.Viewport.Width / 2, layout.Viewport.Height / 2);
@@ -216,14 +222,18 @@ namespace PDFComp
                     var outer = renderer.GetOuterBounds(page);
                     int top = outer.Top + renderer.DisplayRectangle.Top;
                     if (top >= viewport.Bottom || top + outer.Height <= 0)
+                    {
                         continue;
+                    }
                     var pageSize = Size.Ceiling(_historyDocument.PageSizes[page]);
                     var pdfBounds = _historyDocument.RectangleToPdf(page,
                         new Rectangle(Point.Empty, pageSize));
                     var visible = Rectangle.Intersect(viewport,
                         renderer.BoundsFromPdf(new PdfRectangle(page, pdfBounds)));
                     if (visible.Width <= 0 || visible.Height <= 0)
+                    {
                         continue;
+                    }
                     var candidate = new Point(Math.Max(visible.Left, Math.Min(center.X, visible.Right - 1)),
                         Math.Max(visible.Top, Math.Min(center.Y, visible.Bottom - 1)));
                     var pdfPoint = renderer.PointToPdf(candidate);
@@ -237,7 +247,9 @@ namespace PDFComp
                 }
             }
             if (!anchor.IsValid)
+            {
                 return null;
+            }
             // Record the actual round-trip point, so coordinate quantization does
             // not shift the viewport when its layout changes.
             var anchorClient = renderer.PointFromPdf(anchor);
@@ -294,7 +306,9 @@ namespace PDFComp
         private Point GetHistoryOffset(HistoryView view, HistoryLayout layout)
         {
             if (view.Layout.Equals(layout))
+            {
                 return view.Offset;
+            }
             var renderer = pdfViewer.Renderer;
             var point = renderer.PointFromPdf(view.Anchor);
             var current = renderer.DisplayRectangle.Location;
@@ -333,12 +347,16 @@ namespace PDFComp
         private int FindHistoryTarget(int direction, HistoryView current)
         {
             if (current == null)
+            {
                 return -1;
+            }
             for (int index = _historyIndex + direction; index >= 0 && index < _viewHistory.Count; index += direction)
             {
                 var view = _viewHistory[index];
                 if (ReferenceEquals(view.Document, _historyDocument) && !SameHistoryView(view, current))
+                {
                     return index;
+                }
             }
             return -1;
         }
@@ -353,7 +371,9 @@ namespace PDFComp
         private void UpdateHistoryButtons()
         {
             if (_restoringHistory || _bookmarkJump != null)
+            {
                 return;
+            }
             try
             {
                 if (_historyIndex < 0 || !TryCaptureHistoryView(out var current))
@@ -391,7 +411,9 @@ namespace PDFComp
             // layout, unless the user has actually moved or selected a bookmark.
             if (_historyIndex >= 0 && !(_lastRestoredView != null &&
                 _lastRestoredView.Layout.Equals(current.Layout) && SameHistoryView(_lastRestoredView, current)))
+            {
                 _viewHistory[_historyIndex] = current;
+            }
             _lastRestoredView = null;
         }
 
@@ -407,7 +429,9 @@ namespace PDFComp
         private void RecordHistoryJump(HistoryView before)
         {
             if (before == null || !ReferenceEquals(before.Document, _historyDocument))
+            {
                 return;
+            }
             try
             {
                 if (!TryCaptureHistoryView(out var after))
@@ -426,9 +450,13 @@ namespace PDFComp
                     _historyIndex = 0;
                 }
                 else
+                {
                     SaveHistoryDeparture(before);
+                }
                 if (_historyIndex + 1 < _viewHistory.Count)
+                {
                     _viewHistory.RemoveRange(_historyIndex + 1, _viewHistory.Count - _historyIndex - 1);
+                }
                 _viewHistory.Add(after);
                 _historyIndex++;
                 if (_viewHistory.Count > ViewHistoryLimit + 1)
@@ -459,9 +487,13 @@ namespace PDFComp
             bool captured = TryCaptureHistoryView(out var before);
             navigate();
             if (captured)
+            {
                 RecordHistoryJump(before);
+            }
             else
+            {
                 DisableHistoryButtons();
+            }
         }
 
         /// <summary>
@@ -475,7 +507,9 @@ namespace PDFComp
         private void HistoryLinkClick(object sender, LinkClickEventArgs e)
         {
             if (_restoringHistory || e.Handled || !e.Link.TargetPage.HasValue)
+            {
                 return;
+            }
             CompleteHistoryLinkJump();
             if (!TryCaptureHistoryView(out _linkJump))
             {
@@ -489,7 +523,9 @@ namespace PDFComp
             BeginInvoke((Action)(() =>
             {
                 if (ReferenceEquals(_linkJump, pending) && !IsDisposed)
+                {
                     CompleteHistoryLinkJump();
+                }
             }));
         }
 
@@ -503,7 +539,9 @@ namespace PDFComp
             _linkJump = null;
             _historyLinkEvent = null;
             if (!cancelled)
+            {
                 RecordHistoryJump(before);
+            }
         }
 
         /// <summary>
@@ -517,7 +555,9 @@ namespace PDFComp
         {
             if (_restoringHistory || e.Cancel ||
                 (e.Action != TreeViewAction.ByMouse && e.Action != TreeViewAction.ByKeyboard))
+            {
                 return;
+            }
             CompleteHistoryLinkJump();
             if (!TryCaptureHistoryView(out _bookmarkJump))
             {
@@ -526,6 +566,7 @@ namespace PDFComp
             }
             var pending = _bookmarkJump;
             if (pending != null)
+            {
                 BeginInvoke((Action)(() =>
                 {
                     // A later BeforeSelect subscriber may cancel the selection.
@@ -535,6 +576,7 @@ namespace PDFComp
                         UpdateHistoryButtons();
                     }
                 }));
+            }
         }
 
         /// <summary>
@@ -548,7 +590,9 @@ namespace PDFComp
         private void HistoryBookmarkAfterSelect(object sender, TreeViewEventArgs e)
         {
             if (_restoringHistory)
+            {
                 return;
+            }
             if (_bookmarkJump == null ||
                 (e.Action != TreeViewAction.ByMouse && e.Action != TreeViewAction.ByKeyboard))
             {
@@ -591,7 +635,9 @@ namespace PDFComp
             renderer.SetDisplayRectLocation(offset);
             pdfViewer.SelectBookmarkForPage(renderer.Page);
             if (_historyBookmarks != null)
+            {
                 _historyBookmarks.SelectedNode = view.Bookmark;
+            }
             // Selecting a bookmark invokes the existing page jump. Restore the
             // precise viewport afterwards, with automatic selection suppressed.
             renderer.SetDisplayRectLocation(offset);
@@ -604,8 +650,10 @@ namespace PDFComp
         private void NavigateHistory(int direction)
         {
             if (!TryNavigateHistory(direction))
+            {
                 MessageBox.Show(this, "Unable to restore the PDF view.", "PDFComp",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>
@@ -622,7 +670,9 @@ namespace PDFComp
         private bool TryNavigateHistory(int direction)
         {
             if (_restoringHistory)
+            {
                 return true;
+            }
             HistoryView before = null;
             bool restoreAttempted = false;
             bool failed = false;
@@ -637,12 +687,16 @@ namespace PDFComp
                 }
                 int target = FindHistoryTarget(direction, before);
                 if (target < 0)
+                {
                     return true;
+                }
                 _restoringHistory = true;
                 restoreAttempted = true;
                 ApplyHistoryView(_viewHistory[target]);
                 if (!TryCaptureHistoryView(out var restored))
+                {
                     throw new InvalidOperationException("The PDF view is not ready.");
+                }
                 SaveHistoryDeparture(before);
                 _historyIndex = target;
                 _lastRestoredView = restored;
@@ -657,7 +711,9 @@ namespace PDFComp
                     {
                         if (ReferenceEquals(before.Document, _historyDocument) &&
                             ReferenceEquals(_historyDocument, pdfViewer.Document))
+                        {
                             ApplyHistoryView(before);
+                        }
                     }
                     catch (Exception rollback) when (IsHistoryCoordinateFailure(rollback))
                     {
@@ -671,9 +727,13 @@ namespace PDFComp
             {
                 _restoringHistory = false;
                 if (failed)
+                {
                     DisableHistoryButtons();
+                }
                 else
+                {
                     UpdateHistoryButtons();
+                }
             }
         }
 
@@ -695,7 +755,9 @@ namespace PDFComp
         private void StopHistoryInputFilter()
         {
             if (_historyInputFilter == null)
+            {
                 return;
+            }
             Application.RemoveMessageFilter(_historyInputFilter);
             _historyInputFilter = null;
         }
@@ -720,14 +782,20 @@ namespace PDFComp
                 const int LeftButtonDown = 0x0201;
                 if (message.Msg != LeftButtonDown ||
                     !(Control.FromHandle(message.HWnd) is ToolStrip strip))
+                {
                     return false;
+                }
                 long coordinates = message.LParam.ToInt64();
                 var item = strip.GetItemAt(new Point((short)(coordinates & 0xffff),
                     (short)((coordinates >> 16) & 0xffff)));
                 if (item != _panel.toolStripButtonHistoryBack && item != _panel.toolStripButtonHistoryForward)
+                {
                     return false;
+                }
                 if (!item.Enabled)
+                {
                     return true;
+                }
                 // This runs before WM_LBUTTONDOWN moves focus and raises Leave.
                 _panel._discardHistoryPageInput = true;
                 return false;

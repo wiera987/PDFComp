@@ -33,6 +33,7 @@ namespace PDFComp
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Spaces & Breaks");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Display Setting");
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Others");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormOptions));
             this.treeViewOptions = new System.Windows.Forms.TreeView();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -74,6 +75,7 @@ namespace PDFComp
             this.label2 = new System.Windows.Forms.Label();
             this.tabPageOthers = new System.Windows.Forms.TabPage();
             this.labelLanguage = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
             this.numericUpDownReducedColor = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -89,6 +91,7 @@ namespace PDFComp
             this.tabPageDisplay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarBlinkingPeriod)).BeginInit();
             this.tabPageOthers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownReducedColor)).BeginInit();
             this.SuspendLayout();
             // 
@@ -585,27 +588,38 @@ namespace PDFComp
             // 
             this.tabPageOthers.BackColor = System.Drawing.Color.Transparent;
             this.tabPageOthers.Controls.Add(this.labelLanguage);
+            this.tabPageOthers.Controls.Add(this.pictureBox1);
             this.tabPageOthers.Controls.Add(this.comboBoxLanguage);
             this.tabPageOthers.Controls.Add(this.numericUpDownReducedColor);
             this.tabPageOthers.Controls.Add(this.label1);
             this.tabPageOthers.Controls.Add(this.labelReduceColorCount);
             this.tabPageOthers.Controls.Add(this.chkCopyBookmarkPage);
             this.tabPageOthers.Controls.Add(this.chkReduceColorCopy);
-            this.tabPageOthers.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOthers.Location = new System.Drawing.Point(4, 24);
             this.tabPageOthers.Name = "tabPageOthers";
             this.tabPageOthers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOthers.Size = new System.Drawing.Size(366, 243);
+            this.tabPageOthers.Size = new System.Drawing.Size(366, 241);
             this.tabPageOthers.TabIndex = 2;
             this.tabPageOthers.Text = "tabOthers";
             // 
             // labelLanguage
             // 
             this.labelLanguage.AutoSize = true;
-            this.labelLanguage.Location = new System.Drawing.Point(6, 141);
+            this.labelLanguage.Location = new System.Drawing.Point(31, 138);
             this.labelLanguage.Name = "labelLanguage";
             this.labelLanguage.Size = new System.Drawing.Size(97, 15);
             this.labelLanguage.TabIndex = 19;
             this.labelLanguage.Text = "Display language";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(11, 136);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 21;
+            this.pictureBox1.TabStop = false;
             // 
             // comboBoxLanguage
             // 
@@ -715,6 +729,7 @@ namespace PDFComp
             ((System.ComponentModel.ISupportInitialize)(this.trackBarBlinkingPeriod)).EndInit();
             this.tabPageOthers.ResumeLayout(false);
             this.tabPageOthers.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownReducedColor)).EndInit();
             this.ResumeLayout(false);
 
@@ -729,7 +744,6 @@ namespace PDFComp
         private System.Windows.Forms.TabPage tabPageStyles;
         private System.Windows.Forms.TabPage tabPageDisplay;
         private System.Windows.Forms.TabPage tabPageOthers;
-        private System.Windows.Forms.Label labelLanguage;
         private System.Windows.Forms.ComboBox comboBoxLanguage;
         private System.Windows.Forms.NumericUpDown numericUpDownReducedColor;
         private System.Windows.Forms.Label labelReduceColorCount;
@@ -770,5 +784,7 @@ namespace PDFComp
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox comboBoxBoundsFallback;
         private System.Windows.Forms.ToolTip toolTipBoundsFallback;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label labelLanguage;
     }
 }

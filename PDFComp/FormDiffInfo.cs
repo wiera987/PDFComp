@@ -18,6 +18,7 @@ namespace PDFComp
         {
             InitializeComponent();
             richBackColor = Color.White;
+            UiLanguages.Bind(this);
         }
 
         public void ToggleBackColor()

@@ -14,9 +14,15 @@ namespace PDFComp
         [STAThread]
         static void Main()
         {
+            UiLanguages.Initialize();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
+            try {
+                Application.Run(new FormMain());
+            }
+            finally {
+                UiLanguages.Current.Dispose();
+            }
         }
     }
 }

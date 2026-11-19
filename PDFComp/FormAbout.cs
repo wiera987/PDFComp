@@ -18,6 +18,7 @@ namespace PDFComp
 
             string appVersion = Application.ProductVersion;
             labelAoutVerNo.Text = appVersion;
+            UiLanguages.Bind(this);
         }
 
         private void ButtonOK_Click(object sender, EventArgs e)

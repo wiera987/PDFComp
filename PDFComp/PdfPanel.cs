@@ -296,6 +296,12 @@ namespace PDFComp
             pdfViewer.Renderer.MouseUp += Renderer_MouseUp;
 
             pdfViewer.Renderer.ContextMenuStrip = contextMenuStripPdf;
+            UiLanguages.Current.Bind(pdfViewer, "PdfiumViewer");
+            UiLanguages.Bind(this, () =>
+            {
+                openFileDialog.Title = toolStripButtonOpen.Text;
+                openFileDialog.Filter = UiLanguages.Text("Common.AllFilesFilter", "All files (*.*)|*.*");
+            }, contextMenuStripPdf);
 
             pdfViewer.Renderer.ZoomMin = 0.1;
             pdfViewer.Renderer.ZoomMax = 9.0;

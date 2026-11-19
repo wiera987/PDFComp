@@ -70,6 +70,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Languages.cs" />
+    <Compile Include="UiLanguages.cs" />
     <Compile Include="DiffMatchPatch.cs" />
     <Compile Include="FormMainJump.cs" />
     <Compile Include="FormAbout.cs">
@@ -124,6 +126,12 @@
     <Compile Include="ToolStripTrackBar.cs">
       <SubType>Component</SubType>
     </Compile>
+    <EmbeddedResource Include="Localization\UiStrings.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\UiStrings.ja.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -216,4 +224,18 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="PrepareLanguageAssemblies" BeforeTargets="CopyFilesToOutputDirectory">
+    <ItemGroup>
+      <_LanguageAssemblies Include="@(IntermediateSatelliteAssembliesWithTargetPath)" />
+      <IntermediateSatelliteAssembliesWithTargetPath Remove="@(_LanguageAssemblies)" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_LanguageAssemblies)" DestinationFiles="@(_LanguageAssemblies->'$(OutDir)Languages\%(Culture)\$(TargetName).resources.dll')" SkipUnchangedFiles="true">
+      <Output TaskParameter="DestinationFiles" ItemName="FileWrites" />
+    </Copy>
+  </Target>
+  <Target Name="RestoreLanguageAssemblyItems" AfterTargets="CopyFilesToOutputDirectory">
+    <ItemGroup>
+      <IntermediateSatelliteAssembliesWithTargetPath Include="@(_LanguageAssemblies)" />
+    </ItemGroup>
+  </Target>
 </Project>

@@ -133,14 +133,14 @@
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.openToolStripMenuItem.Text = "Open...";
+            this.openToolStripMenuItem.Text = "&Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.exitToolStripMenuItem.Text = "&Exit";
+            this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
@@ -209,7 +209,7 @@
             this.findToolStripMenuItem.Name = "findToolStripMenuItem";
             this.findToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
             this.findToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.findToolStripMenuItem.Text = "Find...";
+            this.findToolStripMenuItem.Text = "&Find...";
             this.findToolStripMenuItem.Click += new System.EventHandler(this.FindToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
@@ -221,7 +221,7 @@
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.optionsToolStripMenuItem.Text = "Options...";
+            this.optionsToolStripMenuItem.Text = "&Options...";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
             // compareToolStripMenuItem
@@ -339,14 +339,14 @@
             // 
             this.usageToolStripMenuItem.Name = "usageToolStripMenuItem";
             this.usageToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.usageToolStripMenuItem.Text = "Usage ...";
+            this.usageToolStripMenuItem.Text = "&Usage ...";
             this.usageToolStripMenuItem.Click += new System.EventHandler(this.usageToolStripMenuItem_Click);
             // 
             // outputDebugLogToolStripMenuItem
             // 
             this.outputDebugLogToolStripMenuItem.Name = "outputDebugLogToolStripMenuItem";
             this.outputDebugLogToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.outputDebugLogToolStripMenuItem.Text = "Output Debug Log";
+            this.outputDebugLogToolStripMenuItem.Text = "Output &Debug Log";
             this.outputDebugLogToolStripMenuItem.Visible = false;
             this.outputDebugLogToolStripMenuItem.Click += new System.EventHandler(this.outputDebugLogToolStripMenuItem_Click);
             // 
@@ -354,7 +354,7 @@
             // 
             this.aboutPDFCompToolStripMenuItem.Name = "aboutPDFCompToolStripMenuItem";
             this.aboutPDFCompToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.aboutPDFCompToolStripMenuItem.Text = "About PDFComp ...";
+            this.aboutPDFCompToolStripMenuItem.Text = "&About PDFComp ...";
             this.aboutPDFCompToolStripMenuItem.Click += new System.EventHandler(this.AboutPDFCompToolStripMenuItem_Click);
             // 
             // panelBoth

@@ -7,6 +7,13 @@ namespace PDFComp
 {
     public partial class FormOptions : Form
     {
+        private enum OptionsCategory { TextStyles, Whitespace, Display, Other }
+        private readonly Languages languages = UiLanguages.Current;
+        private bool updatingLanguage;
+        private readonly object[] defaultBoundsFallbackItems;
+        private bool languageSessionActive;
+        private bool languageAccepted;
+        private string languageBeforeDialog;
         public PdfTextStyleFlags StyleFlags => styleFlags;
         private PdfTextStyleFlags styleFlags;
         private static readonly PdfBoundsRotationFallback[] boundsFallbackValues =
@@ -30,14 +37,22 @@ namespace PDFComp
         public FormOptions()
         {
             InitializeComponent();
+            defaultBoundsFallbackItems = new[] { comboBoxBoundsFallback.Items[0],
+                comboBoxBoundsFallback.Items[1], comboBoxBoundsFallback.Items[2] };
 
-            const string boundsFallbackTip =
-                "Rotate the Bounds according to this setting\n" +
-                "when a rotated page layout does not specify a rotation.\n" +
-                "Rotates comparison bounds only.";
             toolTipBoundsFallback.AutoPopDelay = 15000;
-            toolTipBoundsFallback.SetToolTip(label12, boundsFallbackTip);
-            toolTipBoundsFallback.SetToolTip(comboBoxBoundsFallback, boundsFallbackTip);
+
+            var categories = new[] { OptionsCategory.TextStyles, OptionsCategory.Whitespace,
+                OptionsCategory.Display, OptionsCategory.Other };
+            for (int index = 0; index < categories.Length; index++)
+            {
+                treeViewOptions.Nodes[index].Name = categories[index].ToString();
+                treeViewOptions.Nodes[index].Tag = categories[index];
+            }
+            foreach (var language in languages.AvailableLanguages)
+            {
+                comboBoxLanguage.Items.Add(language);
+            }
 
             // Hide TabControl tab
             tabControlOptions.Appearance = TabAppearance.FlatButtons;
@@ -46,35 +61,112 @@ namespace PDFComp
 
             LoadSettings();
             comboBoxBoundsFallback.SelectedIndexChanged += ComboBoxBoundsFallback_SelectedIndexChanged;
+            languages.Bind(this, nameof(FormOptions), RefreshLanguage);
+        }
+
+        private void RefreshLanguage()
+        {
+            updatingLanguage = true;
+            try
+            {
+                string code = languages.SelectedLanguage;
+                comboBoxLanguage.Items[0] = new Languages.Language("", languages.GetString("Language.Automatic", "Automatic (Windows display language)"));
+                for (int index = 0; index < comboBoxLanguage.Items.Count; index++)
+                {
+                    if (((Languages.Language)comboBoxLanguage.Items[index]).Code == code)
+                    {
+                        comboBoxLanguage.SelectedIndex = index;
+                    }
+                }
+                comboBoxBoundsFallback.Items[0] = languages.GetString("Options.BoundsDoNotRotate", defaultBoundsFallbackItems[0].ToString());
+                comboBoxBoundsFallback.Items[1] = languages.GetString("Options.BoundsRotateRight", defaultBoundsFallbackItems[1].ToString());
+                comboBoxBoundsFallback.Items[2] = languages.GetString("Options.BoundsRotateLeft", defaultBoundsFallbackItems[2].ToString());
+                string tip = languages.GetString("Options.BoundsFallbackTip", "Rotate the Bounds according to this setting\nwhen a rotated page layout does not specify a rotation.\nRotates comparison bounds only.");
+                toolTipBoundsFallback.SetToolTip(label12, tip);
+                toolTipBoundsFallback.SetToolTip(comboBoxBoundsFallback, tip);
+            }
+            finally { updatingLanguage = false; }
+        }
+
+        private void Language_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (updatingLanguage || comboBoxLanguage.SelectedIndex < 0)
+            {
+                return;
+            }
+            languages.SetLanguage(((Languages.Language)comboBoxLanguage.SelectedItem).Code);
+        }
+
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            if (Visible)
+            {
+                // Capture each preview session, including subsequent uses of this modal form.
+                languageBeforeDialog = languages.SelectedLanguage;
+                languageAccepted = false;
+                languageSessionActive = true;
+                RefreshLanguage();
+            }
+            else
+            {
+                EndLanguagePreview();
+            }
+            base.OnVisibleChanged(e);
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (!e.Cancel)
+            {
+                EndLanguagePreview();
+            }
+        }
+
+        private void EndLanguagePreview()
+        {
+            if (!languageSessionActive)
+            {
+                return;
+            }
+            languageSessionActive = false;
+            if (!languageAccepted)
+            {
+                languages.SetLanguage(languageBeforeDialog);
+            }
         }
 
         private void ComboBoxBoundsFallback_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (updatingLanguage)
+            {
+                return;
+            }
             (this.Owner as FormMain)?.ApplyBoundsRotationFallback(BoundsRotationFallback);
         }
 
         private void TreeViewOptions_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (e.Node != null)
+            if (e.Node != null && e.Node.Tag is OptionsCategory)
             {
-                ShowPanel(e.Node.Text);
+                ShowPanel((OptionsCategory)e.Node.Tag);
             }
         }
 
-        private void ShowPanel(string nodeText)
+        private void ShowPanel(OptionsCategory category)
         {
-            switch (nodeText)
+            switch (category)
             {
-                case "Text Styling":
+                case OptionsCategory.TextStyles:
                     tabControlOptions.SelectedTab = tabPageStyles;
                     break;
-                case "Spaces & Breaks":
+                case OptionsCategory.Whitespace:
                     tabControlOptions.SelectedTab = tabPageWs;
                     break;
-                case "Display Setting":
+                case OptionsCategory.Display:
                     tabControlOptions.SelectedTab = tabPageDisplay;
                     break;
-                case "Others":
+                case OptionsCategory.Other:
                     tabControlOptions.SelectedTab = tabPageOthers;
                     break;
                 default:
@@ -257,14 +349,19 @@ namespace PDFComp
 
         private void ButtonOK_Click(object sender, EventArgs e)
         {
-            SaveSettings();
+            if (!SaveSettings())
+            {
+                return;
+            }
+            languageAccepted = true;
             UpdateStyleFlags();
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
-        private void SaveSettings()
+        private bool SaveSettings()
         {
+            string savedLanguage = Properties.Settings.Default.UiLanguage;
             try
             {
                 // Save "Others" panel settings
@@ -296,11 +393,16 @@ namespace PDFComp
                 Properties.Settings.Default.CompareAnnotationColor = chkCompareAnnotationColor.Checked;
 
                 // Save all settings
+                Properties.Settings.Default.UiLanguage = languages.SelectedLanguage;
                 Properties.Settings.Default.Save();
+                return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to save settings: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Properties.Settings.Default.UiLanguage = savedLanguage;
+                MessageBox.Show(string.Format(languages.GetString("Settings.SaveFailed", "Failed to save settings: {0}"), ex.Message), languages.GetString("Common.Error", "Error"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
 

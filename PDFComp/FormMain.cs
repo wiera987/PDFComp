@@ -21,6 +21,11 @@ namespace PDFComp
 {
     public partial class FormMain : Form
     {
+        private enum ComparisonMode { Page, Bookmark, Document }
+        private ComparisonMode comparisonMode = ComparisonMode.Bookmark;
+        private bool updatingLanguage;
+        private readonly object[] defaultDiffTypeItems;
+        private readonly string[] defaultJumpTexts;
         readonly Double ZoomInScale = 0.1;      // zoom : 10%..26%..80%..100%..200%..400%...900%  
         readonly Double ZoomOutScale = 0.01;    // scale:    -2%, -3%, -5%, +10%, +20%, +50%
         FormFind formFind = null;
@@ -43,6 +48,9 @@ namespace PDFComp
         public FormMain()
         {
             InitializeComponent();
+            defaultDiffTypeItems = toolStripComboBoxDiffType.Items.Cast<object>().ToArray();
+            defaultJumpTexts = new[] { toolStripButtonPrevDiff.Text, toolStripButtonNextDiff.Text,
+                previousDifferenceToolStripMenuItem.Text, nextDifferenceToolStripMenuItem.Text };
             toolStripSplitButtonCompare.Text = bookmarkToolStripMenuItem.Text;
             toolStripComboBoxDiffType.SelectedIndex = 0;
             // Designer settings are not reflected in TrackBar.AutoSize.
@@ -79,6 +87,56 @@ namespace PDFComp
             // Debug menu is displayed only in Debug mode.
             outputDebugLogToolStripMenuItem.Visible = true;
 #endif
+            UiLanguages.Bind(this, RefreshLanguage);
+        }
+
+        private void RefreshLanguage()
+        {
+            // Changing combo-box labels must not invoke a comparison or replace its selection.
+            updatingLanguage = true;
+            try
+            {
+                toolStripComboBoxDiffType.Items[0] = UiLanguages.Text("Main.CharacterMode", defaultDiffTypeItems[0].ToString());
+                toolStripComboBoxDiffType.Items[1] = UiLanguages.Text("Main.SemanticMode", defaultDiffTypeItems[1].ToString());
+                pdfPanel1.toolStripButtonNextPage.ToolTipText = UiLanguages.Format("Panel.NextPageShortcut", "Next Page / {0}", "Ctrl + RIGHT_ARROW");
+                pdfPanel1.toolStripButtonPrevPage.ToolTipText = UiLanguages.Format("Panel.PreviousPageShortcut", "Prev Page / {0}", "Ctrl + LEFT_ARROW");
+                pdfPanel2.toolStripButtonNextPage.ToolTipText = UiLanguages.Format("Panel.NextPageShortcut", "Next Page / {0}", "Alt + RIGHT_ARROW");
+                pdfPanel2.toolStripButtonPrevPage.ToolTipText = UiLanguages.Format("Panel.PreviousPageShortcut", "Prev Page / {0}", "Alt + LEFT_ARROW");
+                UpdateComparisonModeText();
+                UpdateJumpTexts();
+            }
+            finally { updatingLanguage = false; }
+        }
+
+        private void UpdateComparisonModeText()
+        {
+            switch (comparisonMode)
+            {
+                case ComparisonMode.Page:
+                    toolStripSplitButtonCompare.Text = pageToolStripMenuItem.Text;
+                    toolStripSplitButtonCompare.ToolTipText = pageToolStripMenuItem.ToolTipText;
+                    break;
+                case ComparisonMode.Bookmark:
+                    toolStripSplitButtonCompare.Text = bookmarkToolStripMenuItem.Text;
+                    toolStripSplitButtonCompare.ToolTipText = bookmarkToolStripMenuItem.ToolTipText;
+                    break;
+                case ComparisonMode.Document:
+                    toolStripSplitButtonCompare.Text = bookToolStripMenuItem.Text;
+                    toolStripSplitButtonCompare.ToolTipText = bookToolStripMenuItem.ToolTipText;
+                    break;
+            }
+        }
+
+        private void UpdateJumpTexts()
+        {
+            bool pages = toolStripButtonJumpScopePage.Available;
+            string previousKey = pages ? "Main.JumpPreviousPage" : "Main.JumpPreviousDifference";
+            string nextKey = pages ? "Main.JumpNextPage" : "Main.JumpNextDifference";
+            toolStripButtonPrevDiff.Text = UiLanguages.Text(previousKey, pages ? "Jump to Previous Page" : defaultJumpTexts[0]);
+            toolStripButtonNextDiff.Text = UiLanguages.Text(nextKey, pages ? "Jump to Next Page" : defaultJumpTexts[1]);
+            previousDifferenceToolStripMenuItem.Text = UiLanguages.Text(previousKey, pages ? "Jump to Previous Page" : defaultJumpTexts[2]);
+            nextDifferenceToolStripMenuItem.Text = UiLanguages.Text(nextKey, pages ? "Jump to Next Page" : defaultJumpTexts[3]);
+            UpdateJumpShortcutToolTips();
         }
 
         public void OpenFiles(String[] files)
@@ -873,6 +931,10 @@ namespace PDFComp
 
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (updatingLanguage)
+            {
+                return;
+            }
             toolStripSplitButtonCompare.PerformClick();
         }
 
@@ -883,33 +945,33 @@ namespace PDFComp
 
         private void CompareByMode()
         {
-            if (toolStripSplitButtonCompare.Text == "Compare Page")
+            switch (comparisonMode)
             {
-                ComparePage();
-            }
-            else if (toolStripSplitButtonCompare.Text == "Compare Bookmark")
-            {
-                CompareBookmark();
-            }
-            else
-            {
-                CompareDocument();
+                case ComparisonMode.Page:
+                    ComparePage(); break;
+                case ComparisonMode.Bookmark:
+                    CompareBookmark(); break;
+                case ComparisonMode.Document:
+                    CompareDocument(); break;
             }
         }
 
         private void pageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            toolStripSplitButtonCompare.Text = pageToolStripMenuItem.Text;
+            comparisonMode = ComparisonMode.Page;
+            UpdateComparisonModeText();
         }
 
         private void bookmarkToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            toolStripSplitButtonCompare.Text = bookmarkToolStripMenuItem.Text;
+            comparisonMode = ComparisonMode.Bookmark;
+            UpdateComparisonModeText();
         }
         
         private void bookToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            toolStripSplitButtonCompare.Text = bookToolStripMenuItem.Text;
+            comparisonMode = ComparisonMode.Document;
+            UpdateComparisonModeText();
         }
 
         private void toolStripButtonJumpScopeDiff_Click(object sender, EventArgs e)
@@ -927,22 +989,14 @@ namespace PDFComp
         {
             toolStripButtonJumpScopeDiff.Visible = false;
             toolStripButtonJumpScopePage.Visible = true;
-            toolStripButtonPrevDiff.Text = "Jump to Previous Page";
-            toolStripButtonNextDiff.Text = "Jump to Next Page";
-            previousDifferenceToolStripMenuItem.Text = "Jump to Previous Page";
-            nextDifferenceToolStripMenuItem.Text = "Jump to Next Page";
-            UpdateJumpShortcutToolTips();
+            UpdateJumpTexts();
         }
 
         private void SwitchJumpScopeToDiffMode()
         {
             toolStripButtonJumpScopeDiff.Visible = true;
             toolStripButtonJumpScopePage.Visible = false;
-            toolStripButtonPrevDiff.Text = "Jump to Previous Difference";
-            toolStripButtonNextDiff.Text = "Jump to Next Difference";
-            previousDifferenceToolStripMenuItem.Text = "Jump to Previous Difference"; ;
-            nextDifferenceToolStripMenuItem.Text = "Jump to Next Difference";
-            UpdateJumpShortcutToolTips();
+            UpdateJumpTexts();
         }
 
         private void UpdateJumpShortcutToolTips()

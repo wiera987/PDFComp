@@ -651,7 +651,7 @@ namespace PDFComp
         {
             if (!TryNavigateHistory(direction))
             {
-                MessageBox.Show(this, "Unable to restore the PDF view.", "PDFComp",
+                MessageBox.Show(this, UiLanguages.Text("History.RestoreFailed", "Unable to restore the PDF view."), "PDFComp",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

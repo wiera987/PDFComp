@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Common.Error" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="Common.AllFilesFilter" xml:space="preserve">
+    <value>Alle Dateien (*.*)|*.*</value>
+  </data>
+  <data name="FormAbout.$this.Text" xml:space="preserve">
+    <value>Über PDFComp</value>
+  </data>
+  <data name="FormAbout.buttonOK.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="FormAbout.labelAboutApp.Text" xml:space="preserve">
+    <value>PDFComp</value>
+  </data>
+  <data name="FormAbout.labelAboutAuth.Text" xml:space="preserve">
+    <value>(C) 2019-2026  Wiera987  All rights reserved.</value>
+  </data>
+  <data name="FormAbout.labelAboutLicense.Text" xml:space="preserve">
+    <value>licensed under the Apache License, Version2.0</value>
+  </data>
+  <data name="FormAbout.labelAboutVersion.Text" xml:space="preserve">
+    <value>Version </value>
+  </data>
+  <data name="FormAbout.labelPDFComp.Text" xml:space="preserve">
+    <value>https://github.com/wiera987/PDFComp</value>
+  </data>
+  <data name="FormAbout.labelViewOnGitHub.Text" xml:space="preserve">
+    <value>Auf GitHub:</value>
+  </data>
+  <data name="FormDiffInfo.$this.Text" xml:space="preserve">
+    <value>Vergleichsdetails</value>
+  </data>
+  <data name="FormDiffInfo.buttonClear.Text" xml:space="preserve">
+    <value>Leeren</value>
+  </data>
+  <data name="FormFind.$this.Text" xml:space="preserve">
+    <value>Text suchen</value>
+  </data>
+  <data name="FormFind.buttonNext1.Text" xml:space="preserve">
+    <value>Weitersuchen (F3)</value>
+  </data>
+  <data name="FormFind.buttonNext2.Text" xml:space="preserve">
+    <value>Weitersuchen (F4)</value>
+  </data>
+  <data name="FormFind.checkBoxHighlightAll.Text" xml:space="preserve">
+    <value>Alle Treffer hervorheben</value>
+  </data>
+  <data name="FormFind.checkBoxMatchCase.Text" xml:space="preserve">
+    <value>Groß-/Kleinschreibung beachten</value>
+  </data>
+  <data name="FormFind.checkBoxMatchWholeWord.Text" xml:space="preserve">
+    <value>Nur ganze Wörter</value>
+  </data>
+  <data name="FormMain.$this.Text" xml:space="preserve">
+    <value>PDFComp</value>
+  </data>
+  <data name="FormMain.aboutPDFCompToolStripMenuItem.Text" xml:space="preserve">
+    <value>Ü&amp;ber PDFComp...</value>
+  </data>
+  <data name="FormMain.bookToolStripMenuItem.Text" xml:space="preserve">
+    <value>Dokumentvergleich</value>
+  </data>
+  <data name="FormMain.bookToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Gesamtes Dokument vergleichen</value>
+  </data>
+  <data name="FormMain.bookmarkToolStripMenuItem.Text" xml:space="preserve">
+    <value>Lesezeichenvergleich</value>
+  </data>
+  <data name="FormMain.bookmarkToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Anhand von Lesezeichen vergleichen</value>
+  </data>
+  <data name="FormMain.clearAllMarkersToolStripMenuItem.Text" xml:space="preserve">
+    <value>Alle Markierungen löschen</value>
+  </data>
+  <data name="FormMain.clearBook1MarkerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Linkes Dokument</value>
+  </data>
+  <data name="FormMain.clearBook1MarkerToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Diese Aktion kann nicht rückgängig gemacht werden.</value>
+  </data>
+  <data name="FormMain.clearBook2MarkerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Rechtes Dokument</value>
+  </data>
+  <data name="FormMain.clearBook2MarkerToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Diese Aktion kann nicht rückgängig gemacht werden.</value>
+  </data>
+  <data name="FormMain.clearMarker1ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Markierungen auf der linken Seite löschen</value>
+  </data>
+  <data name="FormMain.clearMarker2ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Markierungen auf der rechten Seite löschen</value>
+  </data>
+  <data name="FormMain.compareBookmarkToolStripMenuItem.Text" xml:space="preserve">
+    <value>Lesezeichenvergleich</value>
+  </data>
+  <data name="FormMain.compareDocumentToolStripMenuItem.Text" xml:space="preserve">
+    <value>Dokumentvergleich</value>
+  </data>
+  <data name="FormMain.comparePageToolStripMenuItem.Text" xml:space="preserve">
+    <value>Seitenvergleich</value>
+  </data>
+  <data name="FormMain.compareToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Vergleichen</value>
+  </data>
+  <data name="FormMain.copyBookmarks1ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Lesezeichen des linken PDFs kopieren</value>
+  </data>
+  <data name="FormMain.copyBookmarks2ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Lesezeichen des rechten PDFs kopieren</value>
+  </data>
+  <data name="FormMain.copyFile1ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Linkes Bild kopieren</value>
+  </data>
+  <data name="FormMain.copyFile2ToolStripMenuItem.Text" xml:space="preserve">
+    <value>Rechtes Bild kopieren</value>
+  </data>
+  <data name="FormMain.copyToolStripMenuItem.Text" xml:space="preserve">
+    <value>Kopieren</value>
+  </data>
+  <data name="FormMain.editToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Bearbeiten</value>
+  </data>
+  <data name="FormMain.exitToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Beenden</value>
+  </data>
+  <data name="FormMain.fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Datei</value>
+  </data>
+  <data name="FormMain.findToolStripMenuItem.Text" xml:space="preserve">
+    <value>Text &amp;suchen...</value>
+  </data>
+  <data name="FormMain.helpToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Hilfe</value>
+  </data>
+  <data name="FormMain.nextDifferenceToolStripMenuItem.Text" xml:space="preserve">
+    <value>Vorwärts springen</value>
+  </data>
+  <data name="FormMain.openToolStripMenuItem.Text" xml:space="preserve">
+    <value>Ö&amp;ffnen...</value>
+  </data>
+  <data name="FormMain.optionsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Optionen...</value>
+  </data>
+  <data name="FormMain.outputDebugLogToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Debug-Ausgabe anzeigen</value>
+  </data>
+  <data name="FormMain.pageToolStripMenuItem.Text" xml:space="preserve">
+    <value>Seitenvergleich</value>
+  </data>
+  <data name="FormMain.pageToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Seiten einzeln vergleichen</value>
+  </data>
+  <data name="FormMain.previousDifferenceToolStripMenuItem.Text" xml:space="preserve">
+    <value>Rückwärts springen</value>
+  </data>
+  <data name="FormMain.toolStripButtonBlinkMarker.ToolTipText" xml:space="preserve">
+    <value>Unterschiedsmarkierungen blinken lassen</value>
+  </data>
+  <data name="FormMain.toolStripButtonBookmarks.Text" xml:space="preserve">
+    <value>Lesezeichen</value>
+  </data>
+  <data name="FormMain.toolStripButtonBookmarks.ToolTipText" xml:space="preserve">
+    <value>Lesezeichen anzeigen</value>
+  </data>
+  <data name="FormMain.toolStripButtonBoundsmode.Text" xml:space="preserve">
+    <value>Vergleichsbereich auswählen</value>
+  </data>
+  <data name="FormMain.toolStripButtonFitOnePage.Text" xml:space="preserve">
+    <value>Ganze Seite anzeigen</value>
+  </data>
+  <data name="FormMain.toolStripButtonFitWidth.Text" xml:space="preserve">
+    <value>An Fensterbreite anpassen</value>
+  </data>
+  <data name="FormMain.toolStripButtonHandmode.Text" xml:space="preserve">
+    <value>Hand-Werkzeug</value>
+  </data>
+  <data name="FormMain.toolStripButtonJumpScopeDiff.ToolTipText" xml:space="preserve">
+    <value>Mit Vorwärts/Rückwärts zu Unterschieden springen</value>
+  </data>
+  <data name="FormMain.toolStripButtonJumpScopePage.ToolTipText" xml:space="preserve">
+    <value>Mit Vorwärts/Rückwärts seitenweise springen</value>
+  </data>
+  <data name="FormMain.toolStripButtonNextDiff.Text" xml:space="preserve">
+    <value>Vorwärts springen</value>
+  </data>
+  <data name="FormMain.toolStripButtonNextPages.Text" xml:space="preserve">
+    <value>Nächste Seite</value>
+  </data>
+  <data name="FormMain.toolStripButtonNextPages.ToolTipText" xml:space="preserve">
+    <value>Nächste Seite / RIGHT_ARROW</value>
+  </data>
+  <data name="FormMain.toolStripButtonPanel1Next.Text" xml:space="preserve">
+    <value>Nächste Seite</value>
+  </data>
+  <data name="FormMain.toolStripButtonPanel1Next.ToolTipText" xml:space="preserve">
+    <value>Nächste Seite / Ctrl + RIGHT_ARROW</value>
+  </data>
+  <data name="FormMain.toolStripButtonPanel1Prev.Text" xml:space="preserve">
+    <value>Vorherige Seite</value>
+  </data>
+  <data name="FormMain.toolStripButtonPanel1Prev.ToolTipText" xml:space="preserve">
+    <value>Vorherige Seite / Ctrl + LEFT_ARROW</value>
+  </data>
+  <data name="FormMain.toolStripButtonPanel2Next.Text" xml:space="preserve">
+    <value>Nächste Seite</value>
+  </data>
+  <data name="FormMain.toolStripButtonPanel2Next.ToolTipText" xml:space="preserve">
+    <value>Nächste Seite / Alt + RIGHT_ARROW</value>
+  </data>
+  <data name="FormMain.toolStripButtonPanel2Prev.Text" xml:space="preserve">
+    <value>Vorherige Seite</value>
+  </data>
+  <data name="FormMain.toolStripButtonPanel2Prev.ToolTipText" xml:space="preserve">
+    <value>Vorherige Seite / Alt + LEFT_ARROW</value>
+  </data>
+  <data name="FormMain.toolStripButtonPrevDiff.Text" xml:space="preserve">
+    <value>Rückwärts springen</value>
+  </data>
+  <data name="FormMain.toolStripButtonPrevPages.Text" xml:space="preserve">
+    <value>Vorherige Seite</value>
+  </data>
+  <data name="FormMain.toolStripButtonPrevPages.ToolTipText" xml:space="preserve">
+    <value>Vorherige Seite / LEFT_ARROW</value>
+  </data>
+  <data name="FormMain.toolStripButtonRotateAnticlockwise.Text" xml:space="preserve">
+    <value>Nach links drehen</value>
+  </data>
+  <data name="FormMain.toolStripButtonRotateClockwise.Text" xml:space="preserve">
+    <value>Nach rechts drehen</value>
+  </data>
+  <data name="FormMain.toolStripButtonStaticMarker.ToolTipText" xml:space="preserve">
+    <value>Unterschiedsmarkierungen nicht blinken lassen</value>
+  </data>
+  <data name="FormMain.toolStripButtonTextmode.Text" xml:space="preserve">
+    <value>Textauswahl</value>
+  </data>
+  <data name="FormMain.toolStripButtonZoomIn.Text" xml:space="preserve">
+    <value>Vergrößern</value>
+  </data>
+  <data name="FormMain.toolStripButtonZoomOut.Text" xml:space="preserve">
+    <value>Verkleinern</value>
+  </data>
+  <data name="FormMain.toolStripSplitButtonCompare.Text" xml:space="preserve">
+    <value>Seiten einzeln vergleichen</value>
+  </data>
+  <data name="FormMain.toolStripTrackBarZoom.Text" xml:space="preserve">
+    <value>Zoom</value>
+  </data>
+  <data name="FormMain.usageToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Anleitung...</value>
+  </data>
+  <data name="FormOptions.$this.Text" xml:space="preserve">
+    <value>Optionen</value>
+  </data>
+  <data name="FormOptions.buttonCancel.Text" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="FormOptions.buttonOK.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="FormOptions.checkBoxBlinkingDiffMarker.Text" xml:space="preserve">
+    <value>Unterschiedsmarkierungen blinken lassen</value>
+  </data>
+  <data name="FormOptions.checkBoxCompareStyles.Text" xml:space="preserve">
+    <value>Textattribute vergleichen</value>
+  </data>
+  <data name="FormOptions.checkBoxIgnoreWsOnly.Text" xml:space="preserve">
+    <value>Reine Leerraumunterschiede ignorieren</value>
+  </data>
+  <data name="FormOptions.checkBoxWsBreaks.Text" xml:space="preserve">
+    <value>Zeilenumbrüche</value>
+  </data>
+  <data name="FormOptions.checkBoxWsFullWidthSpace.Text" xml:space="preserve">
+    <value>Vollbreite Leerzeichen</value>
+  </data>
+  <data name="FormOptions.checkBoxWsOthers.Text" xml:space="preserve">
+    <value>Sonstige Leerraumzeichen</value>
+  </data>
+  <data name="FormOptions.checkBoxWsSpace.Text" xml:space="preserve">
+    <value>Normale Leerzeichen - meist ausreichend</value>
+  </data>
+  <data name="FormOptions.checkBoxWsTab.Text" xml:space="preserve">
+    <value>Tabulatoren</value>
+  </data>
+  <data name="FormOptions.chkCompareAnnotationColor.Text" xml:space="preserve">
+    <value>Farbvergleich</value>
+  </data>
+  <data name="FormOptions.chkCompareFillColor.Text" xml:space="preserve">
+    <value>Textfarbe</value>
+  </data>
+  <data name="FormOptions.chkCompareHighlighted.Text" xml:space="preserve">
+    <value>Hervorhebung</value>
+  </data>
+  <data name="FormOptions.chkCompareSquiggly.Text" xml:space="preserve">
+    <value>Wellenlinie</value>
+  </data>
+  <data name="FormOptions.chkCompareStrikethrough.Text" xml:space="preserve">
+    <value>Durchstreichung</value>
+  </data>
+  <data name="FormOptions.chkCompareStrokeColor.Text" xml:space="preserve">
+    <value>Konturfarbe</value>
+  </data>
+  <data name="FormOptions.chkCompareUnderlined.Text" xml:space="preserve">
+    <value>Unterstreichung</value>
+  </data>
+  <data name="FormOptions.chkCopyBookmarkPage.Text" xml:space="preserve">
+    <value>Lesezeichen mit Seitenzahlen kopieren</value>
+  </data>
+  <data name="FormOptions.chkReduceColorCopy.Text" xml:space="preserve">
+    <value>Farben beim Kopieren von Bildern reduzieren</value>
+  </data>
+  <data name="FormOptions.label1.Text" xml:space="preserve">
+    <value>Kopierverhalten</value>
+  </data>
+  <data name="FormOptions.label10.Text" xml:space="preserve">
+    <value>- Farbvergleich je nach PDF begrenzt</value>
+  </data>
+  <data name="FormOptions.label11.Text" xml:space="preserve">
+    <value>- Farbvergleich je nach PDF begrenzt</value>
+  </data>
+  <data name="FormOptions.label12.Text" xml:space="preserve">
+    <value>Vergleichsbereich bei Seiten ohne Drehung</value>
+  </data>
+  <data name="FormOptions.label2.Text" xml:space="preserve">
+    <value>Unterschiedsmarkierungen</value>
+  </data>
+  <data name="FormOptions.label3.Text" xml:space="preserve">
+    <value>Blinkintervall:</value>
+  </data>
+  <data name="FormOptions.label4.Text" xml:space="preserve">
+    <value>Unterschiede ignorieren</value>
+  </data>
+  <data name="FormOptions.label5.Text" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="FormOptions.label6.Text" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="FormOptions.label7.Text" xml:space="preserve">
+    <value>Vergleich von Textattributen</value>
+  </data>
+  <data name="FormOptions.label8.Text" xml:space="preserve">
+    <value>- Experimentelle Funktion</value>
+  </data>
+  <data name="FormOptions.label9.Text" xml:space="preserve">
+    <value>- Für gewählte Markierungen</value>
+  </data>
+  <data name="FormOptions.labelLanguage.Text" xml:space="preserve">
+    <value>Anzeigesprache</value>
+  </data>
+  <data name="FormOptions.labelReduceColorCount.Text" xml:space="preserve">
+    <value>Farbanzahl nach Reduktion:</value>
+  </data>
+  <data name="FormOptions.labelWsWarning.Text" xml:space="preserve">
+    <value>Keine zu ignorierenden Zeichen ausgewählt.</value>
+  </data>
+  <data name="FormOptions.treeViewOptions.Display.Text" xml:space="preserve">
+    <value>Anzeige</value>
+  </data>
+  <data name="FormOptions.treeViewOptions.Other.Text" xml:space="preserve">
+    <value>Sonstiges</value>
+  </data>
+  <data name="FormOptions.treeViewOptions.TextStyles.Text" xml:space="preserve">
+    <value>Textattribute</value>
+  </data>
+  <data name="FormOptions.treeViewOptions.Whitespace.Text" xml:space="preserve">
+    <value>Leerraum/Umbrüche</value>
+  </data>
+  <data name="FormUsage.$this.Text" xml:space="preserve">
+    <value>PDFComp - Anleitung</value>
+  </data>
+  <data name="FormUsage.button1.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="FormUsage.label1.Text" xml:space="preserve">
+    <value>[Automatischer Vergleich]
+ • Öffnen Sie zwei PDFs mit „Öffnen“ oder ziehen Sie sie ins Fenster.
+ • Wählen Sie im Menü der Vergleichsschaltfläche den Seiten-, Lesezeichen- oder Dokumentvergleich.
+ • Mit den Sprungschaltflächen wechseln Sie synchron zur vorherigen oder nächsten Markierung.
+   - Noch nicht verglichene Seiten werden vor dem Sprung automatisch verglichen.
+   - Wählen Sie das Stiftsymbol für Sprünge zu Unterschieden, das Seitensymbol zum seitenweisen Blättern.
+   - Das Markierungssymbol schaltet das Blinken der Markierungen ein oder aus.
+
+[Manueller Vergleich]
+ • Die Vergleichsschaltfläche (Space) markiert Unterschiede im gewählten Bereich.
+   - Im Bereich werden Markierungen gelöscht und neu ermittelt; außerhalb bleiben sie erhalten.
+   - „Alle Markierungen löschen“ löscht auch die Seitenzuordnungen.
+ • „&lt;&lt;“ und „&gt;&gt;“ blättern in beiden PDFs gleichzeitig (linke/rechte Pfeiltaste).
+ • „&lt;“ und „&gt;“ blättern einzeln (Ctrl + Pfeiltaste bzw. Alt + Pfeiltaste).
+ • Im Kontextmenü können Sie Markierungen löschen oder Text kopieren.
+ • Sie können Bilder und Lesezeichen kopieren und jedes PDF separat nach Text durchsuchen.
+
+Für einzelne Seiten wählen Sie „Seitenvergleich“.
+Für mehrere Seiten wählen Sie „Lesezeichenvergleich“ oder „Dokumentvergleich“.
+Seiten ohne Lesezeichen werden als gemeinsamer Abschnitt verglichen.
+
+Sie können zwischen Hand-Werkzeug, Textauswahl und Bereichsauswahl wechseln.
+Der Vergleichsbereich gilt für alle Seiten des gewählten Vergleichsmodus.
+Für einen Teil der sichtbaren Seite wählen Sie „Seitenvergleich“.
+
+Sprungtasten: vorwärts F8/N, rückwärts Shift+F8/P.
+N/P funktionieren nur, wenn eine PDF-Ansicht den Fokus hat. In Textfeldern und Auswahllisten haben Texteingabe und IME Vorrang.
+
+Nach einem Sprung über einen internen Link gelangen Sie mit „Zur vorherigen Ansicht“ zurück.</value>
+  </data>
+  <data name="FormUsage.linkLabelHowTo.Text" xml:space="preserve">
+    <value>Weitere Tipps finden Sie unter „PDFComp verwenden“.
+</value>
+  </data>
+  <data name="History.RestoreFailed" xml:space="preserve">
+    <value>Die PDF-Ansicht konnte nicht wiederhergestellt werden.</value>
+  </data>
+  <data name="Language.Automatic" xml:space="preserve">
+    <value>Automatisch (Windows-Anzeigesprache)</value>
+  </data>
+  <data name="Main.CharacterMode" xml:space="preserve">
+    <value>Zeichenmodus</value>
+  </data>
+  <data name="Main.JumpNextDifference" xml:space="preserve">
+    <value>Zum nächsten Unterschied</value>
+  </data>
+  <data name="Main.JumpNextPage" xml:space="preserve">
+    <value>Zur nächsten Seite</value>
+  </data>
+  <data name="Main.JumpPreviousDifference" xml:space="preserve">
+    <value>Zum vorherigen Unterschied</value>
+  </data>
+  <data name="Main.JumpPreviousPage" xml:space="preserve">
+    <value>Zur vorherigen Seite</value>
+  </data>
+  <data name="Main.SemanticMode" xml:space="preserve">
+    <value>Semantischer Modus</value>
+  </data>
+  <data name="Options.BoundsDoNotRotate" xml:space="preserve">
+    <value>Nicht drehen</value>
+  </data>
+  <data name="Options.BoundsFallbackTip" xml:space="preserve">
+    <value>Bei Seiten im Querformat ohne Drehungsangabe
+wird der Vergleichsbereich wie hier festgelegt gedreht.
+Die Drehung betrifft nur den Vergleichsbereich.</value>
+  </data>
+  <data name="Options.BoundsRotateLeft" xml:space="preserve">
+    <value>Nach links drehen</value>
+  </data>
+  <data name="Options.BoundsRotateRight" xml:space="preserve">
+    <value>Nach rechts drehen</value>
+  </data>
+  <data name="Panel.NextPageShortcut" xml:space="preserve">
+    <value>Nächste Seite / {0}</value>
+  </data>
+  <data name="Panel.PreviousPageShortcut" xml:space="preserve">
+    <value>Vorherige Seite / {0}</value>
+  </data>
+  <data name="PdfPanel.clearAllMarkersToolStripMenuItem.Text" xml:space="preserve">
+    <value>Alle Markierungen löschen</value>
+  </data>
+  <data name="PdfPanel.clearDocumentMarkerToolStripMenuItem.Text" xml:space="preserve">
+    <value>Dieses Dokument</value>
+  </data>
+  <data name="PdfPanel.clearDocumentMarkerToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Diese Aktion kann nicht rückgängig gemacht werden.</value>
+  </data>
+  <data name="PdfPanel.clearMarkersToolStripMenuItem.Text" xml:space="preserve">
+    <value>Markierungen auf dieser Seite löschen</value>
+  </data>
+  <data name="PdfPanel.copyTextToolStripMenuItem.Text" xml:space="preserve">
+    <value>Text kopieren</value>
+  </data>
+  <data name="PdfPanel.selectAllToolStripMenuItem.Text" xml:space="preserve">
+    <value>Alles auswählen</value>
+  </data>
+  <data name="PdfPanel.toolStripButtonHistoryBack.Text" xml:space="preserve">
+    <value>Zur vorherigen Ansicht</value>
+  </data>
+  <data name="PdfPanel.toolStripButtonHistoryBack.ToolTipText" xml:space="preserve">
+    <value>Zur vorherigen Ansicht</value>
+  </data>
+  <data name="PdfPanel.toolStripButtonHistoryForward.Text" xml:space="preserve">
+    <value>Zur nächsten Ansicht</value>
+  </data>
+  <data name="PdfPanel.toolStripButtonHistoryForward.ToolTipText" xml:space="preserve">
+    <value>Zur nächsten Ansicht</value>
+  </data>
+  <data name="PdfPanel.toolStripButtonNextPage.ToolTipText" xml:space="preserve">
+    <value>Nächste Seite</value>
+  </data>
+  <data name="PdfPanel.toolStripButtonOpen.Text" xml:space="preserve">
+    <value>Öffnen</value>
+  </data>
+  <data name="PdfPanel.toolStripButtonOpen.ToolTipText" xml:space="preserve">
+    <value>PDF-Datei öffnen</value>
+  </data>
+  <data name="PdfPanel.toolStripButtonPrevPage.ToolTipText" xml:space="preserve">
+    <value>Vorherige Seite</value>
+  </data>
+  <data name="Search.NoMatches" xml:space="preserve">
+    <value>Keine Treffer gefunden.</value>
+  </data>
+  <data name="Search.NoMoreMatches" xml:space="preserve">
+    <value>Keine weiteren Treffer gefunden.</value>
+  </data>
+  <data name="Settings.SaveFailed" xml:space="preserve">
+    <value>Die Einstellungen konnten nicht gespeichert werden: {0}</value>
+  </data>
+  <data name="Usage.HelpLinkText" xml:space="preserve">
+    <value>PDFComp verwenden</value>
+  </data>
+  <data name="PdfiumViewer._saveButton.Text" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="PdfiumViewer._printButton.Text" xml:space="preserve">
+    <value>Drucken</value>
+  </data>
+  <data name="PdfiumViewer._zoomInButton.Text" xml:space="preserve">
+    <value>Vergrößern</value>
+  </data>
+  <data name="PdfiumViewer._zoomOutButton.Text" xml:space="preserve">
+    <value>Verkleinern</value>
+  </data>
+  <data name="PdfiumViewer.toolStripButtonExpand.Text" xml:space="preserve">
+    <value>Aufklappen</value>
+  </data>
+  <data name="PdfiumViewer.toolStripButtonExpand.ToolTipText" xml:space="preserve">
+    <value>Oberste Lesezeichenebene aufklappen</value>
+  </data>
+  <data name="PdfiumViewer.toolStripSplitButtonCollapse.Text" xml:space="preserve">
+    <value>Zuklappen</value>
+  </data>
+  <data name="PdfiumViewer.toolStripSplitButtonCollapse.ToolTipText" xml:space="preserve">
+    <value>Oberste Lesezeichenebene zuklappen</value>
+  </data>
+  <data name="PdfiumViewer.expandAllToolStripMenuItem.Text" xml:space="preserve">
+    <value>Alle aufklappen</value>
+  </data>
+  <data name="PdfiumViewer.collapseAllToolStripMenuItem.Text" xml:space="preserve">
+    <value>Alle zuklappen</value>
+  </data>
+  <data name="PdfiumViewer.toolStripButtonExpandCurrent.Text" xml:space="preserve">
+    <value>Aktuelles Lesezeichen aufklappen</value>
+  </data>
+  <data name="PdfiumViewer.toolStripButtonExpandCurrent.ToolTipText" xml:space="preserve">
+    <value>Aktuelles Lesezeichen aufklappen</value>
+  </data>
+  <data name="PdfiumViewer.toolStripButtonClose.Text" xml:space="preserve">
+    <value>Lesezeichen schließen</value>
+  </data>
+  <data name="PdfiumViewer.toolStripButtonClose.ToolTipText" xml:space="preserve">
+    <value>Lesezeichen schließen</value>
+  </data>
+  <data name="PdfiumViewer.PasswordForm.$this.Text" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="PdfiumViewer.PasswordForm._helpLabel.Text" xml:space="preserve">
+    <value>Dieses PDF ist passwortgeschützt.
+Geben Sie das Passwort ein, um es zu öffnen.</value>
+  </data>
+  <data name="PdfiumViewer.PasswordForm.label2.Text" xml:space="preserve">
+    <value>Passwort:</value>
+  </data>
+  <data name="PdfiumViewer.PasswordForm._acceptButton.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PdfiumViewer.PasswordForm._cancelButton.Text" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+</root>

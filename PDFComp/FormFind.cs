@@ -28,6 +28,7 @@ namespace PDFComp
             _textDirty = true;
             _findDirty1 = true;
             _findDirty2 = true;
+            UiLanguages.Bind(this);
         }
 
         private void ComboBoxFind_TextChanged(object sender, EventArgs e)
@@ -112,14 +113,14 @@ namespace PDFComp
                                             checkBoxMatchWholeWord.Checked,
                                             checkBoxHighlightAll.Checked))
                     {
-                        MessageBox.Show(this, "No matches found.", "PDFComp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(this, UiLanguages.Text("Search.NoMatches", "No matches found."), "PDFComp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
                 }
 
                 if (!_pdfPanel1.FindNext(forward))
                 {
-                    MessageBox.Show(this, "No more matches were found.", "PDFComp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, UiLanguages.Text("Search.NoMoreMatches", "No more matches were found."), "PDFComp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -165,14 +166,14 @@ namespace PDFComp
                                             checkBoxMatchWholeWord.Checked,
                                             checkBoxHighlightAll.Checked))
                     {
-                        MessageBox.Show(this, "No matches found.", "PDFComp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(this, UiLanguages.Text("Search.NoMatches", "No matches found."), "PDFComp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
                 }
 
                 if (!_pdfPanel2.FindNext(forward))
                 {
-                    MessageBox.Show(this, "No more matches were found.", "PDFComp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(this, UiLanguages.Text("Search.NoMoreMatches", "No more matches were found."), "PDFComp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }

@@ -41,9 +41,9 @@
             // 
             this.buttonNext1.Image = ((System.Drawing.Image)(resources.GetObject("buttonNext1.Image")));
             this.buttonNext1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonNext1.Location = new System.Drawing.Point(151, 40);
+            this.buttonNext1.Location = new System.Drawing.Point(123, 106);
             this.buttonNext1.Name = "buttonNext1";
-            this.buttonNext1.Size = new System.Drawing.Size(111, 23);
+            this.buttonNext1.Size = new System.Drawing.Size(130, 27);
             this.buttonNext1.TabIndex = 1;
             this.buttonNext1.Text = "Find Next (F3)";
             this.buttonNext1.UseCompatibleTextRendering = true;
@@ -54,9 +54,9 @@
             // 
             this.buttonNext2.Image = ((System.Drawing.Image)(resources.GetObject("buttonNext2.Image")));
             this.buttonNext2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonNext2.Location = new System.Drawing.Point(268, 40);
+            this.buttonNext2.Location = new System.Drawing.Point(259, 106);
             this.buttonNext2.Name = "buttonNext2";
-            this.buttonNext2.Size = new System.Drawing.Size(112, 23);
+            this.buttonNext2.Size = new System.Drawing.Size(130, 27);
             this.buttonNext2.TabIndex = 2;
             this.buttonNext2.Text = "Find Next (F4)";
             this.buttonNext2.UseVisualStyleBackColor = true;
@@ -112,7 +112,7 @@
             this.AcceptButton = this.buttonNext1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(399, 107);
+            this.ClientSize = new System.Drawing.Size(399, 145);
             this.Controls.Add(this.comboBoxFind);
             this.Controls.Add(this.checkBoxHighlightAll);
             this.Controls.Add(this.checkBoxMatchWholeWord);

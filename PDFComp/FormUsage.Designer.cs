@@ -38,9 +38,10 @@
             // 
             // label1
             // 
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(24, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(787, 388);
+            this.label1.Size = new System.Drawing.Size(787, 415);
             this.label1.TabIndex = 0;
             this.label1.Text = resources.GetString("label1.Text");
             // 
@@ -50,7 +51,7 @@
             this.pictureBox1.ErrorImage = null;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(26, 423);
+            this.pictureBox1.Location = new System.Drawing.Point(27, 460);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(753, 213);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -59,7 +60,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(656, 652);
+            this.button1.Location = new System.Drawing.Point(657, 689);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -70,10 +71,11 @@
             // linkLabelHowTo
             // 
             this.linkLabelHowTo.AutoSize = true;
+            this.linkLabelHowTo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabelHowTo.LinkArea = new System.Windows.Forms.LinkArea(10, 18);
-            this.linkLabelHowTo.Location = new System.Drawing.Point(26, 397);
+            this.linkLabelHowTo.Location = new System.Drawing.Point(27, 424);
             this.linkLabelHowTo.Name = "linkLabelHowTo";
-            this.linkLabelHowTo.Size = new System.Drawing.Size(271, 17);
+            this.linkLabelHowTo.Size = new System.Drawing.Size(283, 21);
             this.linkLabelHowTo.TabIndex = 3;
             this.linkLabelHowTo.TabStop = true;
             this.linkLabelHowTo.Text = "See also: How to use PDFComp for additional tips.\n";
@@ -84,7 +86,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(823, 692);
+            this.ClientSize = new System.Drawing.Size(823, 725);
             this.Controls.Add(this.linkLabelHowTo);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox1);

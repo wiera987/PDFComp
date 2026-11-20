@@ -29,7 +29,15 @@ namespace PDFComp
 
         private bool HasComparisonMarkers(int page1, int page2)
         {
-            // Preserve PDFComp3.2's marker-based stop policy, including search markers.
+            // Empty-span pairs consume no text on either side. Page markers can belong
+            // to another pair and must not stop Diff Jump at these intermediate steps.
+            var pair = pagePairList.GetPagePair(page1, page2);
+            if (pair != null && pair.Span1.Count == 0 && pair.Span2.Count == 0)
+            {
+                return false;
+            }
+
+            // For other pairs, preserve the marker-based stop policy, including search markers.
             return pdfPanel1.pdfViewer.Renderer.HasMarkers(page1) ||
                 pdfPanel2.pdfViewer.Renderer.HasMarkers(page2);
         }
@@ -159,7 +167,7 @@ namespace PDFComp
                 bool currentHasDifferences = HasComparisonMarkers(current.compared1, current.compared2);
                 bool pageJumpMode = toolStripButtonJumpScopePage.Visible;
                 bool stopOnCurrentPage = currentHasDifferences || pageJumpMode;
-                // After a new comparison, stop here if the current pages have markers.
+                // After a new comparison, apply the marker stop policy for the current pair.
                 // Page Jump also stops after a new comparison with no differences or text.
                 if (newlyCompared && stopOnCurrentPage)
                 {

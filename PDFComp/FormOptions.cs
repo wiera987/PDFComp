@@ -236,6 +236,11 @@ namespace PDFComp
             // Load "Space & Breaks" panel settings
             try
             {
+                checkBoxSkipIntermediateBlankPageStops.Checked = Properties.Settings.Default.SkipIntermediateBlankPageStops;
+            }
+            catch { }
+            try
+            {
                 checkBoxIgnoreWsOnly.Checked = Properties.Settings.Default.IgnoreWsOnly;
             }
             catch { }
@@ -375,6 +380,7 @@ namespace PDFComp
                 Properties.Settings.Default.BlinkingPeriodMS = trackBarBlinkingPeriod.Value * 100;
 
                 // Save "Space & Breaks" panel settings
+                Properties.Settings.Default.SkipIntermediateBlankPageStops = checkBoxSkipIntermediateBlankPageStops.Checked;
                 Properties.Settings.Default.IgnoreWsOnly = checkBoxIgnoreWsOnly.Checked;
                 Properties.Settings.Default.IgnoreWsSpace = checkBoxWsSpace.Checked;
                 Properties.Settings.Default.IgnoreWsTab = checkBoxWsTab.Checked;

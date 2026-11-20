@@ -387,6 +387,17 @@
   <data name="FormOptions.checkBoxIgnoreWsOnly.Text" xml:space="preserve">
     <value>Reine Leerraumunterschiede ignorieren</value>
   </data>
+  <data name="FormOptions.checkBoxSkipIntermediateBlankPageStops.Text" xml:space="preserve">
+    <value>Zwischenstopps auf leeren Seiten überspringen</value>
+  </data>
+  <data name="FormOptions.labelJumpNavigation.Text" xml:space="preserve">
+    <value>Zu Unterschieden springen</value>
+  </data>
+  <data name="FormOptions.labelSkipIntermediateBlankPageStopsHint.Text" xml:space="preserve">
+    <value>Gilt für Sprünge zu Unterschieden.
+Seitenweises Blättern und Vergleichsergebnisse
+bleiben unverändert.</value>
+  </data>
   <data name="FormOptions.checkBoxWsBreaks.Text" xml:space="preserve">
     <value>Zeilenumbrüche</value>
   </data>

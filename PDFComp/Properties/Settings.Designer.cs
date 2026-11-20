@@ -217,6 +217,18 @@ namespace PDFComp.Properties {
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SkipIntermediateBlankPageStops {
+            get {
+                return ((bool)(this["SkipIntermediateBlankPageStops"]));
+            }
+            set {
+                this["SkipIntermediateBlankPageStops"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool IgnoreWsOnly {
             get {

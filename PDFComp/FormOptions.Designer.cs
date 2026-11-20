@@ -65,6 +65,9 @@ namespace PDFComp
             this.checkBoxWsOthers = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.checkBoxIgnoreWsOnly = new System.Windows.Forms.CheckBox();
+            this.labelJumpNavigation = new System.Windows.Forms.Label();
+            this.checkBoxSkipIntermediateBlankPageStops = new System.Windows.Forms.CheckBox();
+            this.labelSkipIntermediateBlankPageStopsHint = new System.Windows.Forms.Label();
             this.tabPageDisplay = new System.Windows.Forms.TabPage();
             this.comboBoxBoundsFallback = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -115,14 +118,14 @@ namespace PDFComp
             treeNode2,
             treeNode3,
             treeNode4});
-            this.treeViewOptions.Size = new System.Drawing.Size(151, 260);
+            this.treeViewOptions.Size = new System.Drawing.Size(151, 350);
             this.treeViewOptions.TabIndex = 0;
             this.treeViewOptions.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewOptions_AfterSelect);
             // 
             // buttonOK
             // 
             this.buttonOK.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOK.Location = new System.Drawing.Point(374, 278);
+            this.buttonOK.Location = new System.Drawing.Point(374, 368);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 5;
@@ -134,7 +137,7 @@ namespace PDFComp
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.Location = new System.Drawing.Point(455, 278);
+            this.buttonCancel.Location = new System.Drawing.Point(455, 368);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 6;
@@ -150,7 +153,7 @@ namespace PDFComp
             this.tabControlOptions.Location = new System.Drawing.Point(169, 3);
             this.tabControlOptions.Name = "tabControlOptions";
             this.tabControlOptions.SelectedIndex = 0;
-            this.tabControlOptions.Size = new System.Drawing.Size(374, 269);
+            this.tabControlOptions.Size = new System.Drawing.Size(374, 359);
             this.tabControlOptions.TabIndex = 7;
             // 
             // tabPageStyles
@@ -162,7 +165,7 @@ namespace PDFComp
             this.tabPageStyles.Location = new System.Drawing.Point(4, 24);
             this.tabPageStyles.Name = "tabPageStyles";
             this.tabPageStyles.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStyles.Size = new System.Drawing.Size(366, 241);
+            this.tabPageStyles.Size = new System.Drawing.Size(366, 331);
             this.tabPageStyles.TabIndex = 0;
             this.tabPageStyles.Text = "tabStyles";
             this.tabPageStyles.UseVisualStyleBackColor = true;
@@ -354,6 +357,9 @@ namespace PDFComp
             // 
             // tabPageWs
             // 
+            this.tabPageWs.Controls.Add(this.labelJumpNavigation);
+            this.tabPageWs.Controls.Add(this.checkBoxSkipIntermediateBlankPageStops);
+            this.tabPageWs.Controls.Add(this.labelSkipIntermediateBlankPageStopsHint);
             this.tabPageWs.Controls.Add(this.labelWsWarning);
             this.tabPageWs.Controls.Add(this.groupBoxIgnoreWsDetail);
             this.tabPageWs.Controls.Add(this.label4);
@@ -361,7 +367,7 @@ namespace PDFComp
             this.tabPageWs.Location = new System.Drawing.Point(4, 22);
             this.tabPageWs.Name = "tabPageWs";
             this.tabPageWs.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageWs.Size = new System.Drawing.Size(366, 243);
+            this.tabPageWs.Size = new System.Drawing.Size(366, 333);
             this.tabPageWs.TabIndex = 3;
             this.tabPageWs.Text = "tabWsBreaks";
             this.tabPageWs.UseVisualStyleBackColor = true;
@@ -492,6 +498,38 @@ namespace PDFComp
             this.checkBoxIgnoreWsOnly.Text = "Ignore whitespace-only differences";
             this.checkBoxIgnoreWsOnly.UseVisualStyleBackColor = true;
             this.checkBoxIgnoreWsOnly.CheckedChanged += new System.EventHandler(this.checkBoxIgnoreWsOnly_CheckedChanged);
+            //
+            // labelJumpNavigation
+            //
+            this.labelJumpNavigation.AutoSize = true;
+            this.labelJumpNavigation.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelJumpNavigation.Location = new System.Drawing.Point(6, 226);
+            this.labelJumpNavigation.Name = "labelJumpNavigation";
+            this.labelJumpNavigation.Size = new System.Drawing.Size(97, 15);
+            this.labelJumpNavigation.TabIndex = 18;
+            this.labelJumpNavigation.Text = "Difference Jumps";
+            //
+            // checkBoxSkipIntermediateBlankPageStops
+            //
+            this.checkBoxSkipIntermediateBlankPageStops.AutoSize = true;
+            this.checkBoxSkipIntermediateBlankPageStops.Checked = true;
+            this.checkBoxSkipIntermediateBlankPageStops.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSkipIntermediateBlankPageStops.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxSkipIntermediateBlankPageStops.Location = new System.Drawing.Point(24, 247);
+            this.checkBoxSkipIntermediateBlankPageStops.Name = "checkBoxSkipIntermediateBlankPageStops";
+            this.checkBoxSkipIntermediateBlankPageStops.Size = new System.Drawing.Size(222, 19);
+            this.checkBoxSkipIntermediateBlankPageStops.TabIndex = 19;
+            this.checkBoxSkipIntermediateBlankPageStops.Text = "Skip intermediate blank-page stops";
+            this.checkBoxSkipIntermediateBlankPageStops.UseVisualStyleBackColor = true;
+            //
+            // labelSkipIntermediateBlankPageStopsHint
+            //
+            this.labelSkipIntermediateBlankPageStopsHint.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSkipIntermediateBlankPageStopsHint.Location = new System.Drawing.Point(43, 273);
+            this.labelSkipIntermediateBlankPageStopsHint.Name = "labelSkipIntermediateBlankPageStopsHint";
+            this.labelSkipIntermediateBlankPageStopsHint.Size = new System.Drawing.Size(310, 49);
+            this.labelSkipIntermediateBlankPageStopsHint.TabIndex = 20;
+            this.labelSkipIntermediateBlankPageStopsHint.Text = "Applies to difference jumps.\r\nPage-by-page navigation and comparison results\r\nstay unchanged.";
             // 
             // tabPageDisplay
             // 
@@ -505,7 +543,7 @@ namespace PDFComp
             this.tabPageDisplay.Location = new System.Drawing.Point(4, 22);
             this.tabPageDisplay.Name = "tabPageDisplay";
             this.tabPageDisplay.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDisplay.Size = new System.Drawing.Size(366, 243);
+            this.tabPageDisplay.Size = new System.Drawing.Size(366, 333);
             this.tabPageDisplay.TabIndex = 1;
             this.tabPageDisplay.Text = "tabDisplay";
             this.tabPageDisplay.UseVisualStyleBackColor = true;
@@ -598,7 +636,7 @@ namespace PDFComp
             this.tabPageOthers.Location = new System.Drawing.Point(4, 24);
             this.tabPageOthers.Name = "tabPageOthers";
             this.tabPageOthers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOthers.Size = new System.Drawing.Size(366, 241);
+            this.tabPageOthers.Size = new System.Drawing.Size(366, 331);
             this.tabPageOthers.TabIndex = 2;
             this.tabPageOthers.Text = "tabOthers";
             // 
@@ -702,7 +740,7 @@ namespace PDFComp
             // 
             this.AcceptButton = this.buttonOK;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(552, 312);
+            this.ClientSize = new System.Drawing.Size(552, 402);
             this.Controls.Add(this.tabControlOptions);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
@@ -767,6 +805,9 @@ namespace PDFComp
         private System.Windows.Forms.TabPage tabPageWs;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox checkBoxIgnoreWsOnly;
+        private System.Windows.Forms.Label labelJumpNavigation;
+        private System.Windows.Forms.CheckBox checkBoxSkipIntermediateBlankPageStops;
+        private System.Windows.Forms.Label labelSkipIntermediateBlankPageStopsHint;
         private System.Windows.Forms.GroupBox groupBoxIgnoreWsDetail;
         private System.Windows.Forms.CheckBox checkBoxWsSpace;
         private System.Windows.Forms.CheckBox checkBoxWsTab;

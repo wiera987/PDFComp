@@ -387,6 +387,16 @@
   <data name="FormOptions.checkBoxIgnoreWsOnly.Text" xml:space="preserve">
     <value>空白だけの差分を無視する</value>
   </data>
+  <data name="FormOptions.checkBoxSkipIntermediateBlankPageStops.Text" xml:space="preserve">
+    <value>途中の空白ページで停止しない</value>
+  </data>
+  <data name="FormOptions.labelJumpNavigation.Text" xml:space="preserve">
+    <value>差分ジャンプ</value>
+  </data>
+  <data name="FormOptions.labelSkipIntermediateBlankPageStopsHint.Text" xml:space="preserve">
+    <value>差分ジャンプ時に適用します。
+ページ単位の移動や比較結果は変わりません。</value>
+  </data>
   <data name="FormOptions.checkBoxWsBreaks.Text" xml:space="preserve">
     <value>改行</value>
   </data>

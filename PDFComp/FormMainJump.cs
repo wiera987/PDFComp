@@ -29,10 +29,11 @@ namespace PDFComp
 
         private bool HasComparisonMarkers(int page1, int page2)
         {
-            // Empty-span pairs consume no text on either side. Page markers can belong
-            // to another pair and must not stop Diff Jump at these intermediate steps.
+            // Empty-span pairs consume no text on either side. Skip them when requested,
+            // since page markers can belong to another pair at these intermediate steps.
             var pair = pagePairList.GetPagePair(page1, page2);
-            if (pair != null && pair.Span1.Count == 0 && pair.Span2.Count == 0)
+            if (Properties.Settings.Default.SkipIntermediateBlankPageStops &&
+                pair != null && pair.Span1.Count == 0 && pair.Span2.Count == 0)
             {
                 return false;
             }

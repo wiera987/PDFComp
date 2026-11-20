@@ -26,12 +26,11 @@ Even documents that are difficult to follow with automatic comparison alone can 
 | Navigation | (Automatic) Jump to pages with differences; (Manual) synchronized page turning, individual page turning, and keyboard shortcuts. |
 | Auxiliary Features | Text search, text copy, image copy, bookmark copy, and clearing markers. |
 
-### Changes in PDFComp 3.2.0 
-- **[Experimental]** Added support for comparing font colors, text attributes such as strikethrough and underline, and the colors of text attributes.  
-- Added support for ignoring whitespace-only differences.  
-- Added a blinking mode for difference markers.  
-- These settings can be changed from the Options dialog.  
-- Fixed: Improved the behavior of "Jump to Next" when one page corresponds to multiple pages.
+### Changes in PDFComp 3.3.0
+- **Added Japanese and German interfaces.** PDFComp can also follow the Windows display language.
+- **Added view history to both PDF views.** Go back to a location you were reviewing and forward again.
+- **Added keyboard shortcuts for jumping between differences.** Use the keyboard to move through successive differences in either direction.
+- **Improved difference navigation and comparison bounds.** Fixed jumps across blank pages and improved comparison within selected areas in PDFs with mixed page sizes or rotations.
 
 ### Application requirements
 
@@ -65,6 +64,18 @@ Note: The comparison range specified with Bounds mode applies to all pages inclu
 
 `Fit One Page` changes the PDF display to fit the window size.  
 `Fit Width` changes the PDF display to fit the width of the window.
+
+### Jump shortcuts
+
+| Action | Shortcut | Alternative |
+| --- | --- | --- |
+| Jump to next | `F8` | `N` |
+| Jump to previous | `Shift+F8` | `P` |
+
+These keys perform the same actions as `Jump to Prev/Next` buttons.
+`N` and `P` work only when either PDF view has keyboard focus; click a PDF view before using them.
+Jump shortcuts are disabled while a text box or combo box has keyboard focus, allowing normal typing, selection, and IME conversion.
+Use `N`/`P` on keyboards without dedicated function keys.
 
 See also [How to use PDFComp](https://github.com/wiera987/PDFComp/wiki) for additional tips.
 
